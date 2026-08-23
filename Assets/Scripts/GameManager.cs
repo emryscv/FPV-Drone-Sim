@@ -1,0 +1,128 @@
+using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+
+
+public class GameManager : MonoBehaviour
+{
+    public static GameManager instance;
+
+    public bool isPaused;
+    public float timeScaleOrig;
+
+    GameObject player;
+    FlightController playerScript;
+
+    [Header("===Menus===")]
+    [SerializeField] GameObject menuActive;
+    [SerializeField] GameObject menuPause;
+    [SerializeField] GameObject menuOptions;
+    [SerializeField] GameObject menuWin;
+    [SerializeField] GameObject menuLose;
+
+    [Header("===Displayed Text===")]
+    [SerializeField] TMP_Text currentObjectiveTime;
+    [SerializeField] Slider objectiveSlider;
+    [SerializeField] TextPopup popWindow;
+
+
+    void Awake()
+    {
+        instance = this;
+        timeScaleOrig = Time.timeScale;
+
+        player = GameObject.FindWithTag("Player");
+        playerScript = player.GetComponent<FlightController>();
+        //objectiveSlider.value = 0.1f;
+    }
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetButtonDown("Cancel"))
+        {
+            if (menuActive == null)
+            {
+                StatePause();
+                menuActive = menuPause;
+                menuActive.SetActive(true);
+            }
+            else if (menuActive == menuOptions)
+            {
+                menuActive.SetActive(false);
+                menuActive = menuPause;
+                menuActive.SetActive(true);
+            }
+            else if (menuActive == popWindow.gameObject)
+            {
+                PopupConfirm();
+            }
+            else
+            {
+                StateUnpause();
+            }
+        }
+    }
+
+    // ---- PAUSING ---- //
+    public void StatePause()
+    {
+        isPaused = true;
+        Time.timeScale = 0;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
+    public void StateUnpause()
+    {
+        isPaused = false;
+        Time.timeScale = timeScaleOrig;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        menuActive.SetActive(false);
+        menuActive = null;
+    }
+
+    // ---- WIN CONDITION FEEDBACK ---- //
+    public void YouLose()
+    {
+        StatePause();
+        menuActive = menuLose;
+        menuActive.SetActive(true);
+    }
+
+    public void YouWin()
+    {
+        StatePause();
+        menuActive = menuWin;
+        menuActive.SetActive(true);
+    }
+
+    public void UpdateObjective(float currTime, float objectiveTime)
+    {
+        int intObjTime = (int)currTime + 1;
+        if (intObjTime > (int)objectiveTime) intObjTime = (int)objectiveTime;
+        if (currTime == 0.0f) intObjTime = 0;
+        currentObjectiveTime.text = intObjTime.ToString();
+        objectiveSlider.value = currTime / objectiveTime;
+    }
+
+    public void ShowPopup(string textMessage)
+    {
+        StatePause();
+        menuActive = popWindow.gameObject;
+        menuActive.SetActive(true);
+        popWindow.confirmButton.onClick.AddListener(PopupConfirm);
+        popWindow.text.SetText(textMessage);
+    }
+
+    public void PopupConfirm()
+    {
+        StateUnpause();
+    }
+}
