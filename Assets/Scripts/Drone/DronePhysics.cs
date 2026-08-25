@@ -1,5 +1,4 @@
 using UnityEngine;
-using System;
 
 public class DronePhysics : MonoBehaviour
 {
@@ -22,7 +21,6 @@ public class DronePhysics : MonoBehaviour
         mass = 0.017f; //kg
         l = 0.033f; //m
         k = 0.01f; //Nm TODO figure out
-        g = 9.81f; //m/s2
         sqrt2 = Mathf.Sqrt(2);
     }
 
@@ -33,12 +31,20 @@ public class DronePhysics : MonoBehaviour
         float c = (flightController.motorMix[0] + flightController.motorMix[1] + flightController.motorMix[2] + flightController.motorMix[3]) / mass; // Collective thrust
      
         Vector3 torque = new Vector3(
-            l / sqrt2 * (flightController.motorMix[0] + flightController.motorMix[1] - flightController.motorMix[2] - flightController.motorMix[3]),
-            k * (- flightController.motorMix[0] + flightController.motorMix[1] - flightController.motorMix[2] + flightController.motorMix[3]),
-            l / sqrt2 * (flightController.motorMix[0] - flightController.motorMix[1] - flightController.motorMix[2] + flightController.motorMix[3]) 
+            l / sqrt2 * ( flightController.motorMix[0] - flightController.motorMix[1] + flightController.motorMix[2] - flightController.motorMix[3]),
+            k         * (-flightController.motorMix[0] + flightController.motorMix[1] + flightController.motorMix[2] - flightController.motorMix[3]),
+            l / sqrt2 * (-flightController.motorMix[0] - flightController.motorMix[1] + flightController.motorMix[2] + flightController.motorMix[3]) 
         );
 
         rb.AddRelativeTorque(torque);
         rb.AddForce(transform.up * c);
+    }
+
+    public void ResetDroneState()
+    {
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        rb.position = Vector3.zero;
+        rb.rotation = Quaternion.identity;
     }
 }

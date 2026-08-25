@@ -3,8 +3,8 @@ using UnityEngine.InputSystem;
 
 public class FlightController : MonoBehaviour
 {
-    private DronePhysics dronePhysics;
-    private Rigidbody rb; // Reference to the Rigidbody component
+   // private DronePhysics dronePhysics;
+    private Rigidbody drone; // Reference to the Rigidbody component
     private Controls controls;
 
     // I think this is going to be a raw measurement of the input, and then we will apply the rate transformation
@@ -41,8 +41,8 @@ public class FlightController : MonoBehaviour
     {
         controls = new Controls();
         controls.RCController.Enable();
-        dronePhysics = GetComponent<DronePhysics>();
-        rb = GetComponent<Rigidbody>(); // Get the Rigidbody component attached to the same GameObject
+        //dronePhysics = GetComponent<DronePhysics>();
+        drone = GetComponent<Rigidbody>(); // Get the Rigidbody component attached to the same GameObject
     }
 
     void Start()
@@ -52,9 +52,9 @@ public class FlightController : MonoBehaviour
         cumulativeI = new float[3] { 0.0f, 0.0f, 0.0f };
 
         //TODO we need to tune these constants
-        kP = new float[3] { 60.0f, 60.0f, 100.0f };
-        kI = new float[3] { 45.0f, 45.0f, 45.0f };
-        kD = new float[3] { 0.0f, 0.03f, 0.03f };
+        kP = new float[3] { 200.0f, 500.0f, 200.0f };
+        kI = new float[3] { 0.0f, 45.0f, 0.0f };
+        kD = new float[3] { 0.0f, 0.0f, 0.0f };
 
         // kP = new float[3] { 0.6f, 0.1f, 0.1f };
         // kI = new float[3] { 0f, 0f, 0f };
@@ -67,53 +67,44 @@ public class FlightController : MonoBehaviour
         motorMix = new float[4] { 0f, 0f, 0f, 0f };
         motorMixMatrix = new float[4][] {
             new float[3] {  1, -1, -1 },
+            new float[3] { -1,  1, -1 },
             new float[3] {  1,  1,  1 },
-            new float[3] { -1, -1,  1 },
-            new float[3] { -1,  1, -1 }
+            new float[3] { -1, -1,  1 }
         };
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log("Controls: " + controls);
-        // Debug.Log("Controls: " + controls);
-        // Debug.Log("RC Controller: " + controls.RCController);
-        // Debug.Log("Throttle: " + controls.RCController.Throttle.ReadValue<float>());
-
         throttle = controls.RCController.Throttle.ReadValue<float>();
         yaw = controls.RCController.Yaw.ReadValue<float>();
         pitch = controls.RCController.Pitch.ReadValue<float>();
         roll = controls.RCController.Roll.ReadValue<float>();
-        //Debug.Log("Raw: Throttle " + throttle + " Yaw " + yaw + " Pitch " + pitch + " Roll " + roll);
-
-        float throttleSetpoint = (throttle + 1) / 2.0f;
-        float yawSetpoint = ComputeBetaflightRates(0, yaw); // Fix the axis numbers with the axis order
-        float pitchSetpoint = ComputeBetaflightRates(1, pitch);
+     
+        float throttleSetpoint = (throttle + 1) / 2.0f; // Fix the axis numbers with the axis order
+        float pitchSetpoint = ComputeBetaflightRates(0, pitch);
+        float yawSetpoint = ComputeBetaflightRates(1, yaw);
         float rollSetpoint = ComputeBetaflightRates(2, roll);
 
-        //Debug.Log("Set: Throttle " + throttleSetpoint + " Yaw " + yawSetpoint + " Pitch " + pitchSetpoint + " Roll " + rollSetpoint);
 
-        float yawPID = PIDEquation(yawSetpoint, dronePhysics.currentState.angularVelocity.z, 0) / 1000.0f;
-        float pitchPID = PIDEquation(pitchSetpoint, dronePhysics.currentState.angularVelocity.y, 1) / 1000.0f;
-        float rollPID = PIDEquation(rollSetpoint, dronePhysics.currentState.angularVelocity.x, 2) / 1000.0f;
+        float pitchPID = PIDEquation(pitchSetpoint, drone.angularVelocity.x, 0) / 1000.0f;
+        float yawPID = PIDEquation(yawSetpoint, drone.angularVelocity.y, 1) / 1000.0f;
+        float rollPID = PIDEquation(rollSetpoint, drone.angularVelocity.z, 2) / 1000.0f;
 
-        //Debug.Log("PID: Yaw " + yawPID + " Pitch " + pitchPID + " Roll " + rollPID);
 
-        // motorMix[0] = throttleSetpoint + pitchPID - yawPID - rollPID;
-        // motorMix[1] = throttleSetpoint + pitchPID + yawPID + rollPID;
-        // motorMix[2] = throttleSetpoint - pitchPID - yawPID + rollPID;
-        // motorMix[3] = throttleSetpoint - pitchPID + yawPID - rollPID;
         float motorMin = float.MaxValue;
         float motorMax = float.MinValue;
 
         for (int i = 0; i < 4; i++)
         {
             motorMix[i] = motorMixMatrix[i][0] * pitchPID + motorMixMatrix[i][1] * yawPID + motorMixMatrix[i][2] * rollPID;
-            
+            //motorMix[i] = motorMixMatrix[i][1] * yawPID;
+
             motorMin = System.Math.Min(motorMin, motorMix[i]);
             motorMax = System.Math.Max(motorMax, motorMix[i]);
         }
+
+        //Debug.Log("Thrusts: F1 " + motorMix[0] + " F2 " + motorMix[1] + " F3 " + motorMix[2] + " F4 " + motorMix[3] + " Min: " + motorMin + " Max: " + motorMax);
 
         float motorRange = motorMax - motorMin;
 
@@ -153,8 +144,8 @@ public class FlightController : MonoBehaviour
         float deltaTime = Time.time - prevTime[axis];
         prevTime[axis] = Time.time;
 
-        float error = setpoint/ 360f + measurements; //TODO fix this
-    
+        float error = setpoint * Mathf.PI / 180f - measurements; //TODO fix this
+        //Debug.Log("Axis: " + axis + " measurement: " + measurements + " setpoint: " + (setpoint * Mathf.PI / 180f) + " error: " + error);
         //Proportional term
         float P = kP[axis] * error;
 
@@ -170,22 +161,8 @@ public class FlightController : MonoBehaviour
         
         float PID = P + I + D;
         PID = System.Math.Clamp(PID, -500, 500); //Betaflight values
-        //Debug.Log("Axis: " + axis + " measurement: " + measurements + " setpoint: " + setpoint + " P: " + P + " I: " + I + " D: " + D + " PID: " + PID);
+        Debug.Log("Axis: " + axis + " measurement: " + measurements + " setpoint: " + (setpoint * Mathf.PI / 180f) + " P: " + P + " I: " + I + " D: " + D + " PID: " + PID);
 
         return PID;
     }
 }
-
-// struct PIDresult
-// {
-//     public float PID;
-//     public float cumulativeI;
-//     public float prevError;
-
-//     public PIDresult(float PID, float cumulativeI, float prevError)
-//     {
-//         this.PID = PID;
-//         this.cumulativeI = cumulativeI;
-//         this.prevError = prevError;
-//     }
-// }
