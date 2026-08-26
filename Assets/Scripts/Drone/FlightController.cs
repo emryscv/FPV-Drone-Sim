@@ -84,12 +84,12 @@ public class FlightController : MonoBehaviour
         float throttleSetpoint = (throttle + 1) / 2.0f; // Fix the axis numbers with the axis order
         float pitchSetpoint = ComputeBetaflightRates(0, pitch);
         float yawSetpoint = ComputeBetaflightRates(1, yaw);
-        float rollSetpoint = ComputeBetaflightRates(2, roll);
+        float rollSetpoint = ComputeBetaflightRates(2, roll) * -1.0f; // Invert roll axis to match Unity and Betaflight conventions
 
-
-        float pitchPID = PIDEquation(pitchSetpoint, drone.angularVelocity.x, 0) / 1000.0f;
-        float yawPID = PIDEquation(yawSetpoint, drone.angularVelocity.y, 1) / 1000.0f;
-        float rollPID = PIDEquation(rollSetpoint, drone.angularVelocity.z, 2) / 1000.0f;
+        Vector3 localAngularVelocity = transform.InverseTransformDirection(drone.angularVelocity);
+        float pitchPID = PIDEquation(pitchSetpoint, localAngularVelocity.x, 0) / 1000.0f;
+        float yawPID = PIDEquation(yawSetpoint, localAngularVelocity.y, 1) / 1000.0f;
+        float rollPID = PIDEquation(rollSetpoint, localAngularVelocity.z, 2) / 1000.0f;
 
 
         float motorMin = float.MaxValue;
@@ -98,7 +98,7 @@ public class FlightController : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             motorMix[i] = motorMixMatrix[i][0] * pitchPID + motorMixMatrix[i][1] * yawPID + motorMixMatrix[i][2] * rollPID;
-            //motorMix[i] = motorMixMatrix[i][1] * yawPID;
+            //motorMix[i] = motorMixMatrix[i][2] * rollPID;
 
             motorMin = System.Math.Min(motorMin, motorMix[i]);
             motorMax = System.Math.Max(motorMax, motorMix[i]);
@@ -145,7 +145,7 @@ public class FlightController : MonoBehaviour
         prevTime[axis] = Time.time;
 
         float error = setpoint * Mathf.PI / 180f - measurements; //TODO fix this
-        //Debug.Log("Axis: " + axis + " measurement: " + measurements + " setpoint: " + (setpoint * Mathf.PI / 180f) + " error: " + error);
+        Debug.Log("Axis: " + axis + " measurement: " + measurements + " setpoint: " + (setpoint * Mathf.PI / 180f) + " error: " + error);
         //Proportional term
         float P = kP[axis] * error;
 
@@ -161,7 +161,7 @@ public class FlightController : MonoBehaviour
         
         float PID = P + I + D;
         PID = System.Math.Clamp(PID, -500, 500); //Betaflight values
-        Debug.Log("Axis: " + axis + " measurement: " + measurements + " setpoint: " + (setpoint * Mathf.PI / 180f) + " P: " + P + " I: " + I + " D: " + D + " PID: " + PID);
+        //Debug.Log("Axis: " + axis + " measurement: " + measurements + " setpoint: " + (setpoint * Mathf.PI / 180f) + " P: " + P + " I: " + I + " D: " + D + " PID: " + PID);
 
         return PID;
     }

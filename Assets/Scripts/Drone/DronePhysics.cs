@@ -36,6 +36,8 @@ public class DronePhysics : MonoBehaviour
             l / sqrt2 * (-flightController.motorMix[0] - flightController.motorMix[1] + flightController.motorMix[2] + flightController.motorMix[3]) 
         );
 
+        //Debug.Log("Torque: " + torque);
+
         rb.AddRelativeTorque(torque);
         rb.AddForce(transform.up * c);
     }
