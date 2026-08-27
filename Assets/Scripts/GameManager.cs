@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.IO;
+using SQLite;
+using UnityEditor;
 
 
 public class GameManager : MonoBehaviour
@@ -11,7 +14,7 @@ public class GameManager : MonoBehaviour
     public float timeScaleOrig;
 
     GameObject player;
-    FlightController playerScript;
+    FlightController playerScript; //TTODO check this value
 
     [Header("===Menus===")]
     [SerializeField] GameObject menuActive;
@@ -39,7 +42,7 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
@@ -125,4 +128,35 @@ public class GameManager : MonoBehaviour
     {
         StateUnpause();
     }
+
+    // // ---- DATABASE ---- //
+    // private GameData Load(int saveSlotId)
+    // {
+    //     //TOD Research PAth.Combine ....
+    //     var dbPath = Path.Combine(Application.persistentDataPath, _savedFileName);
+    //     var dbConnection = new SQLiteConnection(dbPath);
+
+    //     dbConnection.CreateTable<GameData>();
+
+    //     var gameData = dbConnection.Find<GameData>(saveSlotId);
+    //     if(gameData == null)
+    //     {
+    //         gameData = new GameData { Id = saveSlotId, Score = 0 };
+    //         dbConnection.Insert(gameData);
+    //     }
+
+    //     dbConnection.Dispose();
+
+    //     return gameData;
+    // }
+
+    // private void Save(GameData gameData)
+    // {
+    //     var dbPath = Path.Combine(Application.persistentDataPath, _savedFileName);
+    //     var dbConnection = new SQLiteConnection(dbPath);
+
+    //     dbConnection.Update(gameData);
+
+    //     dbConnection.Dispose();
+    // }
 }
