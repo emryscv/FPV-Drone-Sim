@@ -146,7 +146,7 @@ public class FlightController : MonoBehaviour
         prevTime[axis] = Time.time;
 
         float error = setpoint * Mathf.PI / 180f - measurements; //TODO fix this
-        Debug.Log("Axis: " + axis + " measurement: " + measurements + " setpoint: " + (setpoint * Mathf.PI / 180f) + " error: " + error);
+        //Debug.Log("Axis: " + axis + " measurement: " + measurements + " setpoint: " + (setpoint * Mathf.PI / 180f) + " error: " + error);
         //Proportional term
         float P = kP[axis] * error;
 
