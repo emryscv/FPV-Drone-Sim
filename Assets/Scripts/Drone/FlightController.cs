@@ -86,6 +86,7 @@ public class FlightController : MonoBehaviour
         float yawSetpoint = ComputeBetaflightRates(1, yaw);
         float rollSetpoint = ComputeBetaflightRates(2, roll) * -1.0f; // Invert roll axis to match Unity and Betaflight conventions
 
+        //Angualr Velocity is given in the World Frame and we need to convert it to the Local Frame for the PID controller
         Vector3 localAngularVelocity = transform.InverseTransformDirection(drone.angularVelocity);
         float pitchPID = PIDEquation(pitchSetpoint, localAngularVelocity.x, 0) / 1000.0f;
         float yawPID = PIDEquation(yawSetpoint, localAngularVelocity.y, 1) / 1000.0f;
