@@ -1,0 +1,15 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/test.uss?fileID=7433441132597879392&amp;guid=b14adbf708a6a4f4ea6de3a7ef9a1709&amp;type=3#test"/>
+    <ui:VisualElement name="MainMenu" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/TextMesh%20Pro/Examples%20&amp;%20Extras/Textures/Floor%20Cement.jpg?fileID=2800000&amp;guid=a3d6288e2e31b7c45916f4001aa298eb&amp;type=3#Floor Cement&quot;); flex-direction: column;">
+        <ui:VisualElement name="Logo" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Images/Screenshot%202026-08-27%20095845.png?fileID=2800000&amp;guid=35865abb39abfae4e84d1ef0eaf75756&amp;type=3#Screenshot 2026-08-27 095845&quot;); -unity-background-scale-mode: scale-to-fit; width: 419px;"/>
+        <ui:Button text="" emoji-fallback-support="false" style="height: 55px; background-color: rgb(76, 171, 54); border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-left-radius: 3px; border-bottom-right-radius: 3px; border-top-color: rgb(76, 171, 54); border-left-color: rgb(76, 171, 54); border-right-color: rgb(76, 171, 54); border-bottom-color: rgb(76, 171, 54); -unity-font-style: bold; flex-direction: row; width: 266px;">
+            <ui:Image source="project://database/Assets/Images/play.png?fileID=2800000&amp;guid=51cd2cb2940dfa847bf82efc4cbe41cc&amp;type=3#play" tint-color="rgb(0, 0, 0)" style="width: 24px; height: auto; margin-top: 4px; margin-bottom: 2px; padding-top: 4px; padding-bottom: 4px; padding-left: 2px; padding-right: 2px; margin-right: 4px; margin-left: 2px;"/>
+            <ui:Label text="START FLIGHT&#10;" style="padding-left: 2px;"/>
+        </ui:Button>
+        <ui:Slider label="Slider" value="42" high-value="100"/>
+        <ui:Toggle label="Toggle"/>
+        <ui:IntegerField label="Integer Field" value="42"/>
+        <ui:ProgressBar value="22" title="my-progress" name="BatteryPercetange"/>
+        <LocalizedButton/>
+    </ui:VisualElement>
+</ui:UXML>
