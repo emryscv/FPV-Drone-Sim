@@ -1,0 +1,5 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Images/MainMenuBackground.jpg?fileID=2800000&amp;guid=8c129d42b4a83814ab09e29036d6543a&amp;type=3#MainMenuBackground&quot;);">
+        <ui:Label text="Label" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/BarlowCondensed-Black.ttf?fileID=12800000&amp;guid=1644c8f8a32e548498832b745a3602d0&amp;type=3#BarlowCondensed-Black&quot;); font-size: 17px;"/>
+    </ui:VisualElement>
+</ui:UXML>
