@@ -6,49 +6,49 @@
     <ui:VisualElement name="Navigation" style="flex-grow: 1; width: 540px; padding-left: 0; padding-right: 0; margin-left: 48px; color: rgb(255, 255, 255);">
         <ui:Button text="" name="Button" class="main-menu-button" style="margin-top: 0; margin-right: 0; margin-bottom: 3px; margin-left: 0; padding-top: 0; padding-bottom: 0; background-color: rgb(15, 19, 23); -unity-background-image-tint-color: rgba(255, 255, 255, 0);">
             <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
-                <ui:Image source="project://database/Assets/Images/graduation-cap.svg?fileID=7388822144124034973&amp;guid=04b02e76380aa2e4cb11a0e2dec3863d&amp;type=3#graduation-cap" tint-color="rgb(75, 75, 75)" style="width: auto; margin-right: 18px; padding-right: 0;"/>
+                <ui:Image source="project://database/Assets/Images/play%20(1).svg?fileID=7388822144124034973&amp;guid=14ade0ebdeabaae4481e40f180a594b5&amp;type=3#play (1)" tint-color="rgb(75, 75, 75)" style="width: 22px; margin-right: 18px; padding-right: 0; height: 18px; align-self: center;"/>
+                <ui:Label text="START FLIGHT" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/BarlowCondensed-Bold.ttf?fileID=12800000&amp;guid=5f7b0a079acd8ec449b1459679e8abbf&amp;type=3#BarlowCondensed-Bold&quot;); font-size: 17px; letter-spacing: 10px; color: rgb(244, 244, 244);"/>
+            </ui:VisualElement>
+            <ui:Image name="Image" source="project://database/Assets/Images/chevron-right.svg?fileID=7388822144124034973&amp;guid=030931756de5efe4f81d39bae40362a5&amp;type=3#chevron-right" tint-color="rgba(244, 244, 244, 0.25)"/>
+        </ui:Button>
+        <ui:Button text="" name="Button" class="main-menu-button" style="margin-top: 0; margin-right: 0; margin-bottom: 3px; margin-left: 0; padding-top: 0; padding-bottom: 0; background-color: rgb(15, 19, 23); -unity-background-image-tint-color: rgba(255, 255, 255, 0);">
+            <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
+                <ui:Image source="project://database/Assets/Images/graduation-cap.svg?fileID=7388822144124034973&amp;guid=04b02e76380aa2e4cb11a0e2dec3863d&amp;type=3#graduation-cap" tint-color="rgb(75, 75, 75)" style="width: auto; margin-right: 18px; padding-right: 0; height: 18px; align-self: center;"/>
                 <ui:Label text="TUTORIAL&#10;" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/BarlowCondensed-Bold.ttf?fileID=12800000&amp;guid=5f7b0a079acd8ec449b1459679e8abbf&amp;type=3#BarlowCondensed-Bold&quot;); font-size: 17px; letter-spacing: 10px; color: rgb(244, 244, 244);"/>
             </ui:VisualElement>
             <ui:Image name="Image" source="project://database/Assets/Images/chevron-right.svg?fileID=7388822144124034973&amp;guid=030931756de5efe4f81d39bae40362a5&amp;type=3#chevron-right" tint-color="rgba(244, 244, 244, 0.25)"/>
         </ui:Button>
         <ui:Button text="" name="Button" class="main-menu-button" style="margin-top: 0; margin-right: 0; margin-bottom: 3px; margin-left: 0; padding-top: 0; padding-bottom: 0; background-color: rgb(15, 19, 23); -unity-background-image-tint-color: rgba(255, 255, 255, 0);">
             <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
-                <ui:Image source="project://database/Assets/Images/graduation-cap.svg?fileID=7388822144124034973&amp;guid=04b02e76380aa2e4cb11a0e2dec3863d&amp;type=3#graduation-cap" tint-color="rgb(75, 75, 75)" style="width: auto; margin-right: 18px; padding-right: 0;"/>
-                <ui:Label text="TUTORIAL&#10;" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/BarlowCondensed-Bold.ttf?fileID=12800000&amp;guid=5f7b0a079acd8ec449b1459679e8abbf&amp;type=3#BarlowCondensed-Bold&quot;); font-size: 17px; letter-spacing: 10px; color: rgb(244, 244, 244);"/>
-            </ui:VisualElement>
-            <ui:Image name="Image" source="project://database/Assets/Images/chevron-right.svg?fileID=7388822144124034973&amp;guid=030931756de5efe4f81d39bae40362a5&amp;type=3#chevron-right" tint-color="rgba(244, 244, 244, 0.25)"/>
-        </ui:Button>
-        <ui:Button text="" name="Button" class="main-menu-button" style="margin-top: 0; margin-right: 0; margin-bottom: 3px; margin-left: 0; padding-top: 0; padding-bottom: 0; background-color: rgb(15, 19, 23); -unity-background-image-tint-color: rgba(255, 255, 255, 0);">
-            <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
-                <ui:Image source="project://database/Assets/Images/graduation-cap.svg?fileID=7388822144124034973&amp;guid=04b02e76380aa2e4cb11a0e2dec3863d&amp;type=3#graduation-cap" tint-color="rgb(75, 75, 75)" style="width: auto; margin-right: 18px; padding-right: 0;"/>
+                <ui:Image source="project://database/Assets/Images/gamepad-2.svg?fileID=7388822144124034973&amp;guid=721c78076682d8040924f4e8304c1753&amp;type=3#gamepad-2" tint-color="rgb(75, 75, 75)" style="width: auto; margin-right: 18px; padding-right: 0; height: 18px; align-self: center;"/>
                 <ui:Label text="CONTROLLER CONFIGURATION" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/BarlowCondensed-Bold.ttf?fileID=12800000&amp;guid=5f7b0a079acd8ec449b1459679e8abbf&amp;type=3#BarlowCondensed-Bold&quot;); font-size: 17px; letter-spacing: 10px; color: rgb(244, 244, 244);"/>
             </ui:VisualElement>
             <ui:Image name="Image" source="project://database/Assets/Images/chevron-right.svg?fileID=7388822144124034973&amp;guid=030931756de5efe4f81d39bae40362a5&amp;type=3#chevron-right" tint-color="rgba(244, 244, 244, 0.25)"/>
         </ui:Button>
         <ui:Button text="" name="Button" class="main-menu-button" style="margin-top: 0; margin-right: 0; margin-bottom: 3px; margin-left: 0; padding-top: 0; padding-bottom: 0; background-color: rgb(15, 19, 23); -unity-background-image-tint-color: rgba(255, 255, 255, 0);">
             <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
-                <ui:Image source="project://database/Assets/Images/graduation-cap.svg?fileID=7388822144124034973&amp;guid=04b02e76380aa2e4cb11a0e2dec3863d&amp;type=3#graduation-cap" tint-color="rgb(75, 75, 75)" style="width: auto; margin-right: 18px; padding-right: 0;"/>
+                <ui:Image source="project://database/Assets/Images/DroneIcon.svg?fileID=7388822144124034973&amp;guid=dfed4a4b8c715994bbddcac32dfe34f3&amp;type=3#DroneIcon" tint-color="rgb(75, 75, 75)" style="width: 20px; margin-right: 18px; padding-right: 0; height: 18px; align-self: center;"/>
                 <ui:Label text="DRONE CONFIGURATION" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/BarlowCondensed-Bold.ttf?fileID=12800000&amp;guid=5f7b0a079acd8ec449b1459679e8abbf&amp;type=3#BarlowCondensed-Bold&quot;); font-size: 17px; letter-spacing: 10px; color: rgb(244, 244, 244);"/>
             </ui:VisualElement>
             <ui:Image name="Image" source="project://database/Assets/Images/chevron-right.svg?fileID=7388822144124034973&amp;guid=030931756de5efe4f81d39bae40362a5&amp;type=3#chevron-right" tint-color="rgba(244, 244, 244, 0.25)"/>
         </ui:Button>
         <ui:Button text="" name="Button" class="main-menu-button" style="margin-top: 0; margin-right: 0; margin-bottom: 3px; margin-left: 0; padding-top: 0; padding-bottom: 0; background-color: rgb(15, 19, 23); -unity-background-image-tint-color: rgba(255, 255, 255, 0);">
             <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
-                <ui:Image source="project://database/Assets/Images/graduation-cap.svg?fileID=7388822144124034973&amp;guid=04b02e76380aa2e4cb11a0e2dec3863d&amp;type=3#graduation-cap" tint-color="rgb(75, 75, 75)" style="width: auto; margin-right: 18px; padding-right: 0;"/>
+                <ui:Image source="project://database/Assets/Images/sliders-vertical.svg?fileID=7388822144124034973&amp;guid=c1d12ad6619318241b16cd82978176c3&amp;type=3#sliders-vertical" tint-color="rgb(75, 75, 75)" name="Image" style="width: auto; margin-right: 18px; padding-right: 0; height: 18px; align-items: stretch; align-self: center;"/>
                 <ui:Label text="FLIGHT CONTROLLER CONFIGURATION" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/BarlowCondensed-Bold.ttf?fileID=12800000&amp;guid=5f7b0a079acd8ec449b1459679e8abbf&amp;type=3#BarlowCondensed-Bold&quot;); font-size: 17px; letter-spacing: 10px; color: rgb(244, 244, 244);"/>
             </ui:VisualElement>
             <ui:Image name="Image" source="project://database/Assets/Images/chevron-right.svg?fileID=7388822144124034973&amp;guid=030931756de5efe4f81d39bae40362a5&amp;type=3#chevron-right" tint-color="rgba(244, 244, 244, 0.25)"/>
         </ui:Button>
         <ui:Button text="" name="Button" class="main-menu-button" style="margin-top: 0; margin-right: 0; margin-bottom: 3px; margin-left: 0; padding-top: 0; padding-bottom: 0; background-color: rgb(15, 19, 23); -unity-background-image-tint-color: rgba(255, 255, 255, 0);">
             <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
-                <ui:Image source="project://database/Assets/Images/graduation-cap.svg?fileID=7388822144124034973&amp;guid=04b02e76380aa2e4cb11a0e2dec3863d&amp;type=3#graduation-cap" tint-color="rgb(75, 75, 75)" style="width: auto; margin-right: 18px; padding-right: 0;"/>
-                <ui:Label text="SETTINGS" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/BarlowCondensed-Bold.ttf?fileID=12800000&amp;guid=5f7b0a079acd8ec449b1459679e8abbf&amp;type=3#BarlowCondensed-Bold&quot;); font-size: 17px; letter-spacing: 10px; color: rgb(244, 244, 244);"/>
+                <ui:Image source="project://database/Assets/Images/settings.svg?fileID=7388822144124034973&amp;guid=1383214c311d8d743a6c49a8a520bea3&amp;type=3#settings" tint-color="rgb(75, 75, 75)" style="width: auto; margin-right: 18px; padding-right: 0; height: 18px; align-self: center;"/>
+                <ui:Label text="SETTINGS" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/BarlowCondensed-Bold.ttf?fileID=12800000&amp;guid=5f7b0a079acd8ec449b1459679e8abbf&amp;type=3#BarlowCondensed-Bold&quot;); font-size: 17px; letter-spacing: 10px; color: rgb(244, 244, 244); -unity-text-align: middle-center; align-self: center; justify-content: flex-start; align-items: stretch; align-content: flex-start;"/>
             </ui:VisualElement>
-            <ui:Image name="Image" source="project://database/Assets/Images/chevron-right.svg?fileID=7388822144124034973&amp;guid=030931756de5efe4f81d39bae40362a5&amp;type=3#chevron-right" tint-color="rgba(244, 244, 244, 0.25)"/>
+            <ui:Image name="Image" source="project://database/Assets/Images/chevron-right.svg?fileID=7388822144124034973&amp;guid=030931756de5efe4f81d39bae40362a5&amp;type=3#chevron-right" tint-color="rgba(244, 244, 244, 0.25)" style="height: auto; align-self: center;"/>
         </ui:Button>
         <ui:Button text="" name="Button" class="main-menu-button" style="margin-top: 0; margin-right: 0; margin-bottom: 3px; margin-left: 0; padding-top: 0; padding-bottom: 0; background-color: rgb(15, 19, 23); -unity-background-image-tint-color: rgba(255, 255, 255, 0);">
             <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
-                <ui:Image source="project://database/Assets/Images/graduation-cap.svg?fileID=7388822144124034973&amp;guid=04b02e76380aa2e4cb11a0e2dec3863d&amp;type=3#graduation-cap" tint-color="rgb(75, 75, 75)" style="width: auto; margin-right: 18px; padding-right: 0;"/>
+                <ui:Image source="project://database/Assets/Images/log-out.svg?fileID=7388822144124034973&amp;guid=c4b2f09280c9a6a40aa6b15cecccada2&amp;type=3#log-out" tint-color="rgb(75, 75, 75)" style="width: auto; margin-right: 18px; padding-right: 0; height: 18px; align-self: center;"/>
                 <ui:Label text="EXIT" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/BarlowCondensed-Bold.ttf?fileID=12800000&amp;guid=5f7b0a079acd8ec449b1459679e8abbf&amp;type=3#BarlowCondensed-Bold&quot;); font-size: 17px; letter-spacing: 10px; color: rgb(244, 244, 244);"/>
             </ui:VisualElement>
             <ui:Image name="Image" source="project://database/Assets/Images/chevron-right.svg?fileID=7388822144124034973&amp;guid=030931756de5efe4f81d39bae40362a5&amp;type=3#chevron-right" tint-color="rgba(244, 244, 244, 0.25)"/>
