@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="52"
+     height="52"
+     viewBox="0 0 52 52"
+     fill="none">
+
+  <!-- Arms -->
+  <g stroke="#4CAB36"
+     stroke-linecap="round">
+
+    <line x1="26" y1="26" x2="7.8"  y2="7.8"  stroke-width="2.6"/>
+    <line x1="26" y1="26" x2="44.2" y2="7.8"  stroke-width="2.6"/>
+    <line x1="26" y1="26" x2="7.8"  y2="44.2" stroke-width="2.6"/>
+    <line x1="26" y1="26" x2="44.2" y2="44.2" stroke-width="2.6"/>
+
+    <!-- Motor rings -->
+    <circle cx="7.8"  cy="7.8"  r="6.76" stroke-width="2.08"/>
+    <circle cx="44.2" cy="7.8"  r="6.76" stroke-width="2.08"/>
+    <circle cx="7.8"  cy="44.2" r="6.76" stroke-width="2.08"/>
+    <circle cx="44.2" cy="44.2" r="6.76" stroke-width="2.08"/>
+
+    <!-- Propeller bars -->
+    <line x1="-1.664" y1="7.8"  x2="17.264" y2="7.8"  stroke-width="1.82"/>
+    <line x1="34.736" y1="7.8"  x2="53.664" y2="7.8"  stroke-width="1.82"/>
+    <line x1="-1.664" y1="44.2" x2="17.264" y2="44.2" stroke-width="1.82"/>
+    <line x1="34.736" y1="44.2" x2="53.664" y2="44.2" stroke-width="1.82"/>
+  </g>
+
+  <!-- Center body -->
+  <rect x="19.24"
+        y="19.24"
+        width="13.52"
+        height="13.52"
+        rx="1.56"
+        fill="#4CAB36"/>
+</svg>

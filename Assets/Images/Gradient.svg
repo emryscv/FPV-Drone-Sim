@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="1920"
+     height="1080"
+     viewBox="0 0 1920 1080"
+     preserveAspectRatio="none">
+
+  <defs>
+    <linearGradient id="leftToRightFade"
+                    x1="0%"
+                    y1="0%"
+                    x2="100%"
+                    y2="0%">
+      <stop offset="0%"   stop-color="#080C0A" stop-opacity="0.97"/>
+      <stop offset="32%"  stop-color="#080C0A" stop-opacity="0.93"/>
+      <stop offset="56%"  stop-color="#080C0A" stop-opacity="0.60"/>
+      <stop offset="82%"  stop-color="#080C0A" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#080C0A" stop-opacity="0"/>
+    </linearGradient>
+
+    <linearGradient id="bottomDarkFade"
+                    x1="0%"
+                    y1="100%"
+                    x2="0%"
+                    y2="0%">
+      <stop offset="0%"   stop-color="#080C0A" stop-opacity="0.80"/>
+      <stop offset="35%"  stop-color="#080C0A" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#080C0A" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- <radialGradient id="greenGlow"
+                    cx="50%"
+                    cy="50%"
+                    r="50%">
+      <stop offset="0%"  stop-color="#4cab36" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#4cab36" stop-opacity="0"/>
+    </radialGradient> -->
+  </defs>
+
+  <rect x="0"
+        y="0"
+        width="1920"
+        height="1080"
+        fill="url(#leftToRightFade)" />
+
+  <rect x="0"
+        y="0"
+        width="1920"
+        height="1080"
+        fill="url(#bottomDarkFade)" />
+<!-- 
+ <ellipse cx="1400"
+           cy="600"
+           rx="500"
+           ry="300"
+           fill="url(#greenGlow)" />
+   -->
+</svg>
