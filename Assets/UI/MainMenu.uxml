@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/main-menu-ui.uss?fileID=7433441132597879392&amp;guid=209e76e44b092e841a05253943bca5a4&amp;type=3#main-menu-ui"/>
     <ui:VisualElement name="Background" style="flex-grow: 1; top: 0; position: absolute; left: 0; width: 100%; height: 100%; background-image: url(&quot;project://database/Assets/Images/MainMenuBackground.jpg?fileID=2800000&amp;guid=8c129d42b4a83814ab09e29036d6543a&amp;type=3#MainMenuBackground&quot;); cursor: url(&quot;project://database/Assets/Images/drone.png?fileID=2800000&amp;guid=56b86783d3e829e4ab39d254aca6469a&amp;type=3#drone&quot;);"/>
-    <ui:VisualElement name="Overlay" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Images/Gradient.svg?fileID=7388822144124034973&amp;guid=e3230db8a902f134e86fa07f3441288e&amp;type=3#Gradient&quot;); position: absolute; top: 0; left: 0; width: 100%; height: 100%;"/>
+    <ui:VisualElement name="Overlay" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Images/Gradient.svg?fileID=7388822144124034973&amp;guid=e3230db8a902f134e86fa07f3441288e&amp;type=3#Gradient&quot;); position: absolute; top: -1px; left: 0; width: 100%; height: 100%;"/>
     <ui:VisualElement name="Header" style="flex-grow: 0; width: auto; padding-left: 48px; padding-top: 32px; padding-right: 48px; flex-direction: row;">
         <ui:Image name="Image" source="project://database/Assets/Images/DroneIcon.svg?fileID=7388822144124034973&amp;guid=dfed4a4b8c715994bbddcac32dfe34f3&amp;type=3#DroneIcon" tint-color="rgb(76, 171, 54)" style="align-self: flex-start; height: 52px; width: 52px; margin-right: 12px;"/>
         <ui:VisualElement style="flex-grow: 1; flex-direction: column; width: auto;">
@@ -63,5 +63,14 @@
             <ui:Image name="Image" source="project://database/Assets/Images/chevron-right.svg?fileID=7388822144124034973&amp;guid=030931756de5efe4f81d39bae40362a5&amp;type=3#chevron-right" tint-color="rgba(244, 244, 244, 0.25)"/>
         </ui:Button>
     </ui:VisualElement>
-    <ui:VisualElement name="Footer" style="flex-grow: 1;"/>
+    <ui:VisualElement name="Footer" style="flex-grow: 0; padding-bottom: 32px; margin-right: 0; padding-right: 48px; padding-left: 48px; flex-direction: row;">
+        <ui:VisualElement name="Slogan" style="flex-grow: 1; border-left-width: 3px; border-left-color: rgb(76, 171, 54); border-right-color: rgb(76, 171, 54); border-top-color: rgb(76, 171, 54); border-bottom-color: rgb(76, 171, 54); padding-left: 14px;">
+            <ui:Label text="MASTER YOUR SKILLS&#10;" style="margin-top: 0; margin-right: 0; margin-bottom: 4px; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 13px; color: rgb(76, 171, 54);"/>
+            <ui:Label text="Learn, configure and fly with realistic physics&#10;in immersive FPV environments." parse-escape-sequences="false" style="color: rgba(244, 244, 244, 0.45); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-text-generator: standard; -unity-text-auto-size: none;"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="ControllerStatus" style="flex-grow: 0; flex-direction: row; -unity-text-align: lower-left; align-items: auto;">
+            <ui:Label text="No controller connected" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 13px; -unity-font-definition: url(&quot;project://database/Assets/Fonts/Barlow/Barlow-Medium.ttf?fileID=12800000&amp;guid=65017560903cc07408d38222365f499f&amp;type=3#Barlow-Medium&quot;); color: rgba(244, 244, 244, 0.28);"/>
+            <ui:Image source="project://database/Assets/Images/gamepad-2.svg?fileID=7388822144124034973&amp;guid=721c78076682d8040924f4e8304c1753&amp;type=3#gamepad-2" name="Image" tint-color="rgba(244, 244, 244, 0.28)" style="width: 17px; height: 17px; margin-right: 8px; -unity-text-align: lower-left;"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
 </ui:UXML>
