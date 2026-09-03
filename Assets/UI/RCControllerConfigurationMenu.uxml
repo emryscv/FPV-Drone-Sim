@@ -1,0 +1,24 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="Header" style="flex-grow: 0; flex-direction: row; border-bottom-width: 1px; border-left-color: rgba(244, 244, 244, 0.06); border-right-color: rgba(244, 244, 244, 0.06); border-top-color: rgba(244, 244, 244, 0.06); border-bottom-color: rgba(244, 244, 244, 0.06); padding-top: 20px; padding-right: 36px; padding-bottom: 20px; padding-left: 36px;">
+        <ui:Button text="" name="BackButton" style="border-left-color: rgba(244, 244, 244, 0.1); border-right-color: rgba(244, 244, 244, 0.1); border-top-color: rgba(244, 244, 244, 0.1); border-bottom-color: rgba(244, 244, 244, 0.1); background-color: rgb(8, 12, 16); flex-direction: row; -unity-text-align: middle-center; align-self: center; align-items: center; border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 8px; padding-right: 16px; padding-bottom: 8px; padding-left: 16px; flex-grow: 0; justify-content: flex-start;">
+            <ui:Image source="project://database/Assets/Images/chevron-left.svg?fileID=7388822144124034973&amp;guid=c853323738d9a5348a55da2827360834&amp;type=3#chevron-left" tint-color="rgba(244, 244, 244, 0.6)" scale-mode="ScaleToFit" style="width: 16px; height: 16px; margin-right: 8px;"/>
+            <ui:Label text="BACK&#10;" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Bold.ttf?fileID=12800000&amp;guid=5f7b0a079acd8ec449b1459679e8abbf&amp;type=3#BarlowCondensed-Bold&quot;); color: rgba(244, 244, 244, 0.6); font-size: 13px; height: auto; width: auto; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;"/>
+        </ui:Button>
+        <ui:VisualElement name="Title" style="flex-grow: 1; align-items: center; justify-content: space-between; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;">
+            <ui:Label text="CONTROLLER CONFIGURATION" style="font-size: 20px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-font-definition: url(&quot;project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Black.ttf?fileID=12800000&amp;guid=1644c8f8a32e548498832b745a3602d0&amp;type=3#BarlowCondensed-Black&quot;); color: rgb(244, 244, 244);"/>
+            <ui:Label text="GAMEPAD / RC TRANSMITTER" style="margin-top: 2px; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 11px; color: rgba(244, 244, 244, 0.35);"/>
+        </ui:VisualElement>
+        <ui:Button text="" name="SaveButton" style="border-left-color: rgba(76, 171, 54, 0.4); border-right-color: rgba(76, 171, 54, 0.4); border-top-color: rgba(76, 171, 54, 0.4); border-bottom-color: rgba(76, 171, 54, 0.4); background-color: rgba(76, 171, 54, 0.2); flex-direction: row; -unity-text-align: middle-center; align-self: center; align-items: center; border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 8px; padding-right: 16px; padding-bottom: 8px; padding-left: 16px; flex-grow: 0; justify-content: flex-start;">
+            <ui:Image source="project://database/Assets/Images/save.svg?fileID=7388822144124034973&amp;guid=151eb19213b785746a6b9aa56f037917&amp;type=3#save" tint-color="rgb(76, 171, 54)" scale-mode="ScaleToFit" style="width: 16px; height: 16px; margin-right: 8px;"/>
+            <ui:Label text="SAVE" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Bold.ttf?fileID=12800000&amp;guid=5f7b0a079acd8ec449b1459679e8abbf&amp;type=3#BarlowCondensed-Bold&quot;); color: rgb(76, 171, 54); font-size: 13px; height: auto; width: auto; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;"/>
+        </ui:Button>
+    </ui:VisualElement>
+    <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
+        <ui:VisualElement style="flex-grow: 1;">
+            <ui:Button text="Button"/>
+            <ui:VisualElement style="flex-grow: 1; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;"/>
+            <ui:VisualElement style="flex-grow: 1;"/>
+        </ui:VisualElement>
+        <ui:VisualElement style="flex-grow: 1;"/>
+    </ui:VisualElement>
+</ui:UXML>

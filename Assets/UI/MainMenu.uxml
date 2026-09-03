@@ -69,8 +69,8 @@
             <ui:Label text="Learn, configure and fly with realistic physics&#10;in immersive FPV environments." parse-escape-sequences="false" style="color: rgba(244, 244, 244, 0.45); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-text-generator: standard; -unity-text-auto-size: none;"/>
         </ui:VisualElement>
         <ui:VisualElement name="ControllerStatus" style="flex-grow: 0; flex-direction: row; -unity-text-align: lower-left; align-items: auto;">
-            <ui:Label text="No controller connected" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 13px; -unity-font-definition: url(&quot;project://database/Assets/Fonts/Barlow/Barlow-Medium.ttf?fileID=12800000&amp;guid=65017560903cc07408d38222365f499f&amp;type=3#Barlow-Medium&quot;); color: rgba(244, 244, 244, 0.28);"/>
             <ui:Image source="project://database/Assets/Images/gamepad-2.svg?fileID=7388822144124034973&amp;guid=721c78076682d8040924f4e8304c1753&amp;type=3#gamepad-2" name="Image" tint-color="rgba(244, 244, 244, 0.28)" style="width: 17px; height: 17px; margin-right: 8px; -unity-text-align: lower-left;"/>
+            <ui:Label text="No controller connected" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 13px; -unity-font-definition: url(&quot;project://database/Assets/Fonts/Barlow/Barlow-Medium.ttf?fileID=12800000&amp;guid=65017560903cc07408d38222365f499f&amp;type=3#Barlow-Medium&quot;); color: rgba(244, 244, 244, 0.28);"/>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
