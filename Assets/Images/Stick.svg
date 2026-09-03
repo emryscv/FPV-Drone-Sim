@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="27"
+     height="27"
+     viewBox="0 0 27 27"
+     preserveAspectRatio="none">
+
+    <circle cx="14"
+        cy="14"
+        r="13"
+        fill="#4CAB36" />
+
+    <circle cx="10"
+        cy="10"
+        r="3"
+        fill="#FFFFFF"
+        fill-opacity="0.25" />
+</svg>

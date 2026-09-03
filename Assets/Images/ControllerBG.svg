@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="1920"
+     height="1080"
+     viewBox="0 0 1920 1080"
+     preserveAspectRatio="none">
+
+  <defs>
+    <!-- CSS: linear-gradient(160deg, #1a1f24 0%, #0f1317 60%, #080c10 100%) -->
+    <linearGradient id="mainMenuBackground"
+                    x1="67.1%"
+                    y1="0%"
+                    x2="32.9%"
+                    y2="100%">
+      <stop offset="0%" stop-color="#1A1F24"/>
+      <stop offset="60%" stop-color="#0F1317"/>
+      <stop offset="100%" stop-color="#080C10"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="0"
+        y="0"
+        width="1920"
+        height="1080"
+        rx="120"
+        ry="120"
+        fill="url(#mainMenuBackground)" />
+
+</svg>
