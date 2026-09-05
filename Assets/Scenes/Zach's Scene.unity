@@ -3674,8 +3674,9 @@ GameObject:
   m_Component:
   - component: {fileID: 651960968}
   - component: {fileID: 651960967}
+  - component: {fileID: 651960969}
   m_Layer: 5
-  m_Name: UIDocument
+  m_Name: UIManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3719,6 +3720,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &651960969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 651960966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08af66f71915a26479c2b30983811c4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MainMenuEvents
 --- !u!1001 &655489446
 PrefabInstance:
   m_ObjectHideFlags: 0

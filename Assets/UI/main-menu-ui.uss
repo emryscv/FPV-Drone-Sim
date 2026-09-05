@@ -21,9 +21,31 @@
     border-top-color: rgba(244, 244, 244, 0.07);
     border-bottom-color: rgba(244, 244, 244, 0.07);
     color: rgb(255, 255, 255);
-    cursor: url("project://database/Assets/Images/pointer.png?fileID=2800000&guid=657f29b1ddd74404783384063bd707a2&type=3#pointer");
+    cursor: initial;
 }
 
 .main-menu-button:hover {
     background-color: rgb(33, 37, 42);
+    transition-duration: 0.35s;
+    cursor: url("project://database/Assets/Images/Icons/pointer.png?fileID=2800000&guid=657f29b1ddd74404783384063bd707a2&type=3#pointer");
+    border-left-color: rgba(76, 171, 54, 0.35);
+    border-right-color: rgba(76, 171, 54, 0.35);
+    border-top-color: rgba(76, 171, 54, 0.35);
+    border-bottom-color: rgba(76, 171, 54, 0.35);
+}
+
+.main-menu-button .button-icon {
+    --unity-image-tint-color: rgb(75, 75, 75);
+}
+
+.main-menu-button:hover .button-icon {
+    --unity-image-tint-color: rgb(76, 171, 54);
+}
+
+.main-menu-button .chevron {
+    --unity-image-tint-color: rgba(244, 244, 244, 0.25);
+}
+
+.main-menu-button:hover .chevron {
+    --unity-image-tint-color: rgb(76, 171, 54);
 }
