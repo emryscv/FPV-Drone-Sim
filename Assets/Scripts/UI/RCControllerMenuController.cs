@@ -46,6 +46,18 @@ public class RCControllerMenuController : MonoBehaviour
     {
         //TODO I might not need this and just use the controls class
         _controllerStatusLabel.text = _physicalRCController.ControllerName != null ?  _physicalRCController.ControllerName : _controllerStatusLabel.text = "NO CONTROLLER CONNECTED";        
+
+        float throttle = controls.RCController.Throttle.ReadValue<float>();
+        float yaw = controls.RCController.Yaw.ReadValue<float>();
+        float pitch = controls.RCController.Pitch.ReadValue<float>();
+        float roll = controls.RCController.Roll.ReadValue<float>();
+
+        _leftStick.style.left = yaw * 65 + 65;
+        _leftStick.style.top = 130 - throttle * 65 - 65;
+
+        _rightStick.style.left =roll * 65 + 65;
+        _rightStick.style.top = 130 - pitch * 65 - 65;
+
     }
 
     private void OnDisable()
