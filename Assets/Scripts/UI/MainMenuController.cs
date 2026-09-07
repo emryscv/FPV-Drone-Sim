@@ -21,14 +21,15 @@ public class MainMenuController : MonoBehaviour
         _MainMenu = _uiManager.rootVisualElement.Q<VisualElement>("MainMenu");
         _RCControllerMenu = _uiManager.rootVisualElement.Q<VisualElement>("RCControllerMenu");
 
-        _startFlightNav        = _MainMenu.Q("StartFlightButton") as Button;
-        _tutorialNav           = _MainMenu.Q("TutorialButton") as Button;
-        _rcControllerNav       = _MainMenu.Q("RCControllerButton") as Button;
-        _droneConfigurationNav = _MainMenu.Q("DroneButton") as Button;
-        _fcConfigurationNav    = _MainMenu.Q("FCButton") as Button;
-        _settingsNav           = _MainMenu.Q("SettingsButton") as Button;
-        _exit                  = _MainMenu.Q("ExitButton") as Button;
+        _startFlightNav        = _MainMenu.Q<Button>("StartFlightButton");
+        _tutorialNav           = _MainMenu.Q<Button>("TutorialButton");
+        _rcControllerNav       = _MainMenu.Q<Button>("RCControllerButton");
+        _droneConfigurationNav = _MainMenu.Q<Button>("DroneButton");
+        _fcConfigurationNav    = _MainMenu.Q<Button>("FCButton");
+        _settingsNav           = _MainMenu.Q<Button>("SettingsButton");
+        _exit                  = _MainMenu.Q<Button>("ExitButton");
 
+        _startFlightNav.RegisterCallback<ClickEvent>(OnStartFlightBtnClick);
         _rcControllerNav.RegisterCallback<ClickEvent>(OnRCControllerBtnClick);
     }
 
@@ -36,6 +37,12 @@ public class MainMenuController : MonoBehaviour
     {
         _rcControllerNav.UnregisterCallback<ClickEvent>(OnRCControllerBtnClick);  
     } 
+
+    private void OnStartFlightBtnClick(ClickEvent evt)
+    {
+        _MainMenu.visible = false;
+        _RCControllerMenu.visible = false;
+    }
 
     private void OnRCControllerBtnClick(ClickEvent evt)
     {

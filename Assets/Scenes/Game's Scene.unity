@@ -3675,6 +3675,7 @@ GameObject:
   - component: {fileID: 651960968}
   - component: {fileID: 651960967}
   - component: {fileID: 651960969}
+  - component: {fileID: 651960970}
   m_Layer: 5
   m_Name: UIManager
   m_TagString: Untagged
@@ -3732,6 +3733,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08af66f71915a26479c2b30983811c4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenuEvents
+--- !u!114 &651960970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 651960966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 114568407574e5b49ac8fa4cdc991855, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RCControllerMenuController
 --- !u!1001 &655489446
 PrefabInstance:
   m_ObjectHideFlags: 0
