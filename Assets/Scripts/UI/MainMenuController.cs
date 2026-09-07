@@ -15,14 +15,11 @@ public class MainMenuController : MonoBehaviour
     private Button _settingsNav;
     private Button _exit;
     
-    private void Awake()
+    private void OnEnable()
     {
         _uiManager = GetComponent<UIDocument>();
         _MainMenu = _uiManager.rootVisualElement.Q<VisualElement>("MainMenu");
         _RCControllerMenu = _uiManager.rootVisualElement.Q<VisualElement>("RCControllerMenu");
-
-        if (_MainMenu == null) Debug.LogError("MainMenu not found in UIDocument", this);
-        if (_RCControllerMenu == null) Debug.LogError("RCControllerMenu not found in UIDocument", this);
 
         _startFlightNav        = _MainMenu.Q("StartFlightButton") as Button;
         _tutorialNav           = _MainMenu.Q("TutorialButton") as Button;
@@ -33,8 +30,6 @@ public class MainMenuController : MonoBehaviour
         _exit                  = _MainMenu.Q("ExitButton") as Button;
 
         _rcControllerNav.RegisterCallback<ClickEvent>(OnRCControllerBtnClick);
-
-        Debug.Log("uiManager: " + _uiManager + " MainMenu: " + _MainMenu + " RCMenu: " + _RCControllerMenu + " RCNavBtn: " + _rcControllerNav);
     }
 
     private void OnDisable()
@@ -44,7 +39,6 @@ public class MainMenuController : MonoBehaviour
 
     private void OnRCControllerBtnClick(ClickEvent evt)
     {
-        if (_MainMenu == null || _RCControllerMenu == null) return;
         _MainMenu.visible = false;
         _RCControllerMenu.visible = true;
     }
