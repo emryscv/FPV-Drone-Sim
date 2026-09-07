@@ -3,6 +3,8 @@ using UnityEngine.UIElements;
 
 public class MainMenuController : MonoBehaviour
 {
+    private RCControllerManager _physicalRCController;
+
     private UIDocument _uiManager;
     private VisualElement _MainMenu;
     private VisualElement _RCControllerMenu; 
@@ -14,9 +16,13 @@ public class MainMenuController : MonoBehaviour
     private Button _fcConfigurationNav;
     private Button _settingsNav;
     private Button _exit;
-    
+
+    private Label _controllerStatusLabel;
+
     private void OnEnable()
     {
+        _physicalRCController = RCControllerManager.Instance;
+
         _uiManager = GetComponent<UIDocument>();
         _MainMenu = _uiManager.rootVisualElement.Q<VisualElement>("MainMenu");
         _RCControllerMenu = _uiManager.rootVisualElement.Q<VisualElement>("RCControllerMenu");
@@ -29,8 +35,15 @@ public class MainMenuController : MonoBehaviour
         _settingsNav           = _MainMenu.Q<Button>("SettingsButton");
         _exit                  = _MainMenu.Q<Button>("ExitButton");
 
+        _controllerStatusLabel = _MainMenu.Q<Label>("StatusLabel");
+
         _startFlightNav.RegisterCallback<ClickEvent>(OnStartFlightBtnClick);
         _rcControllerNav.RegisterCallback<ClickEvent>(OnRCControllerBtnClick);
+    }
+
+    private void Update()
+    {
+        _controllerStatusLabel.text = _physicalRCController.ControllerName != null ?  _physicalRCController.ControllerName : _controllerStatusLabel.text = "No Controller Connected";           
     }
 
     private void OnDisable()

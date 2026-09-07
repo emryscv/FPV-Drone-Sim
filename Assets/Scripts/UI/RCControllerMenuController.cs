@@ -10,12 +10,13 @@ public class RCControllerMenuController : MonoBehaviour
     private VisualElement _MainMenu;
     private VisualElement _RCControllerMenu; 
 
+    private Button _backBtn;
+    private Button _saveBtn;
+
     private Label _controllerStatusLabel;
     private VisualElement _leftStick;
     private VisualElement _rightStick;
 
-    private Button _backBtn;
-    private Button _saveBtn;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Awake()
     {
@@ -44,14 +45,13 @@ public class RCControllerMenuController : MonoBehaviour
     private void Update()
     {
         //TODO I might not need this and just use the controls class
-        _controllerStatusLabel.text = _physicalRCController.ControllerName != null ?  _physicalRCController.ControllerName : _controllerStatusLabel.text = "NO CONTROLLER DETECTED";        
+        _controllerStatusLabel.text = _physicalRCController.ControllerName != null ?  _physicalRCController.ControllerName : _controllerStatusLabel.text = "NO CONTROLLER CONNECTED";        
     }
 
     private void OnDisable()
     {
         _backBtn.UnregisterCallback<ClickEvent>(OnBackBtnClick);  
     } 
-
 
     private void OnBackBtnClick(ClickEvent evt)
     {
