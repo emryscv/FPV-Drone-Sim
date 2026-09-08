@@ -17,7 +17,12 @@ public class MainMenuController : MonoBehaviour
     private Button _settingsNav;
     private Button _exit;
 
+    private Image _controllerStatusIcon;
     private Label _controllerStatusLabel;
+
+
+    [SerializeField] private VectorImage controller; 
+    [SerializeField] private VectorImage noController; 
 
     private void OnEnable()
     {
@@ -35,6 +40,7 @@ public class MainMenuController : MonoBehaviour
         _settingsNav           = _MainMenu.Q<Button>("SettingsButton");
         _exit                  = _MainMenu.Q<Button>("ExitButton");
 
+        _controllerStatusIcon = _MainMenu.Q<Image>("StatusIcon");
         _controllerStatusLabel = _MainMenu.Q<Label>("StatusLabel");
 
         _startFlightNav.RegisterCallback<ClickEvent>(OnStartFlightBtnClick);
@@ -43,7 +49,13 @@ public class MainMenuController : MonoBehaviour
 
     private void Update()
     {
-        _controllerStatusLabel.text = _physicalRCController.ControllerName != null ?  _physicalRCController.ControllerName : _controllerStatusLabel.text = "No Controller Connected";           
+        if(_physicalRCController.ControllerName != null){
+            _controllerStatusLabel.text = _physicalRCController.ControllerName;
+            _controllerStatusIcon.vectorImage = controller;
+        }else{
+            _controllerStatusLabel.text = "No Controller Connected";
+            _controllerStatusIcon.vectorImage = noController;
+        }
     }
 
     private void OnDisable()

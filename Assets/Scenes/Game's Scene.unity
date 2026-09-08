@@ -3733,6 +3733,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08af66f71915a26479c2b30983811c4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenuEvents
+  controller: {fileID: 7388822144124034973, guid: 721c78076682d8040924f4e8304c1753, type: 3}
+  noController: {fileID: 7388822144124034973, guid: 0394ae6d090ba1c4a9b842e372f21ff5, type: 3}
 --- !u!114 &651960970
 MonoBehaviour:
   m_ObjectHideFlags: 0
