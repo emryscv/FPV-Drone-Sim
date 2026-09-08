@@ -52,12 +52,12 @@ public class RCControllerMenuController : MonoBehaviour
         float pitch = controls.RCController.Pitch.ReadValue<float>();
         float roll = controls.RCController.Roll.ReadValue<float>();
 
+        //This equation is fixed to the size of the parent componenet. If the size change this has to change
         _leftStick.style.left = yaw * 65 + 65;
         _leftStick.style.top = 130 - throttle * 65 - 65;
 
-        _rightStick.style.left =roll * 65 + 65;
+        _rightStick.style.left = roll * 65 + 65;
         _rightStick.style.top = 130 - pitch * 65 - 65;
-
     }
 
     private void OnDisable()
