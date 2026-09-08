@@ -40,7 +40,7 @@ public class MainMenuController : MonoBehaviour
         _settingsNav           = _MainMenu.Q<Button>("SettingsButton");
         _exit                  = _MainMenu.Q<Button>("ExitButton");
 
-        _controllerStatusIcon = _MainMenu.Q<Image>("StatusIcon");
+        _controllerStatusIcon  = _MainMenu.Q<Image>("StatusIcon");
         _controllerStatusLabel = _MainMenu.Q<Label>("StatusLabel");
 
         _startFlightNav.RegisterCallback<ClickEvent>(OnStartFlightBtnClick);

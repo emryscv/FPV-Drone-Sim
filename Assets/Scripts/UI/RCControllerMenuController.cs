@@ -36,7 +36,6 @@ public class RCControllerMenuController : MonoBehaviour
         _uiManager = GetComponent<UIDocument>();
         _MainMenu = _uiManager.rootVisualElement.Q<VisualElement>("MainMenu");
         _RCControllerMenu = _uiManager.rootVisualElement.Q<VisualElement>("RCControllerMenu");
-
         
         _controllerStatusIcon = _RCControllerMenu.Q<VisualElement>("StatusIcon");
         _controllerStatusLabel = _RCControllerMenu.Q<Label>("StatusLabel");
@@ -68,11 +67,11 @@ public class RCControllerMenuController : MonoBehaviour
         float roll = controls.RCController.Roll.ReadValue<float>();
 
         //This equation is fixed to the size of the parent componenet. If the size change this has to change
-        _leftStick.style.left = yaw * 65 + 65;
-        _leftStick.style.top = 130 - throttle * 65 - 65;
+        _leftStick.style.left = yaw * 65f + 65f;
+        _leftStick.style.top = 65f - throttle * 65f;
 
-        _rightStick.style.left = roll * 65 + 65;
-        _rightStick.style.top = 130 - pitch * 65 - 65;
+        _rightStick.style.left = roll * 65f + 65f;
+        _rightStick.style.top = 65f - pitch * 65f;
     }
 
     private void OnDisable()
