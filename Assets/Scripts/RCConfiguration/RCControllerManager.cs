@@ -24,7 +24,8 @@ public class RCControllerManager : MonoBehaviour
         {
             if (IsRCController(device))
             {
-                Debug.Log("Device found: " + device.name + " with ID: " + device.deviceId);
+                
+                Debug.Log("Device found: " + device.name + " with ID: " + device.deviceId + " display name: " + device.displayName);
                 RegisterController(device);
                 break;
             }
@@ -50,20 +51,12 @@ public class RCControllerManager : MonoBehaviour
     
     private bool IsRCController(InputDevice device)
     {
-        // if(device is Joystick)
-        // {
-        //     Debug.Log("Is Joystick");
-        // }
-        // else if(device is Gamepad)
-        // {
-        //     Debug.Log("Is Gamepad");
-        // }
         return device is Joystick || device is Gamepad;
     }
 
     private void RegisterController(InputDevice device)
     {
-        ControllerName = device.name;
+        ControllerName = device.displayName;
         ControllerId = device.deviceId;
         Debug.Log("Controller connected: " + ControllerName + " with ID: " + ControllerId);
     }

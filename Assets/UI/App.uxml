@@ -2,5 +2,5 @@
     <ui:Template name="MainMenu" src="project://database/Assets/UI/MainMenu.uxml?fileID=9197481963319205126&amp;guid=682fb580bba6bf84eb4102993f350c44&amp;type=3#MainMenu"/>
     <ui:Template name="RCControllerMenu" src="project://database/Assets/UI/RCControllerMenu.uxml?fileID=9197481963319205126&amp;guid=77e68930f5f97e0408bda86697ac0a63&amp;type=3#RCControllerMenu"/>
     <ui:Instance template="RCControllerMenu" name="RCControllerMenu" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; visibility: visible;"/>
-    <ui:Instance template="MainMenu" name="MainMenu" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex;"/>
+    <ui:Instance template="MainMenu" name="MainMenu" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none;"/>
 </ui:UXML>
