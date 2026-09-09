@@ -82,9 +82,9 @@ public class RCControllerMenuController : MonoBehaviour
     private void Update()
     {
         //TODO I might not need this and just use the controls class
-        if (_physicalRCController.ControllerName != null)
+        if (_physicalRCController.registeredDevice != null)
         {
-            _controllerStatusLabel.text = _physicalRCController.ControllerName;
+            _controllerStatusLabel.text = _physicalRCController.registeredDevice.displayName;
             _controllerStatusLabel.style.color = GREEN;
             _controllerStatusIcon.style.backgroundColor = GREEN;
         }
@@ -109,11 +109,15 @@ public class RCControllerMenuController : MonoBehaviour
             _rightStick.style.left = roll * 65f + 65f;
             _rightStick.style.top = 65f - pitch * 65f;
         }
+
+        
     }
 
     private void OnDisable()
     {
         _backBtn.UnregisterCallback<ClickEvent>(OnBackBtnClick);
+        _saveBtn.UnregisterCallback<ClickEvent>(OnSaveBtnClick);
+        _startCalibrationBtn.UnregisterCallback<ClickEvent>(OnStartCalibrationBtnClick);
     }
 
     private void OnBackBtnClick(ClickEvent evt)

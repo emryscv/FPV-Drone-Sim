@@ -49,8 +49,8 @@ public class MainMenuController : MonoBehaviour
 
     private void Update()
     {
-        if(_physicalRCController.ControllerName != null){
-            _controllerStatusLabel.text = _physicalRCController.ControllerName;
+        if(_physicalRCController.registeredDevice != null){
+            _controllerStatusLabel.text = _physicalRCController.registeredDevice.displayName;
             _controllerStatusIcon.vectorImage = controller;
         }else{
             _controllerStatusLabel.text = "No Controller Connected";
@@ -74,5 +74,4 @@ public class MainMenuController : MonoBehaviour
         _MainMenu.visible = false;
         _RCControllerMenu.visible = true;
     }
-
 }
