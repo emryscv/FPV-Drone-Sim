@@ -1,0 +1,16 @@
+:root {
+}
+
+.telemetry-font {
+    -unity-font-definition: url("project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Black.ttf?fileID=12800000&guid=1644c8f8a32e548498832b745a3602d0&type=3#BarlowCondensed-Black");
+    font-size: 16px;
+    color: rgb(255, 255, 255);
+    text-shadow: 0 0 20px rgb(0, 0, 0);
+}
+
+.telemetry-value-font {
+    -unity-font-definition: url("project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Black.ttf?fileID=12800000&guid=1644c8f8a32e548498832b745a3602d0&type=3#BarlowCondensed-Black");
+    font-size: 40px;
+    color: rgb(255, 255, 255);
+    text-shadow: 0 0 20px rgb(0, 0, 0);
+}

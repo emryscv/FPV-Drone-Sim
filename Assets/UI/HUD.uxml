@@ -1,21 +1,22 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <ui:VisualElement name="Status" style="flex-grow: 0; width: 305px; flex-direction: row; position: absolute; height: 92px; margin-left: 40px; align-items: center;">
+    <Style src="project://database/Assets/UI/HUD.uss?fileID=7433441132597879392&amp;guid=a3c7572df3ba5884bbc6c3797f740fcc&amp;type=3#HUD"/>
+    <ui:VisualElement name="Status" style="flex-grow: 0; width: auto; flex-direction: row; position: absolute; height: 92px; margin-left: 40px; align-items: center;">
         <ui:Label text="ANGLE" name="Mode" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Black.ttf?fileID=12800000&amp;guid=1644c8f8a32e548498832b745a3602d0&amp;type=3#BarlowCondensed-Black&quot;); border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; border-top-left-radius: 2px; border-top-right-radius: 2px; border-bottom-right-radius: 2px; border-bottom-left-radius: 2px; border-left-color: rgb(255, 171, 0); border-right-color: rgb(255, 171, 0); border-top-color: rgb(255, 171, 0); border-bottom-color: rgb(255, 171, 0); color: rgb(255, 171, 0); background-color: rgba(0, 0, 0, 0.5); height: auto; margin-top: 0; margin-right: 8px; margin-bottom: 0; margin-left: 0; padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px; font-size: 18px;"/>
-        <ui:VisualElement name="Battery" style="flex-grow: 1;">
+        <ui:VisualElement name="Battery" style="flex-grow: 0;">
             <ui:Label text="15.7 V" name="BatteryLevelLabel" enable-rich-text="true" style="margin-top: 0; margin-right: 0; margin-bottom: 4px; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; color: rgb(0, 230, 118); -unity-font-definition: url(&quot;project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Black.ttf?fileID=12800000&amp;guid=1644c8f8a32e548498832b745a3602d0&amp;type=3#BarlowCondensed-Black&quot;);"/>
-            <ui:ProgressBar value="21.9" title="" name="BatteryLevelBar" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; color: rgb(0, 230, 118); background-color: rgb(0, 230, 118);"/>
+            <ui:ProgressBar value="50" title="" name="BatteryLevelBar" enabled="true" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; color: rgb(0, 230, 118); background-color: rgb(0, 230, 118); -unity-background-image-tint-color: rgb(7, 245, 4); height: auto; width: 100px;"/>
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="Telemetry" style="flex-grow: 0; position: absolute; height: 210px; width: auto; top: 870px; left: 0; flex-direction: row;">
-        <ui:VisualElement name="Speedometer" style="flex-grow: 0;">
-            <ui:Label text="SPD" name="Label" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;"/>
-            <ui:Label text="38" name="Speed" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;"/>
-            <ui:Label text="mph" name="Unit" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;"/>
+    <ui:VisualElement name="Telemetry" style="flex-grow: 0; position: absolute; height: 210px; width: auto; top: 870px; left: 0; flex-direction: row; margin-left: 40px; align-items: center;">
+        <ui:VisualElement name="Speedometer" style="flex-grow: 0; margin-right: 28px;">
+            <ui:Label text="SPD" name="Label" class="telemetry-font" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;"/>
+            <ui:Label text="38" name="Speed" class="telemetry-value-font" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;"/>
+            <ui:Label text="mph" name="Unit" class="telemetry-font" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;"/>
         </ui:VisualElement>
         <ui:VisualElement name="Altimeter" style="flex-grow: 0;">
-            <ui:Label text="ALT" name="Label" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;"/>
-            <ui:Label text="38" name="Altitude" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;"/>
-            <ui:Label text="ft&#10;" name="Unit" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;"/>
+            <ui:Label text="ALT" name="Label" class="telemetry-font" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;"/>
+            <ui:Label text="38" name="Altitude" class="telemetry-value-font" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;"/>
+            <ui:Label text="ft&#10;" name="Unit" class="telemetry-font" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;"/>
         </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="Controller" style="flex-grow: 0; justify-content: center; align-items: center; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-left-color: rgba(244, 244, 244, 0.08); border-right-color: rgba(244, 244, 244, 0.08); border-top-color: rgba(244, 244, 244, 0.08); border-bottom-color: rgba(244, 244, 244, 0.08); background-image: none; border-top-left-radius: 24px; border-top-right-radius: 24px; border-bottom-right-radius: 24px; border-bottom-left-radius: 24px; padding-top: 40px; padding-right: 40px; padding-bottom: 40px; padding-left: 40px; flex-direction: row; position: absolute; bottom: 0; top: auto; left: 0; right: 0;">
@@ -26,5 +27,7 @@
             <ui:VisualElement name="RightStick" style="flex-grow: 0; height: 20px; width: 20px; background-image: url(&quot;project://database/Assets/Images/Textures/Stick.svg?fileID=7388822144124034973&amp;guid=af6cc0eb15598d7489ad43eaeceacb63&amp;type=3#Stick&quot;); top: 50%; left: 50%; position: absolute; translate: -50% -50%;"/>
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="Cross" style="flex-grow: 1; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; border-top-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; border-bottom-left-radius: 0; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); color: rgb(255, 171, 0);"/>
+    <ui:VisualElement name="CrossCenterer" style="flex-grow: 1; align-self: center; justify-content: center;">
+        <ui:VisualElement name="Cross" style="flex-grow: 0; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; border-top-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; border-bottom-left-radius: 0; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); color: rgb(255, 171, 0); width: 130px; height: 130px; align-self: flex-end; justify-content: flex-start; align-content: flex-start; align-items: stretch; background-image: url(&quot;project://database/Assets/Images/Icons/cross.svg?fileID=7388822144124034973&amp;guid=be05ac1d9c647ea43b61549da059caa5&amp;type=3#cross&quot;);"/>
+    </ui:VisualElement>
 </ui:UXML>
