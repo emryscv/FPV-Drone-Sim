@@ -6,37 +6,21 @@ using UnityEngine.InputSystem.Controls;
 
 public class RCControllerManager : MonoBehaviour
 {
-    public class AxisInfo
-    {
-        public string path { get; set; }
-        public float min { get; set; }
-        public float center { get; set; }
-        public float max { get; set; }
-        public bool inverted { get; set; }
-
-        //Axis Discovery Variables
-        public int count { get; set; }
-        public float lastValue { get; set; }
-
-        public AxisInfo(string path, float min, float center, float max, bool inverted, int count, float lastValue)
-        {
-            this.path = path;
-            this.min = min;
-            this.center = center;
-            this.max = max;
-            this.inverted = inverted;
-            this.count = count;
-            this.lastValue = lastValue;
-
-        }
-    }
-
     public static RCControllerManager Instance { get; private set; }
 
     public InputDevice registeredDevice { get; private set; }
     private Dictionary<string, AxisInfo> _axesInfo;
-    public AxisInfo[] _axesInfoArray; //This one will contain the 4 needed axis only;
+    private AxisInfo[] _axesInfoArray; //This one will contain the 4 needed axis only;
+    
+    public AxisInfo _leftStickY { get; private set; }
+    public AxisInfo _leftStickX { get; private set; }
+    public AxisInfo _rightStickY { get; private set; }
+    public AxisInfo _rightStickX { get; private set; }
 
+    public AxisInfo _throttle { get; private set; }
+    public AxisInfo _yaw { get; private set; }
+    public AxisInfo _roll { get; private set; }
+    public AxisInfo _pitch { get; private set; }
 
     private void Awake()
     {
