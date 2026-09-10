@@ -8,6 +8,7 @@ public class MainMenuController : MonoBehaviour
     private UIDocument _uiManager;
     private VisualElement _MainMenu;
     private VisualElement _RCControllerMenu; 
+    private VisualElement _HUD; 
 
     private Button _startFlightNav;
     private Button _tutorialNav;
@@ -31,6 +32,7 @@ public class MainMenuController : MonoBehaviour
         _uiManager = GetComponent<UIDocument>();
         _MainMenu = _uiManager.rootVisualElement.Q<VisualElement>("MainMenu");
         _RCControllerMenu = _uiManager.rootVisualElement.Q<VisualElement>("RCControllerMenu");
+        _HUD = _uiManager.rootVisualElement.Q<VisualElement>("HUD");
 
         _startFlightNav        = _MainMenu.Q<Button>("StartFlightButton");
         _tutorialNav           = _MainMenu.Q<Button>("TutorialButton");
@@ -60,6 +62,7 @@ public class MainMenuController : MonoBehaviour
 
     private void OnDisable()
     {
+        _startFlightNav.UnregisterCallback<ClickEvent>(OnStartFlightBtnClick);
         _rcControllerNav.UnregisterCallback<ClickEvent>(OnRCControllerBtnClick);  
     } 
 
@@ -67,6 +70,7 @@ public class MainMenuController : MonoBehaviour
     {
         _MainMenu.visible = false;
         _RCControllerMenu.visible = false;
+        _HUD.visible = true;
     }
 
     private void OnRCControllerBtnClick(ClickEvent evt)
