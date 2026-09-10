@@ -1,4 +1,4 @@
-using System.Threading;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 using System.Collections.Generic;
@@ -35,6 +35,7 @@ public class RCControllerMenuController : MonoBehaviour
 
     //VARIABLES
     private bool _moveWithInput;
+    private bool _onInputDiscovery;
     private int[] _xPositions;
     private int[] _yPositions;
 
@@ -46,6 +47,8 @@ public class RCControllerMenuController : MonoBehaviour
         controls.RCController.Enable();
 
         _moveWithInput = true;
+        _onInputDiscovery = false;
+
         _xPositions = new int[4] { 0, 130, 130, 0 };
         _yPositions = new int[4] { 0, 0, 130, 130 };
 
@@ -108,9 +111,11 @@ public class RCControllerMenuController : MonoBehaviour
 
             _rightStick.style.left = roll * 65f + 65f;
             _rightStick.style.top = 65f - pitch * 65f;
-        }
+        }   
 
-        
+        if(_onInputDiscovery){
+            _physicalRCController.LogAllAxes();
+        }
     }
 
     private void OnDisable()
@@ -134,14 +139,8 @@ public class RCControllerMenuController : MonoBehaviour
 
     private void OnStartCalibrationBtnClick(ClickEvent evt)
     {
-        _moveWithInput = false;
-        _calibrationInstructionsHeading.text = "CALIBRATING! ... ";
-        _calibrationInstructionsDescription.text = "Move your controller sticks to mimic the movement on screen.";
-
-        SetTransition(_leftStick);
-        SetTransition(_rightStick);
-
-        StartCoroutine(GoAroundSequence());
+        StartCoroutine(CalibrationRoutine());
+       
 
         // _calibrationInstructionsHeading.text = "Left Stick";
         // _calibrationInstructionsDescription.text = "Move the left stick up to mimic the movement on screen.";
@@ -186,9 +185,19 @@ public class RCControllerMenuController : MonoBehaviour
         // _calibrationInstructionsDescription.text = "Center stick.";
     }
 
-    private IEnumerator GoAroundSequence()
+    private IEnumerator CalibrationRoutine()
     {
-        for (int j = 0; j < 4; j++)
+        _moveWithInput = false;
+        _calibrationInstructionsHeading.text = "CALIBRATING! ... ";
+        _calibrationInstructionsDescription.text = "Move your controller sticks to mimic the movement on screen.";
+
+        SetTransition(_leftStick, 0.5f, EasingMode.EaseInOut);
+        SetTransition(_rightStick, 0.5f, EasingMode.EaseInOut);
+
+
+        _onInputDiscovery = true;
+
+        for (int j = 0; j < 8; j++)
         {
             for (int i = 0; i < 4; i++)
             {
@@ -198,7 +207,7 @@ public class RCControllerMenuController : MonoBehaviour
                 _rightStick.style.left = _xPositions[i];
                 _rightStick.style.top = _yPositions[i];
 
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(0.25f);
             }
         }
 
@@ -207,6 +216,10 @@ public class RCControllerMenuController : MonoBehaviour
 
         _rightStick.style.left = 65f;
         _rightStick.style.top = 65f;
+        _onInputDiscovery = false;
+        _moveWithInput = true;
+    
+        _physicalRCController.PruneAxes();
 
         // yield return new WaitForSeconds(0.5f);
 
@@ -287,7 +300,7 @@ public class RCControllerMenuController : MonoBehaviour
         // _calibrationInstructionsDescription.text = "Center stick.";    
     }
 
-    private void SetTransition(VisualElement element)
+    private void SetTransition(VisualElement element, float duration, EasingMode easingMode)
     {
         element.style.transitionProperty = new List<StylePropertyName>
         {
@@ -297,14 +310,14 @@ public class RCControllerMenuController : MonoBehaviour
 
         element.style.transitionDuration = new List<TimeValue>
         {
-            new TimeValue(0.5f, TimeUnit.Second),
-            new TimeValue(0.5f, TimeUnit.Second)
+            new TimeValue(duration, TimeUnit.Second),
+            new TimeValue(duration, TimeUnit.Second)
         };
 
         element.style.transitionTimingFunction = new List<EasingFunction>
         {
-            new EasingFunction(EasingMode.EaseInOut),
-            new EasingFunction(EasingMode.EaseInOut)
+            new EasingFunction(easingMode),
+            new EasingFunction(easingMode)
         };
     }
 }

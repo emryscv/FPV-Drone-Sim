@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
@@ -33,8 +34,9 @@ public class RCControllerManager : MonoBehaviour
     public static RCControllerManager Instance { get; private set; }
 
     public InputDevice registeredDevice { get; private set; }
+    private Dictionary<string, AxisInfo> _axesInfo;
+    public AxisInfo[] _axesInfoArray; //This one will contain the 4 needed axis only;
 
-    private Dictionary<string, AxisInfo> axesInfo;
 
     private void Awake()
     {
@@ -42,7 +44,7 @@ public class RCControllerManager : MonoBehaviour
         else if (Instance != this) Destroy(gameObject);
         DontDestroyOnLoad(this);
 
-        axesInfo = new Dictionary<string, AxisInfo>();
+        _axesInfo = new Dictionary<string, AxisInfo>();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -77,39 +79,41 @@ public class RCControllerManager : MonoBehaviour
         }
     }
 
-    private void Update(){
-        LogAllAxes(registeredDevice);
-    }
-
     private bool IsRCController(InputDevice device)
     {
         return device is Joystick || device is Gamepad;
     }
 
+    public void PruneAxes(){
+        _axesInfoArray = _axesInfo.Values.ToArray();
+        _axesInfoArray = _axesInfoArray.OrderByDescending(a => a.count).ToArray();
+        _axesInfoArray = _axesInfoArray.Take(4).ToArray();
+    }
 
-    private void LogAllAxes(InputDevice device)
+    public void LogAllAxes()
     {
-
-        foreach (InputControl control in device.allControls)
+        foreach (InputControl control in registeredDevice.allControls)
         {
             if (control is not AxisControl axis) continue;
             if (axis.synthetic || axis.noisy) continue;
 
             float value = axis.ReadValue();
         
-            if (!axesInfo.ContainsKey(axis.path))
+            if (!_axesInfo.ContainsKey(axis.path))
             {
-                axesInfo[axis.path] = new AxisInfo(axis.path, value, 0f, value, false, 0, value);
+                _axesInfo[axis.path] = new AxisInfo(axis.path, value, 0f, value, false, 0, value);
             }
             else{
-                if(axesInfo[axis.path].lastValue != value)
+                if(_axesInfo[axis.path].lastValue != value)
                 {
-                    axesInfo[axis.path].lastValue = value;
-                    axesInfo[axis.path].count++;
-                    axesInfo[axis.path].min = Mathf.Min(axesInfo[axis.path].min, value);
-                    axesInfo[axis.path].max = Mathf.Max(axesInfo[axis.path].max, value);
+                    _axesInfo[axis.path].lastValue = value;
+                    _axesInfo[axis.path].count++;
+                    _axesInfo[axis.path].min = Mathf.Min(_axesInfo[axis.path].min, value);
+                    _axesInfo[axis.path].max = Mathf.Max(_axesInfo[axis.path].max, value);
                 }
             }
+
+            Debug.Log("Axis: " + axis.path + " Value: " + value + " Min: " + _axesInfo[axis.path].min + " Max: " + _axesInfo[axis.path].max + " Count: " + _axesInfo[axis.path].count);
         }
     }
 }
