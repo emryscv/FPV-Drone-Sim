@@ -7,6 +7,8 @@ using UnityEngine.InputSystem.Controls;
 
 public class RCControllerManager : MonoBehaviour
 {
+    private const float AXIS_DETECTION_THRESHOLD = 0.8f;
+
     public static RCControllerManager Instance { get; private set; }
 
     public InputDevice registeredDevice { get; private set; }
@@ -73,11 +75,25 @@ public class RCControllerManager : MonoBehaviour
 
     public void PruneAxes()
     {
+        if (_allAxesInfo == null || _allAxesInfo.Count == 0)
+        {
+            _axesInfo = new AxisInfo[0];
+            return;
+        }
+
         _axesInfo = _allAxesInfo.OrderByDescending(a => a.count).Take(4).ToArray();
     }
 
     public void FindAllAxes()
     {
+        if (registeredDevice == null)
+        {
+            Debug.LogWarning("No registered controller found while discovering axes.");
+            return;
+        }
+
+        _allAxesInfo.Clear();
+
         foreach (InputControl control in registeredDevice.allControls)
         {
             if (control is not AxisControl axis) continue;
@@ -104,27 +120,36 @@ public class RCControllerManager : MonoBehaviour
             Debug.Log("Axis: " + axisInfo.axis.path + " Value: " + value + " Min: " + axisInfo.min + " Max: " + axisInfo.max + " Count: " + axisInfo.count);
         }
     }
-    public void ReadAxis()
+
+    public bool TryReadAxis(float threshold = AXIS_DETECTION_THRESHOLD)
     {
-        while (true)
+        if (_axesInfo == null || _axesInfo.Length == 0)
         {
-            foreach (AxisInfo axisInfo in _axesInfo)
+            return false;
+        }
+
+        foreach (AxisInfo axisInfo in _axesInfo)
+        {
+            float value = axisInfo.axis.ReadValue();
+            Debug.Log("Read Axis: " + axisInfo.axis.path + " Value: " + value);
+
+            if (Mathf.Abs(value) >= threshold)
             {
-                float value = axisInfo.axis.ReadValue();
-                if (value == 1 || value == -1)
-                {
-                    _tempDetectedAxis = axisInfo;
-                    Debug.Log("Axis: " + axisInfo.axis.path + " Value: " + value);
-                    return;
-                }
+                _tempDetectedAxis = axisInfo;
+                Debug.Log("Found Axis: " + axisInfo.axis.path + " Value: " + value);
+                return true;
             }
         }
+
+        return false;
     }
 
     public void SetLeftStickY(){
         if (_tempDetectedAxis != null){
             _leftStickY = _tempDetectedAxis;
         }
+
+        Debug.Log("El animaah");
     }
 
     public void SetLeftStickX(){

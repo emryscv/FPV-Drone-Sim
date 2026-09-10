@@ -6,6 +6,8 @@ using System.Collections;
 
 public class RCControllerMenuController : MonoBehaviour
 {
+    private const float AXIS_DETECTION_TIMEOUT_SECONDS = 10f;
+
 
     //CONSTANTS
     private Color GREEN = new Color(0.2980392f, 0.6705883f, 0.2117647f);
@@ -166,7 +168,7 @@ public class RCControllerMenuController : MonoBehaviour
                 _rightStick.style.left = _xPositions[i];
                 _rightStick.style.top = _yPositions[i];
 
-                yield return new WaitForSeconds(0.25f);
+                yield return new WaitForSecondsRealtime(0.25f);
             }
         }
 
@@ -177,96 +179,126 @@ public class RCControllerMenuController : MonoBehaviour
         _rightStick.style.top = 65f;
         _onInputDiscovery = false;
 
+        Debug.Log("El animaah1.0");
+        Debug.Log("Pruning axes...");
         _physicalRCController.PruneAxes();
+        Debug.Log("Axes pruned.");
+        Debug.Log("Waiting for 1 second before starting left stick calibration...");
+        yield return new WaitForSecondsRealtime(1f);
+        Debug.Log("Starting left stick calibration...");
 
-         _calibrationInstructionsHeading.text = "Left Stick";
+        _calibrationInstructionsHeading.text = "Left Stick";
         _calibrationInstructionsDescription.text = "Move the left stick up to mimic the movement on screen.";
         _leftStick.style.left = 130;
-
-        _physicalRCController.ReadAxis();
+        Debug.Log("El animaah1.5");
+        Debug.Log("Reading axis for left stick Y...");
+        yield return WaitForAxisDetection();
         _physicalRCController.SetLeftStickY();
 
         _calibrationInstructionsDescription.text = "Center stick";
         _leftStick.style.left = 65;
+        
+        Debug.Log("El animaah2.0");
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(1f);
 
+        Debug.Log("El animaah3.0");
         _calibrationInstructionsDescription.text = "Move the left stick to the right to mimic the movement on screen.";
         _leftStick.style.top = 0;
 
-        _physicalRCController.ReadAxis();
+        Debug.Log("El animaah3.5");
+        yield return WaitForAxisDetection();
         _physicalRCController.SetLeftStickX();
+
 
         _calibrationInstructionsDescription.text = "Center stick";
         _leftStick.style.top = 65;
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(1f);
 
         _calibrationInstructionsHeading.text = "Right Stick";
         _calibrationInstructionsDescription.text = "Move the right stick up to mimic the movement on screen.";
         _rightStick.style.left = 130;
 
-        _physicalRCController.ReadAxis();
+        yield return WaitForAxisDetection();
         _physicalRCController.SetRightStickY();
 
         _calibrationInstructionsDescription.text = "Center stick";
         _rightStick.style.left = 65;
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(1f);
 
         _calibrationInstructionsDescription.text = "Move the right stick to the right to mimic the movement on screen.";
         _rightStick.style.top = 0;
 
-        _physicalRCController.ReadAxis();
+        yield return WaitForAxisDetection();
         _physicalRCController.SetRightStickX();
 
         _calibrationInstructionsDescription.text = "Center stick";
         _rightStick.style.top = 65;
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(1f);
 
         _calibrationInstructionsHeading.text = "Roll";
         _calibrationInstructionsDescription.text = "Move the roll stick to the right.";
 
-        _physicalRCController.ReadAxis();
+        yield return WaitForAxisDetection();
         _physicalRCController.SetRoll();
 
         _calibrationInstructionsDescription.text = "Center stick.";
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(1f);
 
         _calibrationInstructionsHeading.text = "Pitch";
         _calibrationInstructionsDescription.text = "Move the pitch stick up.";
 
-        _physicalRCController.ReadAxis();
+        yield return WaitForAxisDetection();
         _physicalRCController.SetPitch();
 
         _calibrationInstructionsDescription.text = "Center stick.";
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(1f);
 
         _calibrationInstructionsHeading.text = "Yaw";
         _calibrationInstructionsDescription.text = "Move the yaw stick to the right.";
 
-        _physicalRCController.ReadAxis();
+        yield return WaitForAxisDetection();
         _physicalRCController.SetYaw();
 
         _calibrationInstructionsDescription.text = "Center stick.";
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(1f);
 
         _calibrationInstructionsHeading.text = "Throttle";
         _calibrationInstructionsDescription.text = "Move the Throttle stick up.";
 
-        _physicalRCController.ReadAxis();
+        yield return WaitForAxisDetection();
         _physicalRCController.SetThrottle();
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(1f);
 
         _calibrationInstructionsDescription.text = "Center stick.";
 
         _moveWithInput = true;
 
+    }
+
+    private IEnumerator WaitForAxisDetection()
+    {
+        float elapsed = 0f;
+
+        while (elapsed < AXIS_DETECTION_TIMEOUT_SECONDS)
+        {
+            if (_physicalRCController.TryReadAxis())
+            {
+                yield break;
+            }
+
+            elapsed += Time.unscaledDeltaTime;
+            yield return null;
+        }
+
+        Debug.LogWarning("Timed out while waiting for axis movement during calibration.");
     }
 
     private void SetTransition(VisualElement element, float duration, EasingMode easingMode)
