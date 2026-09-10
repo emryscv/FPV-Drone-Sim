@@ -111,10 +111,11 @@ public class RCControllerMenuController : MonoBehaviour
 
             _rightStick.style.left = roll * 65f + 65f;
             _rightStick.style.top = 65f - pitch * 65f;
-        }   
+        }
 
-        if(_onInputDiscovery){
-            _physicalRCController.LogAllAxes();
+        if (_onInputDiscovery)
+        {
+            _physicalRCController.ReadAllAxes();
         }
     }
 
@@ -140,60 +141,18 @@ public class RCControllerMenuController : MonoBehaviour
     private void OnStartCalibrationBtnClick(ClickEvent evt)
     {
         StartCoroutine(CalibrationRoutine());
-       
-
-        // _calibrationInstructionsHeading.text = "Left Stick";
-        // _calibrationInstructionsDescription.text = "Move the left stick up to mimic the movement on screen.";
-        // _leftStick.style.left = 130;
-
-        // _calibrationInstructionsDescription.text = "Center stick";
-        // _leftStick.style.left = 65;
-
-        // _calibrationInstructionsDescription.text = "Move the left stick to the right to mimic the movement on screen.";
-        // _leftStick.style.top = 0;
-
-        // _calibrationInstructionsDescription.text = "Center stick";
-        // _leftStick.style.top = 65;
-
-        // _calibrationInstructionsHeading.text = "Right Stick";
-        // _calibrationInstructionsDescription.text = "Move the right stick up to mimic the movement on screen.";
-        // _rightStick.style.left = 130;
-
-        // _calibrationInstructionsDescription.text = "Center stick";
-        // _rightStick.style.left = 65;
-
-        // _calibrationInstructionsDescription.text = "Move the right stick to the right to mimic the movement on screen.";
-        // _rightStick.style.top = 0;
-
-        // _calibrationInstructionsDescription.text = "Center stick";
-        // _rightStick.style.top = 65;
-
-        // _calibrationInstructionsHeading.text = "Roll";
-        // _calibrationInstructionsDescription.text = "Move the roll stick to the right.";
-        // _calibrationInstructionsDescription.text = "Center stick.";
-        
-        // _calibrationInstructionsHeading.text = "Pitch";
-        // _calibrationInstructionsDescription.text = "Move the pitch stick up.";
-        // _calibrationInstructionsDescription.text = "Center stick.";
-
-        // _calibrationInstructionsHeading.text = "Yaw";
-        // _calibrationInstructionsDescription.text = "Move the yaw stick to the right.";
-        // _calibrationInstructionsDescription.text = "Center stick.";
-    
-        // _calibrationInstructionsHeading.text = "Throttle";
-        // _calibrationInstructionsDescription.text = "Move the Throttle stick up.";
-        // _calibrationInstructionsDescription.text = "Center stick.";
     }
 
     private IEnumerator CalibrationRoutine()
     {
+        _physicalRCController.FindAllAxes();
+
         _moveWithInput = false;
         _calibrationInstructionsHeading.text = "CALIBRATING! ... ";
         _calibrationInstructionsDescription.text = "Move your controller sticks to mimic the movement on screen.";
 
         SetTransition(_leftStick, 0.5f, EasingMode.EaseInOut);
         SetTransition(_rightStick, 0.5f, EasingMode.EaseInOut);
-
 
         _onInputDiscovery = true;
 
@@ -217,87 +176,97 @@ public class RCControllerMenuController : MonoBehaviour
         _rightStick.style.left = 65f;
         _rightStick.style.top = 65f;
         _onInputDiscovery = false;
-        _moveWithInput = true;
-    
+
         _physicalRCController.PruneAxes();
 
-        // yield return new WaitForSeconds(0.5f);
+         _calibrationInstructionsHeading.text = "Left Stick";
+        _calibrationInstructionsDescription.text = "Move the left stick up to mimic the movement on screen.";
+        _leftStick.style.left = 130;
 
-        // _calibrationInstructionsHeading.text = "Left Stick";
-        // _calibrationInstructionsDescription.text = "Move the left stick up to mimic the movement on screen.";
-        // _leftStick.style.left = 130;
+        _physicalRCController.ReadAxis();
+        _physicalRCController.SetLeftStickY();
 
-        // yield return new WaitForSeconds(1f);
+        _calibrationInstructionsDescription.text = "Center stick";
+        _leftStick.style.left = 65;
 
-        // _calibrationInstructionsDescription.text = "Center stick";
-        // _leftStick.style.left = 65;
+        yield return new WaitForSeconds(1f);
 
-        // yield return new WaitForSeconds(1f);
+        _calibrationInstructionsDescription.text = "Move the left stick to the right to mimic the movement on screen.";
+        _leftStick.style.top = 0;
 
-        // _calibrationInstructionsDescription.text = "Move the left stick to the right to mimic the movement on screen.";
-        // _leftStick.style.top = 0;
+        _physicalRCController.ReadAxis();
+        _physicalRCController.SetLeftStickX();
 
-        // yield return new WaitForSeconds(1f);
+        _calibrationInstructionsDescription.text = "Center stick";
+        _leftStick.style.top = 65;
 
-        // _calibrationInstructionsDescription.text = "Center stick";
-        // _leftStick.style.top = 65;
+        yield return new WaitForSeconds(1f);
 
-        // yield return new WaitForSeconds(1f);
+        _calibrationInstructionsHeading.text = "Right Stick";
+        _calibrationInstructionsDescription.text = "Move the right stick up to mimic the movement on screen.";
+        _rightStick.style.left = 130;
 
-        // _calibrationInstructionsHeading.text = "Right Stick";
-        // _calibrationInstructionsDescription.text = "Move the right stick up to mimic the movement on screen.";
-        // _rightStick.style.left = 130;
+        _physicalRCController.ReadAxis();
+        _physicalRCController.SetRightStickY();
 
-        // yield return new WaitForSeconds(1f);
+        _calibrationInstructionsDescription.text = "Center stick";
+        _rightStick.style.left = 65;
 
-        // _calibrationInstructionsDescription.text = "Center stick";
-        // _rightStick.style.left = 65;
+        yield return new WaitForSeconds(1f);
 
-        // yield return new WaitForSeconds(1f);
+        _calibrationInstructionsDescription.text = "Move the right stick to the right to mimic the movement on screen.";
+        _rightStick.style.top = 0;
 
-        // _calibrationInstructionsDescription.text = "Move the right stick to the right to mimic the movement on screen.";
-        // _rightStick.style.top = 0;
+        _physicalRCController.ReadAxis();
+        _physicalRCController.SetRightStickX();
 
-        // yield return new WaitForSeconds(1f);
+        _calibrationInstructionsDescription.text = "Center stick";
+        _rightStick.style.top = 65;
 
-        // _calibrationInstructionsDescription.text = "Center stick";
-        // _rightStick.style.top = 65;
+        yield return new WaitForSeconds(1f);
 
-        // yield return new WaitForSeconds(1f);
+        _calibrationInstructionsHeading.text = "Roll";
+        _calibrationInstructionsDescription.text = "Move the roll stick to the right.";
 
-        // _calibrationInstructionsHeading.text = "Roll";
-        // _calibrationInstructionsDescription.text = "Move the roll stick to the right.";
-        
-        // yield return new WaitForSeconds(1f);
+        _physicalRCController.ReadAxis();
+        _physicalRCController.SetRoll();
 
-        // _calibrationInstructionsDescription.text = "Center stick.";
-        
-        // yield return new WaitForSeconds(1f);
+        _calibrationInstructionsDescription.text = "Center stick.";
 
-        // _calibrationInstructionsHeading.text = "Pitch";
-        // _calibrationInstructionsDescription.text = "Move the pitch stick up.";
-        
-        // yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1f);
 
-        // _calibrationInstructionsDescription.text = "Center stick.";
+        _calibrationInstructionsHeading.text = "Pitch";
+        _calibrationInstructionsDescription.text = "Move the pitch stick up.";
 
-        // yield return new WaitForSeconds(1f);
+        _physicalRCController.ReadAxis();
+        _physicalRCController.SetPitch();
 
-        // _calibrationInstructionsHeading.text = "Yaw";
-        // _calibrationInstructionsDescription.text = "Move the yaw stick to the right.";
-        
-        // yield return new WaitForSeconds(1f);
-        
-        // _calibrationInstructionsDescription.text = "Center stick.";
+        _calibrationInstructionsDescription.text = "Center stick.";
 
-        // yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1f);
 
-        // _calibrationInstructionsHeading.text = "Throttle";
-        // _calibrationInstructionsDescription.text = "Move the Throttle stick up.";
-        
-        // yield return new WaitForSeconds(1f);
+        _calibrationInstructionsHeading.text = "Yaw";
+        _calibrationInstructionsDescription.text = "Move the yaw stick to the right.";
 
-        // _calibrationInstructionsDescription.text = "Center stick.";    
+        _physicalRCController.ReadAxis();
+        _physicalRCController.SetYaw();
+
+        _calibrationInstructionsDescription.text = "Center stick.";
+
+        yield return new WaitForSeconds(1f);
+
+        _calibrationInstructionsHeading.text = "Throttle";
+        _calibrationInstructionsDescription.text = "Move the Throttle stick up.";
+
+        _physicalRCController.ReadAxis();
+        _physicalRCController.SetThrottle();
+
+        yield return new WaitForSeconds(1f);
+
+        _calibrationInstructionsDescription.text = "Center stick.";
+
+        _moveWithInput = true;
+
     }
 
     private void SetTransition(VisualElement element, float duration, EasingMode easingMode)

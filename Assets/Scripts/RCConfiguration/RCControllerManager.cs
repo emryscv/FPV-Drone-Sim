@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -9,9 +10,11 @@ public class RCControllerManager : MonoBehaviour
     public static RCControllerManager Instance { get; private set; }
 
     public InputDevice registeredDevice { get; private set; }
-    private Dictionary<string, AxisInfo> _axesInfo;
-    private AxisInfo[] _axesInfoArray; //This one will contain the 4 needed axis only;
-    
+
+    private List<AxisInfo> _allAxesInfo;
+    private AxisInfo[] _axesInfo; //This one will contain the 4 needed axis only;
+    private AxisInfo _tempDetectedAxis;
+
     public AxisInfo _leftStickY { get; private set; }
     public AxisInfo _leftStickX { get; private set; }
     public AxisInfo _rightStickY { get; private set; }
@@ -28,7 +31,7 @@ public class RCControllerManager : MonoBehaviour
         else if (Instance != this) Destroy(gameObject);
         DontDestroyOnLoad(this);
 
-        _axesInfo = new Dictionary<string, AxisInfo>();
+        _allAxesInfo = new List<AxisInfo>();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -68,13 +71,12 @@ public class RCControllerManager : MonoBehaviour
         return device is Joystick || device is Gamepad;
     }
 
-    public void PruneAxes(){
-        _axesInfoArray = _axesInfo.Values.ToArray();
-        _axesInfoArray = _axesInfoArray.OrderByDescending(a => a.count).ToArray();
-        _axesInfoArray = _axesInfoArray.Take(4).ToArray();
+    public void PruneAxes()
+    {
+        _axesInfo = _allAxesInfo.OrderByDescending(a => a.count).Take(4).ToArray();
     }
 
-    public void LogAllAxes()
+    public void FindAllAxes()
     {
         foreach (InputControl control in registeredDevice.allControls)
         {
@@ -82,22 +84,102 @@ public class RCControllerManager : MonoBehaviour
             if (axis.synthetic || axis.noisy) continue;
 
             float value = axis.ReadValue();
-        
-            if (!_axesInfo.ContainsKey(axis.path))
-            {
-                _axesInfo[axis.path] = new AxisInfo(axis.path, value, 0f, value, false, 0, value);
-            }
-            else{
-                if(_axesInfo[axis.path].lastValue != value)
-                {
-                    _axesInfo[axis.path].lastValue = value;
-                    _axesInfo[axis.path].count++;
-                    _axesInfo[axis.path].min = Mathf.Min(_axesInfo[axis.path].min, value);
-                    _axesInfo[axis.path].max = Mathf.Max(_axesInfo[axis.path].max, value);
-                }
-            }
-
-            Debug.Log("Axis: " + axis.path + " Value: " + value + " Min: " + _axesInfo[axis.path].min + " Max: " + _axesInfo[axis.path].max + " Count: " + _axesInfo[axis.path].count);
+            _allAxesInfo.Add(new AxisInfo(axis.path, value, 0f, value, false, 0, value, axis));
         }
     }
+
+    public void ReadAllAxes()
+    {
+        foreach (AxisInfo axisInfo in _allAxesInfo)
+        {
+            float value = axisInfo.axis.ReadValue();
+
+            if (axisInfo.lastValue != value)
+            {
+                axisInfo.lastValue = value;
+                axisInfo.count++;
+                axisInfo.min = Mathf.Min(axisInfo.min, value);
+                axisInfo.max = Mathf.Max(axisInfo.max, value);
+            }
+            Debug.Log("Axis: " + axisInfo.axis.path + " Value: " + value + " Min: " + axisInfo.min + " Max: " + axisInfo.max + " Count: " + axisInfo.count);
+        }
+    }
+    public void ReadAxis()
+    {
+        while (true)
+        {
+            foreach (AxisInfo axisInfo in _axesInfo)
+            {
+                float value = axisInfo.axis.ReadValue();
+                if (value == 1 || value == -1)
+                {
+                    _tempDetectedAxis = axisInfo;
+                    Debug.Log("Axis: " + axisInfo.axis.path + " Value: " + value);
+                    return;
+                }
+            }
+        }
+    }
+
+    public void SetLeftStickY(){
+        if (_tempDetectedAxis != null){
+            _leftStickY = _tempDetectedAxis;
+        }
+    }
+
+    public void SetLeftStickX(){
+        if (_tempDetectedAxis != null){
+            _leftStickX = _tempDetectedAxis;
+        }
+    }
+
+    public void SetRightStickY(){
+        if (_tempDetectedAxis != null){
+            _rightStickY = _tempDetectedAxis;
+        }
+    }
+
+    public void SetRightStickX(){
+        if (_tempDetectedAxis != null){
+            _rightStickX = _tempDetectedAxis;
+        }
+    }
+
+    public void SetThrottle(){
+        if (_tempDetectedAxis != null){
+            _throttle = _tempDetectedAxis;
+        }
+    }
+
+    public void SetYaw(){
+        if (_tempDetectedAxis != null){
+            _yaw = _tempDetectedAxis;
+        }
+    }
+
+    public void SetPitch(){
+        if (_tempDetectedAxis != null){
+            _pitch = _tempDetectedAxis;
+        }
+    }
+
+    public void SetRoll(){
+        if (_tempDetectedAxis != null){
+            _roll = _tempDetectedAxis;
+        }
+    }
+
+    public void PrintDebug(){
+        Debug.Log("!!!!!!!!!!!DEBUG START!!!!!!!!!!!");
+        Debug.Log("Left Stick Y: " + (_leftStickY != null ? _leftStickY.axis.path : "Not assigned"));
+        Debug.Log("Left Stick X: " + (_leftStickX != null ? _leftStickX.axis.path : "Not assigned"));
+        Debug.Log("Right Stick Y: " + (_rightStickY != null ? _rightStickY.axis.path : "Not assigned"));
+        Debug.Log("Right Stick X: " + (_rightStickX != null ? _rightStickX.axis.path : "Not assigned"));
+        Debug.Log("Throttle: " + (_throttle != null ? _throttle.axis.path : "Not assigned"));
+        Debug.Log("Yaw: " + (_yaw != null ? _yaw.axis.path : "Not assigned"));
+        Debug.Log("Pitch: " + (_pitch != null ? _pitch.axis.path : "Not assigned"));
+        Debug.Log("Roll: " + (_roll != null ? _roll.axis.path : "Not assigned"));
+    }
 }
+
+
