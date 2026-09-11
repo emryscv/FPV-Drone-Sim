@@ -8,7 +8,6 @@ public class RCControllerMenuController : MonoBehaviour
 {
     private const float AXIS_DETECTION_TIMEOUT_SECONDS = 10f;
 
-
     //CONSTANTS
     private Color GREEN = new Color(0.2980392f, 0.6705883f, 0.2117647f);
     private Color RED = new Color(0.4039216f, 0.1019608f, 0.08627451f);
@@ -50,9 +49,10 @@ public class RCControllerMenuController : MonoBehaviour
 
         _moveWithInput = true;
         _onInputDiscovery = false;
+        _isCalibrated = false;
 
-        _xPositions = new int[4] { 0, 130, 130, 0 };
-        _yPositions = new int[4] { 0, 0, 130, 130 };
+        _xPositions = new int[] { 0, 130, 130, 0 };
+        _yPositions = new int[] { 0, 0, 130, 130 };
 
     }
 
@@ -101,11 +101,11 @@ public class RCControllerMenuController : MonoBehaviour
         }
 
         if (_moveWithInput)
-        {
-            float throttle = controls.RCController.Throttle.ReadValue<float>();
-            float yaw = controls.RCController.Yaw.ReadValue<float>();
-            float pitch = controls.RCController.Pitch.ReadValue<float>();
-            float roll = controls.RCController.Roll.ReadValue<float>();
+        { 
+            float throttle = _physicalRCController._throttle.axis.ReadValue();
+            float yaw = _physicalRCController._yaw.axis.ReadValue();
+            float pitch = _physicalRCController._pitch.axis.ReadValue();
+            float roll = _physicalRCController._roll.axis.ReadValue();
 
             //This equation is fixed to the size of the parent componenet. If the size change this has to change
             _leftStick.style.left = yaw * 65f + 65f;
@@ -136,8 +136,7 @@ public class RCControllerMenuController : MonoBehaviour
 
     private void OnSaveBtnClick(ClickEvent evt)
     {
-        _MainMenu.visible = true;
-        _RCControllerMenu.visible = false;
+        _physicalRCController.SaveCalibration();
     }
 
     private void OnStartCalibrationBtnClick(ClickEvent evt)
@@ -179,37 +178,27 @@ public class RCControllerMenuController : MonoBehaviour
         _rightStick.style.top = 65f;
         _onInputDiscovery = false;
 
-        Debug.Log("El animaah1.0");
-        Debug.Log("Pruning axes...");
         _physicalRCController.PruneAxes();
-        Debug.Log("Axes pruned.");
-        Debug.Log("Waiting for 1 second before starting left stick calibration...");
+
         yield return new WaitForSecondsRealtime(1f);
-        Debug.Log("Starting left stick calibration...");
 
         _calibrationInstructionsHeading.text = "Left Stick";
         _calibrationInstructionsDescription.text = "Move the left stick up to mimic the movement on screen.";
         _leftStick.style.left = 130;
-        Debug.Log("El animaah1.5");
-        Debug.Log("Reading axis for left stick Y...");
+
         yield return WaitForAxisDetection();
         _physicalRCController.SetLeftStickY();
 
         _calibrationInstructionsDescription.text = "Center stick";
         _leftStick.style.left = 65;
-        
-        Debug.Log("El animaah2.0");
 
         yield return new WaitForSecondsRealtime(1f);
 
-        Debug.Log("El animaah3.0");
         _calibrationInstructionsDescription.text = "Move the left stick to the right to mimic the movement on screen.";
         _leftStick.style.top = 0;
 
-        Debug.Log("El animaah3.5");
         yield return WaitForAxisDetection();
         _physicalRCController.SetLeftStickX();
-
 
         _calibrationInstructionsDescription.text = "Center stick";
         _leftStick.style.top = 65;
@@ -280,7 +269,12 @@ public class RCControllerMenuController : MonoBehaviour
         _calibrationInstructionsDescription.text = "Center stick.";
 
         _moveWithInput = true;
+        _isCalibrated = true;
 
+        SetTransition(_leftStick, 0f, EasingMode.Linear);
+        SetTransition(_rightStick, 0f, EasingMode.Linear);
+
+        _physicalRCController.PrintDebug();
     }
 
     private IEnumerator WaitForAxisDetection()

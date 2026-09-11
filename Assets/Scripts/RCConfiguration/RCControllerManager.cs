@@ -34,6 +34,8 @@ public class RCControllerManager : MonoBehaviour
         DontDestroyOnLoad(this);
 
         _allAxesInfo = new List<AxisInfo>();
+
+        LoadCalibration();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -144,57 +146,74 @@ public class RCControllerManager : MonoBehaviour
         return false;
     }
 
-    public void SetLeftStickY(){
-        if (_tempDetectedAxis != null){
+    public void SetLeftStickY()
+    {
+        if (_tempDetectedAxis != null)
+        {
             _leftStickY = _tempDetectedAxis;
         }
 
         Debug.Log("El animaah");
     }
 
-    public void SetLeftStickX(){
-        if (_tempDetectedAxis != null){
+    public void SetLeftStickX()
+    {
+        if (_tempDetectedAxis != null)
+        {
             _leftStickX = _tempDetectedAxis;
         }
     }
 
-    public void SetRightStickY(){
-        if (_tempDetectedAxis != null){
+    public void SetRightStickY()
+    {
+        if (_tempDetectedAxis != null)
+        {
             _rightStickY = _tempDetectedAxis;
         }
     }
 
-    public void SetRightStickX(){
-        if (_tempDetectedAxis != null){
+    public void SetRightStickX()
+    {
+        if (_tempDetectedAxis != null)
+        {
             _rightStickX = _tempDetectedAxis;
         }
     }
 
-    public void SetThrottle(){
-        if (_tempDetectedAxis != null){
+    public void SetThrottle()
+    {
+        if (_tempDetectedAxis != null)
+        {
             _throttle = _tempDetectedAxis;
         }
     }
 
-    public void SetYaw(){
-        if (_tempDetectedAxis != null){
+    public void SetYaw()
+    {
+        if (_tempDetectedAxis != null)
+        {
             _yaw = _tempDetectedAxis;
         }
     }
 
-    public void SetPitch(){
-        if (_tempDetectedAxis != null){
+    public void SetPitch()
+    {
+        if (_tempDetectedAxis != null)
+        {
             _pitch = _tempDetectedAxis;
         }
     }
 
-    public void SetRoll(){
-        if (_tempDetectedAxis != null){
+    public void SetRoll()
+    {
+        if (_tempDetectedAxis != null)
+        {
             _roll = _tempDetectedAxis;
         }
     }
 
-    public void PrintDebug(){
+    public void PrintDebug()
+    {
         Debug.Log("!!!!!!!!!!!DEBUG START!!!!!!!!!!!");
         Debug.Log("Left Stick Y: " + (_leftStickY != null ? _leftStickY.axis.path : "Not assigned"));
         Debug.Log("Left Stick X: " + (_leftStickX != null ? _leftStickX.axis.path : "Not assigned"));
@@ -204,6 +223,34 @@ public class RCControllerManager : MonoBehaviour
         Debug.Log("Yaw: " + (_yaw != null ? _yaw.axis.path : "Not assigned"));
         Debug.Log("Pitch: " + (_pitch != null ? _pitch.axis.path : "Not assigned"));
         Debug.Log("Roll: " + (_roll != null ? _roll.axis.path : "Not assigned"));
+    }
+
+    public void SaveCalibration()
+    {
+        var calibration = new RCControllerCalibration
+        {
+            leftStickYPath = _leftStickY?.axis.path ?? "",
+            leftStickXPath = _leftStickX?.axis.path ?? "",
+            rightStickYPath = _rightStickY?.axis.path ?? "",
+            rightStickXPath = _rightStickX?.axis.path ?? "",
+            throttlePath = _throttle?.axis.path ?? "",
+            yawPath = _yaw?.axis.path ?? "",
+            pitchPath = _pitch?.axis.path ?? "",
+            rollPath = _roll?.axis.path ?? ""
+        };
+
+        string path = Application.persistentDataPath + "/rc_calibration.json";
+        string json = JsonUtility.ToJson(calibration);
+        File.WriteAllText(path, json);
+    }
+
+    private void LoadCalibration()
+    {
+        string path = Application.persistentDataPath + "/rc_calibration.json";
+        if (!File.Exists(path)) return;
+
+        string json = File.ReadAllText(path);
+        var calibration = JsonUtility.FromJson<RCControllerCalibration>(json);
     }
 }
 
