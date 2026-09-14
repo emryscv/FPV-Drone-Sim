@@ -3,10 +3,17 @@ using UnityEngine.UIElements;
 
 public class HUDManager : MonoBehaviour
 {
+
+    [SerializeField] private Rigidbody _rb;
+
     private Controls controls;
 
     private UIDocument _uiManager;
     private VisualElement _HUD;
+
+    private Label _speed;
+    private Label _altitude;
+
     private VisualElement _leftStick;
     private VisualElement _rightStick;
 
@@ -19,7 +26,7 @@ public class HUDManager : MonoBehaviour
 
     private void OnEnable()
     {
-        
+
         _uiManager = GetComponent<UIDocument>();
         _HUD = _uiManager.rootVisualElement.Q<VisualElement>("HUD");
 
@@ -27,7 +34,11 @@ public class HUDManager : MonoBehaviour
         _rightStick = _HUD.Q<VisualElement>("RightStick");
 
         Debug.Log("HUD Initialized");
-        Debug.Log("Left Stick: " + _leftStick);
+        _speed = _HUD.Q<Label>("Speed");
+        _altitude = _HUD.Q<Label>("Altitude");
+
+        Debug.Log("Speed: " + _speed);
+        Debug.Log("Altitude: " + _altitude);
     }
     // Update is called once per frame
     void Update()
@@ -43,5 +54,11 @@ public class HUDManager : MonoBehaviour
 
         _rightStick.style.left = roll * 65f + 65f;
         _rightStick.style.top = 65f - pitch * 65f;
+
+        float altitude = _rb.transform.position.y * 3.281f; //ft
+        float speed = _rb.linearVelocity.magnitude * 2.237f; //mph
+
+        _speed.text = speed.ToString("F2");
+        _altitude.text = altitude.ToString("F2");
     }
 }
