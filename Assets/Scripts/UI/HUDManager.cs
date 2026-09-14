@@ -6,7 +6,7 @@ public class HUDManager : MonoBehaviour
 
     [SerializeField] private Rigidbody _rb;
 
-    private Controls controls;
+    private RCControllerManager controls;
 
     private UIDocument _uiManager;
     private VisualElement _HUD;
@@ -20,8 +20,7 @@ public class HUDManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
-        controls = new Controls();
-        controls.RCController.Enable();
+        controls = RCControllerManager.Instance;
     }
 
     private void OnEnable()
@@ -43,10 +42,10 @@ public class HUDManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float throttle = controls.RCController.Throttle.ReadValue<float>();
-        float yaw = controls.RCController.Yaw.ReadValue<float>();
-        float pitch = controls.RCController.Pitch.ReadValue<float>();
-        float roll = controls.RCController.Roll.ReadValue<float>();
+        float throttle = controls.Throttle.axis.ReadValue();
+        float yaw = controls.Yaw.axis.ReadValue();
+        float pitch = controls.Pitch.axis.ReadValue();
+        float roll = controls.Roll.axis.ReadValue();
 
         //This equation is fixed to the size of the parent componenet. If the size change this has to change
         _leftStick.style.left = yaw * 65f + 65f;

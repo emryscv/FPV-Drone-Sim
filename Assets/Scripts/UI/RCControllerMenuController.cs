@@ -13,8 +13,7 @@ public class RCControllerMenuController : MonoBehaviour
     private Color RED = new Color(0.4039216f, 0.1019608f, 0.08627451f);
 
     //INPUT SOURCES
-    private RCControllerManager _physicalRCController;
-    private Controls controls;
+    private RCControllerManager controls;
 
     //UI HANDLERS
     private UIDocument _uiManager;
@@ -53,7 +52,7 @@ public class RCControllerMenuController : MonoBehaviour
 
     private void OnEnable()
     {
-        _physicalRCController = RCControllerManager.Instance; //TODO I might not need this and jsut use the Controls Class
+        controls = RCControllerManager.Instance; //TODO I might not need this and jsut use the Controls Class
 
         _uiManager = GetComponent<UIDocument>();
         _MainMenu = _uiManager.rootVisualElement.Q<VisualElement>("MainMenu");
@@ -82,9 +81,9 @@ public class RCControllerMenuController : MonoBehaviour
     private void Update()
     {
         //TODO I might not need this and just use the controls class
-        if (_physicalRCController.registeredDevice != null)
+        if (controls.registeredDevice != null)
         {
-            _controllerStatusLabel.text = _physicalRCController.registeredDevice.displayName;
+            _controllerStatusLabel.text = controls.registeredDevice.displayName;
             _controllerStatusLabel.style.color = GREEN;
             _controllerStatusIcon.style.backgroundColor = GREEN;
         }
@@ -97,10 +96,10 @@ public class RCControllerMenuController : MonoBehaviour
 
         if (_moveWithInput)
         { 
-            float throttle = _physicalRCController.Throttle.axis.ReadValue();
-            float yaw = _physicalRCController.Yaw.axis.ReadValue();
-            float pitch = _physicalRCController.Pitch.axis.ReadValue();
-            float roll = _physicalRCController.Roll.axis.ReadValue();
+            float throttle = controls.Throttle.axis.ReadValue();
+            float yaw = controls.Yaw.axis.ReadValue();
+            float pitch = controls.Pitch.axis.ReadValue();
+            float roll = controls.Roll.axis.ReadValue();
 
             //This equation is fixed to the size of the parent componenet. If the size change this has to change
             _leftStick.style.left = yaw * 65f + 65f;
@@ -112,7 +111,7 @@ public class RCControllerMenuController : MonoBehaviour
 
         if (_onInputDiscovery)
         {
-            _physicalRCController.ReadAllAxes();
+            controls.ReadAllAxes();
         }
     }
 
@@ -131,7 +130,7 @@ public class RCControllerMenuController : MonoBehaviour
 
     private void OnSaveBtnClick(ClickEvent evt)
     {
-        _physicalRCController.SaveCalibration();
+        controls.SaveCalibration();
     }
 
     private void OnStartCalibrationBtnClick(ClickEvent evt)
@@ -141,7 +140,7 @@ public class RCControllerMenuController : MonoBehaviour
 
     private IEnumerator CalibrationRoutine()
     {
-        _physicalRCController.FindAllAxes();
+        controls.FindAllAxes();
 
         _moveWithInput = false;
         _calibrationInstructionsHeading.text = "CALIBRATING! ... ";
@@ -173,7 +172,7 @@ public class RCControllerMenuController : MonoBehaviour
         _rightStick.style.top = 65f;
         _onInputDiscovery = false;
 
-        _physicalRCController.PruneAxes();
+        controls.PruneAxes();
 
         yield return new WaitForSecondsRealtime(1f);
 
@@ -182,7 +181,7 @@ public class RCControllerMenuController : MonoBehaviour
         _leftStick.style.left = 130;
 
         yield return WaitForAxisDetection();
-        _physicalRCController.SetLeftStickY();
+        controls.SetLeftStickY();
 
         _calibrationInstructionsDescription.text = "Center stick";
         _leftStick.style.left = 65;
@@ -193,7 +192,7 @@ public class RCControllerMenuController : MonoBehaviour
         _leftStick.style.top = 0;
 
         yield return WaitForAxisDetection();
-        _physicalRCController.SetLeftStickX();
+        controls.SetLeftStickX();
 
         _calibrationInstructionsDescription.text = "Center stick";
         _leftStick.style.top = 65;
@@ -205,7 +204,7 @@ public class RCControllerMenuController : MonoBehaviour
         _rightStick.style.left = 130;
 
         yield return WaitForAxisDetection();
-        _physicalRCController.SetRightStickY();
+        controls.SetRightStickY();
 
         _calibrationInstructionsDescription.text = "Center stick";
         _rightStick.style.left = 65;
@@ -216,7 +215,7 @@ public class RCControllerMenuController : MonoBehaviour
         _rightStick.style.top = 0;
 
         yield return WaitForAxisDetection();
-        _physicalRCController.SetRightStickX();
+        controls.SetRightStickX();
 
         _calibrationInstructionsDescription.text = "Center stick";
         _rightStick.style.top = 65;
@@ -227,7 +226,7 @@ public class RCControllerMenuController : MonoBehaviour
         _calibrationInstructionsDescription.text = "Move the roll stick to the right.";
 
         yield return WaitForAxisDetection();
-        _physicalRCController.SetRoll();
+        controls.SetRoll();
 
         _calibrationInstructionsDescription.text = "Center stick.";
 
@@ -237,7 +236,7 @@ public class RCControllerMenuController : MonoBehaviour
         _calibrationInstructionsDescription.text = "Move the pitch stick up.";
 
         yield return WaitForAxisDetection();
-        _physicalRCController.SetPitch();
+        controls.SetPitch();
 
         _calibrationInstructionsDescription.text = "Center stick.";
 
@@ -247,7 +246,7 @@ public class RCControllerMenuController : MonoBehaviour
         _calibrationInstructionsDescription.text = "Move the yaw stick to the right.";
 
         yield return WaitForAxisDetection();
-        _physicalRCController.SetYaw();
+        controls.SetYaw();
 
         _calibrationInstructionsDescription.text = "Center stick.";
 
@@ -257,7 +256,7 @@ public class RCControllerMenuController : MonoBehaviour
         _calibrationInstructionsDescription.text = "Move the Throttle stick up.";
 
         yield return WaitForAxisDetection();
-        _physicalRCController.SetThrottle();
+        controls.SetThrottle();
 
         yield return new WaitForSecondsRealtime(1f);
 
@@ -268,7 +267,7 @@ public class RCControllerMenuController : MonoBehaviour
         SetTransition(_leftStick, 0f, EasingMode.Linear);
         SetTransition(_rightStick, 0f, EasingMode.Linear);
 
-        _physicalRCController.PrintDebug();
+        controls.PrintDebug();
     }
 
     private IEnumerator WaitForAxisDetection()
@@ -277,7 +276,7 @@ public class RCControllerMenuController : MonoBehaviour
 
         while (elapsed < AXIS_DETECTION_TIMEOUT_SECONDS)
         {
-            if (_physicalRCController.TryReadAxis())
+            if (controls.TryReadAxis())
             {
                 yield break;
             }

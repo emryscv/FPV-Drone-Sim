@@ -4,7 +4,7 @@ public class FlightController : MonoBehaviour
 {
    // private DronePhysics dronePhysics;
     private Rigidbody drone; // Reference to the Rigidbody component
-    private Controls controls;
+    private RCControllerManager controls;
 
     // I think this is going to be a raw measurement of the input, and then we will apply the rate transformation
     float throttle;
@@ -38,8 +38,8 @@ public class FlightController : MonoBehaviour
 
     void Awake()
     {
-        controls = new Controls();
-        controls.RCController.Enable();
+        controls = RCControllerManager.Instance;
+
         //dronePhysics = GetComponent<DronePhysics>();
         drone = GetComponent<Rigidbody>(); // Get the Rigidbody component attached to the same GameObject
     }
@@ -75,10 +75,10 @@ public class FlightController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        throttle = controls.RCController.Throttle.ReadValue<float>();
-        yaw = controls.RCController.Yaw.ReadValue<float>();
-        pitch = controls.RCController.Pitch.ReadValue<float>();
-        roll = controls.RCController.Roll.ReadValue<float>();
+        throttle = controls.Throttle.axis.ReadValue();
+        yaw = controls.Yaw.axis.ReadValue();
+        pitch = controls.Pitch.axis.ReadValue();
+        roll = controls.Roll.axis.ReadValue();
      
         float throttleSetpoint = (throttle + 1) / 2.0f; // Fix the axis numbers with the axis order
         float pitchSetpoint = ComputeBetaflightRates(0, pitch);
