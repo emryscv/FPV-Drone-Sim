@@ -1,19 +1,19 @@
+using System;
 using UnityEngine.InputSystem.Controls;
 
+[Serializable]
 public class AxisInfo
 {
-    public string path { get; set; }
-    public float min { get; set; }
-    public float center { get; set; }
-    public float max { get; set; }
-    public bool inverted { get; set; }
+    public string path;
+    public float min;
+    public float center;
+    public float max;
+    public bool inverted;
 
     //Axis Discovery Variables
-    public int count { get; set; }
-    public float lastValue { get; set; }
-
-
-    public AxisControl axis { get; set; }
+    [NonSerialized] public int count;
+    [NonSerialized] public float lastValue;
+    [NonSerialized] public AxisControl axis;
 
     public AxisInfo(string path, float min, float center, float max, bool inverted, int count, float lastValue, AxisControl axis)
     {

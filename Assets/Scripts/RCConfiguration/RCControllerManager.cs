@@ -227,21 +227,23 @@ public class RCControllerManager : MonoBehaviour
 
     public void SaveCalibration()
     {
-        var calibration = new RCControllerCalibration
+        RCControllerCalibration calibration = new()
         {
-            leftStickYPath = _leftStickY?.axis.path ?? "",
-            leftStickXPath = _leftStickX?.axis.path ?? "",
-            rightStickYPath = _rightStickY?.axis.path ?? "",
-            rightStickXPath = _rightStickX?.axis.path ?? "",
-            throttlePath = _throttle?.axis.path ?? "",
-            yawPath = _yaw?.axis.path ?? "",
-            pitchPath = _pitch?.axis.path ?? "",
-            rollPath = _roll?.axis.path ?? ""
+            leftStickY = _leftStickY,
+            leftStickX = _leftStickX,
+            rightStickY = _rightStickY,
+            rightStickX = _rightStickX,
+            throttle = _throttle,
+            yaw = _yaw,
+            pitch = _pitch,
+            roll = _roll
         };
 
         string path = Application.persistentDataPath + "/rc_calibration.json";
         string json = JsonUtility.ToJson(calibration);
         File.WriteAllText(path, json);
+
+        Debug.Log("Calibration saved to: " + path);
     }
 
     private void LoadCalibration()
@@ -250,7 +252,30 @@ public class RCControllerManager : MonoBehaviour
         if (!File.Exists(path)) return;
 
         string json = File.ReadAllText(path);
-        var calibration = JsonUtility.FromJson<RCControllerCalibration>(json);
+        RCControllerCalibration calibration = JsonUtility.FromJson<RCControllerCalibration>(json);
+
+        if (registeredDevice != null)
+        {
+            _leftStickY = calibration.leftStickY;
+            _leftStickX = calibration.leftStickX;
+            _rightStickY = calibration.rightStickY;
+            _rightStickX = calibration.rightStickX;
+
+            _throttle = calibration.throttle;
+            _yaw = calibration.yaw;
+            _pitch = calibration.pitch;
+            _roll = calibration.roll;
+
+            _leftStickY.axis = registeredDevice.TryGetChildControl<AxisControl>(calibration.leftStickY.path.Split('/', 2)[1]);
+            _leftStickX.axis = registeredDevice.TryGetChildControl<AxisControl>(calibration.leftStickX.path.Split('/', 2)[1]);
+            _rightStickY.axis = registeredDevice.TryGetChildControl<AxisControl>(calibration.rightStickY.path.Split('/', 2)[1]);
+            _rightStickX.axis = registeredDevice.TryGetChildControl<AxisControl>(calibration.rightStickX.path.Split('/', 2)[1]);
+
+            _throttle.axis = registeredDevice.TryGetChildControl<AxisControl>(calibration.throttle.path.Split('/', 2)[1]);
+            _yaw.axis = registeredDevice.TryGetChildControl<AxisControl>(calibration.yaw.path.Split('/', 2)[1]);
+            _pitch.axis = registeredDevice.TryGetChildControl<AxisControl>(calibration.pitch.path.Split('/', 2)[1]);
+            _roll.axis = registeredDevice.TryGetChildControl<AxisControl>(calibration.roll.path.Split('/', 2)[1]);
+        }
     }
 }
 

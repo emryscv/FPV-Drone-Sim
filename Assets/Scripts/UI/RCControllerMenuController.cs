@@ -44,16 +44,11 @@ public class RCControllerMenuController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Awake()
     {
-        controls = new Controls();
-        controls.RCController.Enable();
-
         _moveWithInput = true;
         _onInputDiscovery = false;
-        _isCalibrated = false;
 
         _xPositions = new int[] { 0, 130, 130, 0 };
         _yPositions = new int[] { 0, 0, 130, 130 };
-
     }
 
     private void OnEnable()
@@ -269,7 +264,6 @@ public class RCControllerMenuController : MonoBehaviour
         _calibrationInstructionsDescription.text = "Center stick.";
 
         _moveWithInput = true;
-        _isCalibrated = true;
 
         SetTransition(_leftStick, 0f, EasingMode.Linear);
         SetTransition(_rightStick, 0f, EasingMode.Linear);
