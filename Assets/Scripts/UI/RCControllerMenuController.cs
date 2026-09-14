@@ -97,10 +97,10 @@ public class RCControllerMenuController : MonoBehaviour
 
         if (_moveWithInput)
         { 
-            float throttle = _physicalRCController._throttle.axis.ReadValue();
-            float yaw = _physicalRCController._yaw.axis.ReadValue();
-            float pitch = _physicalRCController._pitch.axis.ReadValue();
-            float roll = _physicalRCController._roll.axis.ReadValue();
+            float throttle = _physicalRCController.Throttle.axis.ReadValue();
+            float yaw = _physicalRCController.Yaw.axis.ReadValue();
+            float pitch = _physicalRCController.Pitch.axis.ReadValue();
+            float roll = _physicalRCController.Roll.axis.ReadValue();
 
             //This equation is fixed to the size of the parent componenet. If the size change this has to change
             _leftStick.style.left = yaw * 65f + 65f;
