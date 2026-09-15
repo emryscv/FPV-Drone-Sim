@@ -109,10 +109,12 @@ public class RCControllerMenuController : MonoBehaviour
 
         if (_moveWithInput)
         { 
-            float leftStickY = controls.LeftStickY.inverted ? -controls.LeftStickY.axis.ReadValue() : controls.LeftStickY.axis.ReadValue();
+            //TODO what if no axis is detected
             float leftStickX = controls.LeftStickX.inverted ? -controls.LeftStickX.axis.ReadValue() : controls.LeftStickX.axis.ReadValue();
-            float rightStickY = controls.RightStickY.inverted ? -controls.RightStickY.axis.ReadValue() : controls.RightStickY.axis.ReadValue();
+            float leftStickY = controls.LeftStickY.inverted ? -controls.LeftStickY.axis.ReadValue() : controls.LeftStickY.axis.ReadValue();
+            
             float rightStickX = controls.RightStickX.inverted ? -controls.RightStickX.axis.ReadValue() : controls.RightStickX.axis.ReadValue();
+            float rightStickY = controls.RightStickY.inverted ? -controls.RightStickY.axis.ReadValue() : controls.RightStickY.axis.ReadValue();
 
             //This equation is fixed to the size of the parent componenet. If the size change this has to change
             _leftStick.style.left = leftStickX * 65f + 65f;
@@ -165,7 +167,7 @@ public class RCControllerMenuController : MonoBehaviour
     }
     private IEnumerator CalibrationRoutine()
     {
-        controls.FindAllAxes();
+        controls.FindAllAxes(); //TODO what happens if no axis is moved
 
         _moveWithInput = false;
         _calibrationInstructionsHeading.text = "CALIBRATING! ... ";
@@ -202,22 +204,22 @@ public class RCControllerMenuController : MonoBehaviour
         yield return new WaitForSecondsRealtime(1f);
 
         _calibrationInstructionsHeading.text = "Left Stick";
-        _calibrationInstructionsDescription.text = "Move the left stick up to mimic the movement on screen.";
+        _calibrationInstructionsDescription.text = "Move the left stick to the right to mimic the movement on screen.";
         _leftStick.style.left = 130;
 
         yield return WaitForAxisDetection();
-        controls.SetAxis("LeftStickY");
+        controls.SetAxis("LeftStickX");
 
         _calibrationInstructionsDescription.text = "Center stick";
         _leftStick.style.left = 65;
 
         yield return new WaitForSecondsRealtime(1f);
 
-        _calibrationInstructionsDescription.text = "Move the left stick to the right to mimic the movement on screen.";
+        _calibrationInstructionsDescription.text = "Move the left stick up to mimic the movement on screen.";
         _leftStick.style.top = 0;
 
         yield return WaitForAxisDetection();
-        controls.SetAxis("LeftStickX");
+        controls.SetAxis("LeftStickY");
 
         _calibrationInstructionsDescription.text = "Center stick";
         _leftStick.style.top = 65;
@@ -225,22 +227,22 @@ public class RCControllerMenuController : MonoBehaviour
         yield return new WaitForSecondsRealtime(1f);
 
         _calibrationInstructionsHeading.text = "Right Stick";
-        _calibrationInstructionsDescription.text = "Move the right stick up to mimic the movement on screen.";
+        _calibrationInstructionsDescription.text = "Move the right stick to the right to mimic the movement on screen.";
         _rightStick.style.left = 130;
 
         yield return WaitForAxisDetection();
-        controls.SetAxis("RightStickY");
-
+        controls.SetAxis("RightStickX");
+    
         _calibrationInstructionsDescription.text = "Center stick";
         _rightStick.style.left = 65;
 
         yield return new WaitForSecondsRealtime(1f);
 
-        _calibrationInstructionsDescription.text = "Move the right stick to the right to mimic the movement on screen.";
+        _calibrationInstructionsDescription.text = "Move the right stick up to mimic the movement on screen.";
         _rightStick.style.top = 0;
 
         yield return WaitForAxisDetection();
-        controls.SetAxis("RightStickX");
+        controls.SetAxis("RightStickY");
 
         _calibrationInstructionsDescription.text = "Center stick";
         _rightStick.style.top = 65;
@@ -331,7 +333,7 @@ public class RCControllerMenuController : MonoBehaviour
         _noBtn.style.display = DisplayStyle.None;
     }
 
-    private IEnumerator WaitForAxisDetection()
+    private IEnumerator WaitForAxisDetection() //TODO fix this no timeout handling
     {
         float elapsed = 0f;
 
