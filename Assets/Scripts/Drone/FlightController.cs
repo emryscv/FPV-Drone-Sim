@@ -75,10 +75,10 @@ public class FlightController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        throttle = controls.Throttle.axis.ReadValue();
-        yaw = controls.Yaw.axis.ReadValue();
-        pitch = controls.Pitch.axis.ReadValue();
-        roll = controls.Roll.axis.ReadValue();
+        throttle = controls.Throttle.inverted ? -controls.Throttle.axis.ReadValue() : controls.Throttle.axis.ReadValue();
+        yaw = controls.Yaw.inverted ? -controls.Yaw.axis.ReadValue() : controls.Yaw.axis.ReadValue();
+        pitch = controls.Pitch.inverted ? -controls.Pitch.axis.ReadValue() : controls.Pitch.axis.ReadValue();
+        roll = controls.Roll.inverted ? -controls.Roll.axis.ReadValue() : controls.Roll.axis.ReadValue();
      
         float throttleSetpoint = (throttle + 1) / 2.0f; // Fix the axis numbers with the axis order
         float pitchSetpoint = ComputeBetaflightRates(0, pitch);

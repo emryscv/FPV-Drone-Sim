@@ -42,17 +42,17 @@ public class HUDManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float throttle = controls.Throttle.axis.ReadValue();
-        float yaw = controls.Yaw.axis.ReadValue();
-        float pitch = controls.Pitch.axis.ReadValue();
-        float roll = controls.Roll.axis.ReadValue();
+        float leftStickY = controls.LeftStickY.inverted ? -controls.LeftStickY.axis.ReadValue() : controls.LeftStickY.axis.ReadValue();
+        float leftStickX = controls.LeftStickX.inverted ? -controls.LeftStickX.axis.ReadValue() : controls.LeftStickX.axis.ReadValue();
+        float rightStickY = controls.RightStickY.inverted ? -controls.RightStickY.axis.ReadValue() : controls.RightStickY.axis.ReadValue();
+        float rightStickX = controls.RightStickX.inverted ? -controls.RightStickX.axis.ReadValue() : controls.RightStickX.axis.ReadValue();
 
         //This equation is fixed to the size of the parent componenet. If the size change this has to change
-        _leftStick.style.left = yaw * 65f + 65f;
-        _leftStick.style.top = 65f - throttle * 65f;
+        _leftStick.style.left = leftStickX * 65f + 65f;
+        _leftStick.style.top = 65f - leftStickY * 65f;
 
-        _rightStick.style.left = roll * 65f + 65f;
-        _rightStick.style.top = 65f - pitch * 65f;
+        _rightStick.style.left = rightStickX * 65f + 65f;
+        _rightStick.style.top = 65f - rightStickY * 65f;
 
         float altitude = _rb.transform.position.y * 3.281f; //ft
         float speed = _rb.linearVelocity.magnitude * 2.237f; //mph

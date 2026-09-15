@@ -40,6 +40,9 @@ public class RCControllerMenuController : MonoBehaviour
     //VARIABLES
     private bool _moveWithInput;
     private bool _onInputDiscovery;
+    private bool _buttonPressed;
+    private bool _isPositive;
+
     private int[] _xPositions;
     private int[] _yPositions;
 
@@ -49,6 +52,9 @@ public class RCControllerMenuController : MonoBehaviour
     {
         _moveWithInput = true;
         _onInputDiscovery = false;
+        
+        _buttonPressed = false;
+        _isPositive = false;
 
         _xPositions = new int[] { 0, 130, 130, 0 };
         _yPositions = new int[] { 0, 0, 130, 130 };
@@ -103,17 +109,17 @@ public class RCControllerMenuController : MonoBehaviour
 
         if (_moveWithInput)
         { 
-            float throttle = controls.Throttle.axis.ReadValue();
-            float yaw = controls.Yaw.axis.ReadValue();
-            float pitch = controls.Pitch.axis.ReadValue();
-            float roll = controls.Roll.axis.ReadValue();
+            float leftStickY = controls.LeftStickY.inverted ? -controls.LeftStickY.axis.ReadValue() : controls.LeftStickY.axis.ReadValue();
+            float leftStickX = controls.LeftStickX.inverted ? -controls.LeftStickX.axis.ReadValue() : controls.LeftStickX.axis.ReadValue();
+            float rightStickY = controls.RightStickY.inverted ? -controls.RightStickY.axis.ReadValue() : controls.RightStickY.axis.ReadValue();
+            float rightStickX = controls.RightStickX.inverted ? -controls.RightStickX.axis.ReadValue() : controls.RightStickX.axis.ReadValue();
 
             //This equation is fixed to the size of the parent componenet. If the size change this has to change
-            _leftStick.style.left = yaw * 65f + 65f;
-            _leftStick.style.top = 65f - throttle * 65f;
+            _leftStick.style.left = leftStickX * 65f + 65f;
+            _leftStick.style.top = 65f - leftStickY * 65f;
 
-            _rightStick.style.left = roll * 65f + 65f;
-            _rightStick.style.top = 65f - pitch * 65f;
+            _rightStick.style.left = rightStickX * 65f + 65f;
+            _rightStick.style.top = 65f - rightStickY * 65f;
         }
 
         if (_onInputDiscovery)
@@ -147,12 +153,15 @@ public class RCControllerMenuController : MonoBehaviour
 
     private void OnYesBtnClick(ClickEvent evt)
     {
-        // Handle Yes button click
+        _buttonPressed = true;
+        _isPositive = true;
     }
 
     private void OnNoBtnClick(ClickEvent evt)
     {
         // Handle No button click
+        _buttonPressed = true;
+        _isPositive = false;
     }
     private IEnumerator CalibrationRoutine()
     {
@@ -197,7 +206,7 @@ public class RCControllerMenuController : MonoBehaviour
         _leftStick.style.left = 130;
 
         yield return WaitForAxisDetection();
-        controls.SetLeftStickY();
+        controls.SetAxis("LeftStickY");
 
         _calibrationInstructionsDescription.text = "Center stick";
         _leftStick.style.left = 65;
@@ -208,7 +217,7 @@ public class RCControllerMenuController : MonoBehaviour
         _leftStick.style.top = 0;
 
         yield return WaitForAxisDetection();
-        controls.SetLeftStickX();
+        controls.SetAxis("LeftStickX");
 
         _calibrationInstructionsDescription.text = "Center stick";
         _leftStick.style.top = 65;
@@ -220,7 +229,7 @@ public class RCControllerMenuController : MonoBehaviour
         _rightStick.style.left = 130;
 
         yield return WaitForAxisDetection();
-        controls.SetRightStickY();
+        controls.SetAxis("RightStickY");
 
         _calibrationInstructionsDescription.text = "Center stick";
         _rightStick.style.left = 65;
@@ -231,7 +240,7 @@ public class RCControllerMenuController : MonoBehaviour
         _rightStick.style.top = 0;
 
         yield return WaitForAxisDetection();
-        controls.SetRightStickX();
+        controls.SetAxis("RightStickX");
 
         _calibrationInstructionsDescription.text = "Center stick";
         _rightStick.style.top = 65;
@@ -242,7 +251,7 @@ public class RCControllerMenuController : MonoBehaviour
         _calibrationInstructionsDescription.text = "Move the roll stick to the right.";
 
         yield return WaitForAxisDetection();
-        controls.SetRoll();
+        controls.SetAxis("Roll");
 
         _calibrationInstructionsDescription.text = "Center stick.";
 
@@ -252,7 +261,7 @@ public class RCControllerMenuController : MonoBehaviour
         _calibrationInstructionsDescription.text = "Move the pitch stick up.";
 
         yield return WaitForAxisDetection();
-        controls.SetPitch();
+        controls.SetAxis("Pitch");
 
         _calibrationInstructionsDescription.text = "Center stick.";
 
@@ -262,7 +271,7 @@ public class RCControllerMenuController : MonoBehaviour
         _calibrationInstructionsDescription.text = "Move the yaw stick to the right.";
 
         yield return WaitForAxisDetection();
-        controls.SetYaw();
+        controls.SetAxis("Yaw");
 
         _calibrationInstructionsDescription.text = "Center stick.";
 
@@ -272,7 +281,7 @@ public class RCControllerMenuController : MonoBehaviour
         _calibrationInstructionsDescription.text = "Move the Throttle stick up.";
 
         yield return WaitForAxisDetection();
-        controls.SetThrottle();
+        controls.SetAxis("Throttle");
 
         yield return new WaitForSecondsRealtime(1f);
 
@@ -282,26 +291,44 @@ public class RCControllerMenuController : MonoBehaviour
 
         SetTransition(_leftStick, 0f, EasingMode.Linear);
         SetTransition(_rightStick, 0f, EasingMode.Linear);
-
+    
+        controls.PrintDebug();
+    
         _yesBtn.style.display = DisplayStyle.Flex;
         _noBtn.style.display = DisplayStyle.Flex;
 
         _calibrationInstructionsHeading.text = "Invert Input";
         _calibrationInstructionsDescription.text = "Do you want to invert any input?";
         
-        _calibrationInstructionsHeading.text = "Invert Roll";
-        _calibrationInstructionsDescription.text = "Do you want to invert roll?";
+        yield return WaitForButtonPress();
+        if(_isPositive){ //don't know the condition 
+            _calibrationInstructionsHeading.text = "Invert Roll";
+            _calibrationInstructionsDescription.text = "Do you want to invert roll?";
 
-        _calibrationInstructionsHeading.text = "Invert Pitch";
-        _calibrationInstructionsDescription.text = "Do you want to invert pitch?";
+            yield return WaitForButtonPress();
+            if(_isPositive) controls.InvertAxis("Roll");
 
-        _calibrationInstructionsHeading.text = "Invert Yaw";
-        _calibrationInstructionsDescription.text = "Do you want to invert yaw?";
+            _calibrationInstructionsHeading.text = "Invert Pitch";
+            _calibrationInstructionsDescription.text = "Do you want to invert pitch?";
+            
+            yield return WaitForButtonPress();
+            if(_isPositive) controls.InvertAxis("Pitch");
+            
+            _calibrationInstructionsHeading.text = "Invert Yaw";
+            _calibrationInstructionsDescription.text = "Do you want to invert yaw?";
+            
+            yield return WaitForButtonPress();
+            if(_isPositive) controls.InvertAxis("Yaw");
+            
+            _calibrationInstructionsHeading.text = "Invert Throttle";
+            _calibrationInstructionsDescription.text = "Do you want to invert throttle?";
+            
+            yield return WaitForButtonPress();
+            if(_isPositive) controls.InvertAxis("Throttle");
+        }
 
-        _calibrationInstructionsHeading.text = "Invert Throttle";
-        _calibrationInstructionsDescription.text = "Do you want to invert throttle?";
-
-        controls.PrintDebug();
+        _yesBtn.style.display = DisplayStyle.None;
+        _noBtn.style.display = DisplayStyle.None;
     }
 
     private IEnumerator WaitForAxisDetection()
@@ -322,6 +349,15 @@ public class RCControllerMenuController : MonoBehaviour
         Debug.LogWarning("Timed out while waiting for axis movement during calibration.");
     }
 
+    private IEnumerator WaitForButtonPress()
+    {
+        while (!_buttonPressed)
+        {
+            yield return null;
+        }
+
+        _buttonPressed = false;
+    }
     private void SetTransition(VisualElement element, float duration, EasingMode easingMode)
     {
         element.style.transitionProperty = new List<StylePropertyName>

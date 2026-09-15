@@ -149,69 +149,93 @@ public class RCControllerManager : MonoBehaviour
         return false;
     }
 
-    public void SetLeftStickY()
+    public void SetAxis(string axisName)
     {
         if (_tempDetectedAxis != null)
         {
-            LeftStickY = _tempDetectedAxis;
-        }
-
-        Debug.Log("El animaah");
-    }
-
-    public void SetLeftStickX()
-    {
-        if (_tempDetectedAxis != null)
-        {
-            LeftStickX = _tempDetectedAxis;
-        }
-    }
-
-    public void SetRightStickY()
-    {
-        if (_tempDetectedAxis != null)
-        {
-            RightStickY = _tempDetectedAxis;
-        }
-    }
-
-    public void SetRightStickX()
-    {
-        if (_tempDetectedAxis != null)
-        {
-            RightStickX = _tempDetectedAxis;
-        }
-    }
-
-    public void SetThrottle()
-    {
-        if (_tempDetectedAxis != null)
-        {
-            Throttle = _tempDetectedAxis;
+            switch (axisName)
+            {
+                case "LeftStickX":
+                    LeftStickX = _tempDetectedAxis;
+                    break;
+                case "LeftStickY":
+                    LeftStickY = _tempDetectedAxis;
+                    break;
+                case "RightStickX":
+                    RightStickX = _tempDetectedAxis;
+                    break;
+                case "RightStickY":
+                    RightStickY = _tempDetectedAxis;
+                    break;
+                case "Throttle":
+                    Throttle = _tempDetectedAxis;
+                    break;
+                case "Yaw":
+                    Yaw = _tempDetectedAxis;
+                    break;
+                case "Pitch":
+                    Pitch = _tempDetectedAxis;
+                    break;
+                case "Roll":
+                    Roll = _tempDetectedAxis;
+                    break;
+                default:
+                    Debug.LogWarning("Unknown axis name: " + axisName);
+                    break;
+            }
         }
     }
 
-    public void SetYaw()
+    public void InvertAxis(string axisName)
     {
-        if (_tempDetectedAxis != null)
-        {
-            Yaw = _tempDetectedAxis;
-        }
-    }
+        string invertedPath = "";
 
-    public void SetPitch()
-    {
-        if (_tempDetectedAxis != null)
+        switch (axisName)
         {
-            Pitch = _tempDetectedAxis;
+            case "Throttle":
+                if (Throttle != null){
+                    Throttle.inverted = !Throttle.inverted;
+                    invertedPath = Throttle.axis.path;
+                }
+                break;
+            case "Yaw":
+                if (Yaw != null){
+                    Yaw.inverted = !Yaw.inverted;
+                    invertedPath = Yaw.axis.path;
+                }
+                break;
+            case "Pitch":
+                if (Pitch != null){
+                    Pitch.inverted = !Pitch.inverted;
+                    invertedPath = Pitch.axis.path;
+                }
+                break;
+            case "Roll":
+                if (Roll != null){
+                    Roll.inverted = !Roll.inverted;
+                    invertedPath = Roll.axis.path;
+                }
+                break;
+            default:
+                Debug.LogWarning("Unknown axis name: " + axisName);
+                break;
         }
-    }
 
-    public void SetRoll()
-    {
-        if (_tempDetectedAxis != null)
+        if (invertedPath == LeftStickY.axis.path)
         {
-            Roll = _tempDetectedAxis;
+            LeftStickY.inverted = !LeftStickY.inverted;
+        }
+        if (invertedPath == LeftStickX.axis.path)
+        {
+            LeftStickX.inverted = !LeftStickX.inverted;
+        }
+        if (invertedPath == RightStickY.axis.path)
+        {
+            RightStickY.inverted = !RightStickY.inverted;
+        }
+        if (invertedPath == RightStickX.axis.path)
+        {
+            RightStickX.inverted = !RightStickX.inverted;
         }
     }
 
