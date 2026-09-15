@@ -4,10 +4,10 @@ using UnityEngine;
 [Serializable]
 public class RCControllerCalibration
 {
-    public AxisInfo leftStickY;
-    public AxisInfo leftStickX;
-    public AxisInfo rightStickY;
-    public AxisInfo rightStickX;
+    public AxisInfo lStickY;
+    public AxisInfo lStickX;
+    public AxisInfo rStickY;
+    public AxisInfo rStickX;
     public AxisInfo throttle;
     public AxisInfo yaw;
     public AxisInfo pitch;

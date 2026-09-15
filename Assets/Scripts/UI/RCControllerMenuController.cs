@@ -110,18 +110,18 @@ public class RCControllerMenuController : MonoBehaviour
         if (_moveWithInput)
         { 
             //TODO what if no axis is detected
-            float leftStickX = controls.LeftStickX.inverted ? -controls.LeftStickX.axis.ReadValue() : controls.LeftStickX.axis.ReadValue();
-            float leftStickY = controls.LeftStickY.inverted ? -controls.LeftStickY.axis.ReadValue() : controls.LeftStickY.axis.ReadValue();
+            float lStickX = controls.LStickX.inverted ? -controls.LStickX.axis.ReadValue() : controls.LStickX.axis.ReadValue();
+            float lStickY = controls.LStickY.inverted ? -controls.LStickY.axis.ReadValue() : controls.LStickY.axis.ReadValue();
             
-            float rightStickX = controls.RightStickX.inverted ? -controls.RightStickX.axis.ReadValue() : controls.RightStickX.axis.ReadValue();
-            float rightStickY = controls.RightStickY.inverted ? -controls.RightStickY.axis.ReadValue() : controls.RightStickY.axis.ReadValue();
+            float rStickX = controls.RStickX.inverted ? -controls.RStickX.axis.ReadValue() : controls.RStickX.axis.ReadValue();
+            float rStickY = controls.RStickY.inverted ? -controls.RStickY.axis.ReadValue() : controls.RStickY.axis.ReadValue();
 
             //This equation is fixed to the size of the parent componenet. If the size change this has to change
-            _leftStick.style.left = leftStickX * 65f + 65f;
-            _leftStick.style.top = 65f - leftStickY * 65f;
+            _leftStick.style.left = lStickX * 65f + 65f;
+            _leftStick.style.top = 65f - lStickY * 65f;
 
-            _rightStick.style.left = rightStickX * 65f + 65f;
-            _rightStick.style.top = 65f - rightStickY * 65f;
+            _rightStick.style.left = rStickX * 65f + 65f;
+            _rightStick.style.top = 65f - rStickY * 65f;
         }
 
         if (_onInputDiscovery)

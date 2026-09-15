@@ -17,10 +17,10 @@ public class RCControllerManager : MonoBehaviour
     private AxisInfo[] _axesInfo; //This one will contain the 4 needed axis only;
     private AxisInfo _tempDetectedAxis;
 
-    public AxisInfo LeftStickY { get; private set; }
-    public AxisInfo LeftStickX { get; private set; }
-    public AxisInfo RightStickY { get; private set; }
-    public AxisInfo RightStickX { get; private set; }
+    public AxisInfo LStickY { get; private set; }
+    public AxisInfo LStickX { get; private set; }
+    public AxisInfo RStickY { get; private set; }
+    public AxisInfo RStickX { get; private set; }
 
     public AxisInfo Throttle { get; private set; }
     public AxisInfo Yaw { get; private set; }
@@ -155,17 +155,17 @@ public class RCControllerManager : MonoBehaviour
         {
             switch (axisName)
             {
-                case "LeftStickX":
-                    LeftStickX = _tempDetectedAxis;
+                case "LStickX":
+                    LStickX = _tempDetectedAxis;
                     break;
-                case "LeftStickY":
-                    LeftStickY = _tempDetectedAxis;
+                case "LStickY":
+                    LStickY = _tempDetectedAxis;
                     break;
-                case "RightStickX":
-                    RightStickX = _tempDetectedAxis;
+                case "RStickX":
+                    RStickX = _tempDetectedAxis;
                     break;
-                case "RightStickY":
-                    RightStickY = _tempDetectedAxis;
+                case "RStickY":
+                    RStickY = _tempDetectedAxis;
                     break;
                 case "Throttle":
                     Throttle = _tempDetectedAxis;
@@ -178,9 +178,6 @@ public class RCControllerManager : MonoBehaviour
                     break;
                 case "Roll":
                     Roll = _tempDetectedAxis;
-                    break;
-                default:
-                    Debug.LogWarning("Unknown axis name: " + axisName);
                     break;
             }
         }
@@ -216,50 +213,47 @@ public class RCControllerManager : MonoBehaviour
                     invertedPath = Roll.axis.path;
                 }
                 break;
-            default:
-                Debug.LogWarning("Unknown axis name: " + axisName);
-                break;
         }
 
-        if (invertedPath == LeftStickY.axis.path)
+        if (invertedPath == LStickY.axis.path)
         {
-            LeftStickY.inverted = !LeftStickY.inverted;
+            LStickY.inverted = !LStickY.inverted;
         }
-        if (invertedPath == LeftStickX.axis.path)
+        if (invertedPath == LStickX.axis.path)
         {
-            LeftStickX.inverted = !LeftStickX.inverted;
+            LStickX.inverted = !LStickX.inverted;
         }
-        if (invertedPath == RightStickY.axis.path)
+        if (invertedPath == RStickY.axis.path)
         {
-            RightStickY.inverted = !RightStickY.inverted;
+            RStickY.inverted = !RStickY.inverted;
         }
-        if (invertedPath == RightStickX.axis.path)
+        if (invertedPath == RStickX.axis.path)
         {
-            RightStickX.inverted = !RightStickX.inverted;
+            RStickX.inverted = !RStickX.inverted;
         }
     }
 
     public void PrintDebug()
     {
         Debug.Log("!!!!!!!!!!!DEBUG START!!!!!!!!!!!");
-        Debug.Log("Left Stick Y: " + (LeftStickY != null ? LeftStickY.axis.path : "Not assigned"));
-        Debug.Log("Left Stick X: " + (LeftStickX != null ? LeftStickX.axis.path : "Not assigned"));
-        Debug.Log("Right Stick Y: " + (RightStickY != null ? RightStickY.axis.path : "Not assigned"));
-        Debug.Log("Right Stick X: " + (RightStickX != null ? RightStickX.axis.path : "Not assigned"));
-        Debug.Log("Throttle: " + (Throttle != null ? Throttle.axis.path : "Not assigned"));
-        Debug.Log("Yaw: " + (Yaw != null ? Yaw.axis.path : "Not assigned"));
-        Debug.Log("Pitch: " + (Pitch != null ? Pitch.axis.path : "Not assigned"));
-        Debug.Log("Roll: " + (Roll != null ? Roll.axis.path : "Not assigned"));
+        Debug.Log("Left Stick Y: "  + (LStickY  != null ? LStickY.axis.path  : "Not assigned") + " Inverted: " + (LStickY  != null ? LStickY.inverted  : "Not assigned"));
+        Debug.Log("Left Stick X: "  + (LStickX  != null ? LStickX.axis.path  : "Not assigned") + " Inverted: " + (LStickX  != null ? LStickX.inverted  : "Not assigned"));
+        Debug.Log("Right Stick Y: " + (RStickY  != null ? RStickY.axis.path  : "Not assigned") + " Inverted: " + (RStickY  != null ? RStickY.inverted  : "Not assigned"));
+        Debug.Log("Right Stick X: " + (RStickX  != null ? RStickX.axis.path  : "Not assigned") + " Inverted: " + (RStickX  != null ? RStickX.inverted  : "Not assigned"));
+        Debug.Log("Throttle: "      + (Throttle != null ? Throttle.axis.path : "Not assigned") + " Inverted: " + (Throttle != null ? Throttle.inverted : "Not assigned"));
+        Debug.Log("Yaw: "           + (Yaw      != null ? Yaw.axis.path      : "Not assigned") + " Inverted: " + (Yaw      != null ? Yaw.inverted      : "Not assigned"));
+        Debug.Log("Pitch: "         + (Pitch    != null ? Pitch.axis.path    : "Not assigned") + " Inverted: " + (Pitch    != null ? Pitch.inverted    : "Not assigned"));
+        Debug.Log("Roll: "          + (Roll     != null ? Roll.axis.path     : "Not assigned") + " Inverted: " + (Roll     != null ? Roll.inverted     : "Not assigned"));
     }
 
     public void SaveCalibration()
     {
         RCControllerCalibration calibration = new()
         {
-            leftStickY = LeftStickY,
-            leftStickX = LeftStickX,
-            rightStickY = RightStickY,
-            rightStickX = RightStickX,
+            lStickY = LStickY,
+            lStickX = LStickX,
+            rStickY = RStickY,
+            rStickX = RStickX,
             throttle = Throttle,
             yaw = Yaw,
             pitch = Pitch,
@@ -284,20 +278,20 @@ public class RCControllerManager : MonoBehaviour
         if (registeredDevice != null)
         {
             Debug.Log("Registered device found. Applying calibration...");
-            LeftStickY = calibration.leftStickY;
-            LeftStickX = calibration.leftStickX;
-            RightStickY = calibration.rightStickY;
-            RightStickX = calibration.rightStickX;
+            LStickY = calibration.lStickY;
+            LStickX = calibration.lStickX;
+            RStickY = calibration.rStickY;
+            RStickX = calibration.rStickX;
 
             Throttle = calibration.throttle;
             Yaw = calibration.yaw;
             Pitch = calibration.pitch;
             Roll = calibration.roll;
 
-            LeftStickY.axis = registeredDevice.TryGetChildControl<AxisControl>(calibration.leftStickY.path.Split('/', 3)[2]);
-            LeftStickX.axis = registeredDevice.TryGetChildControl<AxisControl>(calibration.leftStickX.path.Split('/', 3)[2]);
-            RightStickY.axis = registeredDevice.TryGetChildControl<AxisControl>(calibration.rightStickY.path.Split('/', 3)[2]);
-            RightStickX.axis = registeredDevice.TryGetChildControl<AxisControl>(calibration.rightStickX.path.Split('/', 3)[2]);
+            LStickY.axis = registeredDevice.TryGetChildControl<AxisControl>(calibration.lStickY.path.Split('/', 3)[2]);
+            LStickX.axis = registeredDevice.TryGetChildControl<AxisControl>(calibration.lStickX.path.Split('/', 3)[2]);
+            RStickY.axis = registeredDevice.TryGetChildControl<AxisControl>(calibration.rStickY.path.Split('/', 3)[2]);
+            RStickX.axis = registeredDevice.TryGetChildControl<AxisControl>(calibration.rStickX.path.Split('/', 3)[2]);
            
             Throttle.axis = registeredDevice.TryGetChildControl<AxisControl>(calibration.throttle.path.Split('/', 3)[2]);
             Yaw.axis = registeredDevice.TryGetChildControl<AxisControl>(calibration.yaw.path.Split('/', 3)[2]);
