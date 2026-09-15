@@ -191,46 +191,34 @@ public class RCControllerManager : MonoBehaviour
         {
             case "Throttle":
                 if (Throttle != null){
-                    Throttle.inverted = !Throttle.inverted;
+                    Throttle.inverted = true;
                     invertedPath = Throttle.axis.path;
-                }
+                  }
                 break;
             case "Yaw":
                 if (Yaw != null){
-                    Yaw.inverted = !Yaw.inverted;
+                    Yaw.inverted = true;
                     invertedPath = Yaw.axis.path;
                 }
                 break;
             case "Pitch":
                 if (Pitch != null){
-                    Pitch.inverted = !Pitch.inverted;
+                    Pitch.inverted = true;
                     invertedPath = Pitch.axis.path;
                 }
                 break;
             case "Roll":
                 if (Roll != null){
-                    Roll.inverted = !Roll.inverted;
+                    Roll.inverted = true;
                     invertedPath = Roll.axis.path;
                 }
                 break;
         }
-
-        if (invertedPath == LStickY.axis.path)
-        {
-            LStickY.inverted = !LStickY.inverted;
-        }
-        if (invertedPath == LStickX.axis.path)
-        {
-            LStickX.inverted = !LStickX.inverted;
-        }
-        if (invertedPath == RStickY.axis.path)
-        {
-            RStickY.inverted = !RStickY.inverted;
-        }
-        if (invertedPath == RStickX.axis.path)
-        {
-            RStickX.inverted = !RStickX.inverted;
-        }
+        
+        if (invertedPath == LStickY.axis.path) LStickY.inverted = true;
+        if (invertedPath == LStickX.axis.path) LStickX.inverted = true;
+        if (invertedPath == RStickY.axis.path) RStickY.inverted = true;
+        if (invertedPath == RStickX.axis.path) RStickX.inverted = true;
     }
 
     public void PrintDebug()
@@ -263,8 +251,6 @@ public class RCControllerManager : MonoBehaviour
         string path = Application.persistentDataPath + "/rc_calibration.json";
         string json = JsonUtility.ToJson(calibration);
         File.WriteAllText(path, json);
-
-        Debug.Log("Calibration saved to: " + path);
     }
 
     private void LoadCalibration()
@@ -277,7 +263,6 @@ public class RCControllerManager : MonoBehaviour
 
         if (registeredDevice != null)
         {
-            Debug.Log("Registered device found. Applying calibration...");
             LStickY = calibration.lStickY;
             LStickX = calibration.lStickX;
             RStickY = calibration.rStickY;
