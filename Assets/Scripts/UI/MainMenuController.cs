@@ -68,14 +68,14 @@ public class MainMenuController : MonoBehaviour
 
     private void OnStartFlightBtnClick(ClickEvent evt)
     {
-        _MainMenu.visible = false;
-        _RCControllerMenu.visible = false;
-        _HUD.visible = true;
+        _MainMenu.style.display = DisplayStyle.None;
+        _RCControllerMenu.style.display = DisplayStyle.None;
+        _HUD.style.display = DisplayStyle.Flex;
     }
 
     private void OnRCControllerBtnClick(ClickEvent evt)
     {
-        _MainMenu.visible = false;
-        _RCControllerMenu.visible = true;
+        _MainMenu.style.display = DisplayStyle.None;
+        _RCControllerMenu.style.display = DisplayStyle.Flex;
     }
 }

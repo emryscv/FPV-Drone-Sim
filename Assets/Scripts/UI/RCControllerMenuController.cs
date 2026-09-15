@@ -139,8 +139,8 @@
 
         private void OnBackBtnClick(ClickEvent evt)
         {
-            _MainMenu.visible = true;
-            _RCControllerMenu.visible = false;
+            _MainMenu.style.display = DisplayStyle.Flex;
+            _RCControllerMenu.style.display = DisplayStyle.None;
         }
 
         private void OnSaveBtnClick(ClickEvent evt)
@@ -165,6 +165,7 @@
             _buttonPressed = true;
             _isPositive = false;
         }
+
         private IEnumerator CalibrationRoutine()
         {
             controls.FindAllAxes(); //TODO what happens if no axis is moved
@@ -350,7 +351,7 @@
 
             Debug.LogWarning("Timed out while waiting for axis movement during calibration.");
         }
-
+        
         private IEnumerator WaitForButtonPress()
         {
             while (!_buttonPressed)
@@ -360,6 +361,7 @@
 
             _buttonPressed = false;
         }
+      
         private void SetTransition(VisualElement element, float duration, EasingMode easingMode)
         {
             element.style.transitionProperty = new List<StylePropertyName>
