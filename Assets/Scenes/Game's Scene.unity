@@ -3760,7 +3760,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2177b27e1c1adcb43b2b32eda2880898, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HUDManager
-  drone: {fileID: 0}
+  _rb: {fileID: 859958599}
 --- !u!1001 &655489446
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4558,6 +4558,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae6934434bab450498a74f05b1fa8323, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DronePhysics
+--- !u!54 &859958599 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 1933884601366840249, guid: ecd8b7feba3b51f4b8e8336045feeb97, type: 3}
+  m_PrefabInstance: {fileID: 4542638037388411024}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &873999099 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6411657552631538423, guid: 8f5222b1341e21d429b476e3a05cde7c, type: 3}
