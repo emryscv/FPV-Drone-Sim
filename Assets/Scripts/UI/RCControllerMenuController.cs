@@ -30,6 +30,10 @@ public class RCControllerMenuController : MonoBehaviour
     private Label _calibrationInstructionsHeading;
     private Label _calibrationInstructionsDescription;
 
+    private Button _yesBtn;
+    private Button _noBtn;
+    
+
     private VisualElement _leftStick;
     private VisualElement _rightStick;
 
@@ -57,6 +61,10 @@ public class RCControllerMenuController : MonoBehaviour
         _uiManager = GetComponent<UIDocument>();
         _MainMenu = _uiManager.rootVisualElement.Q<VisualElement>("MainMenu");
         _RCControllerMenu = _uiManager.rootVisualElement.Q<VisualElement>("RCControllerMenu");
+    
+        _backBtn = _RCControllerMenu.Q<Button>("BackButton");
+        _saveBtn = _RCControllerMenu.Q<Button>("SaveButton");
+        _startCalibrationBtn = _RCControllerMenu.Q<Button>("StartCalibrationButton");
 
         _controllerStatusIcon = _RCControllerMenu.Q<VisualElement>("StatusIcon");
         _controllerStatusLabel = _RCControllerMenu.Q<Label>("StatusLabel");
@@ -64,18 +72,17 @@ public class RCControllerMenuController : MonoBehaviour
         _calibrationInstructionsHeading = _RCControllerMenu.Q<VisualElement>("CalibrationPanel").Q<Label>("Heading");
         _calibrationInstructionsDescription = _RCControllerMenu.Q<VisualElement>("CalibrationPanel").Q<Label>("Description");
 
-        Debug.Log("Heading: " + _calibrationInstructionsHeading + ", Description: " + _calibrationInstructionsDescription);
+        _yesBtn = _RCControllerMenu.Q<Button>("YesButton");
+        _noBtn = _RCControllerMenu.Q<Button>("NoButton");
 
         _leftStick = _RCControllerMenu.Q<VisualElement>("LeftStick");
         _rightStick = _RCControllerMenu.Q<VisualElement>("RightStick");
 
-        _backBtn = _RCControllerMenu.Q<Button>("BackButton");
-        _saveBtn = _RCControllerMenu.Q<Button>("SaveButton");
-        _startCalibrationBtn = _RCControllerMenu.Q<Button>("StartCalibrationButton");
-
         _backBtn.RegisterCallback<ClickEvent>(OnBackBtnClick);
         _saveBtn.RegisterCallback<ClickEvent>(OnSaveBtnClick);
         _startCalibrationBtn.RegisterCallback<ClickEvent>(OnStartCalibrationBtnClick);
+        _yesBtn.RegisterCallback<ClickEvent>(OnYesBtnClick);
+        _noBtn.RegisterCallback<ClickEvent>(OnNoBtnClick);
     }
 
     private void Update()
@@ -138,6 +145,15 @@ public class RCControllerMenuController : MonoBehaviour
         StartCoroutine(CalibrationRoutine());
     }
 
+    private void OnYesBtnClick(ClickEvent evt)
+    {
+        // Handle Yes button click
+    }
+
+    private void OnNoBtnClick(ClickEvent evt)
+    {
+        // Handle No button click
+    }
     private IEnumerator CalibrationRoutine()
     {
         controls.FindAllAxes();
@@ -266,6 +282,24 @@ public class RCControllerMenuController : MonoBehaviour
 
         SetTransition(_leftStick, 0f, EasingMode.Linear);
         SetTransition(_rightStick, 0f, EasingMode.Linear);
+
+        _yesBtn.style.display = DisplayStyle.Flex;
+        _noBtn.style.display = DisplayStyle.Flex;
+
+        _calibrationInstructionsHeading.text = "Invert Input";
+        _calibrationInstructionsDescription.text = "Do you want to invert any input?";
+        
+        _calibrationInstructionsHeading.text = "Invert Roll";
+        _calibrationInstructionsDescription.text = "Do you want to invert roll?";
+
+        _calibrationInstructionsHeading.text = "Invert Pitch";
+        _calibrationInstructionsDescription.text = "Do you want to invert pitch?";
+
+        _calibrationInstructionsHeading.text = "Invert Yaw";
+        _calibrationInstructionsDescription.text = "Do you want to invert yaw?";
+
+        _calibrationInstructionsHeading.text = "Invert Throttle";
+        _calibrationInstructionsDescription.text = "Do you want to invert throttle?";
 
         controls.PrintDebug();
     }
