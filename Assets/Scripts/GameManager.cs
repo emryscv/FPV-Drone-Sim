@@ -39,69 +39,71 @@ public class GameManager : MonoBehaviour
         //objectiveSlider.value = 0.1f;
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Cancel"))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (menuActive == null)
-            {
-                StatePause();
-                menuActive = menuPause;
-                menuActive.SetActive(true);
-            }
-            else if (menuActive == menuOptions)
-            {
-                menuActive.SetActive(false);
-                menuActive = menuPause;
-                menuActive.SetActive(true);
-            }
-            else if (menuActive == popWindow.gameObject)
-            {
-                PopupConfirm();
-            }
+            if (isPaused)
+                Unpause();
             else
-            {
-                StateUnpause();
-            }
+                Pause();
+            
         }
+        // if (Input.GetButtonDown("Cancel"))
+        // {
+        //     if (menuActive == null)
+        //     {
+        //         Pause();
+        //         menuActive = menuPause;
+        //         menuActive  .SetActive(true);
+        //     }
+        //     else if (menuActive == menuOptions)
+        //     {
+        //         menuActive.SetActive(false);
+        //         menuActive = menuPause;
+        //         menuActive.SetActive(true);
+        //     }
+        //     else if (menuActive == popWindow.gameObject)
+        //     {
+        //         PopupConfirm();
+        //     }
+        //     else
+        //     {
+        //         Unpause();
+        //     }
+        //}
     }
 
     // ---- PAUSING ---- //
-    public void StatePause()
+    public void Pause()
     {
         isPaused = true;
         Time.timeScale = 0;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+        Debug.Log("Game Paused");
     }
-    public void StateUnpause()
+    public void Unpause()
     {
         isPaused = false;
         Time.timeScale = timeScaleOrig;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        menuActive.SetActive(false);
-        menuActive = null;
+        Debug.Log("Game Unpaused");
     }
 
     // ---- WIN CONDITION FEEDBACK ---- //
     public void YouLose()
     {
-        StatePause();
+        Pause();
         menuActive = menuLose;
         menuActive.SetActive(true);
     }
 
     public void YouWin()
     {
-        StatePause();
+        Pause();
         menuActive = menuWin;
         menuActive.SetActive(true);
     }
@@ -117,7 +119,7 @@ public class GameManager : MonoBehaviour
 
     public void ShowPopup(string textMessage)
     {
-        StatePause();
+        Pause();
         menuActive = popWindow.gameObject;
         menuActive.SetActive(true);
         popWindow.confirmButton.onClick.AddListener(PopupConfirm);
@@ -126,37 +128,6 @@ public class GameManager : MonoBehaviour
 
     public void PopupConfirm()
     {
-        StateUnpause();
+        Unpause();
     }
-
-    // // ---- DATABASE ---- //
-    // private GameData Load(int saveSlotId)
-    // {
-    //     //TOD Research PAth.Combine ....
-    //     var dbPath = Path.Combine(Application.persistentDataPath, _savedFileName);
-    //     var dbConnection = new SQLiteConnection(dbPath);
-
-    //     dbConnection.CreateTable<GameData>();
-
-    //     var gameData = dbConnection.Find<GameData>(saveSlotId);
-    //     if(gameData == null)
-    //     {
-    //         gameData = new GameData { Id = saveSlotId, Score = 0 };
-    //         dbConnection.Insert(gameData);
-    //     }
-
-    //     dbConnection.Dispose();
-
-    //     return gameData;
-    // }
-
-    // private void Save(GameData gameData)
-    // {
-    //     var dbPath = Path.Combine(Application.persistentDataPath, _savedFileName);
-    //     var dbConnection = new SQLiteConnection(dbPath);
-
-    //     dbConnection.Update(gameData);
-
-    //     dbConnection.Dispose();
-    // }
 }
