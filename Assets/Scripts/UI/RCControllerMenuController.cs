@@ -62,7 +62,7 @@
 
         private void OnEnable()
         {
-            controls = RCControllerManager.Instance; //TODO I might not need this and jsut use the Controls Class
+            controls = RCControllerManager.Instance;
 
             _uiManager = GetComponent<UIDocument>();
             _MainMenu = _uiManager.rootVisualElement.Q<VisualElement>("MainMenu");
@@ -93,7 +93,6 @@
 
         private void Update()
         {
-            //TODO I might not need this and just use the controls class
             if (controls.registeredDevice != null)
             {
                 _controllerStatusLabel.text = controls.registeredDevice.displayName;
@@ -110,11 +109,11 @@
             if (_moveWithInput)
             { 
                 //TODO what if no axis is detected
-                float lStickX = controls.LStickX.inverted ? -controls.LStickX.axis.ReadValue() : controls.LStickX.axis.ReadValue();
-                float lStickY = controls.LStickY.inverted ? -controls.LStickY.axis.ReadValue() : controls.LStickY.axis.ReadValue();
+                float lStickX = controls.LStickX?.ReadValue() ?? 0f;
+                float lStickY = controls.LStickY?.ReadValue() ?? 0f;
                 
-                float rStickX = controls.RStickX.inverted ? -controls.RStickX.axis.ReadValue() : controls.RStickX.axis.ReadValue();
-                float rStickY = controls.RStickY.inverted ? -controls.RStickY.axis.ReadValue() : controls.RStickY.axis.ReadValue();
+                float rStickX = controls.RStickX?.ReadValue() ?? 0f;
+                float rStickY = controls.RStickY?.ReadValue() ?? 0f;
 
                 //This equation is fixed to the size of the parent componenet. If the size change this has to change
                 _leftStick.style.left = lStickX * 65f + 65f;
@@ -383,5 +382,4 @@
             };
         }
     }
-
 

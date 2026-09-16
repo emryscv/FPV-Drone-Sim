@@ -26,4 +26,14 @@ public class AxisInfo
         this.lastValue = lastValue;
         this.axis = axis;
     }
+
+    public float ReadValue()
+    {
+        if (axis == null) return 0f;
+
+        float value = axis.ReadValue();
+        value = 2f * (value - min) / (max - min) - 1f;
+
+        return inverted ? -value : value;
+    }
 }

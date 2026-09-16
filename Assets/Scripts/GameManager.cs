@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     public float timeScaleOrig;
 
     GameObject player;
-    FlightController playerScript; //TTODO check this value
+    FlightController playerScript; //TODO check this value
 
     [Header("===Menus===")]
     [SerializeField] GameObject menuActive;
