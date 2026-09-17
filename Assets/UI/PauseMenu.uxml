@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/main-menu-ui.uss?fileID=7433441132597879392&amp;guid=209e76e44b092e841a05253943bca5a4&amp;type=3#main-menu-ui"/>
-    <ui:VisualElement name="Background" style="flex-grow: 1; background-color: rgba(8, 12, 16, 0.83);">
+    <ui:VisualElement name="Background" style="flex-grow: 1; background-color: rgba(8, 12, 16, 0.96);">
         <ui:VisualElement name="PauseMenu" style="flex-grow: 1; width: 540px; padding-left: 0; padding-right: 0; margin-left: 0; color: rgb(255, 255, 255); justify-content: center; height: 100%; align-items: center; align-self: center;">
             <ui:Label text="PAUSE MENU&#10;" name="PauseMenuLabel" style="margin-top: 0; margin-right: 0; margin-bottom: 16px; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 30px; -unity-font-definition: url(&quot;project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Black.ttf?fileID=12800000&amp;guid=1644c8f8a32e548498832b745a3602d0&amp;type=3#BarlowCondensed-Black&quot;);"/>
             <ui:Button text="" name="ResumeFlightButton" enabled="true" tooltip="" class="main-menu-button" style="margin-top: 0; margin-right: 0; margin-bottom: 3px; margin-left: 0; padding-top: 0; padding-bottom: 0; background-color: rgb(76, 171, 54); -unity-background-image-tint-color: rgba(255, 255, 255, 0);">

@@ -4,6 +4,9 @@ using TMPro;
 using System.IO;
 using SQLite;
 using UnityEditor;
+using UnityEngine.UIElements;
+using Slider = UnityEngine.UI.Slider;
+using Cursor = UnityEngine.Cursor;
 
 
 public class GameManager : MonoBehaviour
@@ -15,8 +18,10 @@ public class GameManager : MonoBehaviour
 
     GameObject player;
     FlightController playerScript; //TODO check this value
+    VisualElement _PauseMenu;
 
     [Header("===Menus===")]
+    [SerializeField] UIDocument uiManager;
     [SerializeField] GameObject menuActive;
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuOptions;
@@ -36,7 +41,9 @@ public class GameManager : MonoBehaviour
 
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<FlightController>();
+
         //objectiveSlider.value = 0.1f;
+        _PauseMenu = uiManager.rootVisualElement.Q<VisualElement>("PauseMenu");
     }
 
     // Update is called once per frame
@@ -82,7 +89,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
-        Debug.Log("Game Paused");
+        _PauseMenu.style.display = DisplayStyle.Flex;
     }
     public void Unpause()
     {
@@ -90,7 +97,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = timeScaleOrig;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        Debug.Log("Game Unpaused");
+        _PauseMenu.style.display = DisplayStyle.None;
     }
 
     // ---- WIN CONDITION FEEDBACK ---- //

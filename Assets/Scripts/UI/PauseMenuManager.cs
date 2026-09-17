@@ -23,12 +23,13 @@ public class PauseMenuManager : MonoBehaviour
         _MainMenu = _uiManager.rootVisualElement.Q<VisualElement>("MainMenu");
         _RCControllerMenu = _uiManager.rootVisualElement.Q<VisualElement>("RCControllerMenu");
 
-        _resumeFlightBtn = _MainMenu.Q<Button>("ResumeFlightButton");
-        _rcControllerNav = _MainMenu.Q<Button>("RCControllerButton");
-        _droneConfigurationNav = _MainMenu.Q<Button>("DroneButton");
-        _fcConfigurationNav = _MainMenu.Q<Button>("FCButton");
-        _settingsNav = _MainMenu.Q<Button>("SettingsButton");
-        _exitNav = _MainMenu.Q<Button>("ExitButton");
+
+        _resumeFlightBtn = _PauseMenu.Q<Button>("ResumeFlightButton");
+        _rcControllerNav = _PauseMenu.Q<Button>("RCControllerButton");
+        _droneConfigurationNav = _PauseMenu.Q<Button>("DroneButton");
+        _fcConfigurationNav = _PauseMenu.Q<Button>("FCButton");
+        _settingsNav = _PauseMenu.Q<Button>("SettingsButton");
+        _exitNav = _PauseMenu.Q<Button>("ExitButton");
 
         _resumeFlightBtn.RegisterCallback<ClickEvent>(OnResumeFlightBtnClick);
         _rcControllerNav.RegisterCallback<ClickEvent>(OnRCControllerNavClick);
@@ -50,8 +51,7 @@ public class PauseMenuManager : MonoBehaviour
 
     private void OnResumeFlightBtnClick(ClickEvent evt)
     {
-        //TODO resume the flight session
-        _PauseMenu.style.display = DisplayStyle.None;
+        GameManager.instance.Unpause();
     }
 
     private void OnRCControllerNavClick(ClickEvent evt)
