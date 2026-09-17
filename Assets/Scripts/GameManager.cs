@@ -16,8 +16,9 @@ public class GameManager : MonoBehaviour
     public bool isPaused;
     public float timeScaleOrig;
 
-    GameObject player;
-    FlightController playerScript; //TODO check this value
+    GameObject drone;
+    DronePhysics dronePhysics;
+     // Reference to the player's Rigidbody component
     VisualElement _PauseMenu;
 
     [Header("===Menus===")]
@@ -39,10 +40,9 @@ public class GameManager : MonoBehaviour
         instance = this;
         timeScaleOrig = Time.timeScale;
 
-        player = GameObject.FindWithTag("Player");
-        playerScript = player.GetComponent<FlightController>();
+        drone = GameObject.FindWithTag("Player");
+        dronePhysics = drone.GetComponent<DronePhysics>();
 
-        //objectiveSlider.value = 0.1f;
         _PauseMenu = uiManager.rootVisualElement.Q<VisualElement>("PauseMenu");
     }
 
@@ -57,6 +57,12 @@ public class GameManager : MonoBehaviour
                 Pause();
             
         }
+        if (Input.GetKeyDown(KeyCode.R) && !isPaused)
+        {
+            //---- Restart ---- //
+            dronePhysics.ResetDroneState(); 
+        }
+        
         // if (Input.GetButtonDown("Cancel"))
         // {
         //     if (menuActive == null)

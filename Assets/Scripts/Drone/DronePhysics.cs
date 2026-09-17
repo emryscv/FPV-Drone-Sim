@@ -42,11 +42,11 @@ public class DronePhysics : MonoBehaviour
         rb.AddForce(transform.up * c);
     }
 
-    public void ResetDroneState()
+    public void ResetDroneState(Vector3? position = null, Quaternion? rotation = null)
     {
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
-        rb.position = Vector3.zero;
-        rb.rotation = Quaternion.identity;
+        rb.position = position == null ? new Vector3(45, 0.07f, 0) : position.Value;
+        rb.rotation = rotation == null ? Quaternion.Euler(0,270,0) : rotation.Value;
     }
 }

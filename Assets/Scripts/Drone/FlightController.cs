@@ -12,9 +12,6 @@ public class FlightController : MonoBehaviour
     float pitch;
     float roll;
 
-    [SerializeField] float rotateSpeed;
-    [SerializeField] float flySpeed;
-
     //PID constants
     float[] kP;
     float[] kI;
