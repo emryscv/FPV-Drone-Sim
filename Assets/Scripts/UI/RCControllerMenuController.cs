@@ -19,6 +19,7 @@ public class RCControllerMenuController : MonoBehaviour
     private UIDocument _uiManager;
     private VisualElement _MainMenu;
     private VisualElement _RCControllerMenu;
+    private VisualElement _PauseMenu;
 
     private Button _backBtn;
     private Button _saveBtn;
@@ -67,6 +68,7 @@ public class RCControllerMenuController : MonoBehaviour
         _uiManager = GetComponent<UIDocument>();
         _MainMenu = _uiManager.rootVisualElement.Q<VisualElement>("MainMenu");
         _RCControllerMenu = _uiManager.rootVisualElement.Q<VisualElement>("RCControllerMenu");
+        _PauseMenu = _uiManager.rootVisualElement.Q<VisualElement>("PauseMenu");
 
         _backBtn = _RCControllerMenu.Q<Button>("BackButton");
         _saveBtn = _RCControllerMenu.Q<Button>("SaveButton");
@@ -137,8 +139,12 @@ public class RCControllerMenuController : MonoBehaviour
 
     private void OnBackBtnClick(ClickEvent evt)
     {
-        _MainMenu.style.display = DisplayStyle.Flex;
         _RCControllerMenu.style.display = DisplayStyle.None;
+
+        if (GameManager.Instance.isPaused)   
+            _PauseMenu.style.display = DisplayStyle.Flex;
+        else
+            _MainMenu.style.display = DisplayStyle.Flex;
     }
 
     private void OnSaveBtnClick(ClickEvent evt)

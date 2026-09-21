@@ -3677,6 +3677,7 @@ GameObject:
   - component: {fileID: 651960969}
   - component: {fileID: 651960970}
   - component: {fileID: 651960971}
+  - component: {fileID: 651960972}
   m_Layer: 5
   m_Name: UIManager
   m_TagString: Untagged
@@ -3761,6 +3762,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HUDManager
   _rb: {fileID: 859958599}
+--- !u!114 &651960972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 651960966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dd364351c5d80f48ac220c8aec4ed2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PauseMenuManager
 --- !u!1001 &655489446
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4538,13 +4551,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 859958584}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3f84ea3f5ac850e4db49631873d867ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlightController
-  rotateSpeed: 0
-  flySpeed: 0
   motorMix: []
 --- !u!114 &859958597
 MonoBehaviour:
@@ -4553,7 +4564,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 859958584}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ae6934434bab450498a74f05b1fa8323, type: 3}
   m_Name: 

@@ -64,6 +64,8 @@ public class MainMenuController : MonoBehaviour
     {
         _startFlightNav.UnregisterCallback<ClickEvent>(OnStartFlightBtnClick);
         _rcControllerNav.UnregisterCallback<ClickEvent>(OnRCControllerBtnClick);  
+
+
     } 
 
     private void OnStartFlightBtnClick(ClickEvent evt)
@@ -71,6 +73,7 @@ public class MainMenuController : MonoBehaviour
         _MainMenu.style.display = DisplayStyle.None;
         _RCControllerMenu.style.display = DisplayStyle.None;
         _HUD.style.display = DisplayStyle.Flex;
+        GameManager.Instance.StartSimulation();
     }
 
     private void OnRCControllerBtnClick(ClickEvent evt)

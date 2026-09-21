@@ -51,7 +51,7 @@ public class PauseMenuManager : MonoBehaviour
 
     private void OnResumeFlightBtnClick(ClickEvent evt)
     {
-        GameManager.instance.Unpause();
+        GameManager.Instance.Unpause();
     }
 
     private void OnRCControllerNavClick(ClickEvent evt)

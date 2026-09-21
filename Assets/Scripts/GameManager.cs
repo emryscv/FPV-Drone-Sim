@@ -11,13 +11,14 @@ using Cursor = UnityEngine.Cursor;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
+    public static GameManager Instance { get; private set; }
 
     public bool isPaused;
     public float timeScaleOrig;
 
     GameObject drone;
     DronePhysics dronePhysics;
+    FlightController droneFC;
      // Reference to the player's Rigidbody component
     VisualElement _PauseMenu;
 
@@ -34,14 +35,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] Slider objectiveSlider;
     [SerializeField] TextPopup popWindow;
 
-
     void Awake()
     {
-        instance = this;
+        Instance = this;
+        isPaused = false;
         timeScaleOrig = Time.timeScale;
+        Time.timeScale = 0;
 
         drone = GameObject.FindWithTag("Player");
         dronePhysics = drone.GetComponent<DronePhysics>();
+        droneFC = drone.GetComponent<FlightController>();
 
         _PauseMenu = uiManager.rootVisualElement.Q<VisualElement>("PauseMenu");
     }
@@ -62,30 +65,6 @@ public class GameManager : MonoBehaviour
             //---- Restart ---- //
             dronePhysics.ResetDroneState(); 
         }
-        
-        // if (Input.GetButtonDown("Cancel"))
-        // {
-        //     if (menuActive == null)
-        //     {
-        //         Pause();
-        //         menuActive = menuPause;
-        //         menuActive  .SetActive(true);
-        //     }
-        //     else if (menuActive == menuOptions)
-        //     {
-        //         menuActive.SetActive(false);
-        //         menuActive = menuPause;
-        //         menuActive.SetActive(true);
-        //     }
-        //     else if (menuActive == popWindow.gameObject)
-        //     {
-        //         PopupConfirm();
-        //     }
-        //     else
-        //     {
-        //         Unpause();
-        //     }
-        //}
     }
 
     // ---- PAUSING ---- //
@@ -97,6 +76,7 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         _PauseMenu.style.display = DisplayStyle.Flex;
     }
+
     public void Unpause()
     {
         isPaused = false;
@@ -104,6 +84,18 @@ public class GameManager : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         _PauseMenu.style.display = DisplayStyle.None;
+    }
+
+    public void StartSimulation()
+    {
+        droneFC.enabled = true;
+        dronePhysics.enabled = true;
+    }
+
+    public void StopSimulation()
+    {
+        droneFC.enabled = false;
+        dronePhysics.enabled = false;
     }
 
     // ---- WIN CONDITION FEEDBACK ---- //
@@ -119,15 +111,6 @@ public class GameManager : MonoBehaviour
         Pause();
         menuActive = menuWin;
         menuActive.SetActive(true);
-    }
-
-    public void UpdateObjective(float currTime, float objectiveTime)
-    {
-        int intObjTime = (int)currTime + 1;
-        if (intObjTime > (int)objectiveTime) intObjTime = (int)objectiveTime;
-        if (currTime == 0.0f) intObjTime = 0;
-        currentObjectiveTime.text = intObjTime.ToString();
-        objectiveSlider.value = currTime / objectiveTime;
     }
 
     public void ShowPopup(string textMessage)

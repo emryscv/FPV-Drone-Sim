@@ -27,7 +27,6 @@ public class DronePhysics : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        //
         float c = (flightController.motorMix[0] + flightController.motorMix[1] + flightController.motorMix[2] + flightController.motorMix[3]) / mass; // Collective thrust
      
         Vector3 torque = new Vector3(
