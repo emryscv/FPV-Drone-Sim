@@ -8,6 +8,8 @@ public class TrainingManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+
+        //TODO figure ou how to restart the training.
         player = GameObject.FindWithTag("Player");
         excercises = new GameObject[4];
         excercises[0] = GameObject.Find("Excercise1");

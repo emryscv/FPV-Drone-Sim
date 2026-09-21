@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour
         isPaused = true;
         Time.timeScale = 0;
 
-        //Cursor is handlke here otherwise every UI view
+        //Cursor is handled here. Otherwise every UI view
         //would have to handle it independently
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
@@ -95,7 +95,7 @@ public class GameManager : MonoBehaviour
         isPaused = false;
         Time.timeScale = timeScaleOrig;
 
-        //Cursor is handlke here otherwise every UI view
+        //Cursor is handled here. Otherwise every UI view
         //would have to handle it independently
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
@@ -106,6 +106,8 @@ public class GameManager : MonoBehaviour
         droneFC.enabled = true;
         dronePhysics.enabled = true;
         isGameStarted = true;
+
+        dronePhysics.ResetDroneState();
 
         Unpause();
     }
