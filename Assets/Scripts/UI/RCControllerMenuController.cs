@@ -91,10 +91,13 @@ public class RCControllerMenuController : MonoBehaviour
         _startCalibrationBtn.RegisterCallback<ClickEvent>(OnStartCalibrationBtnClick);
         _yesBtn.RegisterCallback<ClickEvent>(OnYesBtnClick);
         _noBtn.RegisterCallback<ClickEvent>(OnNoBtnClick);
+
+        GameEvents.Instance.OnUnpause += OnGameUnpaused;
     }
 
     private void Update()
     {
+        //TODO decide if this has to move when the simulation is stopped
         if (controls.registeredDevice != null)
         {
             _controllerStatusLabel.text = controls.registeredDevice.displayName;
@@ -132,13 +135,22 @@ public class RCControllerMenuController : MonoBehaviour
 
     private void OnDisable()
     {
+        Debug.Log("RC Controller Menu Disabled");
         _backBtn.UnregisterCallback<ClickEvent>(OnBackBtnClick);
         _saveBtn.UnregisterCallback<ClickEvent>(OnSaveBtnClick);
         _startCalibrationBtn.UnregisterCallback<ClickEvent>(OnStartCalibrationBtnClick);
+        _yesBtn.UnregisterCallback<ClickEvent>(OnYesBtnClick);
+        _noBtn.UnregisterCallback<ClickEvent>(OnNoBtnClick);
+
+        GameEvents.Instance.OnUnpause -= OnGameUnpaused;
     }
 
     private void OnBackBtnClick(ClickEvent evt)
     {
+        //TODO stop calibration if needed
+        //StopCoroutine(CalibrationRoutine()); 
+        // this but also make sure that calibration is not in a unsafe state
+        
         _RCControllerMenu.style.display = DisplayStyle.None;
 
         if (GameManager.Instance.isPaused)   
@@ -168,6 +180,14 @@ public class RCControllerMenuController : MonoBehaviour
         // Handle No button click
         _buttonPressed = true;
         _isPositive = false;
+    }
+
+    private void OnGameUnpaused()
+    {   
+        //TODO stop calibration if needed      
+        //StopCoroutine(CalibrationRoutine()); 
+        // this but also make sure that calibration is not in a unsafe state 
+        _RCControllerMenu.style.display = DisplayStyle.None;
     }
 
     private IEnumerator CalibrationRoutine()

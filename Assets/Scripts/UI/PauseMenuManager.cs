@@ -58,19 +58,10 @@ public class PauseMenuManager : MonoBehaviour
         GameEvents.Instance.OnUnpause -= OnGameUnpaused;
     }
 
-    private void OnGamePaused()
-    {
-        _PauseMenu.style.display = DisplayStyle.Flex;
-    }
-
-    private void OnGameUnpaused()
-    {
-        _PauseMenu.style.display = DisplayStyle.None;
-    }
-
     private void OnResumeFlightBtnClick(ClickEvent evt)
     {
         GameManager.Instance.Unpause();
+        _PauseMenu.style.display = DisplayStyle.None;
     }
 
 
@@ -101,5 +92,18 @@ public class PauseMenuManager : MonoBehaviour
         //TODO figure out what quiting the session should do.
         _PauseMenu.style.display = DisplayStyle.None;
         _MainMenu.style.display = DisplayStyle.Flex;
+        
+        //TODO figure out if an event is better
+        GameManager.Instance.StopSimulation();
+    }
+
+    private void OnGamePaused()
+    {
+        _PauseMenu.style.display = DisplayStyle.Flex;
+    }
+
+    private void OnGameUnpaused()
+    {
+        _PauseMenu.style.display = DisplayStyle.None;
     }
 }

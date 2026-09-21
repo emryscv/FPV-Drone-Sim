@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
     {
         Instance = this;
         isGameStarted = false;
-        isPaused = false;
+        isPaused = true;
         timeScaleOrig = Time.timeScale;
         Time.timeScale = 0;
 
@@ -59,9 +59,15 @@ public class GameManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 if (isPaused)
+                {
                     Unpause();
+                    GameEvents.Instance.Unpause();
+                }
                 else
+                {
                     Pause();
+                    GameEvents.Instance.Pause();
+                }
 
             }
             if (Input.GetKeyDown(KeyCode.R) && !isPaused)
@@ -82,8 +88,6 @@ public class GameManager : MonoBehaviour
         //would have to handle it independently
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
-
-        GameEvents.Instance.Pause();
     }
 
     public void Unpause()
@@ -95,8 +99,6 @@ public class GameManager : MonoBehaviour
         //would have to handle it independently
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-
-        GameEvents.Instance.Unpause();
     }
 
     public void StartSimulation()
@@ -104,13 +106,18 @@ public class GameManager : MonoBehaviour
         droneFC.enabled = true;
         dronePhysics.enabled = true;
         isGameStarted = true;
+
+        Unpause();
     }
 
     public void StopSimulation()
     {
+        //TODO fiund out how to reaload everyhing such as position, scene. etc.
         droneFC.enabled = false;
         dronePhysics.enabled = false;
         isGameStarted = false;
+        
+        Pause();
     }
 
     // ---- WIN CONDITION FEEDBACK ---- //
