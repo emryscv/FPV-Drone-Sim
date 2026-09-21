@@ -18,12 +18,13 @@ public class PauseMenuManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void OnEnable()
     {
+        // Get reference to UI views
         _uiManager = GetComponent<UIDocument>();
         _PauseMenu = _uiManager.rootVisualElement.Q<VisualElement>("PauseMenu");
         _MainMenu = _uiManager.rootVisualElement.Q<VisualElement>("MainMenu");
         _RCControllerMenu = _uiManager.rootVisualElement.Q<VisualElement>("RCControllerMenu");
 
-
+        // UI elements References
         _resumeFlightBtn = _PauseMenu.Q<Button>("ResumeFlightButton");
         _rcControllerNav = _PauseMenu.Q<Button>("RCControllerButton");
         _droneConfigurationNav = _PauseMenu.Q<Button>("DroneButton");
@@ -31,12 +32,17 @@ public class PauseMenuManager : MonoBehaviour
         _settingsNav = _PauseMenu.Q<Button>("SettingsButton");
         _exitNav = _PauseMenu.Q<Button>("ExitButton");
 
+        //In UI events
         _resumeFlightBtn.RegisterCallback<ClickEvent>(OnResumeFlightBtnClick);
         _rcControllerNav.RegisterCallback<ClickEvent>(OnRCControllerNavClick);
         _droneConfigurationNav.RegisterCallback<ClickEvent>(OnDroneConfigurationNavClick);
         _fcConfigurationNav.RegisterCallback<ClickEvent>(OnFCConfigurationNavClick);
         _settingsNav.RegisterCallback<ClickEvent>(OnSettingsNavClick);
         _exitNav.RegisterCallback<ClickEvent>(OnExitNavClick);
+
+        //Events
+        GameEvents.Instance.OnPause += OnGamePaused;
+        GameEvents.Instance.OnUnpause += OnGameUnpaused;
     }
 
     private void OnDisable()
@@ -47,12 +53,26 @@ public class PauseMenuManager : MonoBehaviour
         _fcConfigurationNav.UnregisterCallback<ClickEvent>(OnFCConfigurationNavClick);
         _settingsNav.UnregisterCallback<ClickEvent>(OnSettingsNavClick);
         _exitNav.UnregisterCallback<ClickEvent>(OnExitNavClick);
+
+        GameEvents.Instance.OnPause -= OnGamePaused;
+        GameEvents.Instance.OnUnpause -= OnGameUnpaused;
+    }
+
+    private void OnGamePaused()
+    {
+        _PauseMenu.style.display = DisplayStyle.Flex;
+    }
+
+    private void OnGameUnpaused()
+    {
+        _PauseMenu.style.display = DisplayStyle.None;
     }
 
     private void OnResumeFlightBtnClick(ClickEvent evt)
     {
         GameManager.Instance.Unpause();
     }
+
 
     private void OnRCControllerNavClick(ClickEvent evt)
     {
