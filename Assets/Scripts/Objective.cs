@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class Objective : MonoBehaviour
+public class Waypoint : MonoBehaviour
 {
     [SerializeField] public float objectiveTime;
     [SerializeField] public string objectivePopup;
-    [SerializeField] public ObjectiveSpawner nextObjective;
+    [SerializeField] public WaypointSpawner nextObjective;
     float currentTime;
 
     protected bool playerInRange;
