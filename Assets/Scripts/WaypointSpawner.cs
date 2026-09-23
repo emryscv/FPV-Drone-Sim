@@ -5,7 +5,7 @@ public class WaypointSpawner : MonoBehaviour
     [SerializeField] float objectiveTime;
     [SerializeField] string objectivePopup;
     [SerializeField] WaypointSpawner nextObjective;
-    [SerializeField] GameObject objectivePrefab;
+    [SerializeField] GameObject waypointPrefab;
 
     GameObject objectToSpawn;
     float originalObjectiveTime;
@@ -14,9 +14,9 @@ public class WaypointSpawner : MonoBehaviour
 
     void Start()
     {
-        originalObjectiveTime = objectivePrefab.GetComponent<Waypoint>().objectiveTime;
-        originalObjectivePopup = objectivePrefab.GetComponent<Waypoint>().objectivePopup;
-        objectToSpawn = objectivePrefab;
+        originalObjectiveTime = waypointPrefab.GetComponent<Waypoint>().objectiveTime;
+        originalObjectivePopup = waypointPrefab.GetComponent<Waypoint>().objectivePopup;
+        objectToSpawn = waypointPrefab;
     }
 
     public void SpawnObjective()
@@ -35,8 +35,8 @@ public class WaypointSpawner : MonoBehaviour
 
         GameObject.Instantiate(objectToSpawn, gameObject.transform);
 
-        objectivePrefab.GetComponent<Waypoint>().objectiveTime = originalObjectiveTime;
-        objectivePrefab.GetComponent<Waypoint>().objectivePopup = originalObjectivePopup;
-        objectivePrefab.GetComponent<Waypoint>().nextObjective = null;
+        waypointPrefab.GetComponent<Waypoint>().objectiveTime = originalObjectiveTime;
+        waypointPrefab.GetComponent<Waypoint>().objectivePopup = originalObjectivePopup;
+        waypointPrefab.GetComponent<Waypoint>().nextObjective = null;
     }
 }

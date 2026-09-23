@@ -27,6 +27,7 @@ public class Waypoint : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //TODO delete this logic. Maybe hovering is not that important
         if (playerInRange)
         {
             currentTime += Time.deltaTime;
