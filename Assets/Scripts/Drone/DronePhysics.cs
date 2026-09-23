@@ -46,7 +46,7 @@ public class DronePhysics : MonoBehaviour
     {
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
-        rb.position = Vector3.zero;
+        rb.position = new Vector3(45, 0, 0);
         rb.rotation = Quaternion.identity;
     }
 }
