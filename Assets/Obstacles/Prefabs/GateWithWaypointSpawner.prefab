@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 199166389521317367}
-  - component: {fileID: 84315072380504739}
   m_Layer: 0
   m_Name: GateWithWaypointSpawner
   m_TagString: Untagged
@@ -34,33 +33,6 @@ Transform:
   - {fileID: 2036098900589285623}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &84315072380504739
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3464237613066839495}
-  serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &3638439160568657716
 GameObject:
   m_ObjectHideFlags: 0
@@ -78,7 +50,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7370901432411092137
 Transform:
@@ -300,13 +272,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: CornerLeftSupport
       objectReference: {fileID: 0}
+    - target: {fileID: -8672484370434600633, guid: 410c4e9c5b6069140bb6f567850034d7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: -8261697561693032054, guid: 410c4e9c5b6069140bb6f567850034d7, type: 3}
       propertyPath: m_Name
       value: CornerSupporGroup
       objectReference: {fileID: 0}
+    - target: {fileID: -8261697561693032054, guid: 410c4e9c5b6069140bb6f567850034d7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: -6439578640514222832, guid: 410c4e9c5b6069140bb6f567850034d7, type: 3}
       propertyPath: m_Name
       value: GateTopSupport
+      objectReference: {fileID: 0}
+    - target: {fileID: -6439578640514222832, guid: 410c4e9c5b6069140bb6f567850034d7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: -6053672037740061074, guid: 410c4e9c5b6069140bb6f567850034d7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -319,6 +303,10 @@ PrefabInstance:
     - target: {fileID: -4076500327808888340, guid: 410c4e9c5b6069140bb6f567850034d7, type: 3}
       propertyPath: m_Name
       value: BannerRight
+      objectReference: {fileID: 0}
+    - target: {fileID: -4076500327808888340, guid: 410c4e9c5b6069140bb6f567850034d7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: -3396862931414618415, guid: 410c4e9c5b6069140bb6f567850034d7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -336,17 +324,37 @@ PrefabInstance:
       propertyPath: m_Name
       value: PipeSupportGroup
       objectReference: {fileID: 0}
+    - target: {fileID: -3250249067768020045, guid: 410c4e9c5b6069140bb6f567850034d7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: -1579815575740647397, guid: 410c4e9c5b6069140bb6f567850034d7, type: 3}
       propertyPath: m_Name
       value: GateLeftSupport
+      objectReference: {fileID: 0}
+    - target: {fileID: -1579815575740647397, guid: 410c4e9c5b6069140bb6f567850034d7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: -1190807713126654239, guid: 410c4e9c5b6069140bb6f567850034d7, type: 3}
       propertyPath: m_Name
       value: BannerGroup
       objectReference: {fileID: 0}
+    - target: {fileID: -1190807713126654239, guid: 410c4e9c5b6069140bb6f567850034d7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: -784810627751753888, guid: 410c4e9c5b6069140bb6f567850034d7, type: 3}
       propertyPath: m_Name
       value: GateRightSupport
+      objectReference: {fileID: 0}
+    - target: {fileID: -784810627751753888, guid: 410c4e9c5b6069140bb6f567850034d7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -725470855509091014, guid: 410c4e9c5b6069140bb6f567850034d7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 611188512929793480, guid: 410c4e9c5b6069140bb6f567850034d7, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -355,6 +363,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 410c4e9c5b6069140bb6f567850034d7, type: 3}
       propertyPath: m_Name
       value: DroneGate
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 410c4e9c5b6069140bb6f567850034d7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 2392711648495662891, guid: 410c4e9c5b6069140bb6f567850034d7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -396,9 +408,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: BannerTop
       objectReference: {fileID: 0}
+    - target: {fileID: 6078516388399618707, guid: 410c4e9c5b6069140bb6f567850034d7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 6357396429808083007, guid: 410c4e9c5b6069140bb6f567850034d7, type: 3}
       propertyPath: m_Name
       value: BannerLeft
+      objectReference: {fileID: 0}
+    - target: {fileID: 6357396429808083007, guid: 410c4e9c5b6069140bb6f567850034d7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 7205422201285270714, guid: 410c4e9c5b6069140bb6f567850034d7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -422,45 +442,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 410c4e9c5b6069140bb6f567850034d7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7370901432411092137}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 410c4e9c5b6069140bb6f567850034d7, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 4381873384795146701}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 410c4e9c5b6069140bb6f567850034d7, type: 3}
 --- !u!4 &8126449595583132855 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 410c4e9c5b6069140bb6f567850034d7, type: 3}
   m_PrefabInstance: {fileID: 8596328958828745564}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &8902809926157020685 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 410c4e9c5b6069140bb6f567850034d7, type: 3}
-  m_PrefabInstance: {fileID: 8596328958828745564}
-  m_PrefabAsset: {fileID: 0}
---- !u!54 &4381873384795146701
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8902809926157020685}
-  serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
