@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7492050602716556093}
   - component: {fileID: -3841964568092877259}
   m_Layer: 0
-  m_Name: WayMarkerBig
+  m_Name: WaypointMarkerBig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
