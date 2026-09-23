@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FinalMarker : Objective
+public class FinalMarker : Waypoint
 {
     private TrainingManager trainingManager;
     

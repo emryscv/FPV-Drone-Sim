@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class Objective : MonoBehaviour
+public class Waypoint : MonoBehaviour
 {
     [SerializeField] public float objectiveTime;
     [SerializeField] public string objectivePopup;
-    [SerializeField] public ObjectiveSpawner nextObjective;
+    [SerializeField] public WaypointSpawner nextObjective;
     float currentTime;
 
     protected bool playerInRange;
@@ -27,6 +27,7 @@ public class Objective : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //TODO delete this logic. Maybe hovering is not that important
         if (playerInRange)
         {
             currentTime += Time.deltaTime;
