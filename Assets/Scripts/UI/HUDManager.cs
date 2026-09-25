@@ -10,6 +10,8 @@ public class HUDManager : MonoBehaviour
 
     private UIDocument _uiManager;
     private VisualElement _HUD;
+    
+    private VisualElement _crashIndicator;
 
     private Label _speed;
     private Label _altitude;
@@ -21,6 +23,8 @@ public class HUDManager : MonoBehaviour
     void Awake()
     {
         controls = RCControllerManager.Instance;
+        GameEvents.Instance.OnDisplayCrashIndicator += ShowCrashIndicator;
+        GameEvents.Instance.OnHideCrashIndicator += HideCrashIndicator;
     }
 
     private void OnEnable()
@@ -35,9 +39,13 @@ public class HUDManager : MonoBehaviour
         Debug.Log("HUD Initialized");
         _speed = _HUD.Q<Label>("Speed");
         _altitude = _HUD.Q<Label>("Altitude");
+        _crashIndicator = _HUD.Q<VisualElement>("CrashBadge");
 
         Debug.Log("Speed: " + _speed);
         Debug.Log("Altitude: " + _altitude);
+        Debug.Log("Crash Indicator: " + _crashIndicator);
+
+
     }
     // Update is called once per frame
     void Update()
@@ -59,5 +67,15 @@ public class HUDManager : MonoBehaviour
 
         _speed.text = speed.ToString("F2");
         _altitude.text = altitude.ToString("F2");
+    }
+
+    private void ShowCrashIndicator()
+    {
+        _crashIndicator.style.display = DisplayStyle.Flex;
+    }
+
+    private void HideCrashIndicator()
+    {
+        _crashIndicator.style.display = DisplayStyle.None;
     }
 }

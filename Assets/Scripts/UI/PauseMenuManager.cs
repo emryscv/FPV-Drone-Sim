@@ -9,6 +9,7 @@ public class PauseMenuManager : MonoBehaviour
     private VisualElement _RCControllerMenu; 
 
     private Button _resumeFlightBtn;
+    private Button _restartFlightBtn;
     private Button _rcControllerNav;
     private Button _droneConfigurationNav;
     private Button _fcConfigurationNav;
@@ -26,6 +27,7 @@ public class PauseMenuManager : MonoBehaviour
 
         // UI elements References
         _resumeFlightBtn = _PauseMenu.Q<Button>("ResumeFlightButton");
+        _restartFlightBtn = _PauseMenu.Q<Button>("RestartFlightButton");
         _rcControllerNav = _PauseMenu.Q<Button>("RCControllerButton");
         _droneConfigurationNav = _PauseMenu.Q<Button>("DroneButton");
         _fcConfigurationNav = _PauseMenu.Q<Button>("FCButton");
@@ -34,6 +36,7 @@ public class PauseMenuManager : MonoBehaviour
 
         //In UI events
         _resumeFlightBtn.RegisterCallback<ClickEvent>(OnResumeFlightBtnClick);
+        _restartFlightBtn.RegisterCallback<ClickEvent>(OnRestartFlightBtnClick);
         _rcControllerNav.RegisterCallback<ClickEvent>(OnRCControllerNavClick);
         _droneConfigurationNav.RegisterCallback<ClickEvent>(OnDroneConfigurationNavClick);
         _fcConfigurationNav.RegisterCallback<ClickEvent>(OnFCConfigurationNavClick);
@@ -48,6 +51,7 @@ public class PauseMenuManager : MonoBehaviour
     private void OnDisable()
     {
         _resumeFlightBtn.UnregisterCallback<ClickEvent>(OnResumeFlightBtnClick);
+        _restartFlightBtn.UnregisterCallback<ClickEvent>(OnRestartFlightBtnClick);
         _rcControllerNav.UnregisterCallback<ClickEvent>(OnRCControllerNavClick);
         _droneConfigurationNav.UnregisterCallback<ClickEvent>(OnDroneConfigurationNavClick);
         _fcConfigurationNav.UnregisterCallback<ClickEvent>(OnFCConfigurationNavClick);
@@ -60,7 +64,13 @@ public class PauseMenuManager : MonoBehaviour
 
     private void OnResumeFlightBtnClick(ClickEvent evt)
     {
-        GameManager.Instance.Unpause();
+        GameManager.Instance.UnpauseSimulation();
+        _PauseMenu.style.display = DisplayStyle.None;
+    }
+
+    private void OnRestartFlightBtnClick(ClickEvent evt)
+    {
+        GameEvents.Instance.Restart();
         _PauseMenu.style.display = DisplayStyle.None;
     }
 

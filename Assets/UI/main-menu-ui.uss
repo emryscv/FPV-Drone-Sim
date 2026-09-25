@@ -36,6 +36,7 @@
 
 .main-menu-button .button-icon {
     --unity-image-tint-color: rgb(75, 75, 75);
+    -unity-background-image-tint-color: rgb(55, 55, 55);
 }
 
 .main-menu-button:hover .button-icon {

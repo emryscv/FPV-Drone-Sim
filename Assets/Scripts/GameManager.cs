@@ -1,12 +1,10 @@
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
-using System.IO;
-using SQLite;
-using UnityEditor;
 using UnityEngine.UIElements;
 using Slider = UnityEngine.UI.Slider;
 using Cursor = UnityEngine.Cursor;
+using System.Collections;
+
 
 
 public class GameManager : MonoBehaviour
@@ -25,11 +23,11 @@ public class GameManager : MonoBehaviour
 
     [Header("===Menus===")]
     [SerializeField] UIDocument uiManager;
-    [SerializeField] GameObject menuActive;
-    [SerializeField] GameObject menuPause;
-    [SerializeField] GameObject menuOptions;
-    [SerializeField] GameObject menuWin;
-    [SerializeField] GameObject menuLose;
+    // [SerializeField] GameObject menuActive;
+    // [SerializeField] GameObject menuPause;
+    // [SerializeField] GameObject menuOptions;
+    // [SerializeField] GameObject menuWin;
+    // [SerializeField] GameObject menuLose;
 
     [Header("===Displayed Text===")]
     [SerializeField] TMP_Text currentObjectiveTime;
@@ -49,7 +47,11 @@ public class GameManager : MonoBehaviour
         droneFC = drone.GetComponent<FlightController>();
 
         _PauseMenu = uiManager.rootVisualElement.Q<VisualElement>("PauseMenu");
+        GameEvents.Instance.OnRestart += RestartSimulation;
+        GameEvents.Instance.OnCrash += DroneCrash;
     }
+
+
 
     // Update is called once per frame
     void Update()
@@ -60,26 +62,35 @@ public class GameManager : MonoBehaviour
             {
                 if (isPaused)
                 {
-                    Unpause();
+                    UnpauseSimulation();
                     GameEvents.Instance.Unpause();
                 }
                 else
                 {
-                    Pause();
+                    PauseSimulation();
                     GameEvents.Instance.Pause();
                 }
-
             }
             if (Input.GetKeyDown(KeyCode.R) && !isPaused)
             {
-                //---- Restart ---- //
-                dronePhysics.ResetDroneState();
+                RestartSimulation();
             }
         }
     }
 
     // ---- PAUSING ---- //
-    public void Pause()
+    public void StartSimulation()
+    {
+        droneFC.enabled = true;
+        dronePhysics.enabled = true;
+        isGameStarted = true;
+
+        dronePhysics.ResetDroneState();
+
+        UnpauseSimulation();
+    }
+
+    public void PauseSimulation()
     {
         isPaused = true;
         Time.timeScale = 0;
@@ -90,7 +101,7 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
     }
 
-    public void Unpause()
+    public void UnpauseSimulation()
     {
         isPaused = false;
         Time.timeScale = timeScaleOrig;
@@ -101,15 +112,9 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    public void StartSimulation()
+    private void RestartSimulation()
     {
-        droneFC.enabled = true;
-        dronePhysics.enabled = true;
-        isGameStarted = true;
-
         dronePhysics.ResetDroneState();
-
-        Unpause();
     }
 
     public void StopSimulation()
@@ -118,36 +123,57 @@ public class GameManager : MonoBehaviour
         droneFC.enabled = false;
         dronePhysics.enabled = false;
         isGameStarted = false;
-        
-        Pause();
+
+        PauseSimulation();
+    }
+   
+    private void DroneCrash()
+    {
+        StartCoroutine(DroneCrashCoroutine());
+    }
+
+    private IEnumerator DroneCrashCoroutine()
+    {
+        droneFC.enabled = false;
+        dronePhysics.enabled = false;
+
+        GameEvents.Instance.DisplayCrashIndicator();
+        dronePhysics.Crash();
+        yield return new WaitForSeconds(3);
+
+        dronePhysics.ResetDroneState();
+        GameEvents.Instance.HideCrashIndicator();
+
+        droneFC.enabled = true;
+        dronePhysics.enabled = true;
     }
 
     // ---- WIN CONDITION FEEDBACK ---- //
     public void YouLose()
     {
-        Pause();
-        menuActive = menuLose;
-        menuActive.SetActive(true);
+        PauseSimulation();
+        // menuActive = menuLose;
+        // menuActive.SetActive(true);
     }
 
     public void YouWin()
     {
-        Pause();
-        menuActive = menuWin;
-        menuActive.SetActive(true);
+        PauseSimulation();
+        // menuActive = menuWin;
+        // menuActive.SetActive(true);
     }
 
     public void ShowPopup(string textMessage)
     {
-        Pause();
-        menuActive = popWindow.gameObject;
-        menuActive.SetActive(true);
+        PauseSimulation();
+        //menuActive = popWindow.gameObject;
+        //menuActive.SetActive(true);
         popWindow.confirmButton.onClick.AddListener(PopupConfirm);
         popWindow.text.SetText(textMessage);
     }
 
     public void PopupConfirm()
     {
-        Unpause();
+        UnpauseSimulation();
     }
 }
