@@ -7945,7 +7945,7 @@ GameObject:
   - component: {fileID: 1710389021}
   - component: {fileID: 1710389020}
   - component: {fileID: 1710389023}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: HurdleBannerLandingPad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8659,7 +8659,7 @@ GameObject:
   - component: {fileID: 1808332415}
   - component: {fileID: 1808332414}
   - component: {fileID: 1808332417}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
