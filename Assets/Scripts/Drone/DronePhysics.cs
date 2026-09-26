@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class DronePhysics : MonoBehaviour
@@ -42,6 +43,10 @@ public class DronePhysics : MonoBehaviour
 
         rb.AddRelativeTorque(torque);
         rb.AddForce(transform.up * c);
+
+        Debug.Log("Angle: " + Vector3.Angle(transform.up, Vector3.up) + " Linear Velocity: " + rb.linearVelocity.magnitude);
+        if(rb.linearVelocity.magnitude == 0 && Vector3.Angle(transform.up, Vector3.up) > 90)
+           GameEvents.Instance.Crash();
     }
 
     void OnCollisionEnter(Collision collision)
@@ -49,7 +54,7 @@ public class DronePhysics : MonoBehaviour
         //TODO Improve Crash condition to better detect crashes
         bool isCrash = collision.gameObject.layer != groundLayer;
 
-        isCrash = isCrash && collision.relativeVelocity.magnitude > 3f;
+        isCrash = isCrash && collision.relativeVelocity.magnitude > 8f;   
 
         ContactPoint contact = collision.GetContact(0);
         Vector3 localContactPoint = transform.InverseTransformPoint(contact.point);

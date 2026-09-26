@@ -31,6 +31,7 @@ public class GameEvents : MonoBehaviour
     public event Action OnCrash;
     public void Crash()
     {
+        Debug.Log("Crash event triggered");
         OnCrash?.Invoke();
     }
 
