@@ -28,7 +28,7 @@ public class DronePhysics : MonoBehaviour
     void FixedUpdate()
     {
         //
-        float c = (flightController.motorMix[0] + flightController.motorMix[1] + flightController.motorMix[2] + flightController.motorMix[3]) / mass; // Collective thrust
+        float c = (flightController.motorMix[0] + flightController.motorMix[1] + flightController.motorMix[2] + flightController.motorMix[3]) / 4 * 7; // Collective thrust
      
         Vector3 torque = new Vector3(
             l / sqrt2 * ( flightController.motorMix[0] - flightController.motorMix[1] + flightController.motorMix[2] - flightController.motorMix[3]),
