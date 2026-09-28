@@ -20,7 +20,7 @@ public class Waypoint : MonoBehaviour
         currentTime = 0.0f;
         if (objectivePopup != "")
         {
-            GameManager.instance.ShowPopup(objectivePopup);
+            GameManager.Instance.ShowPopup(objectivePopup);
         }
     }
 
@@ -33,7 +33,6 @@ public class Waypoint : MonoBehaviour
             currentTime += Time.deltaTime;
             if (currentTime >= objectiveTime)
             {
-                GameManager.instance.UpdateObjective(0.1f, 1.0f);
                 FinishObjective();
             }
         }
@@ -43,8 +42,6 @@ public class Waypoint : MonoBehaviour
         }
 
         currentTime = Mathf.Clamp(currentTime, 0.0f, objectiveTime);
-
-        GameManager.instance.UpdateObjective(currentTime, objectiveTime);
     }
 
     private void OnTriggerEnter(Collider other)

@@ -12,9 +12,6 @@ public class FlightController : MonoBehaviour
     float pitch;
     float roll;
 
-    [SerializeField] float rotateSpeed;
-    [SerializeField] float flySpeed;
-
     //PID constants
     float[] kP;
     float[] kI;
@@ -116,7 +113,7 @@ public class FlightController : MonoBehaviour
         
         for (int i = 0; i < 4; i++)
         {
-            motorMix[i] = (throttleSetpoint + motorMix[i] * normalizationFactor) * 0.08338501f; //this value is the 
+            motorMix[i] = (throttleSetpoint + motorMix[i] * normalizationFactor); //0.0981f;//0.083385f; //this value is the 
         }
 
         //Debug.Log("Normalized Thrusts: F1 " + (motorMix[0]) + " F2 " + (motorMix[1]) + " F3 " + (motorMix[2]) + " F4 " + (motorMix[3]) + " Throttle Setpoint: " + throttleSetpoint + " Normalization Factor: " + normalizationFactor);
