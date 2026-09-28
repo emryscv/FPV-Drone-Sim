@@ -10950,6 +10950,10 @@ PrefabInstance:
       value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 1933884601366840249, guid: ecd8b7feba3b51f4b8e8336045feeb97, type: 3}
+      propertyPath: m_Mass
+      value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 1933884601366840249, guid: ecd8b7feba3b51f4b8e8336045feeb97, type: 3}
       propertyPath: m_UseGravity
       value: 1
       objectReference: {fileID: 0}
@@ -10960,6 +10964,14 @@ PrefabInstance:
     - target: {fileID: 1933884601366840249, guid: ecd8b7feba3b51f4b8e8336045feeb97, type: 3}
       propertyPath: m_IsKinematic
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1933884601366840249, guid: ecd8b7feba3b51f4b8e8336045feeb97, type: 3}
+      propertyPath: m_LinearDamping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1933884601366840249, guid: ecd8b7feba3b51f4b8e8336045feeb97, type: 3}
+      propertyPath: m_AngularDamping
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1933884601366840249, guid: ecd8b7feba3b51f4b8e8336045feeb97, type: 3}
       propertyPath: m_CollisionDetection

@@ -9,6 +9,8 @@ public class DronePhysics : MonoBehaviour
     float k; //Rotor's torque constant
     float l; //Arm Length
     float sqrt2;
+    float maxThrust;
+
     private FlightController flightController; // Reference to the FlightController script
     private Rigidbody rb; // Reference to the Rigidbody component
 
@@ -22,29 +24,41 @@ public class DronePhysics : MonoBehaviour
 
     void Start()
     {
-        mass = 0.017f; //kg
+        mass = rb.mass; //kg
         l = 0.033f; //m
         k = 0.01f; //Nm TODO figure out
-        sqrt2 = Mathf.Sqrt(2);
+
+        maxThrust = Mathf.Abs(Physics.gravity.y * mass * 2f) / 4f; //This is thrust per motor
+
+        sqrt2 = Mathf.Sqrt(2);    
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        float c = (flightController.motorMix[0] + flightController.motorMix[1] + flightController.motorMix[2] + flightController.motorMix[3]) / mass; // Collective thrust
+        float[] motorThrust = {
+            flightController.motorMix[0] * maxThrust,
+            flightController.motorMix[1] * maxThrust,
+            flightController.motorMix[2] * maxThrust,
+            flightController.motorMix[3] * maxThrust
+        };
+
+        float c = (motorThrust[0] + motorThrust[1] + motorThrust[2] + motorThrust[3]); // Collective thrust
+        
+        Debug.Log("Collective thrust: " + c + " M1: " + motorThrust[0] + " M2: " + motorThrust[1] + " M3: " + motorThrust[2] + " M4: " + motorThrust[3] + " Max Thrust: " + maxThrust + " mass: " + mass);
 
         Vector3 torque = new Vector3(
-            l / sqrt2 * (flightController.motorMix[0] - flightController.motorMix[1] + flightController.motorMix[2] - flightController.motorMix[3]),
-            k * (-flightController.motorMix[0] + flightController.motorMix[1] + flightController.motorMix[2] - flightController.motorMix[3]),
-            l / sqrt2 * (-flightController.motorMix[0] - flightController.motorMix[1] + flightController.motorMix[2] + flightController.motorMix[3])
+            l / sqrt2 * (motorThrust[0] - motorThrust[1] + motorThrust[2] - motorThrust[3]),
+            k * (-motorThrust[0] + motorThrust[1] + motorThrust[2] - motorThrust[3]),
+            l / sqrt2 * (-motorThrust[0] - motorThrust[1] + motorThrust[2] + motorThrust[3])
         );
 
         //Debug.Log("Torque: " + torque);
 
         rb.AddRelativeTorque(torque);
-        rb.AddForce(transform.up * c);
+        rb.AddForce(transform.up * c, ForceMode.Force);
 
-        Debug.Log("Angle: " + Vector3.Angle(transform.up, Vector3.up) + " Linear Velocity: " + rb.linearVelocity.magnitude);
+        //Debug.Log("Angle: " + Vector3.Angle(transform.up, Vector3.up) + " Linear Velocity: " + rb.linearVelocity.magnitude);
         if(rb.linearVelocity.magnitude == 0 && Vector3.Angle(transform.up, Vector3.up) > 90)
            GameEvents.Instance.Crash();
     }
