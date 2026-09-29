@@ -916,7 +916,7 @@ MeshCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
@@ -4378,7 +4378,7 @@ MeshCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
@@ -6559,7 +6559,7 @@ MeshCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
@@ -9388,7 +9388,7 @@ MeshCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
@@ -11671,11 +11671,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 782989187914971146, guid: ecd8b7feba3b51f4b8e8336045feeb97, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.185
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 782989187914971146, guid: ecd8b7feba3b51f4b8e8336045feeb97, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.564
+      value: -3.68
       objectReference: {fileID: 0}
     - target: {fileID: 782989187914971146, guid: ecd8b7feba3b51f4b8e8336045feeb97, type: 3}
       propertyPath: m_LocalRotation.w
@@ -11699,15 +11699,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1461833552800553350, guid: ecd8b7feba3b51f4b8e8336045feeb97, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.4
+      value: 0.083
       objectReference: {fileID: 0}
     - target: {fileID: 1461833552800553350, guid: ecd8b7feba3b51f4b8e8336045feeb97, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.4
+      value: 0.083
       objectReference: {fileID: 0}
     - target: {fileID: 1461833552800553350, guid: ecd8b7feba3b51f4b8e8336045feeb97, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.4
+      value: 0.083
       objectReference: {fileID: 0}
     - target: {fileID: 1461833552800553350, guid: ecd8b7feba3b51f4b8e8336045feeb97, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11715,7 +11715,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1461833552800553350, guid: ecd8b7feba3b51f4b8e8336045feeb97, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.0543
+      value: 0.041
       objectReference: {fileID: 0}
     - target: {fileID: 1461833552800553350, guid: ecd8b7feba3b51f4b8e8336045feeb97, type: 3}
       propertyPath: m_LocalPosition.z

@@ -30,7 +30,7 @@ public class DronePhysics : MonoBehaviour
 
         maxThrust = Mathf.Abs(Physics.gravity.y * mass * 2f) / 4f; //This is thrust per motor
 
-        sqrt2 = Mathf.Sqrt(2);    
+        sqrt2 = Mathf.Sqrt(2); 
     }
 
     // Update is called once per frame
@@ -45,7 +45,7 @@ public class DronePhysics : MonoBehaviour
 
         float c = (motorThrust[0] + motorThrust[1] + motorThrust[2] + motorThrust[3]); // Collective thrust
         
-        Debug.Log("Collective thrust: " + c + " M1: " + motorThrust[0] + " M2: " + motorThrust[1] + " M3: " + motorThrust[2] + " M4: " + motorThrust[3] + " Max Thrust: " + maxThrust + " mass: " + mass);
+        //Debug.Log("Collective thrust: " + c + " M1: " + motorThrust[0] + " M2: " + motorThrust[1] + " M3: " + motorThrust[2] + " M4: " + motorThrust[3] + " Max Thrust: " + maxThrust + " mass: " + mass);
 
         Vector3 torque = new Vector3(
             l / sqrt2 * (motorThrust[0] - motorThrust[1] + motorThrust[2] - motorThrust[3]),

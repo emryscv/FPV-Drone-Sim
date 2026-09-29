@@ -3,7 +3,27 @@ guid: 2309dbb69956e6444a41e3ce7aad1e17
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Electronics
+    second: {fileID: 2100000, guid: ff60b4624088efb4a9f0fad61390811f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Frame
+    second: {fileID: 2100000, guid: b94e270d4d51370449e0ec9fd1c764b5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Motor_Top
+    second: {fileID: 2100000, guid: 6c4788f06611adc43b5f53765de39c09, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Rotor
+    second: {fileID: 2100000, guid: 5ad4b17e5ba53884282c41e266e59ed3, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
