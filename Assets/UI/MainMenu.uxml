@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/main-menu-ui.uss?fileID=7433441132597879392&amp;guid=209e76e44b092e841a05253943bca5a4&amp;type=3#main-menu-ui"/>
     <ui:VisualElement name="Background" style="flex-grow: 1; top: 0; position: absolute; left: 0; width: 100%; height: 100%; background-image: url(&quot;project://database/Assets/Images/MainMenuBackground.jpg?fileID=2800000&amp;guid=8c129d42b4a83814ab09e29036d6543a&amp;type=3#MainMenuBackground&quot;);"/>
-    <ui:VisualElement name="Overlay" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Images/Textures/Gradient.svg?fileID=7388822144124034973&amp;guid=e3230db8a902f134e86fa07f3441288e&amp;type=3#Gradient&quot;); position: absolute; top: -2px; left: 2px; width: 100%; height: 100%;"/>
+    <ui:VisualElement name="Overlay" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Images/Textures/Gradient.svg?fileID=7388822144124034973&amp;guid=e3230db8a902f134e86fa07f3441288e&amp;type=3#Gradient&quot;); position: absolute; top: -2px; left: 4px; width: 100%; height: 100%;"/>
     <ui:VisualElement name="Header" style="flex-grow: 0; width: auto; padding-left: 48px; padding-top: 32px; padding-right: 48px; flex-direction: row;">
         <ui:Image name="Image" source="project://database/Assets/Images/DroneIcon.svg?fileID=7388822144124034973&amp;guid=dfed4a4b8c715994bbddcac32dfe34f3&amp;type=3#DroneIcon" tint-color="rgb(76, 171, 54)" style="align-self: flex-start; height: 52px; width: 52px; margin-right: 12px;"/>
         <ui:VisualElement style="flex-grow: 1; flex-direction: column; width: auto;">
@@ -27,21 +27,21 @@
             </ui:VisualElement>
             <ui:Image name="Image" source="project://database/Assets/Images/Icons/chevron-right.svg?fileID=7388822144124034973&amp;guid=030931756de5efe4f81d39bae40362a5&amp;type=3#chevron-right" picking-mode="Ignore" class="chevron"/>
         </ui:Button>
-        <ui:Button text="" name="RCControllerButton" class="main-menu-button" style="margin-top: 0; margin-right: 0; margin-bottom: 3px; margin-left: 0; padding-top: 0; padding-bottom: 0; -unity-background-image-tint-color: rgba(255, 255, 255, 0);">
+        <ui:Button text="" name="RCControllerButton" class="main-menu-button" style="margin-top: 0; margin-right: 0; margin-bottom: 3px; margin-left: 0; padding-top: 0; padding-bottom: 0; -unity-background-image-tint-color: rgba(255, 255, 255, 0); visibility: visible; display: flex;">
             <ui:VisualElement picking-mode="Ignore" style="flex-grow: 1; flex-direction: row;">
                 <ui:Image source="project://database/Assets/Images/Icons/gamepad.svg?fileID=7388822144124034973&amp;guid=721c78076682d8040924f4e8304c1753&amp;type=3#gamepad" picking-mode="Ignore" class="button-icon" style="width: auto; margin-right: 18px; padding-right: 0; height: 18px; align-self: center;"/>
                 <ui:Label text="CONTROLLER CONFIGURATION" picking-mode="Ignore" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Bold.ttf?fileID=12800000&amp;guid=5f7b0a079acd8ec449b1459679e8abbf&amp;type=3#BarlowCondensed-Bold&quot;); font-size: 17px; letter-spacing: 10px; color: rgb(244, 244, 244);"/>
             </ui:VisualElement>
             <ui:Image name="Image" source="project://database/Assets/Images/Icons/chevron-right.svg?fileID=7388822144124034973&amp;guid=030931756de5efe4f81d39bae40362a5&amp;type=3#chevron-right" picking-mode="Ignore" class="chevron"/>
         </ui:Button>
-        <ui:Button text="" name="DroneButton" class="main-menu-button" style="margin-top: 0; margin-right: 0; margin-bottom: 3px; margin-left: 0; padding-top: 0; padding-bottom: 0; -unity-background-image-tint-color: rgba(255, 255, 255, 0);">
+        <ui:Button text="" name="DroneButton" class="main-menu-button" style="margin-top: 0; margin-right: 0; margin-bottom: 3px; margin-left: 0; padding-top: 0; padding-bottom: 0; -unity-background-image-tint-color: rgba(255, 255, 255, 0); display: flex;">
             <ui:VisualElement picking-mode="Ignore" style="flex-grow: 1; flex-direction: row;">
                 <ui:Image source="project://database/Assets/Images/DroneIcon.svg?fileID=7388822144124034973&amp;guid=dfed4a4b8c715994bbddcac32dfe34f3&amp;type=3#DroneIcon" picking-mode="Ignore" class="button-icon" style="width: 22px; margin-right: 18px; padding-right: 0; height: 18px; align-self: center;"/>
                 <ui:Label text="DRONE CONFIGURATION" picking-mode="Ignore" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Bold.ttf?fileID=12800000&amp;guid=5f7b0a079acd8ec449b1459679e8abbf&amp;type=3#BarlowCondensed-Bold&quot;); font-size: 17px; letter-spacing: 10px; color: rgb(244, 244, 244);"/>
             </ui:VisualElement>
             <ui:Image name="Image" source="project://database/Assets/Images/Icons/chevron-right.svg?fileID=7388822144124034973&amp;guid=030931756de5efe4f81d39bae40362a5&amp;type=3#chevron-right" picking-mode="Ignore" class="chevron"/>
         </ui:Button>
-        <ui:Button text="" name="FCButton" class="main-menu-button" style="margin-top: 0; margin-right: 0; margin-bottom: 3px; margin-left: 0; padding-top: 0; padding-bottom: 0; -unity-background-image-tint-color: rgba(255, 255, 255, 0);">
+        <ui:Button text="" name="FCButton" class="main-menu-button" style="margin-top: 0; margin-right: 0; margin-bottom: 3px; margin-left: 0; padding-top: 0; padding-bottom: 0; -unity-background-image-tint-color: rgba(255, 255, 255, 0); display: flex;">
             <ui:VisualElement picking-mode="Ignore" style="flex-grow: 1; flex-direction: row;">
                 <ui:Image source="project://database/Assets/Images/Icons/sliders-vertical.svg?fileID=7388822144124034973&amp;guid=c1d12ad6619318241b16cd82978176c3&amp;type=3#sliders-vertical" name="Image" picking-mode="Ignore" class="button-icon" style="width: auto; margin-right: 18px; padding-right: 0; height: 18px; align-items: stretch; align-self: center;"/>
                 <ui:Label text="FLIGHT CONTROLLER CONFIGURATION" picking-mode="Ignore" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Bold.ttf?fileID=12800000&amp;guid=5f7b0a079acd8ec449b1459679e8abbf&amp;type=3#BarlowCondensed-Bold&quot;); font-size: 17px; letter-spacing: 10px; color: rgb(244, 244, 244);"/>

@@ -95,28 +95,20 @@ public class FlightController : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             motorMix[i] = motorMixMatrix[i][0] * pitchPID + motorMixMatrix[i][1] * yawPID + motorMixMatrix[i][2] * rollPID;
-            //motorMix[i] = motorMixMatrix[i][2] * rollPID;
-
+    
             motorMin = System.Math.Min(motorMin, motorMix[i]);
             motorMax = System.Math.Max(motorMax, motorMix[i]);
         }
 
-        //Debug.Log("Thrusts: F1 " + motorMix[0] + " F2 " + motorMix[1] + " F3 " + motorMix[2] + " F4 " + motorMix[3] + " Min: " + motorMin + " Max: " + motorMax);
-
         float motorRange = motorMax - motorMin;
 
-        //Debug.Log("Thrusts: F1 " + motorMix[0] + " F2 " + motorMix[1] + " F3 " + motorMix[2] + " F4 " + motorMix[3] + " Min: " + motorMin + " Max: " + motorMax);
-        //Debug.Log("Min: " + motorMin + " Max: " + motorMax);
-        
         float normalizationFactor = motorRange > 1.0f ? 1.0f / motorRange : 1.0f;
         throttleSetpoint = Mathf.Clamp(throttleSetpoint, -motorMin * normalizationFactor, 1.0f - motorMax * normalizationFactor); 
         
         for (int i = 0; i < 4; i++)
         {
-            motorMix[i] = (throttleSetpoint + motorMix[i] * normalizationFactor); //0.0981f;//0.083385f; //this value is the 
+            motorMix[i] = (throttleSetpoint + motorMix[i] * normalizationFactor);
         }
-
-        //Debug.Log("Normalized Thrusts: F1 " + (motorMix[0]) + " F2 " + (motorMix[1]) + " F3 " + (motorMix[2]) + " F4 " + (motorMix[3]) + " Throttle Setpoint: " + throttleSetpoint + " Normalization Factor: " + normalizationFactor);
     }
 
     float ComputeBetaflightRates(int axis, float input)
