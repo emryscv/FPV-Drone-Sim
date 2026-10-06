@@ -1,8 +1,19 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/numerical-fileds.uss?fileID=7433441132597879392&amp;guid=21c13465f3d5e344e95b1b86b2e0cfca&amp;type=3#numerical-fileds"/>
     <Style src="project://database/Assets/UI/fc-menu.uss?fileID=7433441132597879392&amp;guid=887721337aa719c46907514b6d61185b&amp;type=3#fc-menu"/>
     <ui:VisualElement name="PID" class="floating-window" style="flex-grow: 1;">
         <ui:Label text="PID Tuning&#10;" name="Header"/>
-        <ui:VisualElement name="Content" style="flex-grow: 1;"/>
+        <ui:VisualElement name="Content" style="flex-grow: 1;">
+            <IntegerField value="" max="0" min="0"/>
+            <IntegerField value="" max="0" min="0"/>
+            <IntegerField value="" max="0" min="0"/>
+            <IntegerField value="" max="0" min="0"/>
+            <IntegerField value="" max="0" min="0"/>
+            <IntegerField value="" max="0" min="0"/>
+            <IntegerField value="" max="0" min="0"/>
+            <IntegerField value="" max="0" min="0"/>
+            <IntegerField value="" max="0" min="0"/>
+        </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="Rates" class="floating-window" style="flex-grow: 1;">
         <ui:Label text="Rates&#10;" name="Header"/>

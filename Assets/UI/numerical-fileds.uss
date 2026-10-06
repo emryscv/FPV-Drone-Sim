@@ -1,0 +1,64 @@
+:root {
+}
+
+.numerical-field {
+    flex-direction: row;
+    border-left-color: rgba(244, 244, 244, 0.07);
+    border-right-color: rgba(244, 244, 244, 0.07);
+    border-top-color: rgba(244, 244, 244, 0.07);
+    border-bottom-color: rgba(244, 244, 244, 0.07);
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    width: auto;
+    flex-shrink: 1;
+}
+
+.numerical-field #Value {
+    width: 100px;
+    height: auto;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    -unity-font-definition: url("project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Medium.ttf?fileID=12800000&guid=4502073703758934880cc373e6200123&type=3#BarlowCondensed-Medium");
+    background-color: rgb(8, 12, 16);
+}
+
+.numerical-field #Value #unity-text-input {
+    width: 100px;
+    height: auto;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    -unity-font-definition: url("project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Medium.ttf?fileID=12800000&guid=4502073703758934880cc373e6200123&type=3#BarlowCondensed-Medium");
+    background-color: rgb(8, 12, 16);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-left-color: rgba(244, 244, 244, 0.07);
+    border-right-color: rgba(244, 244, 244, 0.07);
+    border-top-color: rgba(244, 244, 244, 0.07);
+    border-bottom-color: rgba(244, 244, 244, 0.07);
+}
+
+.numerical-field Button {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    background-color: rgba(244, 244, 244, 0.04);
+    color: rgba(244, 244, 244, 0.38);
+    border-left-color: rgba(244, 244, 244, 0.04);
+    border-right-color: rgba(244, 244, 244, 0.04);
+    border-top-color: rgba(244, 244, 244, 0.04);
+    border-bottom-color: rgba(244, 244, 244, 0.04);
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    -unity-font-definition: url("project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Medium.ttf?fileID=12800000&guid=4502073703758934880cc373e6200123&type=3#BarlowCondensed-Medium");
+}
