@@ -4,7 +4,7 @@
     <ui:VisualElement name="PID" class="floating-window" style="flex-grow: 1;">
         <ui:Label text="PID Tuning&#10;" name="Header"/>
         <ui:VisualElement name="Content" style="flex-grow: 1;">
-            <IntegerField value="" max="0" min="0"/>
+            <IntegerField value="" max="10" min="0"/>
             <IntegerField value="" max="0" min="0"/>
             <IntegerField value="" max="0" min="0"/>
             <IntegerField value="" max="0" min="0"/>
@@ -17,7 +17,17 @@
     </ui:VisualElement>
     <ui:VisualElement name="Rates" class="floating-window" style="flex-grow: 1;">
         <ui:Label text="Rates&#10;" name="Header"/>
-        <ui:VisualElement name="Content" style="flex-grow: 1;"/>
+        <ui:VisualElement name="Content" style="flex-grow: 1;">
+            <FloatField value="" max="10" min="0"/>
+            <FloatField value="" max="0" min="0"/>
+            <FloatField value="" max="0" min="0"/>
+            <FloatField value="" max="0" min="0"/>
+            <FloatField value="" max="0" min="0"/>
+            <FloatField value="" max="0" min="0"/>
+            <FloatField value="" max="0" min="0" name="FloatField"/>
+            <FloatField value="" max="0" min="0"/>
+            <FloatField value="" max="0" min="0"/>
+        </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="Throttle" class="floating-window" style="flex-grow: 1;">
         <ui:Label text="Throttle&#10;" name="Header"/>
