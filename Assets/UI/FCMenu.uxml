@@ -1,36 +1,90 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/numerical-fileds.uss?fileID=7433441132597879392&amp;guid=21c13465f3d5e344e95b1b86b2e0cfca&amp;type=3#numerical-fileds"/>
     <Style src="project://database/Assets/UI/fc-menu.uss?fileID=7433441132597879392&amp;guid=887721337aa719c46907514b6d61185b&amp;type=3#fc-menu"/>
-    <ui:VisualElement name="PID" class="floating-window" style="flex-grow: 1;">
-        <ui:Label text="PID Tuning&#10;" name="Header"/>
-        <ui:VisualElement name="Content" style="flex-grow: 1;">
-            <IntegerField value="" max="10" min="0"/>
-            <IntegerField value="" max="0" min="0"/>
-            <IntegerField value="" max="0" min="0"/>
-            <IntegerField value="" max="0" min="0"/>
-            <IntegerField value="" max="0" min="0"/>
-            <IntegerField value="" max="0" min="0"/>
-            <IntegerField value="" max="0" min="0"/>
-            <IntegerField value="" max="0" min="0"/>
-            <IntegerField value="" max="0" min="0"/>
+    <ui:VisualElement name="MenuParent" style="flex-grow: 0; align-self: center; flex-direction: column; align-content: center; height: 100%; justify-content: center; align-items: stretch;">
+        <ui:VisualElement name="PID" class="floating-window" style="flex-grow: 0; align-self: stretch; justify-content: center; align-items: stretch; align-content: center;">
+            <ui:Label text="PID Tuning" name="Header"/>
+            <ui:VisualElement name="Content" style="flex-grow: 0; flex-direction: row; justify-content: center; align-self: flex-start; align-content: center; align-items: center; flex-shrink: 1; flex-wrap: nowrap; padding-bottom: 5px;">
+                <ui:VisualElement name="Labels" class="table-col" style="flex-grow: 0; flex-direction: column;">
+                    <ui:Label text="Roll" name="Roll" class="table-col-label" style="color: rgba(76, 171, 54, 0.38);"/>
+                    <ui:Label text="Pitch" name="Pitch" class="table-col-label" style="color: rgba(74, 159, 212, 0.38);"/>
+                    <ui:Label text="Yaw" name="Yaw" class="table-col-label" style="color: rgba(212, 164, 74, 0.38);"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="P" class="table-col" style="flex-grow: 1; align-content: center;">
+                    <ui:Label text="P" name="ColHeader" class="table-col-header"/>
+                    <IntegerField value="" max="10" min="0" style="align-self: center; color: rgb(76, 171, 54);"/>
+                    <IntegerField value="" max="0" min="0" style="color: rgb(74, 159, 212);"/>
+                    <IntegerField value="" max="0" min="0" style="color: rgb(212, 164, 74);"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="I" class="table-col" style="flex-grow: 1;">
+                    <ui:Label text="I" name="ColHeader" class="table-col-header"/>
+                    <IntegerField value="" max="0" min="0" style="color: rgb(76, 171, 54);"/>
+                    <IntegerField value="" max="0" min="0" style="color: rgb(74, 159, 212);"/>
+                    <IntegerField value="" max="0" min="0" style="color: rgb(212, 164, 74);"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="D" class="table-col" style="flex-grow: 1;">
+                    <ui:Label text="D" name="ColHeader" class="table-col-header"/>
+                    <IntegerField value="" max="0" min="0" style="color: rgb(76, 171, 54);"/>
+                    <IntegerField value="" max="0" min="0" style="color: rgb(74, 159, 212);"/>
+                    <IntegerField value="" max="0" min="0" style="color: rgb(212, 164, 74);"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
         </ui:VisualElement>
-    </ui:VisualElement>
-    <ui:VisualElement name="Rates" class="floating-window" style="flex-grow: 1;">
-        <ui:Label text="Rates&#10;" name="Header"/>
-        <ui:VisualElement name="Content" style="flex-grow: 1;">
-            <FloatField value="" max="10" min="0"/>
-            <FloatField value="" max="0" min="0"/>
-            <FloatField value="" max="0" min="0"/>
-            <FloatField value="" max="0" min="0"/>
-            <FloatField value="" max="0" min="0"/>
-            <FloatField value="" max="0" min="0"/>
-            <FloatField value="" max="0" min="0" name="FloatField"/>
-            <FloatField value="" max="0" min="0"/>
-            <FloatField value="" max="0" min="0"/>
+        <ui:VisualElement name="Rates" class="floating-window" style="flex-grow: 0; align-self: stretch;">
+            <ui:Label text="Rates&#10;" name="Header"/>
+            <ui:VisualElement name="Content" style="flex-grow: 1; flex-direction: row; padding-bottom: 5px;">
+                <ui:VisualElement name="Labels" class="table-col" style="flex-grow: 0;">
+                    <ui:Label text="Roll" name="Roll" class="table-col-label" style="margin-left: 10px; margin-right: 10px; margin-top: 7px; margin-bottom: 7px; color: rgba(76, 171, 54, 0.38);"/>
+                    <ui:Label text="Pitch" name="Pitch" class="table-col-label" style="color: rgba(74, 159, 212, 0.38);"/>
+                    <ui:Label text="Yaw" name="Yaw" class="table-col-label" style="color: rgba(212, 164, 74, 0.38); padding-bottom: 12px;"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="RCRate" class="table-col" style="flex-grow: 1; justify-content: center; align-content: center;">
+                    <ui:Label text="RC Rate" name="ColHeader" class="table-col-header"/>
+                    <FloatField value="" max="10" min="0" style="color: rgb(76, 171, 54);"/>
+                    <FloatField value="" max="0" min="0" style="color: rgb(74, 159, 212);"/>
+                    <FloatField value="" max="0" min="0" style="color: rgb(212, 164, 74);"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="Rate" class="table-col" style="flex-grow: 1;">
+                    <ui:Label text="Rate" name="ColHeader" class="table-col-header"/>
+                    <FloatField value="" max="10" min="0" style="color: rgb(76, 171, 54);"/>
+                    <FloatField value="" max="0" min="0" style="color: rgb(74, 159, 212);"/>
+                    <FloatField value="" max="0" min="0" style="color: rgb(212, 164, 74);"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="Expo" class="table-col" style="flex-grow: 1;">
+                    <ui:Label text="RC Expo" name="ColHeader" class="table-col-header"/>
+                    <FloatField value="" max="10" min="0" style="color: rgb(76, 171, 54);"/>
+                    <FloatField value="" max="0" min="0" style="color: rgb(74, 159, 212);"/>
+                    <FloatField value="" max="0" min="0" style="color: rgb(212, 164, 74);"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="Degrees" class="table-col" style="flex-grow: 1;">
+                    <ui:Label text="Max Vel" name="ColHeader" class="table-col-header" style="padding-top: 5px; padding-bottom: 5px; margin-bottom: 2px; margin-top: 4px;"/>
+                    <ui:Label text="Label" name="Value" class="table-col-label" style="color: rgba(76, 171, 54, 0.38);"/>
+                    <ui:Label text="Label" name="Value" class="table-col-label" style="color: rgba(74, 159, 212, 0.38);"/>
+                    <ui:Label text="Label" name="Label" class="table-col-label" style="color: rgba(212, 164, 74, 0.38);"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
         </ui:VisualElement>
-    </ui:VisualElement>
-    <ui:VisualElement name="Throttle" class="floating-window" style="flex-grow: 1;">
-        <ui:Label text="Throttle&#10;" name="Header"/>
-        <ui:VisualElement name="Content" style="flex-grow: 1;"/>
+        <ui:VisualElement name="StructuralNode" style="flex-grow: 0; flex-direction: row; align-self: stretch; justify-content: center; align-items: center; align-content: center;">
+            <ui:VisualElement name="Throttle" class="floating-window" style="flex-grow: 1; align-self: stretch; margin-right: 12px;">
+                <ui:Label text="Throttle&#10;" name="Header"/>
+                <ui:VisualElement name="Content" style="flex-grow: 1; flex-direction: row;">
+                    <ui:VisualElement name="Values" style="flex-grow: 1; flex-direction: row;">
+                        <ui:VisualElement name="Labels" style="flex-grow: 0; flex-direction: column;">
+                            <ui:Label text="Mid " name="Mid" class="table-col-label" style="color: rgba(212, 164, 74, 0.38);"/>
+                            <ui:Label text="Expo" name="Expo" class="table-col-label" style="color: rgba(212, 164, 74, 0.38); text-overflow: ellipsis;"/>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="Values" style="flex-grow: 0; flex-direction: column;">
+                            <FloatField value="" max="10" min="0" style="color: rgb(212, 164, 74);"/>
+                            <FloatField value="" max="10" min="0" style="color: rgb(212, 164, 74);"/>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="Graph" style="flex-grow: 0; width: 200px; height: 200px; background-color: rgba(244, 244, 244, 0.38); margin-top: 10px; margin-right: 10px; margin-bottom: 10px; margin-left: 10px;"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="RatesCurve" class="floating-window" style="flex-grow: 0; align-self: stretch; align-items: stretch; justify-content: center;">
+                <ui:Label text="Rates Curve&#10;" name="Header"/>
+                <ui:VisualElement name="Graph" style="flex-grow: 1; width: 200px; height: 200px; background-color: rgba(244, 244, 244, 0.38); margin-top: 10px; margin-right: 10px; margin-bottom: 10px; margin-left: 10px;"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

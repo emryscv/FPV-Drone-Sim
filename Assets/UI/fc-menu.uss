@@ -1,6 +1,12 @@
 :root {
 }
 
+#HeaderRow {
+    width: 100%;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
 .floating-window {
     border-left-color: rgba(76, 171, 54, 0.18);
     border-right-color: rgba(76, 171, 54, 0.18);
@@ -15,6 +21,14 @@
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
+    align-self: center;
+    align-content: center;
+    justify-content: center;
+    align-items: stretch;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 12px;
+    margin-left: 0;
 }
 
 .floating-window #Header {
@@ -27,8 +41,8 @@
     border-right-width: 0;
     border-bottom-width: 1px;
     border-left-width: 0;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
     -unity-font-definition: url("project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Bold.ttf?fileID=12800000&guid=5f7b0a079acd8ec449b1459679e8abbf&type=3#BarlowCondensed-Bold");
@@ -37,10 +51,40 @@
     padding-bottom: 7px;
     padding-left: 16px;
     color: rgba(244, 244, 244, 0.38);
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
 }
 
+.table-col {
+    flex-direction: column;
+    align-self: flex-end;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 0;
+}
 
+.table-col-header {
+    padding-top: 5px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    -unity-font-definition: url("project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Bold.ttf?fileID=12800000&guid=5f7b0a079acd8ec449b1459679e8abbf&type=3#BarlowCondensed-Bold");
+    color: rgba(244, 244, 244, 0.38);
+}
 
-
-
-
+.table-col-label {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 12px;
+    padding-right: 10px;
+    padding-bottom: 13px;
+    padding-left: 10px;
+    -unity-font-definition: url("project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Bold.ttf?fileID=12800000&guid=5f7b0a079acd8ec449b1459679e8abbf&type=3#BarlowCondensed-Bold");
+    align-self: flex-start;
+    color: rgba(244, 244, 244, 0.38);
+}

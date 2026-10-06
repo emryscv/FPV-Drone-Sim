@@ -1,15 +1,15 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <ui:Template name="FCMenu" src="project://database/Assets/UI/FCMenu.uxml?fileID=9197481963319205126&amp;guid=8a85aa47e1c774a47b24e333d6de7620&amp;type=3"/>
+    <ui:Template name="FCMenu" src="project://database/Assets/UI/FCMenu.uxml?fileID=9197481963319205126&amp;guid=8a85aa47e1c774a47b24e333d6de7620&amp;type=3#FCMenu"/>
     <ui:Template name="HUD" src="project://database/Assets/UI/HUD.uxml?fileID=9197481963319205126&amp;guid=f064715a66d562346ac3491a1e8ef71a&amp;type=3#HUD"/>
     <ui:Template name="MainMenu" src="project://database/Assets/UI/MainMenu.uxml?fileID=9197481963319205126&amp;guid=682fb580bba6bf84eb4102993f350c44&amp;type=3#MainMenu"/>
     <ui:Template name="PauseMenu" src="project://database/Assets/UI/PauseMenu.uxml?fileID=9197481963319205126&amp;guid=2b982a2c1e4ab8c418f09f435bce432e&amp;type=3#PauseMenu"/>
     <ui:Template name="RCControllerMenu" src="project://database/Assets/UI/RCControllerMenu.uxml?fileID=9197481963319205126&amp;guid=77e68930f5f97e0408bda86697ac0a63&amp;type=3#RCControllerMenu"/>
-    <ui:Template name="SettingsView" src="project://database/Assets/UI/SettingsView.uxml?fileID=9197481963319205126&amp;guid=78f61df1fa4861049b60dcfe922dd36d&amp;type=3"/>
+    <ui:Template name="SettingsView" src="project://database/Assets/UI/SettingsView.uxml?fileID=9197481963319205126&amp;guid=78f61df1fa4861049b60dcfe922dd36d&amp;type=3#SettingsView"/>
     <Style src="project://database/Assets/UI/main-menu-ui.uss?fileID=7433441132597879392&amp;guid=209e76e44b092e841a05253943bca5a4&amp;type=3#main-menu-ui"/>
     <ui:Instance template="HUD" name="HUD" style="position: absolute; display: flex; width: 100%; height: 100%;"/>
     <ui:Instance template="MainMenu" name="MainMenu" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex;"/>
     <ui:Instance template="PauseMenu" name="PauseMenu" style="position: absolute; width: 100%; height: 100%; display: none;"/>
-    <ui:Instance template="SettingsView" name="SettingsView" style="flex-direction: column; position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex;">
+    <ui:Instance template="SettingsView" name="SettingsView" style="flex-direction: column; position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; background-image: url(&quot;project://database/Assets/Images/MainMenuBackground.jpg?fileID=2800000&amp;guid=8c129d42b4a83814ab09e29036d6543a&amp;type=3#MainMenuBackground&quot;); -unity-background-image-tint-color: rgb(95, 95, 95);">
         <ui:VisualElement name="Header" style="flex-grow: 0; flex-direction: row; border-bottom-width: 1px; border-left-color: rgba(244, 244, 244, 0.06); border-right-color: rgba(244, 244, 244, 0.06); border-top-color: rgba(244, 244, 244, 0.06); border-bottom-color: rgba(244, 244, 244, 0.06); padding-top: 20px; padding-right: 36px; padding-bottom: 20px; padding-left: 36px; background-color: rgb(8, 12, 16);">
             <ui:Button text="" name="BackButton" style="border-left-color: rgba(244, 244, 244, 0.1); border-right-color: rgba(244, 244, 244, 0.1); border-top-color: rgba(244, 244, 244, 0.1); border-bottom-color: rgba(244, 244, 244, 0.1); background-color: rgb(8, 12, 16); flex-direction: row; -unity-text-align: middle-center; align-self: center; align-items: center; border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 8px; padding-right: 16px; padding-bottom: 8px; padding-left: 16px; flex-grow: 0; justify-content: flex-start;">
                 <ui:Image source="project://database/Assets/Images/Icons/chevron-left.svg?fileID=7388822144124034973&amp;guid=c853323738d9a5348a55da2827360834&amp;type=3#chevron-left" tint-color="rgba(244, 244, 244, 0.6)" scale-mode="ScaleToFit" style="width: 16px; height: 16px; margin-right: 8px;"/>
@@ -44,7 +44,7 @@
                 </ui:Button>
             </ui:VisualElement>
             <ui:VisualElement name="Content" style="flex-grow: 2;">
-                <ui:Instance template="FCMenu" name="FCMenu" style="top: 0; left: 0; width: 100%; height: 100%; background-image: url(&quot;project://database/Assets/Images/Textures/GridPatternBG.svg?fileID=7388822144124034973&amp;guid=4786ebd799780e44bb9d2c1144f97c0c&amp;type=3#GridPatternBG&quot;); background-color: rgb(8, 12, 16);"/>
+                <ui:Instance template="FCMenu" name="FCMenu" style="top: 0; left: 0; width: 100%; height: 100%; background-image: none; background-color: rgba(8, 12, 16, 0); display: flex;"/>
                 <ui:Instance template="RCControllerMenu" name="RCControllerMenu" style="position: relative; top: 0; left: 0; width: 100%; height: 100%; display: none; visibility: visible; flex-grow: 1;"/>
             </ui:VisualElement>
         </ui:VisualElement>
