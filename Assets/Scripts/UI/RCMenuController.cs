@@ -321,6 +321,9 @@ public class RCMenuController : MonoBehaviour
             if (_isPositive) controls.InvertAxis("Throttle");
         }
 
+        _calibrationInstructionsHeading.text = "READY TO CALIBRATE";
+        _calibrationInstructionsDescription.text = "Calibration maps your physical controller's axis range so the simulator receives accurate inputs. \nPress Start Calibration to begin the 2-step process.";
+
         _yesBtn.style.display = DisplayStyle.None;
         _noBtn.style.display = DisplayStyle.None;
 
