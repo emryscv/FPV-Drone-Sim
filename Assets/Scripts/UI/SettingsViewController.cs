@@ -25,8 +25,8 @@ public class SettingsView : MonoBehaviour
     void OnEnable()
     {
         _uiManager = GetComponent<UIDocument>();
- _MainMenu = _uiManager.rootVisualElement.Q<VisualElement>("MainMenu");
-
+        _MainMenu = _uiManager.rootVisualElement.Q<VisualElement>("MainMenu");
+        _PauseMenu = _uiManager.rootVisualElement.Q<VisualElement>("PauseMenu");
 
         _SettingsView = _uiManager.rootVisualElement.Q<VisualElement>("SettingsView");
 
@@ -71,7 +71,7 @@ public class SettingsView : MonoBehaviour
         //TODO find better way to do this. Maybe a centralized UI manager to handle view transitions
         _SettingsView.style.display = DisplayStyle.None;
 
-        if (GameManager.Instance.isPaused)   
+        if (GameManager.Instance.isGameStarted && GameManager.Instance.isPaused)   
             _PauseMenu.style.display = DisplayStyle.Flex;
         else
             _MainMenu.style.display = DisplayStyle.Flex;

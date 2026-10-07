@@ -16,9 +16,8 @@ public class RCMenuController : MonoBehaviour
 
     //UI HANDLERS
     private UIDocument _uiManager;
-    private VisualElement _MainMenu;
-    private VisualElement _RCControllerMenu;
-    private VisualElement _PauseMenu;
+    private VisualElement _Settings;
+    private VisualElement _RCMenuTab;
 
     private Button _startCalibrationBtn;
 
@@ -62,23 +61,21 @@ public class RCMenuController : MonoBehaviour
         controls = RCControllerManager.Instance;
 
         _uiManager = GetComponent<UIDocument>();
-        _MainMenu = _uiManager.rootVisualElement.Q<VisualElement>("MainMenu");
-        _RCControllerMenu = _uiManager.rootVisualElement.Q<VisualElement>("RCControllerMenu");
-        _PauseMenu = _uiManager.rootVisualElement.Q<VisualElement>("PauseMenu");
+        _RCMenuTab = _uiManager.rootVisualElement.Q<VisualElement>("RCMenuTab");
 
-        _startCalibrationBtn = _RCControllerMenu.Q<Button>("StartCalibrationButton");
+        _startCalibrationBtn = _RCMenuTab.Q<Button>("StartCalibrationButton");
 
-        _controllerStatusIcon = _RCControllerMenu.Q<VisualElement>("StatusIcon");
-        _controllerStatusLabel = _RCControllerMenu.Q<Label>("StatusLabel");
+        _controllerStatusIcon = _RCMenuTab.Q<VisualElement>("StatusIcon");
+        _controllerStatusLabel = _RCMenuTab.Q<Label>("StatusLabel");
 
-        _calibrationInstructionsHeading = _RCControllerMenu.Q<VisualElement>("CalibrationPanel").Q<Label>("Heading");
-        _calibrationInstructionsDescription = _RCControllerMenu.Q<VisualElement>("CalibrationPanel").Q<Label>("Description");
+        _calibrationInstructionsHeading = _RCMenuTab.Q<VisualElement>("CalibrationPanel").Q<Label>("Heading");
+        _calibrationInstructionsDescription = _RCMenuTab.Q<VisualElement>("CalibrationPanel").Q<Label>("Description");
 
-        _yesBtn = _RCControllerMenu.Q<Button>("YesButton");
-        _noBtn = _RCControllerMenu.Q<Button>("NoButton");
+        _yesBtn = _RCMenuTab.Q<Button>("YesButton");
+        _noBtn = _RCMenuTab.Q<Button>("NoButton");
 
-        _leftStick = _RCControllerMenu.Q<VisualElement>("LeftStick");
-        _rightStick = _RCControllerMenu.Q<VisualElement>("RightStick");
+        _leftStick = _RCMenuTab.Q<VisualElement>("LeftStick");
+        _rightStick = _RCMenuTab.Q<VisualElement>("RightStick");
 
         _startCalibrationBtn.RegisterCallback<ClickEvent>(OnStartCalibrationBtnClick);
         _yesBtn.RegisterCallback<ClickEvent>(OnYesBtnClick);
@@ -158,7 +155,7 @@ public class RCMenuController : MonoBehaviour
         //TODO stop calibration if needed      
         //StopCoroutine(CalibrationRoutine()); 
         // this but also make sure that calibration is not in a unsafe state 
-        _RCControllerMenu.style.display = DisplayStyle.None;
+        _RCMenuTab.style.display = DisplayStyle.None;
     }
 
     private IEnumerator CalibrationRoutine()

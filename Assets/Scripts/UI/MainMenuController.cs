@@ -27,7 +27,7 @@ public class MainMenuController : MonoBehaviour
 
         _uiManager = GetComponent<UIDocument>();
         _MainMenu = _uiManager.rootVisualElement.Q<VisualElement>("MainMenu");
-        _SettingsView = _uiManager.rootVisualElement.Q<VisualElement>("SettingsMenu");
+        _SettingsView = _uiManager.rootVisualElement.Q<VisualElement>("SettingsView");
         _HUD = _uiManager.rootVisualElement.Q<VisualElement>("HUD");
 
         _startFlightNav        = _MainMenu.Q<Button>("StartFlightButton");
