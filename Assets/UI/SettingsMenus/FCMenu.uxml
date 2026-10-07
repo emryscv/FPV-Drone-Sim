@@ -12,21 +12,21 @@
                 </ui:VisualElement>
                 <ui:VisualElement name="P" class="table-col" style="flex-grow: 1; align-content: center;">
                     <ui:Label text="P" name="ColHeader" class="table-col-header"/>
-                    <IntegerField value="" max="10" min="0" style="align-self: center; color: rgb(76, 171, 54);"/>
-                    <IntegerField value="" max="0" min="0" style="color: rgb(74, 159, 212);"/>
-                    <IntegerField value="" max="0" min="0" style="color: rgb(212, 164, 74);"/>
+                    <IntegerField value="" max="255" min="0" style="align-self: center; color: rgb(76, 171, 54);"/>
+                    <IntegerField value="" max="255" min="0" style="color: rgb(74, 159, 212);"/>
+                    <IntegerField value="" max="255" min="0" style="color: rgb(212, 164, 74);"/>
                 </ui:VisualElement>
                 <ui:VisualElement name="I" class="table-col" style="flex-grow: 1;">
                     <ui:Label text="I" name="ColHeader" class="table-col-header"/>
-                    <IntegerField value="" max="0" min="0" style="color: rgb(76, 171, 54);"/>
-                    <IntegerField value="" max="0" min="0" style="color: rgb(74, 159, 212);"/>
-                    <IntegerField value="" max="0" min="0" style="color: rgb(212, 164, 74);"/>
+                    <IntegerField value="" max="255" min="0" style="color: rgb(76, 171, 54);"/>
+                    <IntegerField value="" max="255" min="0" style="color: rgb(74, 159, 212);"/>
+                    <IntegerField value="" max="255" min="0" style="color: rgb(212, 164, 74);"/>
                 </ui:VisualElement>
                 <ui:VisualElement name="D" class="table-col" style="flex-grow: 1;">
                     <ui:Label text="D" name="ColHeader" class="table-col-header"/>
-                    <IntegerField value="" max="0" min="0" style="color: rgb(76, 171, 54);"/>
-                    <IntegerField value="" max="0" min="0" style="color: rgb(74, 159, 212);"/>
-                    <IntegerField value="" max="0" min="0" style="color: rgb(212, 164, 74);"/>
+                    <IntegerField value="" max="255" min="0" style="color: rgb(76, 171, 54);"/>
+                    <IntegerField value="" max="255" min="0" style="color: rgb(74, 159, 212);"/>
+                    <IntegerField value="" max="255" min="0" style="color: rgb(212, 164, 74);"/>
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>

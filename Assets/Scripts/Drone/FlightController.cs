@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class FlightController : MonoBehaviour
 {
-   // private DronePhysics dronePhysics;
+    // private DronePhysics dronePhysics;
     private Rigidbody drone; // Reference to the Rigidbody component
     private RCControllerManager controls;
 
@@ -17,17 +17,18 @@ public class FlightController : MonoBehaviour
     float[] kI;
     float[] kD;
 
-
     //PID cumulative terms
     float[] cumulativeI;
     float[] prevError;
     float[] prevTime;
 
-
-    //Rates
-    float[] rcExpo;
+    //BetaflightRates
+    //For Actual Rates assume that rcRates is center sensitivity 
+    //and rates is stick movement sensitivity
     float[] rcRates;
     float[] rates;
+    float[] rcExpo;
+    float RC_RATE_INCREMENTAL = 14.54f;
 
     //OutputRotor Thrusts
     public float[] motorMix;
@@ -56,9 +57,9 @@ public class FlightController : MonoBehaviour
         // kI = new float[3] { 0f, 0f, 0f };
         // kD = new float[3] { 0f, 0f, 0f };
 
-        rcExpo = new float[3] { 0.1f, 0.1f, 0.1f };
         rcRates = new float[3] { 1.0f, 1.0f, 1.0f };
         rates = new float[3] { 0.7f, 0.7f, 0.7f };
+        rcExpo = new float[3] { 0.1f, 0.1f, 0.1f };
 
         motorMix = new float[4] { 0f, 0f, 0f, 0f };
         motorMixMatrix = new float[4][] {
@@ -76,7 +77,7 @@ public class FlightController : MonoBehaviour
         yaw = controls.Yaw?.ReadValue() ?? 0f;
         pitch = controls.Pitch?.ReadValue() ?? 0f;
         roll = controls.Roll?.ReadValue() ?? 0f;
-     
+
         float throttleSetpoint = (throttle + 1) / 2.0f; // Fix the axis numbers with the axis order
         float pitchSetpoint = ComputeBetaflightRates(0, pitch);
         float yawSetpoint = ComputeBetaflightRates(1, yaw);
@@ -107,10 +108,10 @@ public class FlightController : MonoBehaviour
 
         //Debug.Log("Thrusts: F1 " + motorMix[0] + " F2 " + motorMix[1] + " F3 " + motorMix[2] + " F4 " + motorMix[3] + " Min: " + motorMin + " Max: " + motorMax);
         //Debug.Log("Min: " + motorMin + " Max: " + motorMax);
-        
+
         float normalizationFactor = motorRange > 1.0f ? 1.0f / motorRange : 1.0f;
-        throttleSetpoint = Mathf.Clamp(throttleSetpoint, -motorMin * normalizationFactor, 1.0f - motorMax * normalizationFactor); 
-        
+        throttleSetpoint = Mathf.Clamp(throttleSetpoint, -motorMin * normalizationFactor, 1.0f - motorMax * normalizationFactor);
+
         for (int i = 0; i < 4; i++)
         {
             motorMix[i] = (throttleSetpoint + motorMix[i] * normalizationFactor); //0.0981f;//0.083385f; //this value is the 
@@ -123,17 +124,33 @@ public class FlightController : MonoBehaviour
     {
         float inputAbs = Mathf.Abs(input);
 
-        input = input * inputAbs * inputAbs * inputAbs * rcExpo[axis] + input * (1 - rcExpo[axis]);
+        if(rcExpo[axis] != 0)
+            input = input * inputAbs * inputAbs * inputAbs * rcExpo[axis] + input * (1 - rcExpo[axis]);
 
-        float angleRate = 200.0f * rcRates[axis] * input;
+        float rcRate = rcRates[axis];
+        if (rcRate > 2.0f)
+            rcRate += RC_RATE_INCREMENTAL * (rcRate - 2.0f);
+        
+        float angleRate = 200.0f * rcRate * input;
 
-        float rcSuperfactor = 1.0f - (inputAbs * rates[axis]);
-        rcSuperfactor = Mathf.Clamp(rcSuperfactor, 0.01f, 1.00f);
-        rcSuperfactor = 1.0f / rcSuperfactor;
-
-        angleRate *= rcSuperfactor;
-
+        if(rates[axis] != 0)
+            angleRate *=  1.0f / Mathf.Clamp((1.0f - (inputAbs * rates[axis])), 0.01f, 1.00f);
+        
         return angleRate;
+    }
+
+    float ComputeActualRates(int axis, float input)
+    {
+        float inputAbs = Mathf.Abs(input);
+        
+        float input5 = input * input * input * input * input; //This is faster than Mathf.Pow(input, 5)
+        float expof = inputAbs * (input5 * rcExpo[axis] + input * (1 - rcExpo[axis]));
+
+        //TODO I believe we don't need to multiply by 10
+        float centerSensitivity = rcRates[axis] * 10.0f;
+        float stickMovement = Mathf.Max(0, rates[axis] * 10.0f - centerSensitivity);
+        
+        return input * centerSensitivity + stickMovement * expof;
     }
 
     float PIDEquation(float setpoint, float measurements, int axis)
@@ -142,8 +159,8 @@ public class FlightController : MonoBehaviour
         prevTime[axis] = Time.time;
 
         float error = setpoint * Mathf.PI / 180f - measurements; //TODO fix this
-        //Debug.Log("Axis: " + axis + " measurement: " + measurements + " setpoint: " + (setpoint * Mathf.PI / 180f) + " error: " + error);
-        //Proportional term
+                                                                 //Debug.Log("Axis: " + axis + " measurement: " + measurements + " setpoint: " + (setpoint * Mathf.PI / 180f) + " error: " + error);
+                                                                 //Proportional term
         float P = kP[axis] * error;
 
         //Integral term
@@ -155,11 +172,46 @@ public class FlightController : MonoBehaviour
         float D = deltaTime == 0 ? 0 : kD[axis] * (error - prevError[axis]) / deltaTime;
 
         prevError[axis] = error;
-        
+
         float PID = P + I + D;
         PID = System.Math.Clamp(PID, -500, 500); //Betaflight values
-        //Debug.Log("Axis: " + axis + " measurement: " + measurements + " setpoint: " + (setpoint * Mathf.PI / 180f) + " P: " + P + " I: " + I + " D: " + D + " PID: " + PID);
+                                                 //Debug.Log("Axis: " + axis + " measurement: " + measurements + " setpoint: " + (setpoint * Mathf.PI / 180f) + " P: " + P + " I: " + I + " D: " + D + " PID: " + PID);
 
         return PID;
     }
 }
+    // float applyBetaflightRates(int axis, float rcCommandf, float rcCommandfAbs)
+    // {
+    //     if (rcExpo[axis] != 0)
+    //     {
+    //         float expof = rcExpo[axis] / 100.0f;
+    //         rcCommandf = rcCommandf * power3(rcCommandfAbs) * expof + rcCommandf * (1 - expof);
+    //     }
+
+    //     float rcRate = rcRates[axis] / 100.0f;
+    //     if (rcRate > 2.0f)
+    //     {
+    //         rcRate += RC_RATE_INCREMENTAL * (rcRate - 2.0f);
+    //     }
+    //     float angleRate = 200.0f * rcRate * rcCommandf;
+    //     if (rates[axis] != 0)
+    //     {
+    //         const float rcSuperfactor = 1.0f / (constrainf(1.0f - (rcCommandfAbs * (rates[axis] / 100.0f)), 0.01f, 1.00f));
+    //         angleRate *= rcSuperfactor;
+    //     }
+
+    //     return angleRate;
+    // }
+
+
+    // float applyActualRates(int axis, float rcCommandf, float rcCommandfAbs)
+    // {
+    //     float expof = rcExpo[axis] / 100.0f;
+    //     expof = rcCommandfAbs * (power5(rcCommandf) * expof + rcCommandf * (1 - expof));
+
+    //     const float centerSensitivity = rcRates[axis] * 10.0f;
+    //     const float stickMovement = MAX(0, rates[axis] * 10.0f - centerSensitivity);
+    //     const float angleRate = rcCommandf * centerSensitivity + stickMovement * expof;
+
+    //     return angleRate;
+    // }

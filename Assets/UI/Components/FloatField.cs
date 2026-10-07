@@ -43,5 +43,7 @@ partial class FloatField : VisualElement
         if (value > Max) value = Max;
         if (value < Min) value = Min;
         _textField.value = value.ToString();
-    }
+    }   
+
+    //TODO add Update so the button can be held till the right value
 }

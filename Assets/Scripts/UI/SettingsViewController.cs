@@ -97,7 +97,6 @@ public class SettingsView : MonoBehaviour
         _FCMenuTab.style.display = DisplayStyle.None;
         _SettingsMenuTab.style.display = DisplayStyle.None;
     }
-
     private void OnFCTabBtnClicked(ClickEvent evt)
     {
         _RCMenuTab.style.display = DisplayStyle.None;
