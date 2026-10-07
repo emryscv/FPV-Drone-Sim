@@ -31,9 +31,9 @@ public class SettingsView : MonoBehaviour
         _SettingsView = _uiManager.rootVisualElement.Q<VisualElement>("SettingsView");
 
         _RCMenuTab = _SettingsView.Q<VisualElement>("RCMenuTab");
-        //_DroneMenuTab = _SettingsView.Q<VisualElement>("DroneMenuTab");
+        _DroneMenuTab = _SettingsView.Q<VisualElement>("DroneMenuTab");
         _FCMenuTab = _SettingsView.Q<VisualElement>("FCMenuTab");
-        //_SettingsMenuTab = _SettingsView.Q<VisualElement>("SettingsMenuTab");
+        _SettingsMenuTab = _SettingsView.Q<VisualElement>("SettingsMenuTab");
 
         _backBtn = _SettingsView.Q<Button>("BackButton");
         _saveBtn = _SettingsView.Q<Button>("SaveButton");
