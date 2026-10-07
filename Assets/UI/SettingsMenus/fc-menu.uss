@@ -88,3 +88,26 @@
     align-self: flex-start;
     color: rgba(244, 244, 244, 0.38);
 }
+
+#RateTypeSelector Label {
+    align-self: center;
+}
+
+#RateTypeSelector VisualElement {
+    background-color: rgb(42, 45, 48);
+    border-left-color: rgba(244, 244, 244, 0.07);
+    border-right-color: rgba(244, 244, 244, 0.07);
+    border-top-color: rgba(244, 244, 244, 0.07);
+    border-bottom-color: rgba(244, 244, 244, 0.07);
+}
+
+#RateTypeSelector VisualElement TextElement {
+    -unity-font-definition: url("project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Bold.ttf?fileID=12800000&guid=5f7b0a079acd8ec449b1459679e8abbf&type=3#BarlowCondensed-Bold");
+}
+
+#RateTypeSelector VisualElement VisualElement {
+    -unity-font-definition: url("project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Bold.ttf?fileID=12800000&guid=5f7b0a079acd8ec449b1459679e8abbf&type=3#BarlowCondensed-Bold");
+    color: rgb(19, 27, 27);
+    background-color: rgb(42, 45, 48);
+    -unity-background-image-tint-color: rgb(6, 10, 13);
+}

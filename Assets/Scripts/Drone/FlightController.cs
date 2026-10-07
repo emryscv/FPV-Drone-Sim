@@ -34,12 +34,14 @@ public class FlightController : MonoBehaviour
     public float[] motorMix;
     float[][] motorMixMatrix;
 
+    RateEquation ComputeRate;
+
     void Awake()
     {
         controls = RCControllerManager.Instance;
 
-        //dronePhysics = GetComponent<DronePhysics>();
         drone = GetComponent<Rigidbody>(); // Get the Rigidbody component attached to the same GameObject
+
     }
 
     void Start()
@@ -68,27 +70,30 @@ public class FlightController : MonoBehaviour
             new float[3] {  1,  1,  1 },
             new float[3] { -1, -1,  1 }
         };
+
+        SetRateType(RateType.Betaflight);
     }
 
     // Update is called once per frame
     void Update()
     {
+        //This is the order of the axis in the controller 
         throttle = controls.Throttle?.ReadValue() ?? 0f;
         yaw = controls.Yaw?.ReadValue() ?? 0f;
         pitch = controls.Pitch?.ReadValue() ?? 0f;
         roll = controls.Roll?.ReadValue() ?? 0f;
 
-        float throttleSetpoint = (throttle + 1) / 2.0f; // Fix the axis numbers with the axis order
-        float pitchSetpoint = ComputeBetaflightRates(0, pitch);
-        float yawSetpoint = ComputeBetaflightRates(1, yaw);
-        float rollSetpoint = ComputeBetaflightRates(2, roll) * -1.0f; // Invert roll axis to match Unity and Betaflight conventions
+        //This is the order of the axis in Unity physics
+        float throttleSetpoint = (throttle + 1) / 2.0f;
+        float pitchSetpoint = ComputeRate(0, pitch);
+        float yawSetpoint = ComputeRate(1, yaw);
+        float rollSetpoint = ComputeRate(2, roll) * -1.0f; // Invert roll axis to match Unity and Betaflight conventions
 
-        //Angualr Velocity is given in the World Frame and we need to convert it to the Local Frame for the PID controller
+        //Angular Velocity is given in the World Frame and we need to convert it to the Local Frame for the PID controller
         Vector3 localAngularVelocity = transform.InverseTransformDirection(drone.angularVelocity);
         float pitchPID = PIDEquation(pitchSetpoint, localAngularVelocity.x, 0) / 1000.0f;
         float yawPID = PIDEquation(yawSetpoint, localAngularVelocity.y, 1) / 1000.0f;
         float rollPID = PIDEquation(rollSetpoint, localAngularVelocity.z, 2) / 1000.0f;
-
 
         float motorMin = float.MaxValue;
         float motorMax = float.MinValue;
@@ -96,31 +101,36 @@ public class FlightController : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             motorMix[i] = motorMixMatrix[i][0] * pitchPID + motorMixMatrix[i][1] * yawPID + motorMixMatrix[i][2] * rollPID;
-            //motorMix[i] = motorMixMatrix[i][2] * rollPID;
-
+          
             motorMin = System.Math.Min(motorMin, motorMix[i]);
             motorMax = System.Math.Max(motorMax, motorMix[i]);
         }
 
-        //Debug.Log("Thrusts: F1 " + motorMix[0] + " F2 " + motorMix[1] + " F3 " + motorMix[2] + " F4 " + motorMix[3] + " Min: " + motorMin + " Max: " + motorMax);
-
         float motorRange = motorMax - motorMin;
-
-        //Debug.Log("Thrusts: F1 " + motorMix[0] + " F2 " + motorMix[1] + " F3 " + motorMix[2] + " F4 " + motorMix[3] + " Min: " + motorMin + " Max: " + motorMax);
-        //Debug.Log("Min: " + motorMin + " Max: " + motorMax);
 
         float normalizationFactor = motorRange > 1.0f ? 1.0f / motorRange : 1.0f;
         throttleSetpoint = Mathf.Clamp(throttleSetpoint, -motorMin * normalizationFactor, 1.0f - motorMax * normalizationFactor);
 
         for (int i = 0; i < 4; i++)
         {
-            motorMix[i] = (throttleSetpoint + motorMix[i] * normalizationFactor); //0.0981f;//0.083385f; //this value is the 
+            motorMix[i] = (throttleSetpoint + motorMix[i] * normalizationFactor);
         }
-
-        //Debug.Log("Normalized Thrusts: F1 " + (motorMix[0]) + " F2 " + (motorMix[1]) + " F3 " + (motorMix[2]) + " F4 " + (motorMix[3]) + " Throttle Setpoint: " + throttleSetpoint + " Normalization Factor: " + normalizationFactor);
     }
 
-    float ComputeBetaflightRates(int axis, float input)
+    public void SetRateType(RateType type)
+    {
+        switch (type)
+        {
+            case RateType.Betaflight:
+                ComputeRate = ComputeBetaflightRate;
+                break;
+            case RateType.Actual:
+                ComputeRate = ComputeActualRate;
+                break;
+        }
+    }
+
+    float ComputeBetaflightRate(int axis, float input)
     {
         float inputAbs = Mathf.Abs(input);
 
@@ -139,7 +149,7 @@ public class FlightController : MonoBehaviour
         return angleRate;
     }
 
-    float ComputeActualRates(int axis, float input)
+    float ComputeActualRate(int axis, float input)
     {
         float inputAbs = Mathf.Abs(input);
         
@@ -180,38 +190,3 @@ public class FlightController : MonoBehaviour
         return PID;
     }
 }
-    // float applyBetaflightRates(int axis, float rcCommandf, float rcCommandfAbs)
-    // {
-    //     if (rcExpo[axis] != 0)
-    //     {
-    //         float expof = rcExpo[axis] / 100.0f;
-    //         rcCommandf = rcCommandf * power3(rcCommandfAbs) * expof + rcCommandf * (1 - expof);
-    //     }
-
-    //     float rcRate = rcRates[axis] / 100.0f;
-    //     if (rcRate > 2.0f)
-    //     {
-    //         rcRate += RC_RATE_INCREMENTAL * (rcRate - 2.0f);
-    //     }
-    //     float angleRate = 200.0f * rcRate * rcCommandf;
-    //     if (rates[axis] != 0)
-    //     {
-    //         const float rcSuperfactor = 1.0f / (constrainf(1.0f - (rcCommandfAbs * (rates[axis] / 100.0f)), 0.01f, 1.00f));
-    //         angleRate *= rcSuperfactor;
-    //     }
-
-    //     return angleRate;
-    // }
-
-
-    // float applyActualRates(int axis, float rcCommandf, float rcCommandfAbs)
-    // {
-    //     float expof = rcExpo[axis] / 100.0f;
-    //     expof = rcCommandfAbs * (power5(rcCommandf) * expof + rcCommandf * (1 - expof));
-
-    //     const float centerSensitivity = rcRates[axis] * 10.0f;
-    //     const float stickMovement = MAX(0, rates[axis] * 10.0f - centerSensitivity);
-    //     const float angleRate = rcCommandf * centerSensitivity + stickMovement * expof;
-
-    //     return angleRate;
-    // }

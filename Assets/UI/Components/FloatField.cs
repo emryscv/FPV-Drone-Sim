@@ -26,16 +26,9 @@ partial class FloatField : VisualElement
         _incrementButton = new Button(() => { if (Value < Max) { Value += 0.1f; _textField.value = Value.ToString(); } }) { text = "+" };
         _decrementButton = new Button(() => { if (Value > Min) { Value -= 0.1f; _textField.value = Value.ToString(); } }) { text = "-" };
 
-        //_container = new VisualElement();
-        //_container.name = "ControlsContainer";
-        //_container.Add(_incrementButton);
-        //_container.Add(_decrementButton);
-
         Add(_decrementButton);
         Add(_textField);
-        Add(_incrementButton);
-        //Add(_container);
-    
+        Add(_incrementButton);    
     }
 
     private void Set(float value) //TODO fix this

@@ -1,7 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI/numerical-fileds.uss?fileID=7433441132597879392&amp;guid=21c13465f3d5e344e95b1b86b2e0cfca&amp;type=3#numerical-fileds"/>
-    <Style src="project://database/Assets/UI/fc-menu.uss?fileID=7433441132597879392&amp;guid=887721337aa719c46907514b6d61185b&amp;type=3#fc-menu"/>
+    <Style src="project://database/Assets/UI/Components/numerical-fileds.uss?fileID=7433441132597879392&amp;guid=21c13465f3d5e344e95b1b86b2e0cfca&amp;type=3#numerical-fileds"/>
+    <Style src="project://database/Assets/UI/SettingsMenus/fc-menu.uss?fileID=7433441132597879392&amp;guid=887721337aa719c46907514b6d61185b&amp;type=3#fc-menu"/>
     <ui:VisualElement name="MenuParent" style="flex-grow: 0; align-self: center; flex-direction: column; align-content: center; height: 100%; justify-content: center; align-items: stretch;">
+        <ui:EnumField label="Rate Type" value="Center" type="UnityEngine.TextAlignment, UnityEngine.TextRenderingModule" name="RateTypeSelector" class="floating-window" style="margin-bottom: 12px; margin-right: 0; margin-top: 0; margin-left: 0; padding-top: 10px; padding-right: 16px; padding-bottom: 10px; padding-left: 16px; background-color: rgb(6, 10, 13); border-top-left-radius: 2px; border-top-right-radius: 2px; border-bottom-right-radius: 2px; border-bottom-left-radius: 2px; align-self: stretch; -unity-font-definition: url(&quot;project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Bold.ttf?fileID=12800000&amp;guid=5f7b0a079acd8ec449b1459679e8abbf&amp;type=3#BarlowCondensed-Bold&quot;); color: rgba(244, 244, 244, 0.38);"/>
         <ui:VisualElement name="PID" class="floating-window" style="flex-grow: 0; align-self: stretch; justify-content: center; align-items: stretch; align-content: center;">
             <ui:Label text="PID Tuning" name="Header"/>
             <ui:VisualElement name="Content" style="flex-grow: 0; flex-direction: row; justify-content: center; align-self: flex-start; align-content: center; align-items: center; flex-shrink: 1; flex-wrap: nowrap; padding-bottom: 5px;">
@@ -40,7 +41,7 @@
                 </ui:VisualElement>
                 <ui:VisualElement name="RCRate" class="table-col" style="flex-grow: 1; justify-content: center; align-content: center;">
                     <ui:Label text="RC Rate" name="ColHeader" class="table-col-header"/>
-                    <FloatField value="" max="10" min="0" style="color: rgb(76, 171, 54);"/>
+                    <FloatField value="" max="10" min="0" name="FloatField" style="color: rgb(76, 171, 54);"/>
                     <FloatField value="" max="0" min="0" style="color: rgb(74, 159, 212);"/>
                     <FloatField value="" max="0" min="0" style="color: rgb(212, 164, 74);"/>
                 </ui:VisualElement>
@@ -65,7 +66,7 @@
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="StructuralNode" style="flex-grow: 0; flex-direction: row; align-self: stretch; justify-content: center; align-items: center; align-content: center;">
-            <ui:VisualElement name="Throttle" class="floating-window" style="flex-grow: 1; align-self: stretch; margin-right: 12px;">
+            <ui:VisualElement name="Throttle" class="floating-window" style="flex-grow: 1; align-self: stretch; margin-right: 12px; margin-bottom: 0;">
                 <ui:Label text="Throttle&#10;" name="Header"/>
                 <ui:VisualElement name="Content" style="flex-grow: 1; flex-direction: row;">
                     <ui:VisualElement name="Values" style="flex-grow: 1; flex-direction: row;">
@@ -81,7 +82,7 @@
                     <ui:VisualElement name="Graph" style="flex-grow: 0; width: 200px; height: 200px; background-color: rgba(244, 244, 244, 0.38); margin-top: 10px; margin-right: 10px; margin-bottom: 10px; margin-left: 10px;"/>
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="RatesCurve" class="floating-window" style="flex-grow: 0; align-self: stretch; align-items: stretch; justify-content: center;">
+            <ui:VisualElement name="RatesCurve" class="floating-window" style="flex-grow: 0; align-self: stretch; align-items: stretch; justify-content: center; margin-bottom: 0;">
                 <ui:Label text="Rates Curve&#10;" name="Header"/>
                 <ui:VisualElement name="Graph" style="flex-grow: 1; width: 200px; height: 200px; background-color: rgba(244, 244, 244, 0.38); margin-top: 10px; margin-right: 10px; margin-bottom: 10px; margin-left: 10px;"/>
             </ui:VisualElement>
