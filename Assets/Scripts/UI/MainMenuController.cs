@@ -7,20 +7,16 @@ public class MainMenuController : MonoBehaviour
 
     private UIDocument _uiManager;
     private VisualElement _MainMenu;
-    private VisualElement _RCControllerMenu; 
     private VisualElement _HUD; 
+    private VisualElement _SettingsView; 
 
     private Button _startFlightNav;
     private Button _tutorialNav;
-    private Button _rcControllerNav;
-    private Button _droneConfigurationNav;
-    private Button _fcConfigurationNav;
     private Button _settingsNav;
     private Button _exit;
 
     private Image _controllerStatusIcon;
     private Label _controllerStatusLabel;
-
 
     [SerializeField] private VectorImage controller; 
     [SerializeField] private VectorImage noController; 
@@ -31,14 +27,11 @@ public class MainMenuController : MonoBehaviour
 
         _uiManager = GetComponent<UIDocument>();
         _MainMenu = _uiManager.rootVisualElement.Q<VisualElement>("MainMenu");
-        _RCControllerMenu = _uiManager.rootVisualElement.Q<VisualElement>("RCControllerMenu");
+        _SettingsView = _uiManager.rootVisualElement.Q<VisualElement>("SettingsMenu");
         _HUD = _uiManager.rootVisualElement.Q<VisualElement>("HUD");
 
         _startFlightNav        = _MainMenu.Q<Button>("StartFlightButton");
         _tutorialNav           = _MainMenu.Q<Button>("TutorialButton");
-        _rcControllerNav       = _MainMenu.Q<Button>("RCControllerButton");
-        _droneConfigurationNav = _MainMenu.Q<Button>("DroneButton");
-        _fcConfigurationNav    = _MainMenu.Q<Button>("FCButton");
         _settingsNav           = _MainMenu.Q<Button>("SettingsButton");
         _exit                  = _MainMenu.Q<Button>("ExitButton");
 
@@ -46,11 +39,12 @@ public class MainMenuController : MonoBehaviour
         _controllerStatusLabel = _MainMenu.Q<Label>("StatusLabel");
 
         _startFlightNav.RegisterCallback<ClickEvent>(OnStartFlightBtnClick);
-        _rcControllerNav.RegisterCallback<ClickEvent>(OnRCControllerBtnClick);
+        _settingsNav.RegisterCallback<ClickEvent>(OnSettingsBtnClick);
     }
 
     private void Update()
     {
+        //TODO Refactor this so it is not in the Update loop 
         if(_physicalRCController.registeredDevice != null){
             _controllerStatusLabel.text = _physicalRCController.registeredDevice.displayName;
             _controllerStatusIcon.vectorImage = controller;
@@ -63,7 +57,7 @@ public class MainMenuController : MonoBehaviour
     private void OnDisable()
     {
         _startFlightNav.UnregisterCallback<ClickEvent>(OnStartFlightBtnClick);
-        _rcControllerNav.UnregisterCallback<ClickEvent>(OnRCControllerBtnClick);  
+        _settingsNav.UnregisterCallback<ClickEvent>(OnSettingsBtnClick);  
 
 
     } 
@@ -71,14 +65,14 @@ public class MainMenuController : MonoBehaviour
     private void OnStartFlightBtnClick(ClickEvent evt)
     {
         _MainMenu.style.display = DisplayStyle.None;
-        _RCControllerMenu.style.display = DisplayStyle.None;
+        _SettingsView.style.display = DisplayStyle.None;
         _HUD.style.display = DisplayStyle.Flex;
         GameManager.Instance.StartSimulation();
     }
 
-    private void OnRCControllerBtnClick(ClickEvent evt)
+    private void OnSettingsBtnClick(ClickEvent evt)
     {
         _MainMenu.style.display = DisplayStyle.None;
-        _RCControllerMenu.style.display = DisplayStyle.Flex;
+        _SettingsView.style.display = DisplayStyle.Flex;
     }
 }

@@ -3,7 +3,7 @@ using UnityEngine.UIElements;
 using System.Collections.Generic;
 using System.Collections;
 
-public class RCControllerMenuController : MonoBehaviour
+public class RCMenuController : MonoBehaviour
 {
     private const float AXIS_DETECTION_TIMEOUT_SECONDS = 10f;
 
@@ -20,8 +20,6 @@ public class RCControllerMenuController : MonoBehaviour
     private VisualElement _RCControllerMenu;
     private VisualElement _PauseMenu;
 
-    private Button _backBtn;
-    private Button _saveBtn;
     private Button _startCalibrationBtn;
 
     private VisualElement _controllerStatusIcon;
@@ -32,7 +30,6 @@ public class RCControllerMenuController : MonoBehaviour
 
     private Button _yesBtn;
     private Button _noBtn;
-
 
     private VisualElement _leftStick;
     private VisualElement _rightStick;
@@ -69,8 +66,6 @@ public class RCControllerMenuController : MonoBehaviour
         _RCControllerMenu = _uiManager.rootVisualElement.Q<VisualElement>("RCControllerMenu");
         _PauseMenu = _uiManager.rootVisualElement.Q<VisualElement>("PauseMenu");
 
-        _backBtn = _RCControllerMenu.Q<Button>("BackButton");
-        _saveBtn = _RCControllerMenu.Q<Button>("SaveButton");
         _startCalibrationBtn = _RCControllerMenu.Q<Button>("StartCalibrationButton");
 
         _controllerStatusIcon = _RCControllerMenu.Q<VisualElement>("StatusIcon");
@@ -85,8 +80,6 @@ public class RCControllerMenuController : MonoBehaviour
         _leftStick = _RCControllerMenu.Q<VisualElement>("LeftStick");
         _rightStick = _RCControllerMenu.Q<VisualElement>("RightStick");
 
-        _backBtn.RegisterCallback<ClickEvent>(OnBackBtnClick);
-        _saveBtn.RegisterCallback<ClickEvent>(OnSaveBtnClick);
         _startCalibrationBtn.RegisterCallback<ClickEvent>(OnStartCalibrationBtnClick);
         _yesBtn.RegisterCallback<ClickEvent>(OnYesBtnClick);
         _noBtn.RegisterCallback<ClickEvent>(OnNoBtnClick);
@@ -135,32 +128,11 @@ public class RCControllerMenuController : MonoBehaviour
     private void OnDisable()
     {
         Debug.Log("RC Controller Menu Disabled");
-        _backBtn.UnregisterCallback<ClickEvent>(OnBackBtnClick);
-        _saveBtn.UnregisterCallback<ClickEvent>(OnSaveBtnClick);
         _startCalibrationBtn.UnregisterCallback<ClickEvent>(OnStartCalibrationBtnClick);
         _yesBtn.UnregisterCallback<ClickEvent>(OnYesBtnClick);
         _noBtn.UnregisterCallback<ClickEvent>(OnNoBtnClick);
 
         GameEvents.Instance.OnUnpause -= OnGameUnpaused;
-    }
-
-    private void OnBackBtnClick(ClickEvent evt)
-    {
-        //TODO stop calibration if needed
-        //StopCoroutine(CalibrationRoutine()); 
-        // this but also make sure that calibration is not in a unsafe state
-        
-        _RCControllerMenu.style.display = DisplayStyle.None;
-
-        if (GameManager.Instance.isPaused)   
-            _PauseMenu.style.display = DisplayStyle.Flex;
-        else
-            _MainMenu.style.display = DisplayStyle.Flex;
-    }
-
-    private void OnSaveBtnClick(ClickEvent evt)
-    {
-        controls.SaveCalibration();
     }
 
     private void OnStartCalibrationBtnClick(ClickEvent evt)

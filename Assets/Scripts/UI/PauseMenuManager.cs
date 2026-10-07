@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class PauseMenuManager : MonoBehaviour
+public class PauseMenuController : MonoBehaviour
 {
     private UIDocument _uiManager;
     private VisualElement _PauseMenu;
