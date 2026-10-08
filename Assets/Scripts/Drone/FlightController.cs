@@ -34,7 +34,7 @@ public class FlightController : MonoBehaviour
     public float[] MotorMix { get; private set; }
     float[][] motorMixMatrix;
 
-    RateEquation ComputeRate;
+    public RateEquation ComputeRate;
 
     void Awake()
     {

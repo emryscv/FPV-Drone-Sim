@@ -32,9 +32,9 @@ public class RatesMenu : MonoBehaviour
     private FloatField _YawRCExpo;
 
     //Max Velocity in Deg per second
-    private FloatField _RollMaxVel;
-    private FloatField _PitchMaxVel;
-    private FloatField _YawMaxVel;
+    private Label _RollMaxVel;
+    private Label _PitchMaxVel;
+    private Label _YawMaxVel;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void OnEnable()
@@ -66,9 +66,9 @@ public class RatesMenu : MonoBehaviour
         _YawRCExpo = _FCMenuTab.Q<FloatField>("YawExpo");
 
         //Max Velocity
-        _RollMaxVel = _FCMenuTab.Q<FloatField>("RollMaxVel");
-        _PitchMaxVel = _FCMenuTab.Q<FloatField>("PitchMaxVel");
-        _YawMaxVel = _FCMenuTab.Q<FloatField>("YawMaxVel");
+        _RollMaxVel = _FCMenuTab.Q<Label>("RollMaxVel");
+        _PitchMaxVel = _FCMenuTab.Q<Label>("PitchMaxVel");
+        _YawMaxVel = _FCMenuTab.Q<Label>("YawMaxVel");
 
         _RollRCRate.Set(_flightController.RCRates[2]);
         _PitchRCRate.Set(_flightController.RCRates[0]);
@@ -81,6 +81,10 @@ public class RatesMenu : MonoBehaviour
         _RollRCExpo.Set(_flightController.RCExpo[2]);
         _PitchRCExpo.Set(_flightController.RCExpo[0]);
         _YawRCExpo.Set(_flightController.RCExpo[1]);
+
+        _RollMaxVel.text = _flightController.ComputeRate(2, 1).ToString();
+        _PitchMaxVel.text = _flightController.ComputeRate(0, 1).ToString();
+        _YawMaxVel.text = _flightController.ComputeRate(1, 1).ToString();
 
         //Event Handlers
         _RollRCRate.RegisterCallback<ChangeEvent<string>>(OnRollRCRateChanged);
