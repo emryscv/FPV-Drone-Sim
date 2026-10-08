@@ -1,27 +1,12 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class FCMenuController : MonoBehaviour
+public class RatesMenu : MonoBehaviour
 {
     [SerializeField] private FlightController _flightController;
 
     private UIDocument _uiManager;
     private VisualElement _FCMenuTab;
-
-    private EnumField _RateType;
-
-    //PID
-    private IntegerField _RollP;
-    private IntegerField _PitchP;
-    private IntegerField _YawP;
-
-    private IntegerField _RollI;
-    private IntegerField _PitchI;
-    private IntegerField _YawI;
-
-    private IntegerField _RollD;
-    private IntegerField _PitchD;
-    private IntegerField _YawD;
 
     //Betaflight Rates
     private FloatField _RollRCRate;
@@ -51,31 +36,11 @@ public class FCMenuController : MonoBehaviour
     private FloatField _PitchMaxVel;
     private FloatField _YawMaxVel;
 
-    //Throttle
-    private FloatField _ThrottleMid;
-    private FloatField _ThrottleExpo;
-
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void OnEnable()
     {
         _uiManager = GetComponent<UIDocument>();
         _FCMenuTab = _uiManager.rootVisualElement.Q<VisualElement>("FCMenuTab");
-
-        _RateType = _FCMenuTab.Q<EnumField>("RateTypeSelector");
-        
-        //PID
-        _RollP = _FCMenuTab.Q<IntegerField>("RollP");
-        _PitchP = _FCMenuTab.Q<IntegerField>("PitchP");
-        _YawP = _FCMenuTab.Q<IntegerField>("YawP");
-
-        _RollI = _FCMenuTab.Q<IntegerField>("RollI");
-        _PitchI = _FCMenuTab.Q<IntegerField>("PitchI");
-        _YawI = _FCMenuTab.Q<IntegerField>("YawI");
-
-        _RollD = _FCMenuTab.Q<IntegerField>("RollD");
-        _PitchD = _FCMenuTab.Q<IntegerField>("PitchD");
-        _YawD = _FCMenuTab.Q<IntegerField>("YawD");
 
         //Betaflight Rates
         _RollRCRate = _FCMenuTab.Q<FloatField>("RollRCRate");
@@ -96,34 +61,16 @@ public class FCMenuController : MonoBehaviour
         // _YawMaxRate = _FCMenuTab.Q<IntegerField>("YawMaxRate");
 
         //RC Expo both systems
-        _RollRCExpo = _FCMenuTab.Q<FloatField>("RollRCExpo");
-        _PitchRCExpo = _FCMenuTab.Q<FloatField>("PitchRCExpo");
-        _YawRCExpo = _FCMenuTab.Q<FloatField>("YawRCExpo");
+        _RollRCExpo = _FCMenuTab.Q<FloatField>("RollExpo");
+        _PitchRCExpo = _FCMenuTab.Q<FloatField>("PitcExpo");
+        _YawRCExpo = _FCMenuTab.Q<FloatField>("YawExpo");
 
         //Max Velocity
         _RollMaxVel = _FCMenuTab.Q<FloatField>("RollMaxVel");
         _PitchMaxVel = _FCMenuTab.Q<FloatField>("PitchMaxVel");
         _YawMaxVel = _FCMenuTab.Q<FloatField>("YawMaxVel");
 
-        //Throttle
-        _ThrottleMid = _FCMenuTab.Q<FloatField>("ThrottleMid");
-        _ThrottleExpo = _FCMenuTab.Q<FloatField>("ThrottleExpo");
-
-        _RateType.Init(RateType.Betaflight);
-        _RateType.RegisterCallback<ChangeEvent<EnumField>>(OnRateTypeChanged);
-
-        _RollP.RegisterCallback<ChangeEvent<int>>(OnRollPChanged);
-        _PitchP.RegisterCallback<ChangeEvent<int>>(OnPitchPChanged);
-        _YawP.RegisterCallback<ChangeEvent<int>>(OnYawPChanged);
-
-        _RollI.RegisterCallback<ChangeEvent<int>>(OnRollIChanged);
-        _PitchI.RegisterCallback<ChangeEvent<int>>(OnPitchIChanged);
-        _YawI.RegisterCallback<ChangeEvent<int>>(OnYawIChanged);    
-        
-        _RollD.RegisterCallback<ChangeEvent<int>>(OnRollDChanged);
-        _PitchD.RegisterCallback<ChangeEvent<int>>(OnPitchDChanged);
-        _YawD.RegisterCallback<ChangeEvent<int>>(OnYawDChanged);
-        
+        //Event Handlers
         _RollRCRate.RegisterCallback<ChangeEvent<float>>(OnRollRCRateChanged);
         _PitchRCRate.RegisterCallback<ChangeEvent<float>>(OnPitchRCRateChanged);
         _YawRCRate.RegisterCallback<ChangeEvent<float>>(OnYawRCRateChanged);
@@ -139,27 +86,10 @@ public class FCMenuController : MonoBehaviour
         _RollMaxVel.RegisterCallback<ChangeEvent<float>>(OnRollMaxVelChanged);
         _PitchMaxVel.RegisterCallback<ChangeEvent<float>>(OnPitchMaxVelChanged);
         _YawMaxVel.RegisterCallback<ChangeEvent<float>>(OnYawMaxVelChanged);
-
-        _ThrottleMid.RegisterCallback<ChangeEvent<float>>(OnThrottleMidChanged);
-        _ThrottleExpo.RegisterCallback<ChangeEvent<float>>(OnThrottleExpoChanged);
-
     }
 
     private void OnDisable()
     {
-        _RateType.UnregisterCallback<ChangeEvent<EnumField>>(OnRateTypeChanged);
-        _RollP.UnregisterCallback<ChangeEvent<int>>(OnRollPChanged);
-        _PitchP.UnregisterCallback<ChangeEvent<int>>(OnPitchPChanged);
-        _YawP.UnregisterCallback<ChangeEvent<int>>(OnYawPChanged);
-
-        _RollI.UnregisterCallback<ChangeEvent<int>>(OnRollIChanged);
-        _PitchI.UnregisterCallback<ChangeEvent<int>>(OnPitchIChanged);
-        _YawI.UnregisterCallback<ChangeEvent<int>>(OnYawIChanged);    
-        
-        _RollD.UnregisterCallback<ChangeEvent<int>>(OnRollDChanged);
-        _PitchD.UnregisterCallback<ChangeEvent<int>>(OnPitchDChanged);
-        _YawD.UnregisterCallback<ChangeEvent<int>>(OnYawDChanged);
-        
         _RollRCRate.UnregisterCallback<ChangeEvent<float>>(OnRollRCRateChanged);
         _PitchRCRate.UnregisterCallback<ChangeEvent<float>>(OnPitchRCRateChanged);
         _YawRCRate.UnregisterCallback<ChangeEvent<float>>(OnYawRCRateChanged);
@@ -175,33 +105,7 @@ public class FCMenuController : MonoBehaviour
         _RollMaxVel.UnregisterCallback<ChangeEvent<float>>(OnRollMaxVelChanged);
         _PitchMaxVel.UnregisterCallback<ChangeEvent<float>>(OnPitchMaxVelChanged);
         _YawMaxVel.UnregisterCallback<ChangeEvent<float>>(OnYawMaxVelChanged);
-
-        _ThrottleMid.UnregisterCallback<ChangeEvent<float>>(OnThrottleMidChanged);
-        _ThrottleExpo.UnregisterCallback<ChangeEvent<float>>(OnThrottleExpoChanged);
     }
-
-    private void OnRateTypeChanged(ChangeEvent<EnumField> evt)
-    {
-        _flightController.SetRateType((RateType)_RateType.value);
-    }
-
-    private void OnRollPChanged(ChangeEvent<int> evt){}
-    
-    private void OnPitchPChanged(ChangeEvent<int> evt){}
-    
-    private void OnYawPChanged(ChangeEvent<int> evt){}
-
-    private void OnRollIChanged(ChangeEvent<int> evt){}
-
-    private void OnPitchIChanged(ChangeEvent<int> evt){}
-    
-    private void OnYawIChanged(ChangeEvent<int> evt){}
-
-    private void OnRollDChanged(ChangeEvent<int> evt){}
-    
-    private void OnPitchDChanged(ChangeEvent<int> evt){}
-    
-    private void OnYawDChanged(ChangeEvent<int> evt){}
 
     private void OnRollRCRateChanged(ChangeEvent<float> evt){}
     
@@ -226,10 +130,5 @@ public class FCMenuController : MonoBehaviour
     private void OnPitchMaxVelChanged(ChangeEvent<float> evt){}
     
     private void OnYawMaxVelChanged(ChangeEvent<float> evt){}
-
-    private void OnThrottleMidChanged(ChangeEvent<float> evt){}
-    
-    private void OnThrottleExpoChanged(ChangeEvent<float> evt){}
-
 }
     

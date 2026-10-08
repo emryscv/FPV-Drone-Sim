@@ -13,21 +13,21 @@
                 </ui:VisualElement>
                 <ui:VisualElement name="P" class="table-col" style="flex-grow: 1; align-content: center;">
                     <ui:Label text="P" name="ColHeader" class="table-col-header"/>
-                    <IntegerField value="" max="255" min="0" style="align-self: center; color: rgb(76, 171, 54);"/>
-                    <IntegerField value="" max="255" min="0" style="color: rgb(74, 159, 212);"/>
-                    <IntegerField value="" max="255" min="0" style="color: rgb(212, 164, 74);"/>
+                    <IntegerField value="" max="255" min="0" name="RollP" style="align-self: center; color: rgb(76, 171, 54);"/>
+                    <IntegerField value="" max="255" min="0" name="PitchP" style="color: rgb(74, 159, 212);"/>
+                    <IntegerField value="" max="255" min="0" name="YawP" style="color: rgb(212, 164, 74);"/>
                 </ui:VisualElement>
                 <ui:VisualElement name="I" class="table-col" style="flex-grow: 1;">
                     <ui:Label text="I" name="ColHeader" class="table-col-header"/>
-                    <IntegerField value="" max="255" min="0" style="color: rgb(76, 171, 54);"/>
-                    <IntegerField value="" max="255" min="0" style="color: rgb(74, 159, 212);"/>
-                    <IntegerField value="" max="255" min="0" style="color: rgb(212, 164, 74);"/>
+                    <IntegerField value="" max="255" min="0" name="RollI" style="color: rgb(76, 171, 54);"/>
+                    <IntegerField value="" max="255" min="0" name="PitchI" style="color: rgb(74, 159, 212);"/>
+                    <IntegerField value="" max="255" min="0" name="YawI" style="color: rgb(212, 164, 74);"/>
                 </ui:VisualElement>
                 <ui:VisualElement name="D" class="table-col" style="flex-grow: 1;">
                     <ui:Label text="D" name="ColHeader" class="table-col-header"/>
-                    <IntegerField value="" max="255" min="0" style="color: rgb(76, 171, 54);"/>
-                    <IntegerField value="" max="255" min="0" style="color: rgb(74, 159, 212);"/>
-                    <IntegerField value="" max="255" min="0" style="color: rgb(212, 164, 74);"/>
+                    <IntegerField value="" max="255" min="0" name="RollD" style="color: rgb(76, 171, 54);"/>
+                    <IntegerField value="" max="255" min="0" name="PitchD" style="color: rgb(74, 159, 212);"/>
+                    <IntegerField value="" max="255" min="0" name="YawD" style="color: rgb(212, 164, 74);"/>
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
@@ -41,27 +41,27 @@
                 </ui:VisualElement>
                 <ui:VisualElement name="RCRate" class="table-col" style="flex-grow: 1; justify-content: center; align-content: center;">
                     <ui:Label text="RC Rate" name="ColHeader" class="table-col-header"/>
-                    <FloatField value="" max="10" min="0" name="FloatField" style="color: rgb(76, 171, 54);"/>
-                    <FloatField value="" max="0" min="0" style="color: rgb(74, 159, 212);"/>
-                    <FloatField value="" max="0" min="0" style="color: rgb(212, 164, 74);"/>
+                    <FloatField value="" max="2.55" min="0" name="RollRCRate" style="color: rgb(76, 171, 54);"/>
+                    <FloatField value="" max="2.55" min="0" name="PitchRCRate" style="color: rgb(74, 159, 212);"/>
+                    <FloatField value="" max="2.55" min="0" name="YawRCRate" style="color: rgb(212, 164, 74);"/>
                 </ui:VisualElement>
                 <ui:VisualElement name="Rate" class="table-col" style="flex-grow: 1;">
                     <ui:Label text="Rate" name="ColHeader" class="table-col-header"/>
-                    <FloatField value="" max="10" min="0" style="color: rgb(76, 171, 54);"/>
-                    <FloatField value="" max="0" min="0" style="color: rgb(74, 159, 212);"/>
-                    <FloatField value="" max="0" min="0" style="color: rgb(212, 164, 74);"/>
+                    <FloatField value="" max="1" min="0" name="RollRate" style="color: rgb(76, 171, 54);"/>
+                    <FloatField value="" max="1" min="0" name="PitchRate" style="color: rgb(74, 159, 212);"/>
+                    <FloatField value="" max="2.55" min="0" name="YawRate" style="color: rgb(212, 164, 74);"/>
                 </ui:VisualElement>
                 <ui:VisualElement name="Expo" class="table-col" style="flex-grow: 1;">
                     <ui:Label text="RC Expo" name="ColHeader" class="table-col-header"/>
-                    <FloatField value="" max="10" min="0" style="color: rgb(76, 171, 54);"/>
-                    <FloatField value="" max="0" min="0" style="color: rgb(74, 159, 212);"/>
-                    <FloatField value="" max="0" min="0" style="color: rgb(212, 164, 74);"/>
+                    <FloatField value="" max="1" min="0" name="RollExpo" style="color: rgb(76, 171, 54);"/>
+                    <FloatField value="" max="1" min="0" name="PitchExpo" style="color: rgb(74, 159, 212);"/>
+                    <FloatField value="" max="1" min="0" name="YawExpo" style="color: rgb(212, 164, 74);"/>
                 </ui:VisualElement>
                 <ui:VisualElement name="Degrees" class="table-col" style="flex-grow: 1;">
                     <ui:Label text="Max Vel" name="ColHeader" class="table-col-header" style="padding-top: 5px; padding-bottom: 5px; margin-bottom: 2px; margin-top: 4px;"/>
-                    <ui:Label text="Label" name="Value" class="table-col-label" style="color: rgba(76, 171, 54, 0.38);"/>
-                    <ui:Label text="Label" name="Value" class="table-col-label" style="color: rgba(74, 159, 212, 0.38);"/>
-                    <ui:Label text="Label" name="Label" class="table-col-label" style="color: rgba(212, 164, 74, 0.38);"/>
+                    <ui:Label text="Label" name="RollMaxVel" class="table-col-label" style="color: rgba(76, 171, 54, 0.38);"/>
+                    <ui:Label text="Label" name="PitchMaxVel" class="table-col-label" style="color: rgba(74, 159, 212, 0.38);"/>
+                    <ui:Label text="Label" name="YawMaxVel" class="table-col-label" style="color: rgba(212, 164, 74, 0.38);"/>
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
@@ -75,8 +75,8 @@
                             <ui:Label text="Expo" name="Expo" class="table-col-label" style="color: rgba(212, 164, 74, 0.38); text-overflow: ellipsis;"/>
                         </ui:VisualElement>
                         <ui:VisualElement name="Values" style="flex-grow: 0; flex-direction: column;">
-                            <FloatField value="" max="10" min="0" style="color: rgb(212, 164, 74);"/>
-                            <FloatField value="" max="10" min="0" style="color: rgb(212, 164, 74);"/>
+                            <FloatField value="" max="10" min="0" name="ThrottleMid" style="color: rgb(212, 164, 74);"/>
+                            <FloatField value="" max="10" min="0" name="ThrottleExpo" style="color: rgb(212, 164, 74);"/>
                         </ui:VisualElement>
                     </ui:VisualElement>
                     <ui:VisualElement name="Graph" style="flex-grow: 0; width: 200px; height: 200px; background-color: rgba(244, 244, 244, 0.38); margin-top: 10px; margin-right: 10px; margin-bottom: 10px; margin-left: 10px;"/>
