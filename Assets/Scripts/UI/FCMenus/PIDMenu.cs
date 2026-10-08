@@ -39,79 +39,101 @@ public class PIDMenu : MonoBehaviour
         _RollD = _FCMenuTab.Q<IntegerField>("RollD");
         _PitchD = _FCMenuTab.Q<IntegerField>("PitchD");
         _YawD = _FCMenuTab.Q<IntegerField>("YawD");
-    
-        //Event Handlers
-        _RollP.RegisterCallback<ChangeEvent<int>>(OnRollPChanged);
-        _PitchP.RegisterCallback<ChangeEvent<int>>(OnPitchPChanged);
-        _YawP.RegisterCallback<ChangeEvent<int>>(OnYawPChanged);
 
-        _RollI.RegisterCallback<ChangeEvent<int>>(OnRollIChanged);
-        _PitchI.RegisterCallback<ChangeEvent<int>>(OnPitchIChanged);
-        _YawI.RegisterCallback<ChangeEvent<int>>(OnYawIChanged);    
+        // Initialize the fields with the current values from the flight controller
+        _RollP.Set((int)_flightController.KP[2]);
+        _PitchP.Set((int)_flightController.KP[0]);
+        _YawP.Set((int)_flightController.KP[1]);
+
+        _RollI.Set((int)_flightController.KI[2]);
+        _PitchI.Set((int)_flightController.KI[0]);
+        _YawI.Set((int)_flightController.KI[1]);
+
+        _RollD.Set((int)_flightController.KD[2]);
+        _PitchD.Set((int)_flightController.KD[0]);
+        _YawD.Set((int)_flightController.KD[1]);
+
+        //Event Handlers
+        _RollP.RegisterCallback<ChangeEvent<string>>(OnRollPChanged);
+        _PitchP.RegisterCallback<ChangeEvent<string>>(OnPitchPChanged);
+        _YawP.RegisterCallback<ChangeEvent<string>>(OnYawPChanged);
+
+        _RollI.RegisterCallback<ChangeEvent<string>>(OnRollIChanged);
+        _PitchI.RegisterCallback<ChangeEvent<string>>(OnPitchIChanged);
+        _YawI.RegisterCallback<ChangeEvent<string>>(OnYawIChanged);    
         
-        _RollD.RegisterCallback<ChangeEvent<int>>(OnRollDChanged);
-        _PitchD.RegisterCallback<ChangeEvent<int>>(OnPitchDChanged);
-        _YawD.RegisterCallback<ChangeEvent<int>>(OnYawDChanged);
+        _RollD.RegisterCallback<ChangeEvent<string>>(OnRollDChanged);
+        _PitchD.RegisterCallback<ChangeEvent<string>>(OnPitchDChanged);
+        _YawD.RegisterCallback<ChangeEvent<string>>(OnYawDChanged);
     }
 
     private void OnDisable()
     {
-        _RollP.UnregisterCallback<ChangeEvent<int>>(OnRollPChanged);
-        _PitchP.UnregisterCallback<ChangeEvent<int>>(OnPitchPChanged);
-        _YawP.UnregisterCallback<ChangeEvent<int>>(OnYawPChanged);
+        _RollP.UnregisterCallback<ChangeEvent<string>>(OnRollPChanged);
+        _PitchP.UnregisterCallback<ChangeEvent<string>>(OnPitchPChanged);
+        _YawP.UnregisterCallback<ChangeEvent<string>>(OnYawPChanged);
 
-        _RollI.UnregisterCallback<ChangeEvent<int>>(OnRollIChanged);
-        _PitchI.UnregisterCallback<ChangeEvent<int>>(OnPitchIChanged);
-        _YawI.UnregisterCallback<ChangeEvent<int>>(OnYawIChanged);    
+        _RollI.UnregisterCallback<ChangeEvent<string>>(OnRollIChanged);
+        _PitchI.UnregisterCallback<ChangeEvent<string>>(OnPitchIChanged);
+        _YawI.UnregisterCallback<ChangeEvent<string>>(OnYawIChanged);    
         
-        _RollD.UnregisterCallback<ChangeEvent<int>>(OnRollDChanged);
-        _PitchD.UnregisterCallback<ChangeEvent<int>>(OnPitchDChanged);
-        _YawD.UnregisterCallback<ChangeEvent<int>>(OnYawDChanged);
+        _RollD.UnregisterCallback<ChangeEvent<string>>(OnRollDChanged);
+        _PitchD.UnregisterCallback<ChangeEvent<string>>(OnPitchDChanged);
+        _YawD.UnregisterCallback<ChangeEvent<string>>(OnYawDChanged);
     }
 
-    private void OnRollPChanged(ChangeEvent<int> evt)
+    private void OnRollPChanged(ChangeEvent<string> evt)
     {
         Debug.Log("Roll P changed to: " + evt.newValue);
+        _flightController.SetP(2, float.Parse(evt.newValue));
     }
     
-    private void OnPitchPChanged(ChangeEvent<int> evt)
+    private void OnPitchPChanged(ChangeEvent<string> evt)
     {
         Debug.Log("Pitch P changed to: " + evt.newValue);
+        _flightController.SetP(0, float.Parse(evt.newValue));
     }
     
-    private void OnYawPChanged(ChangeEvent<int> evt)
+    private void OnYawPChanged(ChangeEvent<string> evt)
     {
         Debug.Log("Yaw P changed to: " + evt.newValue);
+        _flightController.SetP(1, float.Parse(evt.newValue));
     }
 
-    private void OnRollIChanged(ChangeEvent<int> evt)
+    private void OnRollIChanged(ChangeEvent<string> evt)
     {
         Debug.Log("Roll I changed to: " + evt.newValue);
+        _flightController.SetI(2, float.Parse(evt.newValue));
     }
 
-    private void OnPitchIChanged(ChangeEvent<int> evt)
+    private void OnPitchIChanged(ChangeEvent<string> evt)
     {
         Debug.Log("Pitch I changed to: " + evt.newValue);
+        _flightController.SetI(0, float.Parse(evt.newValue));
     }
     
-    private void OnYawIChanged(ChangeEvent<int> evt)
+    private void OnYawIChanged(ChangeEvent<string> evt)
     {
         Debug.Log("Yaw I changed to: " + evt.newValue);
+        _flightController.SetI(1, float.Parse(evt.newValue));
     }
 
-    private void OnRollDChanged(ChangeEvent<int> evt)
+    private void OnRollDChanged(ChangeEvent<string> evt)
     {
         Debug.Log("Roll D changed to: " + evt.newValue);
+        _flightController.SetD(2, float.Parse(evt.newValue));
     }
     
-    private void OnPitchDChanged(ChangeEvent<int> evt)
+    private void OnPitchDChanged(ChangeEvent<string> evt)
     {
         Debug.Log("Pitch D changed to: " + evt.newValue);
+        _flightController.SetD(0, float.Parse(evt.newValue));
     }
     
-    private void OnYawDChanged(ChangeEvent<int> evt)
+    private void OnYawDChanged(ChangeEvent<string> evt)
     {
         Debug.Log("Yaw D changed to: " + evt.newValue);
+        _flightController.SetD(1, float.Parse(evt.newValue));
     }
 }
     

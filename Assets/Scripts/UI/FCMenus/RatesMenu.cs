@@ -62,7 +62,7 @@ public class RatesMenu : MonoBehaviour
 
         //RC Expo both systems
         _RollRCExpo = _FCMenuTab.Q<FloatField>("RollExpo");
-        _PitchRCExpo = _FCMenuTab.Q<FloatField>("PitcExpo");
+        _PitchRCExpo = _FCMenuTab.Q<FloatField>("PitchExpo");
         _YawRCExpo = _FCMenuTab.Q<FloatField>("YawExpo");
 
         //Max Velocity
@@ -70,65 +70,99 @@ public class RatesMenu : MonoBehaviour
         _PitchMaxVel = _FCMenuTab.Q<FloatField>("PitchMaxVel");
         _YawMaxVel = _FCMenuTab.Q<FloatField>("YawMaxVel");
 
+        _RollRCRate.Set(_flightController.RCRates[2]);
+        _PitchRCRate.Set(_flightController.RCRates[0]);
+        _YawRCRate.Set(_flightController.RCRates[1]);
+
+        _RollRate.Set(_flightController.Rates[2]);
+        _PitchRate.Set(_flightController.Rates[0]);
+        _YawRate.Set(_flightController.Rates[1]);
+
+        _RollRCExpo.Set(_flightController.RCExpo[2]);
+        _PitchRCExpo.Set(_flightController.RCExpo[0]);
+        _YawRCExpo.Set(_flightController.RCExpo[1]);
+
         //Event Handlers
-        _RollRCRate.RegisterCallback<ChangeEvent<float>>(OnRollRCRateChanged);
-        _PitchRCRate.RegisterCallback<ChangeEvent<float>>(OnPitchRCRateChanged);
-        _YawRCRate.RegisterCallback<ChangeEvent<float>>(OnYawRCRateChanged);
+        _RollRCRate.RegisterCallback<ChangeEvent<string>>(OnRollRCRateChanged);
+        _PitchRCRate.RegisterCallback<ChangeEvent<string>>(OnPitchRCRateChanged);
+        _YawRCRate.RegisterCallback<ChangeEvent<string>>(OnYawRCRateChanged);
         
-        _RollRate.RegisterCallback<ChangeEvent<float>>(OnRollRateChanged);
-        _PitchRate.RegisterCallback<ChangeEvent<float>>(OnPitchRateChanged);
-        _YawRate.RegisterCallback<ChangeEvent<float>>(OnYawRateChanged);
+        _RollRate.RegisterCallback<ChangeEvent<string>>(OnRollRateChanged);
+        _PitchRate.RegisterCallback<ChangeEvent<string>>(OnPitchRateChanged);
+        _YawRate.RegisterCallback<ChangeEvent<string>>(OnYawRateChanged);
 
-        _RollRCExpo.RegisterCallback<ChangeEvent<float>>(OnRollRCExpoChanged);
-        _PitchRCExpo.RegisterCallback<ChangeEvent<float>>(OnPitchRCExpoChanged);
-        _YawRCExpo.RegisterCallback<ChangeEvent<float>>(OnYawRCExpoChanged);
-
-        _RollMaxVel.RegisterCallback<ChangeEvent<float>>(OnRollMaxVelChanged);
-        _PitchMaxVel.RegisterCallback<ChangeEvent<float>>(OnPitchMaxVelChanged);
-        _YawMaxVel.RegisterCallback<ChangeEvent<float>>(OnYawMaxVelChanged);
+        _RollRCExpo.RegisterCallback<ChangeEvent<string>>(OnRollRCExpoChanged);
+        _PitchRCExpo.RegisterCallback<ChangeEvent<string>>(OnPitchRCExpoChanged);
+        _YawRCExpo.RegisterCallback<ChangeEvent<string>>(OnYawRCExpoChanged);
     }
 
     private void OnDisable()
     {
-        _RollRCRate.UnregisterCallback<ChangeEvent<float>>(OnRollRCRateChanged);
-        _PitchRCRate.UnregisterCallback<ChangeEvent<float>>(OnPitchRCRateChanged);
-        _YawRCRate.UnregisterCallback<ChangeEvent<float>>(OnYawRCRateChanged);
+        _RollRCRate.UnregisterCallback<ChangeEvent<string>>(OnRollRCRateChanged);
+        _PitchRCRate.UnregisterCallback<ChangeEvent<string>>(OnPitchRCRateChanged);
+        _YawRCRate.UnregisterCallback<ChangeEvent<string>>(OnYawRCRateChanged);
         
-        _RollRate.UnregisterCallback<ChangeEvent<float>>(OnRollRateChanged);
-        _PitchRate.UnregisterCallback<ChangeEvent<float>>(OnPitchRateChanged);
-        _YawRate.UnregisterCallback<ChangeEvent<float>>(OnYawRateChanged);
+        _RollRate.UnregisterCallback<ChangeEvent<string>>(OnRollRateChanged);
+        _PitchRate.UnregisterCallback<ChangeEvent<string>>(OnPitchRateChanged);
+        _YawRate.UnregisterCallback<ChangeEvent<string>>(OnYawRateChanged);
 
-        _RollRCExpo.UnregisterCallback<ChangeEvent<float>>(OnRollRCExpoChanged);
-        _PitchRCExpo.UnregisterCallback<ChangeEvent<float>>(OnPitchRCExpoChanged);
-        _YawRCExpo.UnregisterCallback<ChangeEvent<float>>(OnYawRCExpoChanged);
-
-        _RollMaxVel.UnregisterCallback<ChangeEvent<float>>(OnRollMaxVelChanged);
-        _PitchMaxVel.UnregisterCallback<ChangeEvent<float>>(OnPitchMaxVelChanged);
-        _YawMaxVel.UnregisterCallback<ChangeEvent<float>>(OnYawMaxVelChanged);
+        _RollRCExpo.UnregisterCallback<ChangeEvent<string>>(OnRollRCExpoChanged);
+        _PitchRCExpo.UnregisterCallback<ChangeEvent<string>>(OnPitchRCExpoChanged);
+        _YawRCExpo.UnregisterCallback<ChangeEvent<string>>(OnYawRCExpoChanged);
     }
 
-    private void OnRollRCRateChanged(ChangeEvent<float> evt){}
+    private void OnRollRCRateChanged(ChangeEvent<string> evt)
+    {
+        Debug.Log("Roll RC Rate changed to: " + evt.newValue);
+        _flightController.SetRCRate(2, float.Parse(evt.newValue));
+    }
     
-    private void OnPitchRCRateChanged(ChangeEvent<float> evt){}
+    private void OnPitchRCRateChanged(ChangeEvent<string> evt)
+    {
+        Debug.Log("Pitch RC Rate changed to: " + evt.newValue);
+        _flightController.SetRCRate(0, float.Parse(evt.newValue));
+    }
     
-    private void OnYawRCRateChanged(ChangeEvent<float> evt){}
+    private void OnYawRCRateChanged(ChangeEvent<string> evt)
+    {
+        Debug.Log("Yaw RC Rate changed to: " + evt.newValue);
+        _flightController.SetRCRate(1, float.Parse(evt.newValue));
+    }
 
-    private void OnRollRateChanged(ChangeEvent<float> evt){}
+    private void OnRollRateChanged(ChangeEvent<string> evt)
+    {
+        Debug.Log("Roll Rate changed to: " + evt.newValue);
+        _flightController.SetRate(2, float.Parse(evt.newValue));       
+    }
     
-    private void OnPitchRateChanged(ChangeEvent<float> evt){}
+    private void OnPitchRateChanged(ChangeEvent<string> evt)
+    {
+        Debug.Log("Pitch Rate changed to: " + evt.newValue);
+        _flightController.SetRate(0, float.Parse(evt.newValue));
+    }
     
-    private void OnYawRateChanged(ChangeEvent<float> evt){}
+    private void OnYawRateChanged(ChangeEvent<string> evt)
+    {
+        Debug.Log("Yaw Rate changed to: " + evt.newValue);
+        _flightController.SetRate(1, float.Parse(evt.newValue));
+    }
 
-    private void OnRollRCExpoChanged(ChangeEvent<float> evt){}
+    private void OnRollRCExpoChanged(ChangeEvent<string> evt)
+    {
+        Debug.Log("Roll RC Expo changed to: " + evt.newValue);
+        _flightController.SetExpo(2, float.Parse(evt.newValue));
+    }
     
-    private void OnPitchRCExpoChanged(ChangeEvent<float> evt){}
+    private void OnPitchRCExpoChanged(ChangeEvent<string> evt)
+    {
+        Debug.Log("Pitch RC Expo changed to: " + evt.newValue);
+        _flightController.SetExpo(0, float.Parse(evt.newValue));
+    }
     
-    private void OnYawRCExpoChanged(ChangeEvent<float> evt){}
-
-    private void OnRollMaxVelChanged(ChangeEvent<float> evt){}
-    
-    private void OnPitchMaxVelChanged(ChangeEvent<float> evt){}
-    
-    private void OnYawMaxVelChanged(ChangeEvent<float> evt){}
+    private void OnYawRCExpoChanged(ChangeEvent<string> evt)
+    {
+        Debug.Log("Yaw RC Expo changed to: " + evt.newValue);
+        _flightController.SetExpo(1, float.Parse(evt.newValue));
+    }
 }
     

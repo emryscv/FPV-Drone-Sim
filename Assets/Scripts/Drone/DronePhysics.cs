@@ -37,10 +37,10 @@ public class DronePhysics : MonoBehaviour
     void FixedUpdate()
     {
         float[] motorThrust = {
-            flightController.motorMix[0] * maxThrust,
-            flightController.motorMix[1] * maxThrust,
-            flightController.motorMix[2] * maxThrust,
-            flightController.motorMix[3] * maxThrust
+            flightController.MotorMix[0] * maxThrust,
+            flightController.MotorMix[1] * maxThrust,
+            flightController.MotorMix[2] * maxThrust,
+            flightController.MotorMix[3] * maxThrust
         };
 
         float c = (motorThrust[0] + motorThrust[1] + motorThrust[2] + motorThrust[3]); // Collective thrust

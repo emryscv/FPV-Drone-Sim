@@ -75,8 +75,8 @@
                             <ui:Label text="Expo" name="Expo" class="table-col-label" style="color: rgba(212, 164, 74, 0.38); text-overflow: ellipsis;"/>
                         </ui:VisualElement>
                         <ui:VisualElement name="Values" style="flex-grow: 0; flex-direction: column;">
-                            <FloatField value="" max="10" min="0" name="ThrottleMid" style="color: rgb(212, 164, 74);"/>
-                            <FloatField value="" max="10" min="0" name="ThrottleExpo" style="color: rgb(212, 164, 74);"/>
+                            <FloatField value="" max="0.99" min="0" name="ThrottleMid" style="color: rgb(212, 164, 74);"/>
+                            <FloatField value="" max="1" min="0" name="ThrottleExpo" style="color: rgb(212, 164, 74);"/>
                         </ui:VisualElement>
                     </ui:VisualElement>
                     <ui:VisualElement name="Graph" style="flex-grow: 0; width: 200px; height: 200px; background-color: rgba(244, 244, 244, 0.38); margin-top: 10px; margin-right: 10px; margin-bottom: 10px; margin-left: 10px;"/>

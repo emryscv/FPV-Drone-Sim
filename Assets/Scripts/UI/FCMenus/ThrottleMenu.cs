@@ -22,20 +22,25 @@ public class ThrottleMenu : MonoBehaviour
         //Throttle
         _ThrottleMid = _FCMenuTab.Q<FloatField>("ThrottleMid");
         _ThrottleExpo = _FCMenuTab.Q<FloatField>("ThrottleExpo");
-
-        _ThrottleMid.RegisterCallback<ChangeEvent<float>>(OnThrottleMidChanged);
-        _ThrottleExpo.RegisterCallback<ChangeEvent<float>>(OnThrottleExpoChanged);
+        _ThrottleMid.RegisterCallback<ChangeEvent<string>>(OnThrottleMidChanged);
+        _ThrottleExpo.RegisterCallback<ChangeEvent<string>>(OnThrottleExpoChanged);
     }
 
     private void OnDisable()
     {
-        _ThrottleMid.UnregisterCallback<ChangeEvent<float>>(OnThrottleMidChanged);
-        _ThrottleExpo.UnregisterCallback<ChangeEvent<float>>(OnThrottleExpoChanged);
+        _ThrottleMid.UnregisterCallback<ChangeEvent<string>>(OnThrottleMidChanged);
+        _ThrottleExpo.UnregisterCallback<ChangeEvent<string>>(OnThrottleExpoChanged);
     }
 
-    private void OnThrottleMidChanged(ChangeEvent<float> evt){}
+    private void OnThrottleMidChanged(ChangeEvent<string> evt)
+    {
+        Debug.Log("Throttle Mid changed to: " + evt.newValue);
+    }
     
-    private void OnThrottleExpoChanged(ChangeEvent<float> evt){}
+    private void OnThrottleExpoChanged(ChangeEvent<string> evt)
+    {
+        Debug.Log("Throttle Expo changed to: " + evt.newValue);
+    }
 
 }
     

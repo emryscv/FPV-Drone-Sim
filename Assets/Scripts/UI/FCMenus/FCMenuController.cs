@@ -19,6 +19,7 @@ public class FCMenuController : MonoBehaviour
         _RateType = _FCMenuTab.Q<EnumField>("RateTypeSelector");
         _RateType.Init(RateType.Betaflight);
         _RateType.RegisterCallback<ChangeEvent<EnumField>>(OnRateTypeChanged);
+        //TODO fix not working
     }
 
     private void OnDisable()
@@ -28,6 +29,7 @@ public class FCMenuController : MonoBehaviour
 
     private void OnRateTypeChanged(ChangeEvent<EnumField> evt)
     {
+        Debug.Log("Rate Type changed to: " + evt.newValue);
         _flightController.SetRateType((RateType)_RateType.value);
     }
 }

@@ -3113,7 +3113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ad21414e03c3fd449be8d432b6e5f3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThrottleMenu
-  _flightController: {fileID: 0}
+  _flightController: {fileID: 859958589}
 --- !u!114 &651960976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3126,7 +3126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf323b92141619e4e981ad167ac6cf99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RatesMenu
-  _flightController: {fileID: 0}
+  _flightController: {fileID: 859958589}
 --- !u!114 &651960977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3139,7 +3139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c32d958166f2ca449c3737c8ecf9f3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PIDMenu
-  _flightController: {fileID: 0}
+  _flightController: {fileID: 859958589}
 --- !u!1001 &655489446
 PrefabInstance:
   m_ObjectHideFlags: 0
