@@ -4,55 +4,79 @@ using UnityEngine.UIElements;
 partial class FloatField : VisualElement
 {
     [UxmlAttribute]
-    public float Value { get => float.Parse(_textField.value); set => Set(value); }
-
-    [UxmlAttribute]
     public float Max { get; set; }
 
     [UxmlAttribute]
     public float Min { get; set; }
 
     private TextField _textField;
-    private VisualElement _container;
     private Button _incrementButton;
     private Button _decrementButton;
-    //TODO Fix the way value is being held i don't think we need the Extra value. TryParse will solve some issues with input validation
+
+    private EventCallback<ChangeEvent<string>> _onValueChangedCallback;
+
     public FloatField()
     {
         AddToClassList("numerical-field");
-        _textField = new TextField{name = "Value"};
+        _textField = new TextField
+        {
+            name = "Value",
+            value = Min.ToString()
+        };
 
-        _incrementButton = new Button(() => { 
-            if (Value < Max) { 
-                Value += 0.01f; 
-                _textField.value = Value.ToString(); 
-            } 
-        }) { text = "+" };
-        _decrementButton = new Button(() => { 
-            if (Value > Min) { 
-                Value -= 0.01f;
-                _textField.value = Value.ToString(); 
-            } 
-        }) { text = "-" };
+        _incrementButton = new Button(() =>
+        {
+            float value = float.Parse(_textField.value);
+            if (value < Max)
+            {
+                value += 0.01f;
+                _textField.value = value.ToString();
+            }
+        })
+        { text = "+" };
+        _decrementButton = new Button(() =>
+        {
+            float value = float.Parse(_textField.value);
+            if (value > Min)
+            {
+                value -= 0.01f;
+                _textField.value = value.ToString();
+            }
+        })
+        { text = "-" };
 
         Add(_decrementButton);
         Add(_textField);
         Add(_incrementButton);
     }
 
-    public void RegisterValueChangedCallback(
-        EventCallback<ChangeEvent<string>> callback)
+    public void RegisterValueChangedCallback(EventCallback<ChangeEvent<string>> callback)
     {
-        _textField.RegisterValueChangedCallback(callback);
+        _onValueChangedCallback = (evt) =>
+        {
+            evt.StopPropagation();
+
+            if (float.TryParse(evt.newValue, out float value))
+                Set(value);
+            else
+            {
+                _textField.value = Min.ToString();
+                return;
+            }
+
+            callback(evt);
+        };
+
+        _textField.RegisterValueChangedCallback(_onValueChangedCallback);
+    
     }
 
-    public void UnregisterValueChangedCallback(
-        EventCallback<ChangeEvent<string>> callback)
+    public void UnregisterValueChangedCallback()
     {
-        _textField.UnregisterValueChangedCallback(callback);
+        _textField.UnregisterValueChangedCallback(_onValueChangedCallback);
     }
 
-    public void Set(float value) //TODO fix this
+    public void Set(float value)
     {
         if (value > Max) value = Max;
         if (value < Min) value = Min;
