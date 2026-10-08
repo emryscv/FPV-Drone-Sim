@@ -1,3 +1,4 @@
+using UnityEngine;
 using UnityEngine.UIElements;
 
 [UxmlElement]
@@ -14,7 +15,7 @@ partial class IntegerField : VisualElement
     private Button _decrementButton;
 
     private EventCallback<ChangeEvent<string>> _onValueChangedCallback;
-    
+
     public IntegerField()
     {
         AddToClassList("numerical-field");
@@ -48,7 +49,6 @@ partial class IntegerField : VisualElement
         Add(_decrementButton);
         Add(_textField);
         Add(_incrementButton);
-
     }
 
     public void RegisterValueChangedCallback(EventCallback<ChangeEvent<string>> callback)
@@ -56,7 +56,6 @@ partial class IntegerField : VisualElement
         _onValueChangedCallback = (evt) =>
         {
             evt.StopPropagation();
-
             if (int.TryParse(evt.newValue, out int value))
                 Set(value);
             else
@@ -78,10 +77,14 @@ partial class IntegerField : VisualElement
 
     public void Set(int value)
     {
-        if (value > Max) value = Max;
-        if (value < Min) value = Min;
+        bool isItValid = true;
+        if (value > Max) { value = Max; isItValid = false; }
+        if (value < Min) { value = Min; isItValid = false; }
 
-        _textField.value = value.ToString();
+        if (isItValid)
+            _textField.SetValueWithoutNotify(value.ToString());
+        else
+            _textField.value = value.ToString();
     }
 
     //TODO add Update so the button can be held till the right value

@@ -20,10 +20,7 @@ public class DronePhysics : MonoBehaviour
         groundLayer = LayerMask.NameToLayer("Ground");
         flightController = GetComponent<FlightController>(); // Get the FlightController component attached to the same GameObject
         rb = GetComponent<Rigidbody>(); // Get the Rigidbody component attached to the same GameObject
-    }
 
-    void Start()
-    {
         mass = rb.mass; //kg
         l = 0.033f; //m
         k = 0.01f; //Nm TODO figure out
@@ -45,7 +42,7 @@ public class DronePhysics : MonoBehaviour
 
         float c = (motorThrust[0] + motorThrust[1] + motorThrust[2] + motorThrust[3]); // Collective thrust
         
-        Debug.Log("Collective thrust: " + c + " M1: " + motorThrust[0] + " M2: " + motorThrust[1] + " M3: " + motorThrust[2] + " M4: " + motorThrust[3] + " Max Thrust: " + maxThrust + " mass: " + mass);
+        //Debug.Log("Collective thrust: " + c + " M1: " + motorThrust[0] + " M2: " + motorThrust[1] + " M3: " + motorThrust[2] + " M4: " + motorThrust[3] + " Max Thrust: " + maxThrust + " mass: " + mass);
 
         Vector3 torque = new Vector3(
             l / sqrt2 * (motorThrust[0] - motorThrust[1] + motorThrust[2] - motorThrust[3]),

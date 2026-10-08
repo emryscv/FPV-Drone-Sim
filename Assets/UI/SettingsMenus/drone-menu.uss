@@ -87,4 +87,70 @@
 }
 
 .row {
+    padding-top: 12px;
+    padding-right: 18px;
+    padding-bottom: 12px;
+    padding-left: 18px;
+}
+
+.row Label {
+    font-size: 14px;
+    -unity-font-definition: url("project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Bold.ttf?fileID=12800000&guid=5f7b0a079acd8ec449b1459679e8abbf&type=3#BarlowCondensed-Bold");
+    width: 160px;
+    color: rgba(244, 244, 244, 0.28);
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    align-self: center;
+}
+
+.row TextField #unity-text-input {
+    background-color: rgba(244, 244, 244, 0.05);
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-left-color: rgba(244, 244, 244, 0.1);
+    border-right-color: rgba(244, 244, 244, 0.1);
+    border-top-color: rgba(244, 244, 244, 0.1);
+    border-bottom-color: rgba(244, 244, 244, 0.1);
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    padding-top: 5px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    -unity-font-definition: url("project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Bold.ttf?fileID=12800000&guid=5f7b0a079acd8ec449b1459679e8abbf&type=3#BarlowCondensed-Bold");
+}
+
+
+
+.row Button {
+    padding-top: 5px;
+    padding-right: 13px;
+    padding-bottom: 5px;
+    padding-left: 13px;
+    aspect-ratio: auto;
+    background-color: rgba(244, 244, 244, 0.1);
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+    border-bottom-left-radius: 2px;
+    border-left-color: rgba(244, 244, 244, 0.1);
+    border-right-color: rgba(244, 244, 244, 0.1);
+    border-top-color: rgba(244, 244, 244, 0.1);
+    border-bottom-color: rgba(244, 244, 244, 0.1);
+    -unity-font-definition: url("project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Black.ttf?fileID=12800000&guid=1644c8f8a32e548498832b745a3602d0&type=3#BarlowCondensed-Black");
+    color: rgba(244, 244, 244, 0.38);
 }

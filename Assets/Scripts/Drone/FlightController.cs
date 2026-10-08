@@ -42,10 +42,6 @@ public class FlightController : MonoBehaviour
 
         drone = GetComponent<Rigidbody>(); // Get the Rigidbody component attached to the same GameObject
 
-    }
-
-    void Start()
-    {
         prevTime = new float[3] { Time.time, Time.time, Time.time };
         prevError = new float[3] { 0.0f, 0.0f, 0.0f };
         cumulativeI = new float[3] { 0.0f, 0.0f, 0.0f };
@@ -66,13 +62,13 @@ public class FlightController : MonoBehaviour
             new float[3] {  1,  1,  1 },
             new float[3] { -1, -1,  1 }
         };
-
+    
         SetRateType(RateType.Betaflight);
     }
 
     // Update is called once per frame
     void Update()
-    {
+    {   
         //This is the order of the axis in the controller 
         throttle = controls.Throttle?.ReadValue() ?? 0f;
         yaw = controls.Yaw?.ReadValue() ?? 0f;

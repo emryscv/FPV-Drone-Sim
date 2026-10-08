@@ -70,6 +70,19 @@ public class RatesMenu : MonoBehaviour
         _PitchMaxVel = _FCMenuTab.Q<Label>("PitchMaxVel");
         _YawMaxVel = _FCMenuTab.Q<Label>("YawMaxVel");
 
+        //Event Handlers
+        _RollRCRate.RegisterCallback<ChangeEvent<string>>(OnRollRCRateChanged);
+        _PitchRCRate.RegisterCallback<ChangeEvent<string>>(OnPitchRCRateChanged);
+        _YawRCRate.RegisterCallback<ChangeEvent<string>>(OnYawRCRateChanged);
+        
+        _RollRate.RegisterCallback<ChangeEvent<string>>(OnRollRateChanged);
+        _PitchRate.RegisterCallback<ChangeEvent<string>>(OnPitchRateChanged);
+        _YawRate.RegisterCallback<ChangeEvent<string>>(OnYawRateChanged);
+
+        _RollRCExpo.RegisterCallback<ChangeEvent<string>>(OnRollRCExpoChanged);
+        _PitchRCExpo.RegisterCallback<ChangeEvent<string>>(OnPitchRCExpoChanged);
+        _YawRCExpo.RegisterCallback<ChangeEvent<string>>(OnYawRCExpoChanged);
+
         _RollRCRate.Set(_flightController.RCRates[2]);
         _PitchRCRate.Set(_flightController.RCRates[0]);
         _YawRCRate.Set(_flightController.RCRates[1]);
@@ -85,19 +98,6 @@ public class RatesMenu : MonoBehaviour
         _RollMaxVel.text = _flightController.ComputeRate(2, 1).ToString();
         _PitchMaxVel.text = _flightController.ComputeRate(0, 1).ToString();
         _YawMaxVel.text = _flightController.ComputeRate(1, 1).ToString();
-
-        //Event Handlers
-        _RollRCRate.RegisterCallback<ChangeEvent<string>>(OnRollRCRateChanged);
-        _PitchRCRate.RegisterCallback<ChangeEvent<string>>(OnPitchRCRateChanged);
-        _YawRCRate.RegisterCallback<ChangeEvent<string>>(OnYawRCRateChanged);
-        
-        _RollRate.RegisterCallback<ChangeEvent<string>>(OnRollRateChanged);
-        _PitchRate.RegisterCallback<ChangeEvent<string>>(OnPitchRateChanged);
-        _YawRate.RegisterCallback<ChangeEvent<string>>(OnYawRateChanged);
-
-        _RollRCExpo.RegisterCallback<ChangeEvent<string>>(OnRollRCExpoChanged);
-        _PitchRCExpo.RegisterCallback<ChangeEvent<string>>(OnPitchRCExpoChanged);
-        _YawRCExpo.RegisterCallback<ChangeEvent<string>>(OnYawRCExpoChanged);
     }
 
     private void OnDisable()

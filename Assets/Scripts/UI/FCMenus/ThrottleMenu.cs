@@ -22,6 +22,7 @@ public class ThrottleMenu : MonoBehaviour
         //Throttle
         _ThrottleMid = _FCMenuTab.Q<FloatField>("ThrottleMid");
         _ThrottleExpo = _FCMenuTab.Q<FloatField>("ThrottleExpo");
+        
         _ThrottleMid.RegisterCallback<ChangeEvent<string>>(OnThrottleMidChanged);
         _ThrottleExpo.RegisterCallback<ChangeEvent<string>>(OnThrottleExpoChanged);
     }

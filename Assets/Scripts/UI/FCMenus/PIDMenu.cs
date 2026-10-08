@@ -40,6 +40,19 @@ public class PIDMenu : MonoBehaviour
         _PitchD = _FCMenuTab.Q<IntegerField>("PitchD");
         _YawD = _FCMenuTab.Q<IntegerField>("YawD");
 
+        //Event Handlers
+        _RollP.RegisterValueChangedCallback(OnRollPChanged);
+        _PitchP.RegisterValueChangedCallback(OnPitchPChanged);
+        _YawP.RegisterValueChangedCallback(OnYawPChanged);
+
+        _RollI.RegisterValueChangedCallback(OnRollIChanged);
+        _PitchI.RegisterValueChangedCallback(OnPitchIChanged);
+        _YawI.RegisterValueChangedCallback(OnYawIChanged);
+
+        _RollD.RegisterValueChangedCallback(OnRollDChanged);
+        _PitchD.RegisterValueChangedCallback(OnPitchDChanged);
+        _YawD.RegisterValueChangedCallback(OnYawDChanged);
+    
         // Initialize the fields with the current values from the flight controller
         _RollP.Set((int)_flightController.KP[2]);
         _PitchP.Set((int)_flightController.KP[0]);
@@ -52,34 +65,21 @@ public class PIDMenu : MonoBehaviour
         _RollD.Set((int)_flightController.KD[2]);
         _PitchD.Set((int)_flightController.KD[0]);
         _YawD.Set((int)_flightController.KD[1]);
-
-        //Event Handlers
-        _RollP.RegisterCallback<ChangeEvent<string>>(OnRollPChanged);
-        _PitchP.RegisterCallback<ChangeEvent<string>>(OnPitchPChanged);
-        _YawP.RegisterCallback<ChangeEvent<string>>(OnYawPChanged);
-
-        _RollI.RegisterCallback<ChangeEvent<string>>(OnRollIChanged);
-        _PitchI.RegisterCallback<ChangeEvent<string>>(OnPitchIChanged);
-        _YawI.RegisterCallback<ChangeEvent<string>>(OnYawIChanged);    
-        
-        _RollD.RegisterCallback<ChangeEvent<string>>(OnRollDChanged);
-        _PitchD.RegisterCallback<ChangeEvent<string>>(OnPitchDChanged);
-        _YawD.RegisterCallback<ChangeEvent<string>>(OnYawDChanged);
     }
 
     private void OnDisable()
     {
-        _RollP.UnregisterCallback<ChangeEvent<string>>(OnRollPChanged);
-        _PitchP.UnregisterCallback<ChangeEvent<string>>(OnPitchPChanged);
-        _YawP.UnregisterCallback<ChangeEvent<string>>(OnYawPChanged);
+        _RollP.UnregisterValueChangedCallback();
+        _PitchP.UnregisterValueChangedCallback();
+        _YawP.UnregisterValueChangedCallback();
 
-        _RollI.UnregisterCallback<ChangeEvent<string>>(OnRollIChanged);
-        _PitchI.UnregisterCallback<ChangeEvent<string>>(OnPitchIChanged);
-        _YawI.UnregisterCallback<ChangeEvent<string>>(OnYawIChanged);    
-        
-        _RollD.UnregisterCallback<ChangeEvent<string>>(OnRollDChanged);
-        _PitchD.UnregisterCallback<ChangeEvent<string>>(OnPitchDChanged);
-        _YawD.UnregisterCallback<ChangeEvent<string>>(OnYawDChanged);
+        _RollI.UnregisterValueChangedCallback();
+        _PitchI.UnregisterValueChangedCallback();
+        _YawI.UnregisterValueChangedCallback();
+
+        _RollD.UnregisterValueChangedCallback();
+        _PitchD.UnregisterValueChangedCallback();
+        _YawD.UnregisterValueChangedCallback();
     }
 
     private void OnRollPChanged(ChangeEvent<string> evt)
