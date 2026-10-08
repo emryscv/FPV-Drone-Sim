@@ -1,0 +1,116 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/SettingsMenus/drone-menu.uss?fileID=7433441132597879392&amp;guid=16bbcbcba8982ef4cbef7fd8dff24cf6&amp;type=3#drone-menu"/>
+    <Style src="project://database/Assets/UI/SettingsMenus/menus.uss?fileID=7433441132597879392&amp;guid=826f0cfa17333524e96e4e1e621676bc&amp;type=3#menus"/>
+    <ui:VisualElement name="Parent" style="flex-grow: 1;">
+        <ui:VisualElement name="StructuralNode" style="flex-grow: 1;">
+            <ui:VisualElement name="Configuration" class="floating-window" style="flex-grow: 0;">
+                <ui:Label text="Configuration" name="Header"/>
+                <ui:VisualElement name="Content" style="flex-grow: 1;">
+                    <ui:VisualElement name="Row" class="row" style="flex-grow: 1;">
+                        <ui:Label text="Label"/>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="Row" class="row" style="flex-grow: 1;">
+                        <ui:Label text="Label"/>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="Row" class="row" style="flex-grow: 1;">
+                        <ui:Label text="Label"/>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="Row" class="row" style="flex-grow: 1;">
+                        <ui:Label text="Label"/>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="Row" class="row" style="flex-grow: 1;">
+                        <ui:Label text="Label"/>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="Row" class="row" style="flex-grow: 1;">
+                        <ui:Label text="Label"/>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="Row" class="row" style="flex-grow: 1;">
+                        <ui:Label text="Label"/>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="Performance" class="floating-window" style="flex-grow: 0;">
+                <ui:Label text="Performance Estimates" name="Header"/>
+                <ui:VisualElement name="Content" style="flex-grow: 1; flex-direction: row; padding-top: 14px; padding-right: 16px; padding-bottom: 14px; padding-left: 16px; font-size: 18px;">
+                    <ui:VisualElement name="StatBox" class="statbox" style="flex-grow: 0; margin-right: 10px;">
+                        <ui:Label text="THRUST-TO-WEIGHT" name="Title" style="padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;"/>
+                        <ui:VisualElement name="StructuralNode" style="flex-grow: 1;">
+                            <ui:Label text="15.71" name="Value" style="padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; -unity-text-align: upper-left; letter-spacing: 0;"/>
+                            <ui:Label text="TWR" name="Unit" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;"/>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="StatBox" class="statbox" style="flex-grow: 0; margin-right: 10px;">
+                        <ui:Label text="HOVER THROTTLE" name="Title" style="padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;"/>
+                        <ui:VisualElement name="StructuralNode" style="flex-grow: 1;">
+                            <ui:Label text="6" name="Value" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;"/>
+                            <ui:Label text="%" name="Unit"/>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="StatBox" class="statbox" style="flex-grow: 0; margin-right: 10px;">
+                        <ui:Label text="TOTAL THRUST" name="Title" style="padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;"/>
+                        <ui:VisualElement name="StructuralNode" style="flex-grow: 1;">
+                            <ui:Label text="4.40" name="Value" style="-unity-text-align: middle-left; align-self: auto; align-content: auto;"/>
+                            <ui:Label text="kg" name="Unit"/>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="StatBox" class="statbox" style="flex-grow: 0; margin-right: 10px;">
+                        <ui:Label text="PROP TIP SPEED" name="Title" style="padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;"/>
+                        <ui:VisualElement name="StructuralNode" style="flex-grow: 1;">
+                            <ui:Label text="43" name="Value"/>
+                            <ui:Label text="m/s" name="Unit"/>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="DroneLibrary" class="floating-window" style="flex-grow: 0;">
+            <ui:Label text="Drone Library" name="Header"/>
+            <ui:VisualElement name="Content" style="flex-grow: 1;">
+                <ui:VisualElement name="Drone1" class="drone-card" style="flex-grow: 1; aspect-ratio: 1; padding-top: 14px; padding-right: 14px; padding-bottom: 14px; padding-left: 14px; justify-content: flex-start; align-self: flex-start; align-content: flex-start;">
+                    <ui:Image name="DeleteIcon" source="project://database/Assets/Images/Icons/trash.svg?fileID=7388822144124034973&amp;guid=2d12710da6217724383a3dad7fa73d54&amp;type=3#trash" scale-mode="ScaleToFit" tint-color="rgb(64, 64, 64)" style="font-size: 6px; width: 11px; height: 11px; align-self: flex-end;"/>
+                    <ui:Image source="project://database/Assets/Images/DroneIcon.svg?fileID=7388822144124034973&amp;guid=dfed4a4b8c715994bbddcac32dfe34f3&amp;type=3#DroneIcon" tint-color="rgb(114, 114, 114)" name="DroneIcon" style="align-self: center; width: 48px; height: 48px; padding-bottom: 4px; margin-bottom: 4px;"/>
+                    <ui:VisualElement name="Description" style="flex-grow: 1;">
+                        <ui:Label text="Freestyle 5&quot;&#10;" name="Name" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Black.ttf?fileID=12800000&amp;guid=1644c8f8a32e548498832b745a3602d0&amp;type=3#BarlowCondensed-Black&quot;); font-size: 11px; color: rgba(244, 244, 244, 0.28); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;"/>
+                        <ui:VisualElement name="StructuralNode" style="flex-grow: 1; flex-direction: row; justify-content: space-between;">
+                            <ui:Label text="150mm - 5&quot;" name="ThrustToWeight" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-font-definition: url(&quot;project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Medium.ttf?fileID=12800000&amp;guid=4502073703758934880cc373e6200123&amp;type=3#BarlowCondensed-Medium&quot;); font-size: 9px; color: rgba(244, 244, 244, 0.18); align-self: center;"/>
+                            <ui:Label text="5:1" name="Size" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-font-definition: url(&quot;project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Bold.ttf?fileID=12800000&amp;guid=5f7b0a079acd8ec449b1459679e8abbf&amp;type=3#BarlowCondensed-Bold&quot;); font-size: 11px; color: rgb(76, 171, 54); align-self: flex-start;"/>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="Drone2" class="drone-card" style="flex-grow: 1; aspect-ratio: 1; padding-top: 14px; padding-right: 14px; padding-bottom: 14px; padding-left: 14px; justify-content: flex-start;">
+                    <ui:Image name="DeleteIcon" source="project://database/Assets/Images/Icons/trash.svg?fileID=7388822144124034973&amp;guid=2d12710da6217724383a3dad7fa73d54&amp;type=3#trash" scale-mode="ScaleToFit" tint-color="rgb(64, 64, 64)" style="font-size: 6px; width: 11px; height: 11px; align-self: flex-end;"/>
+                    <ui:Image source="project://database/Assets/Images/DroneIcon.svg?fileID=7388822144124034973&amp;guid=dfed4a4b8c715994bbddcac32dfe34f3&amp;type=3#DroneIcon" tint-color="rgb(114, 114, 114)" name="DroneIcon" style="align-self: center; width: 48px; height: 48px; padding-bottom: 4px; margin-bottom: 4px;"/>
+                    <ui:VisualElement name="Description" style="flex-grow: 1;">
+                        <ui:Label text="Freestyle 5&quot;&#10;" name="Name" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Black.ttf?fileID=12800000&amp;guid=1644c8f8a32e548498832b745a3602d0&amp;type=3#BarlowCondensed-Black&quot;); font-size: 11px; color: rgba(244, 244, 244, 0.28); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;"/>
+                        <ui:VisualElement name="StructuralNode" style="flex-grow: 1; flex-direction: row; justify-content: space-between;">
+                            <ui:Label text="150mm - 5&quot;" name="ThrustToWeight" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-font-definition: url(&quot;project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Medium.ttf?fileID=12800000&amp;guid=4502073703758934880cc373e6200123&amp;type=3#BarlowCondensed-Medium&quot;); font-size: 9px; color: rgba(244, 244, 244, 0.18); align-self: center;"/>
+                            <ui:Label text="5:1" name="Size" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-font-definition: url(&quot;project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Bold.ttf?fileID=12800000&amp;guid=5f7b0a079acd8ec449b1459679e8abbf&amp;type=3#BarlowCondensed-Bold&quot;); font-size: 11px; color: rgb(76, 171, 54); align-self: flex-start;"/>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="Drone3" class="drone-card" style="flex-grow: 1; aspect-ratio: 1; padding-top: 14px; padding-right: 14px; padding-bottom: 14px; padding-left: 14px; justify-content: flex-start;">
+                    <ui:Image name="DeleteIcon" source="project://database/Assets/Images/Icons/trash.svg?fileID=7388822144124034973&amp;guid=2d12710da6217724383a3dad7fa73d54&amp;type=3#trash" scale-mode="ScaleToFit" tint-color="rgb(64, 64, 64)" style="font-size: 6px; width: 11px; height: 11px; align-self: flex-end;"/>
+                    <ui:Image source="project://database/Assets/Images/DroneIcon.svg?fileID=7388822144124034973&amp;guid=dfed4a4b8c715994bbddcac32dfe34f3&amp;type=3#DroneIcon" tint-color="rgb(114, 114, 114)" name="DroneIcon" style="align-self: center; width: 48px; height: 48px; padding-bottom: 4px; margin-bottom: 4px;"/>
+                    <ui:VisualElement name="Description" style="flex-grow: 1;">
+                        <ui:Label text="Freestyle 5&quot;&#10;" name="Name" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Black.ttf?fileID=12800000&amp;guid=1644c8f8a32e548498832b745a3602d0&amp;type=3#BarlowCondensed-Black&quot;); font-size: 11px; color: rgba(244, 244, 244, 0.28); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;"/>
+                        <ui:VisualElement name="StructuralNode" style="flex-grow: 1; flex-direction: row; justify-content: space-between;">
+                            <ui:Label text="150mm - 5&quot;" name="ThrustToWeight" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-font-definition: url(&quot;project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Medium.ttf?fileID=12800000&amp;guid=4502073703758934880cc373e6200123&amp;type=3#BarlowCondensed-Medium&quot;); font-size: 9px; color: rgba(244, 244, 244, 0.18); align-self: center;"/>
+                            <ui:Label text="5:1" name="Size" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-font-definition: url(&quot;project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Bold.ttf?fileID=12800000&amp;guid=5f7b0a079acd8ec449b1459679e8abbf&amp;type=3#BarlowCondensed-Bold&quot;); font-size: 11px; color: rgb(76, 171, 54); align-self: flex-start;"/>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="Drone4" class="drone-card" style="flex-grow: 1; aspect-ratio: 1; padding-top: 14px; padding-right: 14px; padding-bottom: 14px; padding-left: 14px; justify-content: flex-start;">
+                    <ui:Image name="DeleteIcon" source="project://database/Assets/Images/Icons/trash.svg?fileID=7388822144124034973&amp;guid=2d12710da6217724383a3dad7fa73d54&amp;type=3#trash" scale-mode="ScaleToFit" tint-color="rgb(64, 64, 64)" style="font-size: 6px; width: 11px; height: 11px; align-self: flex-end;"/>
+                    <ui:Image source="project://database/Assets/Images/DroneIcon.svg?fileID=7388822144124034973&amp;guid=dfed4a4b8c715994bbddcac32dfe34f3&amp;type=3#DroneIcon" tint-color="rgb(114, 114, 114)" name="DroneIcon" style="align-self: center; width: 48px; height: 48px; padding-bottom: 4px; margin-bottom: 4px;"/>
+                    <ui:VisualElement name="Description" style="flex-grow: 1;">
+                        <ui:Label text="Freestyle 5&quot;&#10;" name="Name" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Black.ttf?fileID=12800000&amp;guid=1644c8f8a32e548498832b745a3602d0&amp;type=3#BarlowCondensed-Black&quot;); font-size: 11px; color: rgba(244, 244, 244, 0.28); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;"/>
+                        <ui:VisualElement name="StructuralNode" style="flex-grow: 1; flex-direction: row; justify-content: space-between;">
+                            <ui:Label text="150mm - 5&quot;" name="ThrustToWeight" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-font-definition: url(&quot;project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Medium.ttf?fileID=12800000&amp;guid=4502073703758934880cc373e6200123&amp;type=3#BarlowCondensed-Medium&quot;); font-size: 9px; color: rgba(244, 244, 244, 0.18); align-self: center;"/>
+                            <ui:Label text="5:1" name="Size" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-font-definition: url(&quot;project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Bold.ttf?fileID=12800000&amp;guid=5f7b0a079acd8ec449b1459679e8abbf&amp;type=3#BarlowCondensed-Bold&quot;); font-size: 11px; color: rgb(76, 171, 54); align-self: flex-start;"/>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

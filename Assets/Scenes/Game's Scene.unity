@@ -4338,7 +4338,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f84ea3f5ac850e4db49631873d867ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlightController
-  motorMix: []
 --- !u!114 &859958597
 MonoBehaviour:
   m_ObjectHideFlags: 0

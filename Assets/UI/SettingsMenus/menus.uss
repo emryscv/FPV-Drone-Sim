@@ -1,0 +1,49 @@
+.floating-window {
+    border-left-color: rgba(76, 171, 54, 0.18);
+    border-right-color: rgba(76, 171, 54, 0.18);
+    border-top-color: rgba(76, 171, 54, 0.18);
+    border-bottom-color: rgba(76, 171, 54, 0.18);
+    background-color: rgba(10, 14, 18, 0.82);
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    align-self: center;
+    align-content: center;
+    justify-content: center;
+    align-items: stretch;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 12px;
+    margin-left: 0;
+}
+
+.floating-window #Header {
+    border-left-color: rgba(244, 244, 244, 0);
+    border-right-color: rgba(244, 244, 244, 0);
+    border-top-color: rgba(244, 244, 244, 0);
+    border-bottom-color: rgba(244, 244, 244, 0);
+    background-color: rgba(6, 10, 13, 0.95);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 1px;
+    border-left-width: 0;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    -unity-font-definition: url("project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Bold.ttf?fileID=12800000&guid=5f7b0a079acd8ec449b1459679e8abbf&type=3#BarlowCondensed-Bold");
+    padding-top: 7px;
+    padding-right: 16px;
+    padding-bottom: 7px;
+    padding-left: 16px;
+    color: rgba(244, 244, 244, 0.38);
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+}

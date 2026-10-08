@@ -1,0 +1,90 @@
+:root {
+}
+
+.statbox {
+    background-color: rgba(0, 0, 0, 0.4);
+    border-left-color: rgba(244, 244, 244, 0.07);
+    border-right-color: rgba(244, 244, 244, 0.07);
+    border-top-color: rgba(244, 244, 244, 0.07);
+    border-bottom-color: rgba(244, 244, 244, 0.07);
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    padding-top: 10px;
+    padding-right: 14px;
+    padding-bottom: 10px;
+    padding-left: 14px;
+}
+
+.statbox #Title {
+    font-size: 8px;
+    color: rgba(244, 244, 244, 0.18);
+    -unity-font-definition: url("project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Bold.ttf?fileID=12800000&guid=5f7b0a079acd8ec449b1459679e8abbf&type=3#BarlowCondensed-Bold");
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+}
+
+.statbox #StructuralNode {
+    flex-direction: row;
+}
+
+.statbox #Value {
+    -unity-font-definition: url("project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Regular.ttf?fileID=12800000&guid=1a51eca6ca625fc4785d6036aebad672&type=3#BarlowCondensed-Regular");
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    letter-spacing: 11px;
+}
+
+.statbox #Unit {
+    font-size: 8px;
+    color: rgba(244, 244, 244, 0.18);
+    -unity-font-definition: url("project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Bold.ttf?fileID=12800000&guid=5f7b0a079acd8ec449b1459679e8abbf&type=3#BarlowCondensed-Bold");
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    -unity-text-align: lower-left;
+    align-self: auto;
+}
+
+.drone-card {
+    aspect-ratio: 1;
+    padding-top: 14px;
+    padding-right: 14px;
+    padding-bottom: 14px;
+    padding-left: 14px;
+    background-color: rgba(0, 0, 0, 0.25);
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-left-color: rgba(244, 244, 244, 0.07);
+    border-right-color: rgba(244, 244, 244, 0.07);
+    border-top-color: rgba(244, 244, 244, 0.07);
+    border-bottom-color: rgba(244, 244, 244, 0.07);
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    text-shadow: -1.8px 0 0 rgba(0, 0, 0, 0);
+}
+
+.row {
+}
