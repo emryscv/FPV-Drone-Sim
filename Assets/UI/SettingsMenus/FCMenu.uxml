@@ -52,6 +52,18 @@
                     <FloatField value="" max="1" min="0" name="PitchRate" style="color: rgb(74, 159, 212);"/>
                     <FloatField value="" max="2.55" min="0" name="YawRate" style="color: rgb(212, 164, 74);"/>
                 </ui:VisualElement>
+                <ui:VisualElement name="CenterSensitivity" class="table-col" style="flex-grow: 1; align-content: center; display: none;">
+                    <ui:Label text="Center Sensitivity" name="ColHeader" class="table-col-header"/>
+                    <IntegerField value="" max="255" min="0" name="RollCenterSensitivity" style="align-self: center; color: rgb(76, 171, 54);"/>
+                    <IntegerField value="" max="255" min="0" name="PitchCenterSensitivity" style="color: rgb(74, 159, 212);"/>
+                    <IntegerField value="" max="255" min="0" name="YawCenterSensitivity" style="color: rgb(212, 164, 74);"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="MaxRate" class="table-col" style="flex-grow: 1; align-content: center; display: none;">
+                    <ui:Label text="Max Rate&#10;" name="ColHeader" class="table-col-header"/>
+                    <IntegerField value="" max="255" min="0" name="RollMaxRate" style="align-self: center; color: rgb(76, 171, 54);"/>
+                    <IntegerField value="" max="255" min="0" name="PitchMaxRate" style="color: rgb(74, 159, 212);"/>
+                    <IntegerField value="" max="255" min="0" name="YawMaxRate" style="color: rgb(212, 164, 74);"/>
+                </ui:VisualElement>
                 <ui:VisualElement name="Expo" class="table-col" style="flex-grow: 1;">
                     <ui:Label text="RC Expo" name="ColHeader" class="table-col-header"/>
                     <FloatField value="" max="1" min="0" name="RollExpo" style="color: rgb(76, 171, 54);"/>

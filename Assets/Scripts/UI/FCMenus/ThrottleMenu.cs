@@ -59,6 +59,7 @@ public class ThrottleMenu : MonoBehaviour
 
 }
 
+//TODO get this out of here
 public class ThrottleCurveGraphElement : VisualElement
 {
     private static readonly Color BackgroundColor = new Color(0.03f, 0.05f, 0.07f, 1f);

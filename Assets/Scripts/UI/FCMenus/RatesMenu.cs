@@ -7,6 +7,12 @@ public class RatesMenu : MonoBehaviour
 
     private UIDocument _uiManager;
     private VisualElement _FCMenuTab;
+    private EnumField _RateType;
+
+    private VisualElement _RCRateCol;
+    private VisualElement _RateCol;
+    private VisualElement _CenterSensitivityCol;
+    private VisualElement _MaxRateCol;
 
     //Betaflight Rates
     private FloatField _RollRCRate;
@@ -18,9 +24,9 @@ public class RatesMenu : MonoBehaviour
     private FloatField _YawRate;
 
     //Actual Rates
-    private IntegerField _RollCenter;
-    private IntegerField _PitchCenter;
-    private IntegerField _YawCenter;
+    private IntegerField _RollCenterSensitivy;
+    private IntegerField _PitchCenterSensitivy;
+    private IntegerField _YawCenterSensitivy;
 
     private IntegerField _RollMaxRate;
     private IntegerField _PitchMaxRate;
@@ -35,7 +41,7 @@ public class RatesMenu : MonoBehaviour
     private Label _RollMaxVel;
     private Label _PitchMaxVel;
     private Label _YawMaxVel;
-    
+
     private RateCurveGraphElement _rateCurveGraph;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -43,6 +49,14 @@ public class RatesMenu : MonoBehaviour
     {
         _uiManager = GetComponent<UIDocument>();
         _FCMenuTab = _uiManager.rootVisualElement.Q<VisualElement>("FCMenuTab");
+
+        _RateType = _FCMenuTab.Q<EnumField>("RateTypeSelector");
+        _RateType.Init(RateType.Betaflight);
+
+        _RCRateCol = _FCMenuTab.Q<VisualElement>("RCRate");
+        _RateCol = _FCMenuTab.Q<VisualElement>("Rate");
+        _CenterSensitivityCol = _FCMenuTab.Q<VisualElement>("CenterSensitivity");
+        _MaxRateCol = _FCMenuTab.Q<VisualElement>("MaxRate");
 
         //Betaflight Rates
         _RollRCRate = _FCMenuTab.Q<FloatField>("RollRCRate");
@@ -54,13 +68,13 @@ public class RatesMenu : MonoBehaviour
         _YawRate = _FCMenuTab.Q<FloatField>("YawRate");
 
         //Actual Rates
-        // _RollCenter = _FCMenuTab.Q<IntegerField>("RollCenter");
-        // _PitchCenter = _FCMenuTab.Q<IntegerField>("PitchCenter");
-        // _YawCenter = _FCMenuTab.Q<IntegerField>("YawCenter");
+        _RollCenterSensitivy = _FCMenuTab.Q<IntegerField>("RollCenterSensitivity");
+        _PitchCenterSensitivy = _FCMenuTab.Q<IntegerField>("PitchCenterSensitivity");
+        _YawCenterSensitivy = _FCMenuTab.Q<IntegerField>("YawCenterSensitivity");
 
-        // _RollMaxRate = _FCMenuTab.Q<IntegerField>("RollMaxRate");
-        // _PitchMaxRate = _FCMenuTab.Q<IntegerField>("PitchMaxRate");
-        // _YawMaxRate = _FCMenuTab.Q<IntegerField>("YawMaxRate");
+        _RollMaxRate = _FCMenuTab.Q<IntegerField>("RollMaxRate");
+        _PitchMaxRate = _FCMenuTab.Q<IntegerField>("PitchMaxRate");
+        _YawMaxRate = _FCMenuTab.Q<IntegerField>("YawMaxRate");
 
         //RC Expo both systems
         _RollRCExpo = _FCMenuTab.Q<FloatField>("RollExpo");
@@ -84,25 +98,52 @@ public class RatesMenu : MonoBehaviour
         }
 
         //Event Handlers
-        _RollRCRate.RegisterCallback<ChangeEvent<string>>(OnRollRCRateChanged);
-        _PitchRCRate.RegisterCallback<ChangeEvent<string>>(OnPitchRCRateChanged);
-        _YawRCRate.RegisterCallback<ChangeEvent<string>>(OnYawRCRateChanged);
-        
-        _RollRate.RegisterCallback<ChangeEvent<string>>(OnRollRateChanged);
-        _PitchRate.RegisterCallback<ChangeEvent<string>>(OnPitchRateChanged);
-        _YawRate.RegisterCallback<ChangeEvent<string>>(OnYawRateChanged);
+        _RateType.RegisterValueChangedCallback(OnRateTypeChanged);
 
-        _RollRCExpo.RegisterCallback<ChangeEvent<string>>(OnRollRCExpoChanged);
-        _PitchRCExpo.RegisterCallback<ChangeEvent<string>>(OnPitchRCExpoChanged);
-        _YawRCExpo.RegisterCallback<ChangeEvent<string>>(OnYawRCExpoChanged);
+        _RollRCRate.RegisterValueChangedCallback(OnRollRCRateChanged);
+        _PitchRCRate.RegisterValueChangedCallback(OnPitchRCRateChanged);
+        _YawRCRate.RegisterValueChangedCallback(OnYawRCRateChanged);
 
-        _RollRCRate.Set(_flightController.RCRates[2]);
-        _PitchRCRate.Set(_flightController.RCRates[0]);
-        _YawRCRate.Set(_flightController.RCRates[1]);
+        _RollRate.RegisterValueChangedCallback(OnRollRateChanged);
+        _PitchRate.RegisterValueChangedCallback(OnPitchRateChanged);
+        _YawRate.RegisterValueChangedCallback(OnYawRateChanged);
 
-        _RollRate.Set(_flightController.Rates[2]);
-        _PitchRate.Set(_flightController.Rates[0]);
-        _YawRate.Set(_flightController.Rates[1]);
+        //RCRate and Center Sensitivity use the same event handlers because they use the same variable in the FC
+        _RollCenterSensitivy.RegisterValueChangedCallback(OnRollRCRateChanged);
+        _PitchCenterSensitivy.RegisterValueChangedCallback(OnPitchRCRateChanged);
+        _YawCenterSensitivy.RegisterValueChangedCallback(OnYawRCRateChanged);
+
+        //Rate and Max Rate use the same event handlers because they use the same variable in the FC
+        _RollMaxRate.RegisterValueChangedCallback(OnRollRateChanged);
+        _PitchMaxRate.RegisterValueChangedCallback(OnPitchRateChanged);
+        _YawMaxRate.RegisterValueChangedCallback(OnYawRateChanged);
+
+        _RollRCExpo.RegisterValueChangedCallback(OnRollRCExpoChanged);
+        _PitchRCExpo.RegisterValueChangedCallback(OnPitchRCExpoChanged);
+        _YawRCExpo.RegisterValueChangedCallback(OnYawRCExpoChanged);
+
+        if ((RateType)_RateType.value == RateType.Betaflight)
+        {
+            _RollRCRate.Set(_flightController.RCRates[2]);
+            _PitchRCRate.Set(_flightController.RCRates[0]);
+            _YawRCRate.Set(_flightController.RCRates[1]);
+
+            _RollRate.Set(_flightController.Rates[2]);
+            _PitchRate.Set(_flightController.Rates[0]);
+            _YawRate.Set(_flightController.Rates[1]);
+        }
+        else
+        {
+            // RCRate and Center Sensitivity use the same variable in the FC
+            _RollCenterSensitivy.Set((int)_flightController.RCRates[2]);
+            _PitchCenterSensitivy.Set((int)_flightController.RCRates[0]);
+            _YawCenterSensitivy.Set((int)_flightController.RCRates[1]);
+
+            // Rate and Max Rate use the same variable in the FC
+            _RollMaxRate.Set((int)_flightController.Rates[2]);
+            _PitchMaxRate.Set((int)_flightController.Rates[0]);
+            _YawMaxRate.Set((int)_flightController.Rates[1]);
+        }
 
         _RollRCExpo.Set(_flightController.RCExpo[2]);
         _PitchRCExpo.Set(_flightController.RCExpo[0]);
@@ -114,17 +155,48 @@ public class RatesMenu : MonoBehaviour
 
     private void OnDisable()
     {
-        _RollRCRate.UnregisterCallback<ChangeEvent<string>>(OnRollRCRateChanged);
-        _PitchRCRate.UnregisterCallback<ChangeEvent<string>>(OnPitchRCRateChanged);
-        _YawRCRate.UnregisterCallback<ChangeEvent<string>>(OnYawRCRateChanged);
-        
-        _RollRate.UnregisterCallback<ChangeEvent<string>>(OnRollRateChanged);
-        _PitchRate.UnregisterCallback<ChangeEvent<string>>(OnPitchRateChanged);
-        _YawRate.UnregisterCallback<ChangeEvent<string>>(OnYawRateChanged);
+        _RateType.UnregisterValueChangedCallback(OnRateTypeChanged);
 
-        _RollRCExpo.UnregisterCallback<ChangeEvent<string>>(OnRollRCExpoChanged);
-        _PitchRCExpo.UnregisterCallback<ChangeEvent<string>>(OnPitchRCExpoChanged);
-        _YawRCExpo.UnregisterCallback<ChangeEvent<string>>(OnYawRCExpoChanged);
+        _RollRCRate.UnregisterValueChangedCallback();
+        _PitchRCRate.UnregisterValueChangedCallback();
+        _YawRCRate.UnregisterValueChangedCallback();
+
+        _RollRate.UnregisterValueChangedCallback();
+        _PitchRate.UnregisterValueChangedCallback();
+        _YawRate.UnregisterValueChangedCallback();
+
+        _RollCenterSensitivy.UnregisterValueChangedCallback();
+        _PitchCenterSensitivy.UnregisterValueChangedCallback();
+        _YawCenterSensitivy.UnregisterValueChangedCallback();
+
+        _RollMaxRate.UnregisterValueChangedCallback();
+        _PitchMaxRate.UnregisterValueChangedCallback();
+        _YawMaxRate.UnregisterValueChangedCallback();
+
+        _RollRCExpo.UnregisterValueChangedCallback();
+        _PitchRCExpo.UnregisterValueChangedCallback();
+        _YawRCExpo.UnregisterValueChangedCallback();
+    }
+
+    private void OnRateTypeChanged(ChangeEvent<System.Enum> evt)
+    {
+        Debug.Log("Rate Type changed to: " + evt.newValue);
+        _flightController.SetRateType((RateType)_RateType.value);
+        //TODO When the rates are persistent there has to be a refresh in the valeus whenever the UI changes
+        if((RateType)_RateType.value == RateType.Betaflight)
+        {
+            _RCRateCol.style.display = DisplayStyle.Flex;
+            _RateCol.style.display = DisplayStyle.Flex;
+            _CenterSensitivityCol.style.display = DisplayStyle.None;
+            _MaxRateCol.style.display = DisplayStyle.None;
+        }
+        else
+        {
+            _RCRateCol.style.display = DisplayStyle.None;
+            _RateCol.style.display = DisplayStyle.None;
+            _CenterSensitivityCol.style.display = DisplayStyle.Flex;
+            _MaxRateCol.style.display = DisplayStyle.Flex;
+        }
     }
 
     private void OnRollRCRateChanged(ChangeEvent<string> evt)
@@ -133,14 +205,14 @@ public class RatesMenu : MonoBehaviour
         _flightController.SetRCRate(2, float.Parse(evt.newValue));
         RefreshRatesUi();
     }
-    
+
     private void OnPitchRCRateChanged(ChangeEvent<string> evt)
     {
         Debug.Log("Pitch RC Rate changed to: " + evt.newValue);
         _flightController.SetRCRate(0, float.Parse(evt.newValue));
         RefreshRatesUi();
     }
-    
+
     private void OnYawRCRateChanged(ChangeEvent<string> evt)
     {
         Debug.Log("Yaw RC Rate changed to: " + evt.newValue);
@@ -154,14 +226,14 @@ public class RatesMenu : MonoBehaviour
         _flightController.SetRate(2, float.Parse(evt.newValue));
         RefreshRatesUi();
     }
-    
+
     private void OnPitchRateChanged(ChangeEvent<string> evt)
     {
         Debug.Log("Pitch Rate changed to: " + evt.newValue);
         _flightController.SetRate(0, float.Parse(evt.newValue));
         RefreshRatesUi();
     }
-    
+
     private void OnYawRateChanged(ChangeEvent<string> evt)
     {
         Debug.Log("Yaw Rate changed to: " + evt.newValue);
@@ -175,14 +247,14 @@ public class RatesMenu : MonoBehaviour
         _flightController.SetExpo(2, float.Parse(evt.newValue));
         RefreshRatesUi();
     }
-    
+
     private void OnPitchRCExpoChanged(ChangeEvent<string> evt)
     {
         Debug.Log("Pitch RC Expo changed to: " + evt.newValue);
         _flightController.SetExpo(0, float.Parse(evt.newValue));
         RefreshRatesUi();
     }
-    
+
     private void OnYawRCExpoChanged(ChangeEvent<string> evt)
     {
         Debug.Log("Yaw RC Expo changed to: " + evt.newValue);
@@ -204,6 +276,7 @@ public class RatesMenu : MonoBehaviour
     }
 }
 
+//TODO get this out of here
 public class RateCurveGraphElement : VisualElement
 {
     private readonly FlightController _flightController;
@@ -357,4 +430,3 @@ public class RateCurveGraphElement : VisualElement
         painter.Stroke();
     }
 }
-    
