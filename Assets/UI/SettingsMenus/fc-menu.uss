@@ -30,9 +30,9 @@
     margin-right: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
-    padding-top: 12px;
+    padding-top: 11px;
     padding-right: 10px;
-    padding-bottom: 13px;
+    padding-bottom: 11px;
     padding-left: 10px;
     -unity-font-definition: url("project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Bold.ttf?fileID=12800000&guid=5f7b0a079acd8ec449b1459679e8abbf&type=3#BarlowCondensed-Bold");
     align-self: flex-start;

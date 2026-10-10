@@ -10,8 +10,8 @@ partial class FloatField : VisualElement
     public float Min { get; set; }
 
     private TextField _textField;
-    private Button _incrementButton;
-    private Button _decrementButton;
+    private RepeatButton _incrementButton;
+    private RepeatButton _decrementButton;
 
     private EventCallback<ChangeEvent<string>> _onValueChangedCallback;
 
@@ -24,7 +24,7 @@ partial class FloatField : VisualElement
             value = Min.ToString()
         };
 
-        _incrementButton = new Button(() =>
+        _incrementButton = new RepeatButton(() =>
         {
             float value = float.Parse(_textField.value);
             if (value < Max)
@@ -32,9 +32,9 @@ partial class FloatField : VisualElement
                 value += 0.01f;
                 _textField.value = value.ToString();
             }
-        })
+        }, 250, 100)
         { text = "+" };
-        _decrementButton = new Button(() =>
+        _decrementButton = new RepeatButton(() =>
         {
             float value = float.Parse(_textField.value);
             if (value > Min)
@@ -42,7 +42,7 @@ partial class FloatField : VisualElement
                 value -= 0.01f;
                 _textField.value = value.ToString();
             }
-        })
+        }, 250, 100)
         { text = "-" };
 
         Add(_decrementButton);
