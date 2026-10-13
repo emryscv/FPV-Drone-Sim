@@ -6,6 +6,7 @@ public class Waypoint : MonoBehaviour
     [SerializeField] public string objectivePopup;
     [SerializeField] public WaypointSpawner nextObjective;
     float currentTime;
+    int objectsInside;
 
     protected bool playerInRange;
 
@@ -17,6 +18,7 @@ public class Waypoint : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        objectsInside = 0;
         currentTime = 0.0f;
         if (objectivePopup != "")
         {
@@ -28,7 +30,8 @@ public class Waypoint : MonoBehaviour
     void Update()
     {
         //TODO delete this logic. Maybe hovering is not that important
-        if (playerInRange)
+        //Debug.Log("Objects inside: " + objectsInside);
+        if (objectsInside > 0)
         {
             currentTime += Time.deltaTime;
             if (currentTime >= objectiveTime)
@@ -39,6 +42,7 @@ public class Waypoint : MonoBehaviour
         else
         {
             currentTime -= Time.deltaTime;
+            //Debug.Log("Player is out of waypoint range. Current time: " + currentTime);
         }
 
         currentTime = Mathf.Clamp(currentTime, 0.0f, objectiveTime);
@@ -46,17 +50,19 @@ public class Waypoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        Debug.Log("Trigger entered by: " + transform.name);
+        if (other.transform.parent.name == "PlayerCompoundCollider")
         {
-            playerInRange = true;
+            objectsInside++;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        Debug.Log("Trigger exited by: " + transform.name);
+        if (other.transform.parent.name == "PlayerCompoundCollider")
         {
-            playerInRange = false;
+            objectsInside--;
         }
     }
 
