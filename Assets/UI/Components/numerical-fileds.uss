@@ -1,0 +1,93 @@
+:root {
+}
+
+.numerical-field {
+    flex-direction: row;
+    border-left-color: rgba(244, 244, 244, 0.07);
+    border-right-color: rgba(244, 244, 244, 0.07);
+    border-top-color: rgba(244, 244, 244, 0.07);
+    border-bottom-color: rgba(244, 244, 244, 0.07);
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    width: auto;
+    flex-shrink: 1;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    align-content: center;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    margin-top: 10px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+}
+
+.numerical-field #Value {
+    width: 100px;
+    height: auto;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    -unity-font-definition: url("project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Medium.ttf?fileID=12800000&guid=4502073703758934880cc373e6200123&type=3#BarlowCondensed-Medium");
+    background-color: rgb(8, 12, 16);
+}
+
+.numerical-field #Value #unity-text-input {
+    width: 100px;
+    height: auto;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    -unity-font-definition: url("project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Medium.ttf?fileID=12800000&guid=4502073703758934880cc373e6200123&type=3#BarlowCondensed-Medium");
+    background-color: rgb(8, 12, 16);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-left-color: rgba(244, 244, 244, 0.07);
+    border-right-color: rgba(244, 244, 244, 0.07);
+    border-top-color: rgba(244, 244, 244, 0.07);
+    border-bottom-color: rgba(244, 244, 244, 0.07);
+    align-self: auto;
+    justify-content: flex-start;
+    align-items: auto;
+    align-content: auto;
+    -unity-text-align: upper-center;
+}
+
+.numerical-field RepeatButton {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    background-color: rgba(244, 244, 244, 0.04);
+    color: rgba(244, 244, 244, 0.38);
+    border-left-color: rgba(244, 244, 244, 0.04);
+    border-right-color: rgba(244, 244, 244, 0.04);
+    border-top-color: rgba(244, 244, 244, 0.04);
+    border-bottom-color: rgba(244, 244, 244, 0.04);
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    -unity-font-definition: url("project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Medium.ttf?fileID=12800000&guid=4502073703758934880cc373e6200123&type=3#BarlowCondensed-Medium");
+    aspect-ratio: auto;
+    width: auto;
+    height: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+    align-self: auto;
+    align-content: center;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 7px;
+    padding-bottom: 0;
+    flex-direction: column;
+}

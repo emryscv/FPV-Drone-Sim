@@ -27,10 +27,7 @@ public class DronePhysics : MonoBehaviour
         groundLayer = LayerMask.NameToLayer("Ground");
         flightController = GetComponent<FlightController>(); // Get the FlightController component attached to the same GameObject
         rb = GetComponent<Rigidbody>(); // Get the Rigidbody component attached to the same GameObject
-    }
 
-    void Start()
-    {
         mass = rb.mass; //kg
         l = 0.033f; //m
         k = 0.01f; //Nm TODO figure out
@@ -49,10 +46,10 @@ public class DronePhysics : MonoBehaviour
     void FixedUpdate()
     {
         float[] motorThrust = {
-            flightController.motorMix[0] * maxThrust,
-            flightController.motorMix[1] * maxThrust,
-            flightController.motorMix[2] * maxThrust,
-            flightController.motorMix[3] * maxThrust
+            flightController.MotorMix[0] * maxThrust,
+            flightController.MotorMix[1] * maxThrust,
+            flightController.MotorMix[2] * maxThrust,
+            flightController.MotorMix[3] * maxThrust
         };
 
         float c = motorThrust[0] + motorThrust[1] + motorThrust[2] + motorThrust[3]; // Collective thrust
