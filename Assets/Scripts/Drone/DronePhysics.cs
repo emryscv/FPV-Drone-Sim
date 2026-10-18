@@ -10,7 +10,6 @@ public class DronePhysics : MonoBehaviour
     float mass;
     float k; //Rotor's torque constant
     float l; //Arm Length
-    float sqrt2;
     float maxThrust;
 
     private FlightController flightController; // Reference to the FlightController script
@@ -29,12 +28,10 @@ public class DronePhysics : MonoBehaviour
         rb = GetComponent<Rigidbody>(); // Get the Rigidbody component attached to the same GameObject
 
         mass = rb.mass; //kg
-        l = 0.033f; //m
-        k = 0.01f; //Nm TODO figure out
+        l = rb.gameObject.transform.localScale.x / 2f; //m
+        k = 0.03f; //Nm TODO figure out
 
-        maxThrust = Mathf.Abs(Physics.gravity.y * mass * 2f) / 4f; //This is thrust per motor
-
-        sqrt2 = Mathf.Sqrt(2);
+        maxThrust = Mathf.Abs(Physics.gravity.y * mass * 7f) / 4f; //This is thrust per motor
 
         FLMotor = GameObject.Find("FLMotor").transform;
         FRMotor = GameObject.Find("FRMotor").transform;
@@ -57,9 +54,9 @@ public class DronePhysics : MonoBehaviour
         //Debug.Log("M1: " + flightController.motorMix[0] + " M2: " + flightController.motorMix[1] + " M3: " + flightController.motorMix[2] + " M4: " + flightController.motorMix[3] + " Max Thrust: " + maxThrust + " mass: " + mass);
         //Debug.Log("M1: " + motorThrust[0] + " C: " + c / 4f + " M2: " + motorThrust[1] + " M3: " + motorThrust[2] + " M4: " + motorThrust[3]);
         Vector3 torque = new Vector3(
-            l / sqrt2 * (motorThrust[0] - motorThrust[1] + motorThrust[2] - motorThrust[3]),
+            l * (motorThrust[0] - motorThrust[1] + motorThrust[2] - motorThrust[3]),
             k * (-motorThrust[0] + motorThrust[1] + motorThrust[2] - motorThrust[3]),
-            l / sqrt2 * (-motorThrust[0] - motorThrust[1] + motorThrust[2] + motorThrust[3])
+            l * (-motorThrust[0] - motorThrust[1] + motorThrust[2] + motorThrust[3])
         );
 
         //Debug.Log("Torque: " + torque);
