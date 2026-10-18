@@ -2,9 +2,9 @@ using SQLite;
 
 public class Drone
 {
-    [PrimaryKey, AutoIncrement]
-
+    
     // --- Drone MetaData --- //
+    [PrimaryKey, AutoIncrement]
     public int Id { get; set; }
     public string Name { get; set; }
 
