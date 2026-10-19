@@ -1,16 +1,17 @@
 using UnityEngine;
 
-public class DroneMenuController : MonoBehaviour
+public class DroneMenuController : MonoBehaviour, ISettingsMenuController
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void OnSave()
+    {
+        // Implement save logic for the drone menu here
     }
 }

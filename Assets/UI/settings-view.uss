@@ -55,6 +55,6 @@
     background-color: rgb(76, 171, 54);
 }
 
-.settings-menu-tab .active .button-icon {
+.active .button-icon {
     --unity-image-tint-color: rgb(0, 0, 0);
 }

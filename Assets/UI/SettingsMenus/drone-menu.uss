@@ -91,6 +91,7 @@
     padding-right: 18px;
     padding-bottom: 12px;
     padding-left: 18px;
+    flex-grow: 0;
 }
 
 .row Label {
@@ -130,8 +131,6 @@
     -unity-font-definition: url("project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Bold.ttf?fileID=12800000&guid=5f7b0a079acd8ec449b1459679e8abbf&type=3#BarlowCondensed-Bold");
 }
 
-
-
 .row Button {
     padding-top: 5px;
     padding-right: 13px;
@@ -153,4 +152,11 @@
     border-bottom-color: rgba(244, 244, 244, 0.1);
     -unity-font-definition: url("project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Black.ttf?fileID=12800000&guid=1644c8f8a32e548498832b745a3602d0&type=3#BarlowCondensed-Black");
     color: rgba(244, 244, 244, 0.38);
+}
+
+.row .numerical-field {
+    margin-top: 0;
+    margin-right: 10px;
+    margin-bottom: 0;
+    margin-left: 0;
 }

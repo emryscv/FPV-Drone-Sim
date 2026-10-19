@@ -87,7 +87,8 @@
     align-content: center;
     align-items: flex-start;
     justify-content: center;
-    padding-top: 7px;
+    padding-top: 0;
     padding-bottom: 0;
     flex-direction: column;
+    -unity-text-align: middle-center;
 }

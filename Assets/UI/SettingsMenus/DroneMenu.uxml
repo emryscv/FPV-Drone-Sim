@@ -1,23 +1,16 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/SettingsMenus/drone-menu.uss?fileID=7433441132597879392&amp;guid=16bbcbcba8982ef4cbef7fd8dff24cf6&amp;type=3#drone-menu"/>
     <Style src="project://database/Assets/UI/SettingsMenus/menus.uss?fileID=7433441132597879392&amp;guid=826f0cfa17333524e96e4e1e621676bc&amp;type=3#menus"/>
+    <Style src="project://database/Assets/UI/Components/numerical-fileds.uss?fileID=7433441132597879392&amp;guid=21c13465f3d5e344e95b1b86b2e0cfca&amp;type=3#numerical-fileds"/>
     <ui:VisualElement name="Parent" style="flex-grow: 0; flex-direction: row; align-items: stretch; width: 100%; height: 100%; justify-content: space-between; padding-top: 32px; padding-right: 40px; padding-bottom: 32px; padding-left: 40px;">
         <ui:VisualElement name="StructuralNode" style="flex-grow: 0; align-self: flex-start;">
             <ui:VisualElement name="Configuration" class="floating-window" style="flex-grow: 0; align-self: stretch;">
                 <ui:Label text="Configuration" name="Header"/>
                 <ui:VisualElement name="Content" style="flex-grow: 1;">
-                    <ui:VisualElement name="Row" class="row" style="flex-grow: 1;">
-                        <ui:TextField label="Drone Name" placeholder-text="filler text" name="TextField"/>
+                    <ui:VisualElement name="DroneName" class="row" style="flex-grow: 1;">
+                        <ui:TextField label="Drone Name" placeholder-text="filler text" name="TextField" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0;"/>
                     </ui:VisualElement>
-                    <ui:VisualElement name="Row" class="row" style="flex-grow: 1; flex-direction: row;">
-                        <ui:SliderInt label="Total Weight" value="42" high-value="100" style="flex-grow: 1;"/>
-                        <ui:Label text="120g" style="width: auto; font-size: 13px; color: rgb(76, 171, 54);"/>
-                    </ui:VisualElement>
-                    <ui:VisualElement name="Row" class="row" style="flex-grow: 1; flex-direction: row;">
-                        <ui:SliderInt label="Frame Size" value="42" high-value="100" style="flex-grow: 1;"/>
-                        <ui:Label text="140mm" style="width: auto; font-size: 13px; color: rgb(74, 159, 212);"/>
-                    </ui:VisualElement>
-                    <ui:VisualElement name="Row" class="row" style="flex-grow: 1; flex-direction: row;">
+                    <ui:VisualElement name="ProppellerSize" class="row" style="flex-grow: 1; flex-direction: row;">
                         <ui:Label text="Propeller Size"/>
                         <ui:VisualElement name="Options" style="flex-grow: 1; flex-direction: row;">
                             <ui:Button text="2&quot;"/>
@@ -29,17 +22,29 @@
                             <ui:Button text="7&quot;"/>
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <ui:VisualElement name="Row" class="row" style="flex-grow: 1; flex-direction: row;">
-                        <ui:SliderInt label="Battery Capacity" value="42" high-value="100" style="flex-grow: 1;"/>
-                        <ui:Label text="400g" style="width: auto; font-size: 13px; color: rgb(76, 171, 54);"/>
+                    <ui:VisualElement name="TotalWeight" class="row" style="flex-grow: 1; flex-direction: row;">
+                        <ui:Label text="Total Weight"/>
+                        <FloatField style="color: rgb(76, 171, 54);"/>
+                        <ui:Label text="(g) grams" style="width: auto; font-size: 13px; color: rgb(76, 171, 54);"/>
                     </ui:VisualElement>
-                    <ui:VisualElement name="Row" class="row" style="flex-grow: 1; flex-direction: row;">
-                        <ui:SliderInt label="Thrust / Motor" value="42" high-value="100" style="flex-grow: 1;"/>
-                        <ui:Label text="400g" style="width: auto; font-size: 13px; color: rgb(76, 171, 54);"/>
+                    <ui:VisualElement name="FrameSize" class="row" style="flex-grow: 1; flex-direction: row;">
+                        <ui:Label text="Frame Size"/>
+                        <IntegerField style="color: rgb(74, 159, 212);"/>
+                        <ui:Label text="(mm) milimeters" style="width: auto; font-size: 13px; color: rgb(74, 159, 212);"/>
                     </ui:VisualElement>
-                    <ui:VisualElement name="Row" class="row" style="flex-grow: 1; flex-direction: row;">
-                        <ui:SliderInt label="Camera Angle" value="42" high-value="100" style="flex-grow: 1;"/>
-                        <ui:Label text="35`" style="width: auto; font-size: 13px; color: rgb(212, 164, 74);"/>
+                    <ui:VisualElement name="BatteryCapacity" class="row" style="flex-grow: 1; flex-direction: row;">
+                        <ui:Label text="Battery Capacity"/>
+                        <IntegerField style="margin-top: 0; margin-bottom: 0; color: rgb(212, 164, 74);"/>
+                        <ui:Label text="&#10;(Ah) ampere-hour" style="width: auto; font-size: 13px; color: rgb(212, 164, 74);"/>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="MotorThrust" class="row" style="flex-grow: 1; flex-direction: row;">
+                        <ui:Label text="Motor per Thrust"/>
+                        <FloatField style="color: rgba(244, 244, 244, 0.23);"/>
+                        <ui:Label text="(gf) gram-force" style="width: auto; font-size: 13px; color: rgba(244, 244, 244, 0.23);"/>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="CameraAngle" class="row" style="flex-grow: 1; flex-direction: row;">
+                        <ui:SliderInt label="Camera Angle" value="35" high-value="90" style="flex-grow: 1;"/>
+                        <ui:Label text="35`" style="font-size: 13px; color: rgb(76, 171, 54); width: 50px; -unity-text-align: upper-center;"/>
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
@@ -63,7 +68,7 @@
                     <ui:VisualElement name="StatBox" class="statbox" style="flex-grow: 1; margin-right: 10px; align-self: stretch;">
                         <ui:Label text="TOTAL THRUST" name="Title" style="padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;"/>
                         <ui:VisualElement name="StructuralNode" style="flex-grow: 1;">
-                            <ui:Label text="4.40" name="Value" style="-unity-text-align: middle-left; align-self: auto; align-content: auto; color: rgb(212, 164, 74);"/>
+                            <ui:Label text="4.40" name="Value" style="-unity-text-align: middle-right; align-self: auto; align-content: auto; color: rgb(212, 164, 74);"/>
                             <ui:Label text="kg" name="Unit"/>
                         </ui:VisualElement>
                     </ui:VisualElement>
