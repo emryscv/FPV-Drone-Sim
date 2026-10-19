@@ -37,7 +37,7 @@
     --unity-image-tint-color: rgb(76, 171, 54);
 }
 
-.settings-menu-tab:selected {
+.active {
     flex-direction: row;
     padding-top: 20px;
     padding-right: 20px;
@@ -55,6 +55,6 @@
     background-color: rgb(76, 171, 54);
 }
 
-.settings-menu-tab:selected .button-icon {
+.settings-menu-tab .active .button-icon {
     --unity-image-tint-color: rgb(0, 0, 0);
 }

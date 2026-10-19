@@ -48,8 +48,7 @@ public class SettingsView : MonoBehaviour
         _fcTabBtn    = _SettingsView.Q<Button>("FCTabButton");
         _settingsTabBtn = _SettingsView.Q<Button>("SettingsTabButton");
    
-        _currentTab = _RCMenuTab;
-        _currentTabBtn = _rcTabBtn;
+        OnTabChange(_RCMenuTab, _rcTabBtn, gameObject.GetComponent<RCMenuController>());
 
         _backBtn.RegisterCallback<ClickEvent>(OnBackBtnClick);
         _saveBtn.RegisterCallback<ClickEvent>(OnSaveBtnClick);
@@ -113,8 +112,9 @@ public class SettingsView : MonoBehaviour
 
     private void OnTabChange(VisualElement newTab, Button newTabBtn, ISettingsMenuController newTabController)
     {
-        _currentTab.style.display = DisplayStyle.None;
-        _currentTabBtn.RemoveFromClassList("active");
+        if (_currentTab != null)
+            _currentTab.style.display = DisplayStyle.None;
+        _currentTabBtn?.RemoveFromClassList("active");
 
         _currentTab = newTab;
         _currentTabBtn = newTabBtn;
