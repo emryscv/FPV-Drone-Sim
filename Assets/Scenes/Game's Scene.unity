@@ -2750,10 +2750,11 @@ GameObject:
   - component: {fileID: 651960972}
   - component: {fileID: 651960973}
   - component: {fileID: 651960970}
-  - component: {fileID: 651960974}
+  - component: {fileID: 651960979}
   - component: {fileID: 651960977}
   - component: {fileID: 651960976}
   - component: {fileID: 651960975}
+  - component: {fileID: 651960978}
   m_Layer: 5
   m_Name: UIManager
   m_TagString: Untagged
@@ -2862,18 +2863,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97de1043336c4db4aaf4bd9c04da6041, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SettingsView
---- !u!114 &651960974
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 651960966}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31a2641084baae14ea68559b7d8aa2d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FCMenuController
 --- !u!114 &651960975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2913,6 +2902,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PIDMenu
   _flightController: {fileID: 859958589}
+--- !u!114 &651960978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 651960966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 995ee41934f591844b182dbf8021debf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DroneMenuController
+--- !u!114 &651960979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 651960966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a40ced1f70d4e7f4c8f2f6e3a3b49c6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FCMenuController
 --- !u!1001 &655489446
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4175,6 +4188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae6934434bab450498a74f05b1fa8323, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DronePhysics
+  droneId: 1
 --- !u!54 &859958599 stripped
 Rigidbody:
   m_CorrespondingSourceObject: {fileID: 1933884601366840249, guid: ecd8b7feba3b51f4b8e8336045feeb97, type: 3}
