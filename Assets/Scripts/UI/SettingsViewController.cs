@@ -91,13 +91,11 @@ public class SettingsView : MonoBehaviour
 
     private void OnRCTabBtnClicked(ClickEvent evt)
     {
-        _currentTabController = gameObject.GetComponent<RCMenuController>();
         OnTabChange(_RCMenuTab, _rcTabBtn, gameObject.GetComponent<RCMenuController>());
     }
     private void OnDroneTabBtnClicked(ClickEvent evt)
     {
-        //_currentTabController = gameObject.GetComponent<DroneMenuController>();
-        //OnTabChange(_DroneMenuTab, _droneTabBtn, gameObject.GetComponent<DroneMenuController>());
+        OnTabChange(_DroneMenuTab, _droneTabBtn, gameObject.GetComponent<DroneMenuController>());
     }
     private void OnFCTabBtnClicked(ClickEvent evt)
     {

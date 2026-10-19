@@ -7,10 +7,10 @@
             <ui:VisualElement name="Configuration" class="floating-window" style="flex-grow: 0; align-self: stretch;">
                 <ui:Label text="Configuration" name="Header"/>
                 <ui:VisualElement name="Content" style="flex-grow: 1;">
-                    <ui:VisualElement name="DroneName" class="row" style="flex-grow: 1;">
-                        <ui:TextField label="Drone Name" placeholder-text="filler text" name="TextField" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0;"/>
+                    <ui:VisualElement name="DroneNameRow" class="row" style="flex-grow: 1;">
+                        <ui:TextField label="Drone Name" placeholder-text="filler text" name="DroneName" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0;"/>
                     </ui:VisualElement>
-                    <ui:VisualElement name="ProppellerSize" class="row" style="flex-grow: 1; flex-direction: row;">
+                    <ui:VisualElement name="ProppellerSizeRow" class="row" style="flex-grow: 1; flex-direction: row;">
                         <ui:Label text="Propeller Size"/>
                         <ui:VisualElement name="Options" style="flex-grow: 1; flex-direction: row;">
                             <ui:Button text="2&quot;"/>
@@ -22,28 +22,28 @@
                             <ui:Button text="7&quot;"/>
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <ui:VisualElement name="TotalWeight" class="row" style="flex-grow: 1; flex-direction: row;">
+                    <ui:VisualElement name="TotalWeightRow" class="row" style="flex-grow: 1; flex-direction: row;">
                         <ui:Label text="Total Weight"/>
-                        <FloatField name="TotalWeight" style="color: rgb(76, 171, 54);"/>
+                        <FloatField name="TotalWeight" max="100000" style="color: rgb(76, 171, 54);"/>
                         <ui:Label text="(g) grams" style="width: auto; font-size: 13px; color: rgb(76, 171, 54);"/>
                     </ui:VisualElement>
-                    <ui:VisualElement name="FrameSize" class="row" style="flex-grow: 1; flex-direction: row;">
+                    <ui:VisualElement name="FrameSizeRow" class="row" style="flex-grow: 1; flex-direction: row;">
                         <ui:Label text="Frame Size"/>
-                        <IntegerField name="FrameSize" style="color: rgb(74, 159, 212);"/>
+                        <IntegerField name="FrameSize" max="100000" style="color: rgb(74, 159, 212);"/>
                         <ui:Label text="(mm) milimeters" style="width: auto; font-size: 13px; color: rgb(74, 159, 212);"/>
                     </ui:VisualElement>
-                    <ui:VisualElement name="BatteryCapacity" class="row" style="flex-grow: 1; flex-direction: row;">
+                    <ui:VisualElement name="BatteryCapacityRow" class="row" style="flex-grow: 1; flex-direction: row;">
                         <ui:Label text="Battery Capacity"/>
-                        <IntegerField name="BatteryCapacity" style="margin-top: 0; margin-bottom: 0; color: rgb(212, 164, 74);"/>
+                        <IntegerField name="BatteryCapacity" max="100000" style="margin-top: 0; margin-bottom: 0; color: rgb(212, 164, 74);"/>
                         <ui:Label text="(Ah) ampere-hour" style="width: auto; font-size: 13px; color: rgb(212, 164, 74); -unity-text-align: upper-left;"/>
                     </ui:VisualElement>
-                    <ui:VisualElement name="MotorThrust" class="row" style="flex-grow: 1; flex-direction: row;">
+                    <ui:VisualElement name="MotorThrustRow" class="row" style="flex-grow: 1; flex-direction: row;">
                         <ui:Label text="Thrust per Motor"/>
-                        <FloatField name="MotorThrust" style="color: rgba(244, 244, 244, 0.23);"/>
+                        <FloatField name="MotorThrust" max="100000" style="color: rgba(244, 244, 244, 0.23);"/>
                         <ui:Label text="(gf) gram-force" style="width: auto; font-size: 13px; color: rgba(244, 244, 244, 0.23);"/>
                     </ui:VisualElement>
-                    <ui:VisualElement name="CameraAngle" class="row" style="flex-grow: 1; flex-direction: row;">
-                        <ui:SliderInt label="Camera Angle" value="35" high-value="90" style="flex-grow: 1;"/>
+                    <ui:VisualElement name="CameraAngleRow" class="row" style="flex-grow: 1; flex-direction: row;">
+                        <ui:SliderInt label="Camera Angle" value="35" high-value="90" name="CameraAngle" style="flex-grow: 1;"/>
                         <ui:Label text="35`" style="font-size: 13px; color: rgb(76, 171, 54); width: 50px; -unity-text-align: upper-center;"/>
                     </ui:VisualElement>
                 </ui:VisualElement>

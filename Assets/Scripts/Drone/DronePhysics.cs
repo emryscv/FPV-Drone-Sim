@@ -24,6 +24,7 @@ public class DronePhysics : MonoBehaviour
         droneRB = GetComponent<Rigidbody>(); // Get the Rigidbody component attached to the same GameObject
         DroneProperties = DatabaseManager.Instance.GetDrone(droneId);
 
+        Debug.Log("Retrieved drone properties: " + DroneProperties.Name  + " ID: " + droneId + " Mass: " + DroneProperties.Mass + " FrameSize: " + DroneProperties.FrameSize + " MaxThrust: " + DroneProperties.MaxThrust);
         droneRB.mass = DroneProperties.Mass; //kg
 
         //TODO see how can i mantain aspect ratio
