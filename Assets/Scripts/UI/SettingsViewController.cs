@@ -21,6 +21,10 @@ public class SettingsView : MonoBehaviour
     private Button _fcTabBtn;
     private Button _settingsTabBtn;
 
+
+    private VisualElement _currentTab;
+    private ISettingsMenuController _currentTabController;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void OnEnable()
     {
@@ -80,36 +84,36 @@ public class SettingsView : MonoBehaviour
     private void OnSaveBtnClick(ClickEvent evt)
     {
         //TODO implement save functionality for each menu. Maybe with Polimorfism
-        //controls.SaveCalibration();
+        _currentTabController.OnSave();
     }
 
     private void OnRCTabBtnClicked(ClickEvent evt)
     {
-        _RCMenuTab.style.display = DisplayStyle.Flex;
-        _DroneMenuTab.style.display = DisplayStyle.None;
-        _FCMenuTab.style.display = DisplayStyle.None;
-        _SettingsMenuTab.style.display = DisplayStyle.None;
+        _currentTab.style.display = DisplayStyle.None;
+        _currentTab = _RCMenuTab;
+        _currentTab.style.display = DisplayStyle.Flex;
+        _currentTabController = gameObject.GetComponent<RCMenuController>();
     }
     private void OnDroneTabBtnClicked(ClickEvent evt)
     {
-        _RCMenuTab.style.display = DisplayStyle.None;
-        _DroneMenuTab.style.display = DisplayStyle.Flex;
-        _FCMenuTab.style.display = DisplayStyle.None;
-        _SettingsMenuTab.style.display = DisplayStyle.None;
+        _currentTab.style.display = DisplayStyle.None;
+        _currentTab = _DroneMenuTab;
+        _currentTab.style.display = DisplayStyle.Flex;
+        //_currentTabController = gameObject.GetComponent<DroneMenuController>();
     }
     private void OnFCTabBtnClicked(ClickEvent evt)
     {
-        _RCMenuTab.style.display = DisplayStyle.None;
-        _DroneMenuTab.style.display = DisplayStyle.None;
-        _FCMenuTab.style.display = DisplayStyle.Flex;
-        _SettingsMenuTab.style.display = DisplayStyle.None;
+        _currentTab.style.display = DisplayStyle.None;
+        _currentTab = _FCMenuTab;
+        _currentTab.style.display = DisplayStyle.Flex;
+        _currentTabController = gameObject.GetComponent<FCMenuController>();
     }
 
     private void OnSettingsTabBtnClicked(ClickEvent evt)
     {
-        _RCMenuTab.style.display = DisplayStyle.None;
-        _DroneMenuTab.style.display = DisplayStyle.None;
-        _FCMenuTab.style.display = DisplayStyle.None;
-        _SettingsMenuTab.style.display = DisplayStyle.Flex;
+        _currentTab.style.display = DisplayStyle.None;
+        _currentTab = _SettingsMenuTab;
+        _currentTab.style.display = DisplayStyle.Flex;
+        //_currentTabController = gameObject.GetComponent<SettingsMenuController>();
     }
 }

@@ -51,8 +51,6 @@ public class GameManager : MonoBehaviour
         GameEvents.Instance.OnCrash += DroneCrash;
     }
 
-
-
     // Update is called once per frame
     void Update()
     {

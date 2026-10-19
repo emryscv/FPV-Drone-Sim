@@ -1,0 +1,4 @@
+interface ISettingsMenuController
+{
+    void OnSave();
+}

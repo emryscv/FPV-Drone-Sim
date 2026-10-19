@@ -3,7 +3,7 @@ using UnityEngine.UIElements;
 using System.Collections.Generic;
 using System.Collections;
 
-public class RCMenuController : MonoBehaviour
+public class RCMenuController : MonoBehaviour, ISettingsMenuController
 {
     private const float AXIS_DETECTION_TIMEOUT_SECONDS = 10f;
 
@@ -16,7 +16,6 @@ public class RCMenuController : MonoBehaviour
 
     //UI HANDLERS
     private UIDocument _uiManager;
-    private VisualElement _Settings;
     private VisualElement _RCMenuTab;
 
     private Button _startCalibrationBtn;
@@ -154,8 +153,7 @@ public class RCMenuController : MonoBehaviour
     {   
         //TODO stop calibration if needed      
         //StopCoroutine(CalibrationRoutine()); 
-        // this but also make sure that calibration is not in a unsafe state 
-        _RCMenuTab.style.display = DisplayStyle.None;
+        // this but also make sure that calibration is not in a unsafe state
     }
 
     private IEnumerator CalibrationRoutine()
@@ -375,6 +373,10 @@ public class RCMenuController : MonoBehaviour
                 new EasingFunction(easingMode),
                 new EasingFunction(easingMode)
             };
+    }
+    public void OnSave()
+    {
+        controls.SaveCalibration();
     }
 }
 
