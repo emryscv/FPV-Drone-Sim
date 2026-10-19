@@ -2914,6 +2914,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 995ee41934f591844b182dbf8021debf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DroneMenuController
+  _dronePhysics: {fileID: 0}
 --- !u!114 &651960979
 MonoBehaviour:
   m_ObjectHideFlags: 0

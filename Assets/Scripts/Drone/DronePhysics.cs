@@ -6,7 +6,8 @@ public class DronePhysics : MonoBehaviour
 {
     [SerializeField] private int droneId = 1;
     int groundLayer;
-    private Drone droneProperties;
+    //TODO find out if {get; set;} do what  i expect
+    public Drone DroneProperties {get; set;}
     private FlightController flightController; // Reference to the FlightController script
     private Rigidbody droneRB; // Reference to the Rigidbody component
 
@@ -21,14 +22,14 @@ public class DronePhysics : MonoBehaviour
         groundLayer = LayerMask.NameToLayer("Ground");
         flightController = GetComponent<FlightController>(); // Get the FlightController component attached to the same GameObject
         droneRB = GetComponent<Rigidbody>(); // Get the Rigidbody component attached to the same GameObject
-        droneProperties = DatabaseManager.Instance.GetDrone(droneId);
+        DroneProperties = DatabaseManager.Instance.GetDrone(droneId);
 
-        droneRB.mass = droneProperties.Mass; //kg
+        droneRB.mass = DroneProperties.Mass; //kg
 
         //TODO see how can i mantain aspect ratio
         Vector3 scale = droneRB.gameObject.transform.localScale;
-        scale.x = droneProperties.FrameSize  * 2f; //m
-        scale.y = droneProperties.FrameSize  * 2f; //m
+        scale.x = DroneProperties.FrameSize  * 2f; //m
+        scale.y = DroneProperties.FrameSize  * 2f; //m
         
         droneRB.gameObject.transform.localScale = scale;
 
@@ -44,10 +45,10 @@ public class DronePhysics : MonoBehaviour
     void FixedUpdate()
     {
         float[] motorThrust = {
-            flightController.MotorMix[0] * droneProperties.MaxThrust,
-            flightController.MotorMix[1] * droneProperties.MaxThrust,
-            flightController.MotorMix[2] * droneProperties.MaxThrust,
-            flightController.MotorMix[3] * droneProperties.MaxThrust
+            flightController.MotorMix[0] * DroneProperties.MaxThrust,
+            flightController.MotorMix[1] * DroneProperties.MaxThrust,
+            flightController.MotorMix[2] * DroneProperties.MaxThrust,
+            flightController.MotorMix[3] * DroneProperties.MaxThrust
         };
 
         float c = motorThrust[0] + motorThrust[1] + motorThrust[2] + motorThrust[3]; // Collective thrust
@@ -55,9 +56,9 @@ public class DronePhysics : MonoBehaviour
         //Debug.Log("M1: " + flightController.motorMix[0] + " M2: " + flightController.motorMix[1] + " M3: " + flightController.motorMix[2] + " M4: " + flightController.motorMix[3] + " Max Thrust: " + maxThrust + " mass: " + mass);
         //Debug.Log("M1: " + motorThrust[0] + " C: " + c / 4f + " M2: " + motorThrust[1] + " M3: " + motorThrust[2] + " M4: " + motorThrust[3]);
         Vector3 torque = new Vector3(
-            droneProperties.FrameSize * (motorThrust[0] - motorThrust[1] + motorThrust[2] - motorThrust[3]),
-            droneProperties.MotorTorqueConstant * (-motorThrust[0] + motorThrust[1] + motorThrust[2] - motorThrust[3]),
-            droneProperties.FrameSize * (-motorThrust[0] - motorThrust[1] + motorThrust[2] + motorThrust[3])
+            DroneProperties.FrameSize * (motorThrust[0] - motorThrust[1] + motorThrust[2] - motorThrust[3]),
+            DroneProperties.MotorTorqueConstant * (-motorThrust[0] + motorThrust[1] + motorThrust[2] - motorThrust[3]),
+            DroneProperties.FrameSize * (-motorThrust[0] - motorThrust[1] + motorThrust[2] + motorThrust[3])
         );
 
         //Debug.Log("Torque: " + torque);

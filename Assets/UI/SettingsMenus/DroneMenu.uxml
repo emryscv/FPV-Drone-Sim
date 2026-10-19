@@ -24,22 +24,22 @@
                     </ui:VisualElement>
                     <ui:VisualElement name="TotalWeight" class="row" style="flex-grow: 1; flex-direction: row;">
                         <ui:Label text="Total Weight"/>
-                        <FloatField style="color: rgb(76, 171, 54);"/>
+                        <FloatField name="TotalWeight" style="color: rgb(76, 171, 54);"/>
                         <ui:Label text="(g) grams" style="width: auto; font-size: 13px; color: rgb(76, 171, 54);"/>
                     </ui:VisualElement>
                     <ui:VisualElement name="FrameSize" class="row" style="flex-grow: 1; flex-direction: row;">
                         <ui:Label text="Frame Size"/>
-                        <IntegerField style="color: rgb(74, 159, 212);"/>
+                        <IntegerField name="FrameSize" style="color: rgb(74, 159, 212);"/>
                         <ui:Label text="(mm) milimeters" style="width: auto; font-size: 13px; color: rgb(74, 159, 212);"/>
                     </ui:VisualElement>
                     <ui:VisualElement name="BatteryCapacity" class="row" style="flex-grow: 1; flex-direction: row;">
                         <ui:Label text="Battery Capacity"/>
-                        <IntegerField style="margin-top: 0; margin-bottom: 0; color: rgb(212, 164, 74);"/>
-                        <ui:Label text="&#10;(Ah) ampere-hour" style="width: auto; font-size: 13px; color: rgb(212, 164, 74);"/>
+                        <IntegerField name="BatteryCapacity" style="margin-top: 0; margin-bottom: 0; color: rgb(212, 164, 74);"/>
+                        <ui:Label text="(Ah) ampere-hour" style="width: auto; font-size: 13px; color: rgb(212, 164, 74); -unity-text-align: upper-left;"/>
                     </ui:VisualElement>
                     <ui:VisualElement name="MotorThrust" class="row" style="flex-grow: 1; flex-direction: row;">
-                        <ui:Label text="Motor per Thrust"/>
-                        <FloatField style="color: rgba(244, 244, 244, 0.23);"/>
+                        <ui:Label text="Thrust per Motor"/>
+                        <FloatField name="MotorThrust" style="color: rgba(244, 244, 244, 0.23);"/>
                         <ui:Label text="(gf) gram-force" style="width: auto; font-size: 13px; color: rgba(244, 244, 244, 0.23);"/>
                     </ui:VisualElement>
                     <ui:VisualElement name="CameraAngle" class="row" style="flex-grow: 1; flex-direction: row;">
