@@ -1,6 +1,7 @@
 using SQLite;
 using UnityEngine;
 using System.IO;
+using System.Collections.Generic;
 
 public class DatabaseManager : MonoBehaviour
 {
@@ -86,5 +87,11 @@ public class DatabaseManager : MonoBehaviour
     {
         using SQLiteConnection database = CreateConnection();
         return database.Find<PID>(droneId);
+    }
+
+    public List<Drone> GetAllDrones()
+    {
+        using SQLiteConnection database = CreateConnection();
+        return database.Table<Drone>().ToList();
     }
 }
