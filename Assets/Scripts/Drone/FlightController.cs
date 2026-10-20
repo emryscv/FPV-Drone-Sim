@@ -39,7 +39,6 @@ public class FlightController : MonoBehaviour
     void Awake()
     {
         controls = RCControllerManager.Instance;
-
         drone = GetComponent<Rigidbody>(); // Get the Rigidbody component attached to the same GameObject
 
         prevTime = new float[3] { Time.time, Time.time, Time.time };
@@ -47,8 +46,8 @@ public class FlightController : MonoBehaviour
         cumulativeI = new float[3] { 0.0f, 0.0f, 0.0f };
 
         //TODO we need to tune these constants
-        KP = new float[3] { 200.0f, 500.0f, 200.0f };
-        KI = new float[3] { 0.0f, 45.0f, 0.0f };
+        KP = new float[3] { 20.0f, 50.0f, 20.0f };
+        KI = new float[3] { 0.0f, 0.0f, 0.0f };
         KD = new float[3] { 0.0f, 0.0f, 0.0f };
 
         RCRates = new float[3] { 1.0f, 1.0f, 1.0f };

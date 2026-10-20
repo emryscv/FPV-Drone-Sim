@@ -16,6 +16,9 @@ public class DronePhysics : MonoBehaviour
     private Transform RLMotor; // Reference to the Transform component
     private Transform RRMotor; // Reference to the Transform component
 
+
+    private float l; //Half the distance between two consecutive motors. Assuming the frame is square
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -27,11 +30,15 @@ public class DronePhysics : MonoBehaviour
         Debug.Log("Retrieved drone properties: " + DroneProperties.Name  + " ID: " + droneId + " Mass: " + DroneProperties.Mass + " FrameSize: " + DroneProperties.FrameSize + " MaxThrust: " + DroneProperties.MaxThrust);
         droneRB.mass = DroneProperties.Mass; //kg
 
+        l = DroneProperties.FrameSize / 200.0f; //Half the distance between two consecutive motors assuming the frame is square   
+        
+
         //TODO see how can i mantain aspect ratio
         Vector3 scale = droneRB.gameObject.transform.localScale;
-        scale.x = DroneProperties.FrameSize  * 2f; //m
-        scale.y = DroneProperties.FrameSize  * 2f; //m
-        
+        scale.x = l * 2f; //m
+        scale.y = l * 2f; //m
+        scale.z = l * 2f; //m
+
         droneRB.gameObject.transform.localScale = scale;
 
         //maxThrust = Mathf.Abs(Physics.gravity.y * mass * 7f) / 4f; //This is thrust per motor
@@ -57,9 +64,9 @@ public class DronePhysics : MonoBehaviour
         //Debug.Log("M1: " + flightController.motorMix[0] + " M2: " + flightController.motorMix[1] + " M3: " + flightController.motorMix[2] + " M4: " + flightController.motorMix[3] + " Max Thrust: " + maxThrust + " mass: " + mass);
         //Debug.Log("M1: " + motorThrust[0] + " C: " + c / 4f + " M2: " + motorThrust[1] + " M3: " + motorThrust[2] + " M4: " + motorThrust[3]);
         Vector3 torque = new Vector3(
-            DroneProperties.FrameSize * (motorThrust[0] - motorThrust[1] + motorThrust[2] - motorThrust[3]),
+            l * (motorThrust[0] - motorThrust[1] + motorThrust[2] - motorThrust[3]),
             DroneProperties.MotorTorqueConstant * (-motorThrust[0] + motorThrust[1] + motorThrust[2] - motorThrust[3]),
-            DroneProperties.FrameSize * (-motorThrust[0] - motorThrust[1] + motorThrust[2] + motorThrust[3])
+            l * (-motorThrust[0] - motorThrust[1] + motorThrust[2] + motorThrust[3])
         );
 
         //Debug.Log("Torque: " + torque);
