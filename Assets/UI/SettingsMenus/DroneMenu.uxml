@@ -44,7 +44,7 @@
                     </ui:VisualElement>
                     <ui:VisualElement name="CameraAngleRow" class="row" style="flex-grow: 1; flex-direction: row;">
                         <ui:SliderInt label="Camera Angle" value="35" high-value="90" name="CameraAngle" style="flex-grow: 1;"/>
-                        <ui:Label text="35`" style="font-size: 13px; color: rgb(76, 171, 54); width: 50px; -unity-text-align: upper-center;"/>
+                        <ui:Label text="35`" name="CameraAngleLabel" style="font-size: 13px; color: rgb(76, 171, 54); width: 50px; -unity-text-align: upper-center;"/>
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>

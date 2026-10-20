@@ -8,6 +8,7 @@ public class DronePhysics : MonoBehaviour
     int groundLayer;
     //TODO find out if {get; set;} do what  i expect
     public Drone DroneProperties {get; set;}
+    
     private FlightController flightController; // Reference to the FlightController script
     private Rigidbody droneRB; // Reference to the Rigidbody component
 
@@ -22,16 +23,19 @@ public class DronePhysics : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
+        DroneProperties = DatabaseManager.Instance.GetDrone(1);
+     
         groundLayer = LayerMask.NameToLayer("Ground");
         flightController = GetComponent<FlightController>(); // Get the FlightController component attached to the same GameObject
         droneRB = GetComponent<Rigidbody>(); // Get the Rigidbody component attached to the same GameObject
-        DroneProperties = DatabaseManager.Instance.GetDrone(droneId);
-
-        Debug.Log("Retrieved drone properties: " + DroneProperties.Name  + " ID: " + droneId + " Mass: " + DroneProperties.Mass + " FrameSize: " + DroneProperties.FrameSize + " MaxThrust: " + DroneProperties.MaxThrust);
-        droneRB.mass = DroneProperties.Mass; //kg
-
-        l = DroneProperties.FrameSize / 200.0f; //Half the distance between two consecutive motors assuming the frame is square   
         
+        FLMotor = GameObject.Find("FLMotor").transform;
+        FRMotor = GameObject.Find("FRMotor").transform;
+        RLMotor = GameObject.Find("RLMotor").transform;
+        RRMotor = GameObject.Find("RRMotor").transform;
+        
+        droneRB.mass = DroneProperties.Mass; //kg
+        l = DroneProperties.FrameSize / 200.0f; //Half the distance between two consecutive motors assuming the frame is square   
 
         //TODO see how can i mantain aspect ratio
         Vector3 scale = droneRB.gameObject.transform.localScale;
@@ -43,12 +47,13 @@ public class DronePhysics : MonoBehaviour
 
         //maxThrust = Mathf.Abs(Physics.gravity.y * mass * 7f) / 4f; //This is thrust per motor
 
-        FLMotor = GameObject.Find("FLMotor").transform;
-        FRMotor = GameObject.Find("FRMotor").transform;
-        RLMotor = GameObject.Find("RLMotor").transform;
-        RRMotor = GameObject.Find("RRMotor").transform;
     }
 
+    void OnEnable()
+    {
+        Debug.Log("Drone enabled");
+        GetComponentInChildren<Camera>().transform.rotation = Quaternion.Euler(-1 * DroneProperties.CameraAngle, -90, 0);
+    }
     // Update is called once per frame
     void FixedUpdate()
     {

@@ -16,6 +16,8 @@ public class DroneMenuController : MonoBehaviour, ISettingsMenuController
     private FloatField motorThrust;
     private SliderInt cameraAngle;
 
+    private Label cameraAngleLabel;
+
     void Awake()
     {
         _uiManager = GetComponent<UIDocument>();
@@ -27,6 +29,7 @@ public class DroneMenuController : MonoBehaviour, ISettingsMenuController
         batteryCapacity = _DroneMenuTab.Q<IntegerField>("BatteryCapacity");
         motorThrust = _DroneMenuTab.Q<FloatField>("MotorThrust");
         cameraAngle = _DroneMenuTab.Q<SliderInt>("CameraAngle");
+        cameraAngleLabel = _DroneMenuTab.Q<Label>("CameraAngleLabel");
 
         droneName.RegisterValueChangedCallback(OnDroneNameChanged);
         totalWeight.RegisterValueChangedCallback(OnTotalWeightChanged);
@@ -41,6 +44,8 @@ public class DroneMenuController : MonoBehaviour, ISettingsMenuController
         batteryCapacity.Set((int)_dronePhysics.DroneProperties.BatteryCapacity);
         motorThrust.Set(_dronePhysics.DroneProperties.MaxThrust);
         cameraAngle.value = _dronePhysics.DroneProperties.CameraAngle;
+
+        cameraAngleLabel.text = _dronePhysics.DroneProperties.CameraAngle.ToString() + "°";
     }
 
     public void OnDroneNameChanged(ChangeEvent<string> evt)
@@ -71,6 +76,7 @@ public class DroneMenuController : MonoBehaviour, ISettingsMenuController
     public void OnCameraAngleChanged(ChangeEvent<int> evt)
     {
         _dronePhysics.DroneProperties.CameraAngle = evt.newValue;
+        cameraAngleLabel.text = evt.newValue.ToString() + "°";
     }
 
     public void OnSave()

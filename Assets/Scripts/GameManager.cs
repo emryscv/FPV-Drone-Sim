@@ -93,6 +93,8 @@ public class GameManager : MonoBehaviour
         isPaused = true;
         Time.timeScale = 0;
 
+        droneFC.enabled = false;
+        dronePhysics.enabled = false;
         //Cursor is handled here. Otherwise every UI view
         //would have to handle it independently
         Cursor.visible = true;
@@ -103,6 +105,9 @@ public class GameManager : MonoBehaviour
     {
         isPaused = false;
         Time.timeScale = timeScaleOrig;
+
+        droneFC.enabled = true;
+        dronePhysics.enabled = true;
 
         //Cursor is handled here. Otherwise every UI view
         //would have to handle it independently
@@ -118,8 +123,6 @@ public class GameManager : MonoBehaviour
     public void StopSimulation()
     {
         //TODO fiund out how to reaload everyhing such as position, scene. etc.
-        droneFC.enabled = false;
-        dronePhysics.enabled = false;
         isGameStarted = false;
 
         PauseSimulation();
