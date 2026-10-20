@@ -73,6 +73,7 @@ public class FlightController : MonoBehaviour
         yaw = controls.Yaw?.ReadValue() ?? 0f;
         pitch = controls.Pitch?.ReadValue() ?? 0f;
         roll = controls.Roll?.ReadValue() ?? 0f;
+        Debug.Log("Throttle: " + throttle + " Yaw: " + yaw + " Pitch: " + pitch + " Roll: " + roll);
 
         //This is the order of the axis in Unity physics
         float throttleSetpoint = (throttle + 1) / 2.0f;

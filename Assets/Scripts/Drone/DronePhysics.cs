@@ -51,9 +51,9 @@ public class DronePhysics : MonoBehaviour
 
     void OnEnable()
     {
-        Debug.Log("Drone enabled");
-        GetComponentInChildren<Camera>().transform.rotation = Quaternion.Euler(-1 * DroneProperties.CameraAngle, -90, 0);
+        GetComponentInChildren<Camera>().transform.localRotation = Quaternion.Euler(-1 * DroneProperties.CameraAngle, 0, 0);
     }
+
     // Update is called once per frame
     void FixedUpdate()
     {
