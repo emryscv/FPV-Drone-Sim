@@ -84,7 +84,11 @@
         </ui:VisualElement>
         <ui:VisualElement name="DroneLibrary" class="floating-window" style="flex-grow: 0; align-self: flex-start;">
             <ui:Label text="Drone Library" name="Header"/>
-            <ui:VisualElement name="Content" style="flex-grow: 0;"/>
+            <ui:VisualElement name="Content" style="flex-grow: 0;">
+                <ui:VisualElement name="AddButton" class="drone-card" style="flex-grow: 1; justify-content: center;">
+                    <ui:Image source="project://database/Assets/Images/Icons/plus.svg?fileID=7388822144124034973&amp;guid=a42904a70ae8e5b4295d7db0040ff5a7&amp;type=3#plus" name="Image" tint-color="rgba(244, 244, 244, 0.7)" style="width: 60px; height: 60px; align-content: center; align-self: center;"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
