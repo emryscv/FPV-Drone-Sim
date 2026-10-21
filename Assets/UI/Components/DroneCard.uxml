@@ -1,0 +1,13 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="DroneCard" class="drone-card" style="flex-grow: 1; aspect-ratio: 1; padding-top: 14px; padding-right: 14px; padding-bottom: 14px; padding-left: 14px; justify-content: flex-start; align-self: flex-start; align-content: flex-start;">
+        <ui:Image name="DeleteIcon" source="project://database/Assets/Images/Icons/trash.svg?fileID=7388822144124034973&amp;guid=2d12710da6217724383a3dad7fa73d54&amp;type=3#trash" scale-mode="ScaleToFit" tint-color="rgb(64, 64, 64)" style="font-size: 6px; width: 11px; height: 11px; align-self: flex-end;"/>
+        <ui:Image source="project://database/Assets/Images/DroneIcon.svg?fileID=7388822144124034973&amp;guid=dfed4a4b8c715994bbddcac32dfe34f3&amp;type=3#DroneIcon" tint-color="rgb(114, 114, 114)" name="DroneIcon" style="align-self: center; width: 48px; height: 48px; padding-bottom: 4px; margin-bottom: 4px;"/>
+        <ui:VisualElement name="Description" style="flex-grow: 1;">
+            <ui:Label text="Freestyle 5&quot;&#10;" name="Name" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Black.ttf?fileID=12800000&amp;guid=1644c8f8a32e548498832b745a3602d0&amp;type=3#BarlowCondensed-Black&quot;); font-size: 11px; color: rgba(244, 244, 244, 0.28); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;"/>
+            <ui:VisualElement name="StructuralNode" style="flex-grow: 1; flex-direction: row; justify-content: space-between;">
+                <ui:Label text="150mm - 5&quot;" name="Size" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-font-definition: url(&quot;project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Medium.ttf?fileID=12800000&amp;guid=4502073703758934880cc373e6200123&amp;type=3#BarlowCondensed-Medium&quot;); font-size: 9px; color: rgba(244, 244, 244, 0.18); align-self: center;"/>
+                <ui:Label text="5:1" name="ThrustToWeight" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-font-definition: url(&quot;project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Bold.ttf?fileID=12800000&amp;guid=5f7b0a079acd8ec449b1459679e8abbf&amp;type=3#BarlowCondensed-Bold&quot;); font-size: 11px; color: rgb(76, 171, 54); align-self: flex-start;"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

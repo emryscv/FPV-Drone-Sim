@@ -7,7 +7,7 @@ public class DatabaseManager : MonoBehaviour
 {
     public static DatabaseManager Instance { get; private set; }
     private string databasePath;
-    
+
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -28,6 +28,39 @@ public class DatabaseManager : MonoBehaviour
             {
                 database.CreateTable<Drone>();
                 database.CreateTable<PID>();
+
+                InsertDrone(new Drone()
+                {
+                    Name = "Second Drone",
+                    Mass = 1.5f,
+                    FrameSize = 250,
+                    PropellerDiameter = 5,
+                    MaxThrust = 10,
+                    BatteryCapacity = 1500,
+                    CameraAngle = 20
+                });
+                InsertDrone(new Drone()
+                {
+                    Name = "First Drone",
+                    Mass = 1.2f,
+                    FrameSize = 220,
+                    PropellerDiameter = 4,
+                    MaxThrust = 8,
+                    BatteryCapacity = 1200,
+                    CameraAngle = 15
+                });
+
+                InsertDrone(new Drone()
+                {
+                    Name = "Third Drone",
+                    Mass = 1.8f,
+                    FrameSize = 300,
+                    PropellerDiameter = 6,
+                    MaxThrust = 12,
+                    BatteryCapacity = 2000,
+                    CameraAngle = 25
+                });
+
             }
 
             Debug.Log("Database initialized successfully");
@@ -93,5 +126,15 @@ public class DatabaseManager : MonoBehaviour
     {
         using SQLiteConnection database = CreateConnection();
         return database.Table<Drone>().ToList();
+    }
+
+    public void DeleteDrone(int droneId)
+    {
+        using SQLiteConnection database = CreateConnection();
+        database.RunInTransaction(() =>
+        {
+            database.Delete<Drone>(droneId);
+            database.Delete<PID>(droneId);
+        });
     }
 }
