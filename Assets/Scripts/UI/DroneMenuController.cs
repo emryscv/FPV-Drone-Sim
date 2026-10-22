@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.UIElements;
 
 public class DroneMenuController : MonoBehaviour, ISettingsMenuController
@@ -16,8 +17,14 @@ public class DroneMenuController : MonoBehaviour, ISettingsMenuController
     private IntegerField frameSize;
     private IntegerField batteryCapacity;
     private FloatField motorThrust;
+    private FloatField motorTorqueConstant;
     private SliderInt cameraAngle;
     private Label cameraAngleLabel;
+
+    private Label thrustToWeight;
+    private Label hoverThrottle;
+    private Label totalThrust;
+    private Label maxSpeed;
 
     private VisualElement droneLibrary;
     private VisualElement addBtn;
@@ -35,8 +42,14 @@ public class DroneMenuController : MonoBehaviour, ISettingsMenuController
         frameSize = _DroneMenuTab.Q<IntegerField>("FrameSize");
         batteryCapacity = _DroneMenuTab.Q<IntegerField>("BatteryCapacity");
         motorThrust = _DroneMenuTab.Q<FloatField>("MotorThrust");
+        motorTorqueConstant = _DroneMenuTab.Q<FloatField>("MotorTorqueConstant");
         cameraAngle = _DroneMenuTab.Q<SliderInt>("CameraAngle");
         cameraAngleLabel = _DroneMenuTab.Q<Label>("CameraAngleLabel");
+
+        thrustToWeight = _DroneMenuTab.Q<VisualElement>("TWR").Q<Label>("Value");
+        hoverThrottle = _DroneMenuTab.Q<VisualElement>("HoverThrottle").Q<Label>("Value");
+        totalThrust = _DroneMenuTab.Q<VisualElement>("TotalThrust").Q<Label>("Value");
+        maxSpeed = _DroneMenuTab.Q<VisualElement>("MaxSpeed").Q<Label>("Value");
 
         droneLibrary = _DroneMenuTab.Q<VisualElement>("DroneLibrary").Q<VisualElement>("Content");
         addBtn = _DroneMenuTab.Q<VisualElement>("AddButton");
@@ -46,6 +59,7 @@ public class DroneMenuController : MonoBehaviour, ISettingsMenuController
         frameSize.RegisterValueChangedCallback(OnFrameSizeChanged);
         batteryCapacity.RegisterValueChangedCallback(OnBatteryCapacityChanged);
         motorThrust.RegisterValueChangedCallback(OnMotorThrustChanged);
+        motorTorqueConstant.RegisterValueChangedCallback(OnMotorTorqueConstantChanged);
         cameraAngle.RegisterValueChangedCallback(OnCameraAngleChanged);
 
         Debug.Log("Drone menu initialized with drone: " + droneLibrary);
@@ -63,21 +77,31 @@ public class DroneMenuController : MonoBehaviour, ISettingsMenuController
     public void OnTotalWeightChanged(ChangeEvent<string> evt)
     {
         _dronePhysics.DroneProperties.Mass = float.Parse(evt.newValue);
+        UpdatePerformanceEstimates();
     }
 
     public void OnFrameSizeChanged(ChangeEvent<string> evt)
     {
         _dronePhysics.DroneProperties.FrameSize = int.Parse(evt.newValue);
+        UpdatePerformanceEstimates();
     }
 
     public void OnBatteryCapacityChanged(ChangeEvent<string> evt)
     {
         _dronePhysics.DroneProperties.BatteryCapacity = int.Parse(evt.newValue);
+        UpdatePerformanceEstimates();
     }
 
     public void OnMotorThrustChanged(ChangeEvent<string> evt)
     {
         _dronePhysics.DroneProperties.MaxThrust = float.Parse(evt.newValue);
+        UpdatePerformanceEstimates();
+    }
+
+    public void OnMotorTorqueConstantChanged(ChangeEvent<string> evt)
+    {
+        _dronePhysics.DroneProperties.MotorTorqueConstant = float.Parse(evt.newValue);
+        UpdatePerformanceEstimates();
     }
 
     public void OnCameraAngleChanged(ChangeEvent<int> evt)
@@ -128,6 +152,7 @@ public class DroneMenuController : MonoBehaviour, ISettingsMenuController
         batteryCapacity.Set((int)_dronePhysics.DroneProperties.BatteryCapacity);
         motorThrust.Set(_dronePhysics.DroneProperties.MaxThrust);
         cameraAngle.value = _dronePhysics.DroneProperties.CameraAngle;
+        UpdatePerformanceEstimates();
 
         cameraAngleLabel.text = _dronePhysics.DroneProperties.CameraAngle.ToString() + "°";
     }
@@ -172,5 +197,19 @@ public class DroneMenuController : MonoBehaviour, ISettingsMenuController
             activeDroneCard.RemoveFromClassList("activeDroneCard");
         droneCard.AddToClassList("activeDroneCard");
         activeDroneCard = droneCard;
+    }
+
+    private void UpdatePerformanceEstimates()
+    {
+        if (_dronePhysics.DroneProperties == null)
+            return;
+
+        float maxThrust = _dronePhysics.DroneProperties.MaxThrust * 4;
+
+        thrustToWeight.text = ((int)(maxThrust / _dronePhysics.DroneProperties.Mass)).ToString() + ":1";
+        hoverThrottle.text = (_dronePhysics.DroneProperties.Mass * 100 / maxThrust).ToString("F0");
+        totalThrust.text = maxThrust.ToString("F2");
+        //TODO Compute max speed based on drone properties
+        maxSpeed.text = "N/A"; 
     }
 }

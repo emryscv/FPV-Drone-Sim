@@ -33,7 +33,12 @@ public class DronePhysics : MonoBehaviour
         FRMotor = GameObject.Find("FRMotor").transform;
         RLMotor = GameObject.Find("RLMotor").transform;
         RRMotor = GameObject.Find("RRMotor").transform;
-        
+    }
+
+    void OnEnable()
+    {
+        GetComponentInChildren<Camera>().transform.localRotation = Quaternion.Euler(-1 * DroneProperties.CameraAngle, 0, 0);
+
         droneRB.mass = DroneProperties.Mass; //kg
         l = DroneProperties.FrameSize / 200.0f; //Half the distance between two consecutive motors assuming the frame is square   
 
@@ -44,11 +49,6 @@ public class DronePhysics : MonoBehaviour
         scale.z = l * 2f; //m
 
         droneRB.gameObject.transform.localScale = scale;
-    }
-
-    void OnEnable()
-    {
-        GetComponentInChildren<Camera>().transform.localRotation = Quaternion.Euler(-1 * DroneProperties.CameraAngle, 0, 0);
     }
 
     // Update is called once per frame

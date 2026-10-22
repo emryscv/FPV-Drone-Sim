@@ -43,6 +43,11 @@
                         <FloatField name="MotorThrust" max="100000" style="color: rgba(244, 244, 244, 0.23);"/>
                         <ui:Label text="(gf) gram-force" style="width: auto; font-size: 13px; color: rgba(244, 244, 244, 0.23);"/>
                     </ui:VisualElement>
+                    <ui:VisualElement name="MotorTorqueConstantRow" class="row" style="flex-grow: 1; flex-direction: row;">
+                        <ui:Label text="Motor Torque Constant"/>
+                        <FloatField name="MotorTorqueConstant" max="100000" style="color: rgba(244, 244, 244, 0.23);"/>
+                        <ui:Label text="&#10;" style="width: auto; font-size: 13px; color: rgba(244, 244, 244, 0.23);"/>
+                    </ui:VisualElement>
                     <ui:VisualElement name="CameraAngleRow" class="row" style="flex-grow: 1; flex-direction: row;">
                         <ui:SliderInt label="Camera Angle" value="35" high-value="90" name="CameraAngle" style="flex-grow: 1;"/>
                         <ui:Label text="35`" name="CameraAngleLabel" style="font-size: 13px; color: rgb(76, 171, 54); width: 50px; -unity-text-align: upper-center;"/>
@@ -52,29 +57,29 @@
             <ui:VisualElement name="Performance" class="floating-window" style="flex-grow: 0; align-self: stretch;">
                 <ui:Label text="Performance Estimates" name="Header"/>
                 <ui:VisualElement name="Content" style="flex-grow: 1; flex-direction: row; padding-top: 14px; padding-right: 16px; padding-bottom: 14px; padding-left: 16px; font-size: 18px; justify-content: space-around;">
-                    <ui:VisualElement name="StatBox" class="statbox" style="flex-grow: 1; margin-right: 10px; align-self: stretch; justify-content: flex-start; align-items: stretch;">
+                    <ui:VisualElement name="TWR" class="statbox" style="flex-grow: 1; margin-right: 10px; align-self: stretch; justify-content: flex-start; align-items: stretch;">
                         <ui:Label text="THRUST-TO-WEIGHT" name="Title" style="padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;"/>
                         <ui:VisualElement name="StructuralNode" style="flex-grow: 1;">
                             <ui:Label text="15.71" name="Value" style="padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; -unity-text-align: upper-left; letter-spacing: 0; color: rgb(76, 171, 54);"/>
                             <ui:Label text="TWR" name="Unit" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;"/>
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <ui:VisualElement name="StatBox" class="statbox" style="flex-grow: 1; margin-right: 10px; align-self: stretch;">
+                    <ui:VisualElement name="HoverThrottle" class="statbox" style="flex-grow: 1; margin-right: 10px; align-self: stretch;">
                         <ui:Label text="HOVER THROTTLE" name="Title" style="padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;"/>
                         <ui:VisualElement name="StructuralNode" style="flex-grow: 1;">
                             <ui:Label text="6" name="Value" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; color: rgb(74, 159, 212);"/>
                             <ui:Label text="%" name="Unit"/>
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <ui:VisualElement name="StatBox" class="statbox" style="flex-grow: 1; margin-right: 10px; align-self: stretch;">
+                    <ui:VisualElement name="TotalThrust" class="statbox" style="flex-grow: 1; margin-right: 10px; align-self: stretch;">
                         <ui:Label text="TOTAL THRUST" name="Title" style="padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;"/>
                         <ui:VisualElement name="StructuralNode" style="flex-grow: 1;">
                             <ui:Label text="4.40" name="Value" style="-unity-text-align: middle-right; align-self: auto; align-content: auto; color: rgb(212, 164, 74);"/>
                             <ui:Label text="kg" name="Unit"/>
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <ui:VisualElement name="StatBox" class="statbox" style="flex-grow: 1; margin-right: 0; align-self: stretch;">
-                        <ui:Label text="PROP TIP SPEED" name="Title" style="padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;"/>
+                    <ui:VisualElement name="MaxSpeed" class="statbox" style="flex-grow: 1; margin-right: 0; align-self: stretch;">
+                        <ui:Label text=" MAX SPEED" name="Title" style="padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;"/>
                         <ui:VisualElement name="StructuralNode" style="flex-grow: 1;">
                             <ui:Label text="43" name="Value" style="color: rgb(76, 171, 54);"/>
                             <ui:Label text="m/s" name="Unit"/>
