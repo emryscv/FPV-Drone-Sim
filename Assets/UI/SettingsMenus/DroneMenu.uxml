@@ -1,4 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:Template name="DroneCard" src="project://database/Assets/UI/Components/DroneCard.uxml?fileID=9197481963319205126&amp;guid=76143e1036a382e48893b4ab3f933429&amp;type=3#DroneCard"/>
     <Style src="project://database/Assets/UI/SettingsMenus/drone-menu.uss?fileID=7433441132597879392&amp;guid=16bbcbcba8982ef4cbef7fd8dff24cf6&amp;type=3#drone-menu"/>
     <Style src="project://database/Assets/UI/SettingsMenus/menus.uss?fileID=7433441132597879392&amp;guid=826f0cfa17333524e96e4e1e621676bc&amp;type=3#menus"/>
     <Style src="project://database/Assets/UI/Components/numerical-fileds.uss?fileID=7433441132597879392&amp;guid=21c13465f3d5e344e95b1b86b2e0cfca&amp;type=3#numerical-fileds"/>
@@ -82,13 +83,13 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="DroneLibrary" class="floating-window" style="flex-grow: 0; align-self: flex-start;">
+        <ui:VisualElement name="DroneLibrary" class="floating-window" style="flex-grow: 0; align-self: flex-start; margin-bottom: 32px; flex-wrap: nowrap; overflow: visible; visibility: visible; flex-direction: column; width: auto;">
             <ui:Label text="Drone Library" name="Header"/>
-            <ui:VisualElement name="Content" style="flex-grow: 0;">
-                <ui:VisualElement name="AddButton" class="drone-card" style="flex-grow: 1; justify-content: center;">
+            <ui:ScrollView name="Content" touch-scroll-type="Clamped" mode="Vertical" vertical-scroller-visibility="Auto" mouse-wheel-scroll-size="18" style="width: auto; height: auto; flex-wrap: wrap; overflow: hidden;">
+                <ui:VisualElement name="AddButton" class="drone-card" style="flex-grow: 0; justify-content: center;">
                     <ui:Image source="project://database/Assets/Images/Icons/plus.svg?fileID=7388822144124034973&amp;guid=a42904a70ae8e5b4295d7db0040ff5a7&amp;type=3#plus" name="Image" tint-color="rgba(244, 244, 244, 0.7)" style="width: 60px; height: 60px; align-content: center; align-self: center;"/>
                 </ui:VisualElement>
-            </ui:VisualElement>
+            </ui:ScrollView>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

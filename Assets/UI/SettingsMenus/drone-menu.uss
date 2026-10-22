@@ -84,6 +84,7 @@
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
     text-shadow: -1.8px 0 0 rgba(0, 0, 0, 0);
+    align-self: auto;
 }
 
 .row {
@@ -159,4 +160,25 @@
     margin-right: 10px;
     margin-bottom: 0;
     margin-left: 0;
+}
+
+.unity-scroller {
+    width: 12px;
+}
+
+.unity-scroller RepeatButton {
+    width: 12px;
+    aspect-ratio: 1;
+}
+
+.unity-scroller .unity-slider {
+    width: 12px;
+}
+
+.activeDroneCard {
+    background-color: rgb(76, 171, 54);
+}
+
+#unity-content-container {
+    width: 121px;
 }

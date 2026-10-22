@@ -23,8 +23,8 @@ public class DronePhysics : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
-        DroneProperties = DatabaseManager.Instance.GetDrone(1);
-     
+        DroneProperties = DatabaseManager.Instance.GetAllDrones()[0];
+         
         groundLayer = LayerMask.NameToLayer("Ground");
         flightController = GetComponent<FlightController>(); // Get the FlightController component attached to the same GameObject
         droneRB = GetComponent<Rigidbody>(); // Get the Rigidbody component attached to the same GameObject
@@ -44,9 +44,6 @@ public class DronePhysics : MonoBehaviour
         scale.z = l * 2f; //m
 
         droneRB.gameObject.transform.localScale = scale;
-
-        //maxThrust = Mathf.Abs(Physics.gravity.y * mass * 7f) / 4f; //This is thrust per motor
-
     }
 
     void OnEnable()

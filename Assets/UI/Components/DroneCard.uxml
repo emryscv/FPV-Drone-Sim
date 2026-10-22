@@ -1,5 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <ui:VisualElement name="DroneCard" class="drone-card" style="flex-grow: 1; aspect-ratio: 1; padding-top: 14px; padding-right: 14px; padding-bottom: 14px; padding-left: 14px; justify-content: flex-start; align-self: flex-start; align-content: flex-start;">
+    <ui:VisualElement name="DroneCard" class="drone-card" style="flex-grow: 0; aspect-ratio: 1; padding-top: 14px; padding-right: 14px; padding-bottom: 14px; padding-left: 14px; justify-content: flex-start; align-self: flex-start; align-content: flex-start;">
         <ui:Image name="DeleteIcon" source="project://database/Assets/Images/Icons/trash.svg?fileID=7388822144124034973&amp;guid=2d12710da6217724383a3dad7fa73d54&amp;type=3#trash" scale-mode="ScaleToFit" tint-color="rgb(64, 64, 64)" style="font-size: 6px; width: 11px; height: 11px; align-self: flex-end;"/>
         <ui:Image source="project://database/Assets/Images/DroneIcon.svg?fileID=7388822144124034973&amp;guid=dfed4a4b8c715994bbddcac32dfe34f3&amp;type=3#DroneIcon" tint-color="rgb(114, 114, 114)" name="DroneIcon" style="align-self: center; width: 48px; height: 48px; padding-bottom: 4px; margin-bottom: 4px;"/>
         <ui:VisualElement name="Description" style="flex-grow: 1;">

@@ -22,6 +22,9 @@ public class DroneMenuController : MonoBehaviour, ISettingsMenuController
     private VisualElement droneLibrary;
     private VisualElement addBtn;
 
+    private VisualElement activeDroneCard;
+    private int droneCount;
+
     void Awake()
     {
         _uiManager = GetComponent<UIDocument>();
@@ -86,7 +89,12 @@ public class DroneMenuController : MonoBehaviour, ISettingsMenuController
     public void OnSave()
     {
         //TODO this is more complex
-        DatabaseManager.Instance.InsertDrone(_dronePhysics.DroneProperties);
+        Debug.Log("Saving drone: " + _dronePhysics.DroneProperties.Name);
+        activeDroneCard.Q<Label>("Name").text = _dronePhysics.DroneProperties.Name;
+        activeDroneCard.Q<Label>("Size").text = _dronePhysics.DroneProperties.FrameSize + "mm - " + _dronePhysics.DroneProperties.PropellerDiameter + "\"";
+        activeDroneCard.Q<Label>("ThrustToWeight").text = (_dronePhysics.DroneProperties.MaxThrust / _dronePhysics.DroneProperties.Mass) + ":1";
+        
+        DatabaseManager.Instance.UpdateDrone(_dronePhysics.DroneProperties);
     }
 
     private void OnAddNewDrone(ClickEvent evt)
@@ -94,14 +102,17 @@ public class DroneMenuController : MonoBehaviour, ISettingsMenuController
         Debug.Log("Adding new drone: " + _dronePhysics.DroneProperties.Name);
         DatabaseManager.Instance.InsertDrone(_dronePhysics.DroneProperties);
         AddDroneCard(_dronePhysics.DroneProperties);
+        droneCount++;
     }
 
     public void PopulateDroneLibrary()
     {
         List<Drone> drones = DatabaseManager.Instance.GetAllDrones();
-        foreach (var drone in drones)
+        droneCount = drones.Count;
+        foreach (Drone drone in drones)
         {
-            AddDroneCard(drone);
+            Debug.Log("Populating drone library with: " + drone.Id + " - " + drone.Name);
+            AddDroneCard(drone);            
         }
     }
 
@@ -123,7 +134,7 @@ public class DroneMenuController : MonoBehaviour, ISettingsMenuController
 
     public void AddDroneCard(Drone drone)
     {
-        Debug.Log("Adding drone card for: " + drone.Id + " - " + drone.Name );
+        Debug.Log("Adding drone card for: " + drone.Id + " - " + drone.Name);
         VisualElement droneCard = _droneCardUXML.Instantiate();
         droneCard.Q<Label>("Name").text = drone.Name;
         droneCard.Q<Label>("Size").text = drone.FrameSize + "mm - " + drone.PropellerDiameter + "\"";
@@ -132,15 +143,34 @@ public class DroneMenuController : MonoBehaviour, ISettingsMenuController
         //As a proof of concept this callbacks are not being unregistered when a drone is deleted
         droneCard.Q<Image>("DeleteIcon").RegisterCallback<ClickEvent>(evt =>
         {
-            DatabaseManager.Instance.DeleteDrone(drone.Id); ;
-            droneLibrary.Remove(droneCard);
+            if (droneCount > 1)
+            {
+                droneCount--;
+                if (activeDroneCard == droneCard)
+                    activeDroneCard = null;
+
+                DatabaseManager.Instance.DeleteDrone(drone.Id); ;
+                droneLibrary.Remove(droneCard);
+            }
         });
 
         droneCard.RegisterCallback<ClickEvent>(evt =>
         {
             SetDrone(drone);
+            SetActiveDroneCard(droneCard);
         });
 
         droneLibrary.Add(droneCard);
+        
+        if(drone.Id == _dronePhysics.DroneProperties.Id)
+            SetActiveDroneCard(droneCard);
+    }
+
+    public void SetActiveDroneCard(VisualElement droneCard)
+    {
+        if (activeDroneCard != null)
+            activeDroneCard.RemoveFromClassList("activeDroneCard");
+        droneCard.AddToClassList("activeDroneCard");
+        activeDroneCard = droneCard;
     }
 }

@@ -2915,6 +2915,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DroneMenuController
   _dronePhysics: {fileID: 859958597}
+  _droneCardUXML: {fileID: 9197481963319205126, guid: 76143e1036a382e48893b4ab3f933429, type: 3}
 --- !u!114 &651960979
 MonoBehaviour:
   m_ObjectHideFlags: 0
