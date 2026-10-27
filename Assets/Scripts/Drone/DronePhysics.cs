@@ -6,21 +6,27 @@ public class DronePhysics : MonoBehaviour
 {
     [SerializeField] private int droneId = 1;
 
-    private float[] propellerSizes = { //This array values are mm conversion of the units in the UI
-        35f,     //35mm
-        40f,     //40mm
-        45f,     //45mm
-        50.8f,   //2"
-        63.8f,   //2.5"
-        76.2f,   //3"
-        101.6f,  //4"
-        127f,    //5"
-        129.54f, //5.1"
-        152.4f,  //6"
-        177.8f,  //7"
-        203.2f,  //8"
-        254f     //10"
+    private float[] propellerSizes = { //This array values are m conversion of the units in the UI
+        0.035f,  //35mm
+        0.04f,   //40mm
+        0.045f,  //45mm
+        0.0508f, //2"
+        0.0638f, //2.5"
+        0.0762f, //3"
+        0.1016f, //4"
+        0.127f,  //5"
+        0.12954f, //5.1"
+        0.1524f, //6"
+        0.1778f, //7"
+        0.2032f, //8"
+        0.254f   //10"
     };
+
+    //Temporal Vairables to test gorund effect
+    public bool groundEffectEmpricalIsActive;
+    public bool groundEffectLikeHelicoptersIsActive;
+    public bool groundEffectSanchezCuevasIsActive;
+
 
     int groundLayer;
     //TODO find out if {get; set;} do what  i expect
@@ -49,15 +55,20 @@ public class DronePhysics : MonoBehaviour
         FRMotor = GameObject.Find("FRMotor").transform;
         RLMotor = GameObject.Find("RLMotor").transform;
         RRMotor = GameObject.Find("RRMotor").transform;
+
+        groundEffectEmpricalIsActive = false;
+        groundEffectLikeHelicoptersIsActive = true;
+
     }
 
     void OnEnable()
     {
         GetComponentInChildren<Camera>().transform.localRotation = Quaternion.Euler(-1 * DroneProperties.CameraAngle, 0, 0);
 
+        //TODO Check if the drone frame is on meters
         droneRB.mass = DroneProperties.Mass; //kg
         l = DroneProperties.FrameSize / 200.0f; //Half the distance between two consecutive motors assuming the frame is square   
-        propellerSize = propellerSizes[DroneProperties.PropellerDiameter]; //mm
+        propellerSize = propellerSizes[DroneProperties.PropellerDiameter]; //m
 
         //TODO see how can i mantain aspect ratio
         Vector3 scale = droneRB.gameObject.transform.localScale;
@@ -67,7 +78,7 @@ public class DronePhysics : MonoBehaviour
 
         droneRB.gameObject.transform.localScale = scale;
 
-        Debug.Log("Drone Properties: Mass: " + DroneProperties.Mass + "kg, Frame Size: " + DroneProperties.FrameSize + "mm, Propeller Size: " + propellerSize + "mm, Battery Capacity: " + DroneProperties.BatteryCapacity + "mAh, Max Thrust: " + DroneProperties.MaxThrust + "N, Camera Angle: " + DroneProperties.CameraAngle + "°, Motor Torque Constant: " + DroneProperties.MotorTorqueConstant);
+        Debug.Log("Drone Properties: Mass: " + DroneProperties.Mass + "kg, Frame Size: " + DroneProperties.FrameSize + "mm, Propeller Size: " + propellerSize + "m, Battery Capacity: " + DroneProperties.BatteryCapacity + "mAh, Max Thrust: " + DroneProperties.MaxThrust + "N, Camera Angle: " + DroneProperties.CameraAngle + "°, Motor Torque Constant: " + DroneProperties.MotorTorqueConstant);
     }
 
     // Update is called once per frame
@@ -91,10 +102,12 @@ public class DronePhysics : MonoBehaviour
         );
 
         //Debug.Log("Torque: " + torque);
-        droneRB.AddForceAtPosition(transform.up * motorThrust[0], RLMotor.position, ForceMode.Force);
-        droneRB.AddForceAtPosition(transform.up * motorThrust[1], FLMotor.position, ForceMode.Force);
-        droneRB.AddForceAtPosition(transform.up * motorThrust[2], RRMotor.position, ForceMode.Force);
-        droneRB.AddForceAtPosition(transform.up * motorThrust[3], FRMotor.position, ForceMode.Force);
+        droneRB.AddForceAtPosition(transform.up * ApplyGroundEffect(RLMotor.position.y, motorThrust[0]), RLMotor.position, ForceMode.Force);
+        droneRB.AddForceAtPosition(transform.up * ApplyGroundEffect(FLMotor.position.y, motorThrust[1]), FLMotor.position, ForceMode.Force);
+        droneRB.AddForceAtPosition(transform.up * ApplyGroundEffect(RRMotor.position.y, motorThrust[2]), RRMotor.position, ForceMode.Force);
+        droneRB.AddForceAtPosition(transform.up * ApplyGroundEffect(FRMotor.position.y, motorThrust[3]), FRMotor.position, ForceMode.Force);
+        
+        Debug.Log(ApplyGroundEffect(RLMotor.position.y, motorThrust[0]) + " " + motorThrust[0]);
 
         droneRB.AddRelativeTorque(torque);
         //droneRB.AddForce(transform.up * c, ForceMode.Force);
@@ -134,5 +147,24 @@ public class DronePhysics : MonoBehaviour
         droneRB.angularVelocity = Vector3.zero;
         droneRB.position = position == null ? new Vector3(45, 0.063f, 0) : position.Value;
         droneRB.rotation = rotation == null ? Quaternion.Euler(0, 270, 0) : rotation.Value;
+    }
+
+    private float ApplyGroundEffect(float groundDistance, float thrust)
+    {
+        float Kge = 1f; // Ground effect coefficient, this value can be adjusted based on empirical data or specific drone characteristics
+        //Debug.Log(groundEffectEmpricalIsActive);
+        if (groundEffectEmpricalIsActive)
+        {
+            float factor = propellerSize / ( propellerSize + 4 * groundDistance); // Empirical model for ground effect 
+            thrust *= 1f + Kge * factor * factor;
+        } 
+
+        if (groundEffectLikeHelicoptersIsActive)
+        {
+            float factor = propellerSize / (4 * groundDistance); // Helicopter-like model for ground effect
+            thrust *= 1f / (1f - factor * factor);
+        }
+
+        return thrust;
     }
 }

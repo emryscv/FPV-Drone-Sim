@@ -17,7 +17,6 @@ public class Drone
     public int CameraAngle { get; set; }
 
     //TODO figure this out for yaw
-    //TODO Add UI for it
     public float MotorTorqueConstant { get; set; }
 
 }
