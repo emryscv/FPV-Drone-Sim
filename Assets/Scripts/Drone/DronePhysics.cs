@@ -5,10 +5,27 @@ using UnityEngine;
 public class DronePhysics : MonoBehaviour
 {
     [SerializeField] private int droneId = 1;
+
+    private float[] propellerSizes = { //This array values are mm conversion of the units in the UI
+        35f,     //35mm
+        40f,     //40mm
+        45f,     //45mm
+        50.8f,   //2"
+        63.8f,   //2.5"
+        76.2f,   //3"
+        101.6f,  //4"
+        127f,    //5"
+        129.54f, //5.1"
+        152.4f,  //6"
+        177.8f,  //7"
+        203.2f,  //8"
+        254f     //10"
+    };
+
     int groundLayer;
     //TODO find out if {get; set;} do what  i expect
-    public Drone DroneProperties {get; set;}
-    
+    public Drone DroneProperties { get; set; }
+
     private FlightController flightController; // Reference to the FlightController script
     private Rigidbody droneRB; // Reference to the Rigidbody component
 
@@ -17,18 +34,17 @@ public class DronePhysics : MonoBehaviour
     private Transform RLMotor; // Reference to the Transform component
     private Transform RRMotor; // Reference to the Transform component
 
-
     private float l; //Half the distance between two consecutive motors. Assuming the frame is square
-
+    private float propellerSize;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
         DroneProperties = DatabaseManager.Instance.GetAllDrones()[0];
-         
+
         groundLayer = LayerMask.NameToLayer("Ground");
         flightController = GetComponent<FlightController>(); // Get the FlightController component attached to the same GameObject
         droneRB = GetComponent<Rigidbody>(); // Get the Rigidbody component attached to the same GameObject
-        
+
         FLMotor = GameObject.Find("FLMotor").transform;
         FRMotor = GameObject.Find("FRMotor").transform;
         RLMotor = GameObject.Find("RLMotor").transform;
@@ -41,6 +57,7 @@ public class DronePhysics : MonoBehaviour
 
         droneRB.mass = DroneProperties.Mass; //kg
         l = DroneProperties.FrameSize / 200.0f; //Half the distance between two consecutive motors assuming the frame is square   
+        propellerSize = propellerSizes[DroneProperties.PropellerDiameter]; //mm
 
         //TODO see how can i mantain aspect ratio
         Vector3 scale = droneRB.gameObject.transform.localScale;
@@ -49,6 +66,8 @@ public class DronePhysics : MonoBehaviour
         scale.z = l * 2f; //m
 
         droneRB.gameObject.transform.localScale = scale;
+
+        Debug.Log("Drone Properties: Mass: " + DroneProperties.Mass + "kg, Frame Size: " + DroneProperties.FrameSize + "mm, Propeller Size: " + propellerSize + "mm, Battery Capacity: " + DroneProperties.BatteryCapacity + "mAh, Max Thrust: " + DroneProperties.MaxThrust + "N, Camera Angle: " + DroneProperties.CameraAngle + "°, Motor Torque Constant: " + DroneProperties.MotorTorqueConstant);
     }
 
     // Update is called once per frame
@@ -66,18 +85,19 @@ public class DronePhysics : MonoBehaviour
         //Debug.Log("M1: " + flightController.motorMix[0] + " M2: " + flightController.motorMix[1] + " M3: " + flightController.motorMix[2] + " M4: " + flightController.motorMix[3] + " Max Thrust: " + maxThrust + " mass: " + mass);
         //Debug.Log("M1: " + motorThrust[0] + " C: " + c / 4f + " M2: " + motorThrust[1] + " M3: " + motorThrust[2] + " M4: " + motorThrust[3]);
         Vector3 torque = new Vector3(
-            l * (motorThrust[0] - motorThrust[1] + motorThrust[2] - motorThrust[3]),
+            0,//l * (motorThrust[0] - motorThrust[1] + motorThrust[2] - motorThrust[3]),
             DroneProperties.MotorTorqueConstant * (-motorThrust[0] + motorThrust[1] + motorThrust[2] - motorThrust[3]),
-            l * (-motorThrust[0] - motorThrust[1] + motorThrust[2] + motorThrust[3])
+            0//l * (-motorThrust[0] - motorThrust[1] + motorThrust[2] + motorThrust[3])
         );
 
         //Debug.Log("Torque: " + torque);
-        //rb.AddForceAtPosition(transform.up * motorThrust[0], RRMotor.position, ForceMode.Force);
-        //rb.AddForceAtPosition(transform.up * motorThrust[1], FRMotor.position, ForceMode.Force);
-        //rb.AddForceAtPosition(transform.up * motorThrust[2], FLMotor.position, ForceMode.Force);
-        //rb.AddForceAtPosition(transform.up * motorThrust[3], RLMotor.position, ForceMode.Force);
+        droneRB.AddForceAtPosition(transform.up * motorThrust[0], RLMotor.position, ForceMode.Force);
+        droneRB.AddForceAtPosition(transform.up * motorThrust[1], FLMotor.position, ForceMode.Force);
+        droneRB.AddForceAtPosition(transform.up * motorThrust[2], RRMotor.position, ForceMode.Force);
+        droneRB.AddForceAtPosition(transform.up * motorThrust[3], FRMotor.position, ForceMode.Force);
+
         droneRB.AddRelativeTorque(torque);
-        droneRB.AddForce(transform.up * c, ForceMode.Force);
+        //droneRB.AddForce(transform.up * c, ForceMode.Force);
 
         // Consider it a crash if the drone is upside down and almost stationary
         if (droneRB.linearVelocity.magnitude < 0.1f && Vector3.Angle(transform.up, Vector3.up) >= 90)

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
@@ -13,6 +14,7 @@ public class DroneMenuController : MonoBehaviour, ISettingsMenuController
 
     //TODO Figure propeller size selector later
     private TextField droneName;
+    private DropdownField propellerSize;
     private FloatField totalWeight;
     private IntegerField frameSize;
     private IntegerField batteryCapacity;
@@ -38,6 +40,7 @@ public class DroneMenuController : MonoBehaviour, ISettingsMenuController
         _DroneMenuTab = _uiManager.rootVisualElement.Q<VisualElement>("DroneMenuTab");
 
         droneName = _DroneMenuTab.Q<TextField>("DroneName");
+        propellerSize = _DroneMenuTab.Q<DropdownField>("ProppellerSizeRow");
         totalWeight = _DroneMenuTab.Q<FloatField>("TotalWeight");
         frameSize = _DroneMenuTab.Q<IntegerField>("FrameSize");
         batteryCapacity = _DroneMenuTab.Q<IntegerField>("BatteryCapacity");
@@ -55,6 +58,7 @@ public class DroneMenuController : MonoBehaviour, ISettingsMenuController
         addBtn = _DroneMenuTab.Q<VisualElement>("AddButton");
 
         droneName.RegisterValueChangedCallback(OnDroneNameChanged);
+        propellerSize.RegisterValueChangedCallback(OnPropellerSizeChanged);
         totalWeight.RegisterValueChangedCallback(OnTotalWeightChanged);
         frameSize.RegisterValueChangedCallback(OnFrameSizeChanged);
         batteryCapacity.RegisterValueChangedCallback(OnBatteryCapacityChanged);
@@ -67,6 +71,12 @@ public class DroneMenuController : MonoBehaviour, ISettingsMenuController
 
         SetDrone(_dronePhysics.DroneProperties);
         PopulateDroneLibrary();
+    }
+
+    private void OnPropellerSizeChanged(ChangeEvent<string> evt)
+    {
+        _dronePhysics.DroneProperties.PropellerDiameter = propellerSize.index;
+        UpdatePerformanceEstimates();
     }
 
     public void OnDroneNameChanged(ChangeEvent<string> evt)

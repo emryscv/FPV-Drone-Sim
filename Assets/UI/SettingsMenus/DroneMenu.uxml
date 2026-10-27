@@ -11,23 +11,7 @@
                     <ui:VisualElement name="DroneNameRow" class="row" style="flex-grow: 1;">
                         <ui:TextField label="Drone Name" placeholder-text="filler text" name="DroneName" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0;"/>
                     </ui:VisualElement>
-                    <ui:VisualElement name="ProppellerSizeRow" class="row" style="flex-grow: 1; flex-direction: row;">
-                        <ui:Label text="Propeller Size"/>
-                        <ui:VisualElement name="Options" style="flex-grow: 1; flex-direction: row;">
-                            <ui:Button text="2&quot;"/>
-                            <ui:Button text="2.5&quot;"/>
-                            <ui:Button text="3&quot;&#10;"/>
-                            <ui:Button text="4&quot;&#10;" style="background-color: rgb(76, 171, 54); border-left-color: rgb(76, 171, 54); border-right-color: rgb(76, 171, 54); border-top-color: rgb(76, 171, 54); border-bottom-color: rgb(76, 171, 54); color: rgb(8, 12, 16);"/>
-                            <ui:Button text="5&quot;"/>
-                            <ui:Button text="6&quot;"/>
-                            <ui:Button text="7&quot;"/>
-                        </ui:VisualElement>
-                    </ui:VisualElement>
-                    <ui:VisualElement name="TotalWeightRow" class="row" style="flex-grow: 1; flex-direction: row;">
-                        <ui:Label text="Total Weight"/>
-                        <FloatField name="TotalWeight" max="100000" style="color: rgb(76, 171, 54);"/>
-                        <ui:Label text="(g) grams" style="width: auto; font-size: 13px; color: rgb(76, 171, 54);"/>
-                    </ui:VisualElement>
+                    <ui:DropdownField label="Propeller Size" name="ProppellerSizeRow" choices="35mm,40mm,45mm,2&quot;,2.5&quot;,3&quot;,4&quot;,5&quot;,5.1&quot;,6&quot;,7&quot;,8&quot;,10&quot;" index="0" class="row" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; height: 58px;"/>
                     <ui:VisualElement name="FrameSizeRow" class="row" style="flex-grow: 1; flex-direction: row;">
                         <ui:Label text="Frame Size"/>
                         <IntegerField name="FrameSize" max="100000" style="color: rgb(74, 159, 212);"/>
@@ -48,8 +32,13 @@
                         <FloatField name="MotorTorqueConstant" max="100000" style="color: rgba(244, 244, 244, 0.23);"/>
                         <ui:Label text="&#10;" style="width: auto; font-size: 13px; color: rgba(244, 244, 244, 0.23);"/>
                     </ui:VisualElement>
+                    <ui:VisualElement name="TotalWeightRow" class="row" style="flex-grow: 1; flex-direction: row;">
+                        <ui:Label text="Total Weight"/>
+                        <FloatField name="TotalWeight" max="100000" style="color: rgb(76, 171, 54);"/>
+                        <ui:Label text="(g) grams" style="width: auto; font-size: 13px; color: rgb(76, 171, 54);"/>
+                    </ui:VisualElement>
                     <ui:VisualElement name="CameraAngleRow" class="row" style="flex-grow: 1; flex-direction: row;">
-                        <ui:SliderInt label="Camera Angle" value="35" high-value="90" name="CameraAngle" style="flex-grow: 1;"/>
+                        <ui:SliderInt label="Camera Angle" value="35" high-value="90" name="CameraAngle" style="flex-grow: 1; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0;"/>
                         <ui:Label text="35`" name="CameraAngleLabel" style="font-size: 13px; color: rgb(76, 171, 54); width: 50px; -unity-text-align: upper-center;"/>
                     </ui:VisualElement>
                 </ui:VisualElement>
