@@ -56,8 +56,8 @@ public class DronePhysics : MonoBehaviour
         RLMotor = GameObject.Find("RLMotor").transform;
         RRMotor = GameObject.Find("RRMotor").transform;
 
-        groundEffectEmpricalIsActive = false;
-        groundEffectLikeHelicoptersIsActive = true;
+        groundEffectEmpricalIsActive = true;
+        groundEffectLikeHelicoptersIsActive = false;
 
     }
 
@@ -67,7 +67,7 @@ public class DronePhysics : MonoBehaviour
 
         //TODO Check if the drone frame is on meters
         droneRB.mass = DroneProperties.Mass; //kg
-        l = DroneProperties.FrameSize / 200.0f; //Half the distance between two consecutive motors assuming the frame is square   
+        l = DroneProperties.FrameSize / 2000.0f; //Half the distance between two consecutive motors assuming the frame is square   
         propellerSize = propellerSizes[DroneProperties.PropellerDiameter]; //m
 
         //TODO see how can i mantain aspect ratio
