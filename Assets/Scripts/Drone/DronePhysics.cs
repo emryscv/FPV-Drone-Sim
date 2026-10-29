@@ -7,6 +7,8 @@ public class DronePhysics : MonoBehaviour
 {
     private const float AIRDENSITY = 1.225f; // Air density at sea level (kg/m^3)
     [SerializeField] private int droneId = 1;
+    [SerializeField] public bool groundEffectIsActive = true;
+    [SerializeField] private bool airDragIsActive = false;
 
     private float[] propellerSizes = { //This array values are m conversion of the units in the UI
         0.035f,  //35mm
@@ -23,11 +25,6 @@ public class DronePhysics : MonoBehaviour
         0.2032f, //8"
         0.254f   //10"
     };
-
-    //Temporal Vairables to test gorund effect
-    public bool groundEffectEmpricalIsActive;
-    public bool groundEffectLikeHelicoptersIsActive;
-    public bool groundEffectSanchezCuevasIsActive;
 
 
     int groundLayer;
@@ -62,9 +59,6 @@ public class DronePhysics : MonoBehaviour
         motorDisturbance = new float[4] { 1f, 1f, 1f, 1f };
 
         StartCoroutine(RunEveryHalfSecond());
-
-        groundEffectEmpricalIsActive = true;
-        groundEffectLikeHelicoptersIsActive = false;
     }
 
     void OnEnable()
@@ -91,10 +85,10 @@ public class DronePhysics : MonoBehaviour
     void FixedUpdate()
     {
         float[] motorThrust = {
-            flightController.MotorMix[0] * DroneProperties.MaxThrust * motorDisturbance[0] / 1000f,
-            flightController.MotorMix[1] * DroneProperties.MaxThrust * motorDisturbance[1] / 1000f,
-            flightController.MotorMix[2] * DroneProperties.MaxThrust * motorDisturbance[2] / 1000f,
-            flightController.MotorMix[3] * DroneProperties.MaxThrust * motorDisturbance[3] / 1000f
+            flightController.MotorMix[0] * DroneProperties.MaxThrust / 1000f * motorDisturbance[0],
+            flightController.MotorMix[1] * DroneProperties.MaxThrust / 1000f * motorDisturbance[1],
+            flightController.MotorMix[2] * DroneProperties.MaxThrust / 1000f * motorDisturbance[2],
+            flightController.MotorMix[3] * DroneProperties.MaxThrust / 1000f * motorDisturbance[3]
         };
 
         float c = motorThrust[0] + motorThrust[1] + motorThrust[2] + motorThrust[3]; // Collective thrust
@@ -108,15 +102,18 @@ public class DronePhysics : MonoBehaviour
         );
 
         //Debug.Log("Torque: " + torque);
-        droneRB.AddForceAtPosition(transform.up * ApplyGroundEffect(RLMotor.position.y, motorThrust[0]), RLMotor.position, ForceMode.Force);
-        droneRB.AddForceAtPosition(transform.up * ApplyGroundEffect(FLMotor.position.y, motorThrust[1]), FLMotor.position, ForceMode.Force);
-        droneRB.AddForceAtPosition(transform.up * ApplyGroundEffect(RRMotor.position.y, motorThrust[2]), RRMotor.position, ForceMode.Force);
-        droneRB.AddForceAtPosition(transform.up * ApplyGroundEffect(FRMotor.position.y, motorThrust[3]), FRMotor.position, ForceMode.Force);
-        
-        droneRB.AddRelativeTorque(torque);
-        //droneRB.AddForce(transform.up * c, ForceMode.Force);
-        //ApplyAirDrag(); 
+        droneRB.AddForceAtPosition(transform.up * motorThrust[0], RLMotor.position, ForceMode.Force);
+        droneRB.AddForceAtPosition(transform.up * motorThrust[1], FLMotor.position, ForceMode.Force);
+        droneRB.AddForceAtPosition(transform.up * motorThrust[2], RRMotor.position, ForceMode.Force);
+        droneRB.AddForceAtPosition(transform.up * motorThrust[3], FRMotor.position, ForceMode.Force);
 
+        droneRB.AddRelativeTorque(torque);
+        if(groundEffectIsActive){
+            droneRB.AddForce(transform.up * ComputeGroundEffect(transform.position.y, c), ForceMode.Force);
+        }
+        if(airDragIsActive){
+            ApplyAirDrag(); 
+        }
         // Consider it a crash if the drone is upside down and almost stationary
         if (droneRB.linearVelocity.magnitude < 0.1f && Vector3.Angle(transform.up, Vector3.up) >= 90)
             GameEvents.Instance.Crash();
@@ -158,29 +155,26 @@ public class DronePhysics : MonoBehaviour
     {
         while (true)
         {
-            for(int i = 0; i < motorDisturbance.Length; i++)
+            for (int i = 0; i < motorDisturbance.Length; i++)
             {
-                motorDisturbance[i] = 1 +  UnityEngine.Random.Range(-0.001f, 0.001f);
+                motorDisturbance[i] = 1 + UnityEngine.Random.Range(-0.005f, 0.005f);
             }
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(10f);
         }
     }
 
-    private float ApplyGroundEffect(float groundDistance, float thrust)
+    private float ComputeGroundEffect(float groundDistance, float thrust)
     {
-        float Kge = 1f; // Ground effect coefficient, this value can be adjusted based on empirical data or specific drone characteristics
-        //Debug.Log(groundEffectEmpricalIsActive);
-        if (groundEffectEmpricalIsActive)
-        {
-            float factor = propellerSize / ( propellerSize + 4 * groundDistance); // Empirical model for ground effect 
-            thrust *= 1f + Kge * factor * factor;
-        } 
+        float term1 = propellerSize / (4 * groundDistance);
 
-        if (groundEffectLikeHelicoptersIsActive)
-        {
-            float factor = propellerSize / (4 * groundDistance); // Helicopter-like model for ground effect
-            thrust *= 1f / (1f - factor * factor);
-        }
+        float R2 = propellerSize * propellerSize;
+        float d2 = DroneProperties.FrameSize * DroneProperties.FrameSize;
+        float z2 = groundDistance * groundDistance;
+        float term2 = R2 * (groundDistance / Mathf.Sqrt(Mathf.Pow(d2 + 4 * z2, 3)));
+
+        float term3 = (R2 / 2) * (groundDistance / Mathf.Sqrt(Mathf.Pow(2 * d2 + 4 * z2, 3)));
+
+        thrust *= 1f / (1f - term1 * term1 - term2 - term3) - 1f;
 
         return thrust;
     }
