@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 //TODO Implement Air Drag, RPM, Thrust Curve, Ground Effect, Prop Wash, Turbulence, Wind.
@@ -7,8 +8,8 @@ public class DronePhysics : MonoBehaviour
     [SerializeField] private int droneId = 1;
     int groundLayer;
     //TODO find out if {get; set;} do what  i expect
-    public Drone DroneProperties {get; set;}
-    
+    public Drone DroneProperties { get; set; }
+
     private FlightController flightController; // Reference to the FlightController script
     private Rigidbody droneRB; // Reference to the Rigidbody component
 
@@ -17,6 +18,7 @@ public class DronePhysics : MonoBehaviour
     private Transform RLMotor; // Reference to the Transform component
     private Transform RRMotor; // Reference to the Transform component
 
+    private float[] motorDisturbance;
 
     private float l; //Half the distance between two consecutive motors. Assuming the frame is square
 
@@ -24,15 +26,18 @@ public class DronePhysics : MonoBehaviour
     void Awake()
     {
         DroneProperties = DatabaseManager.Instance.GetAllDrones()[0];
-         
+
         groundLayer = LayerMask.NameToLayer("Ground");
         flightController = GetComponent<FlightController>(); // Get the FlightController component attached to the same GameObject
         droneRB = GetComponent<Rigidbody>(); // Get the Rigidbody component attached to the same GameObject
-        
+
         FLMotor = GameObject.Find("FLMotor").transform;
         FRMotor = GameObject.Find("FRMotor").transform;
         RLMotor = GameObject.Find("RLMotor").transform;
         RRMotor = GameObject.Find("RRMotor").transform;
+        motorDisturbance = new float[4] { 1f, 1f, 1f, 1f };
+
+        StartCoroutine(RunEveryHalfSecond());
     }
 
     void OnEnable()
@@ -55,10 +60,10 @@ public class DronePhysics : MonoBehaviour
     void FixedUpdate()
     {
         float[] motorThrust = {
-            flightController.MotorMix[0] * DroneProperties.MaxThrust,
-            flightController.MotorMix[1] * DroneProperties.MaxThrust,
-            flightController.MotorMix[2] * DroneProperties.MaxThrust,
-            flightController.MotorMix[3] * DroneProperties.MaxThrust
+            flightController.MotorMix[0] * DroneProperties.MaxThrust * motorDisturbance[0],
+            flightController.MotorMix[1] * DroneProperties.MaxThrust * motorDisturbance[1],
+            flightController.MotorMix[2] * DroneProperties.MaxThrust * motorDisturbance[2],
+            flightController.MotorMix[3] * DroneProperties.MaxThrust * motorDisturbance[3]
         };
 
         float c = motorThrust[0] + motorThrust[1] + motorThrust[2] + motorThrust[3]; // Collective thrust
@@ -114,5 +119,17 @@ public class DronePhysics : MonoBehaviour
         droneRB.angularVelocity = Vector3.zero;
         droneRB.position = position == null ? new Vector3(45, 0.063f, 0) : position.Value;
         droneRB.rotation = rotation == null ? Quaternion.Euler(0, 270, 0) : rotation.Value;
+    }
+
+    private IEnumerator RunEveryHalfSecond()
+    {
+        while (true)
+        {
+            for(int i = 0; i < motorDisturbance.Length; i++)
+            {
+                motorDisturbance[i] = 1 +  UnityEngine.Random.Range(-0.001f, 0.001f);
+            }
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 }
