@@ -23,6 +23,11 @@ public class DroneMenuController : MonoBehaviour, ISettingsMenuController
     private SliderInt cameraAngle;
     private Label cameraAngleLabel;
 
+    private FloatField frontAirDragCoefficient;
+    private FloatField topAirDragCoefficient;
+    private FloatField sideAirDragCoefficient;
+
+
     private Label thrustToWeight;
     private Label hoverThrottle;
     private Label totalThrust;
@@ -49,6 +54,10 @@ public class DroneMenuController : MonoBehaviour, ISettingsMenuController
         cameraAngle = _DroneMenuTab.Q<SliderInt>("CameraAngle");
         cameraAngleLabel = _DroneMenuTab.Q<Label>("CameraAngleLabel");
 
+        frontAirDragCoefficient = _DroneMenuTab.Q<FloatField>("FrontAirDragCoefficient");
+        topAirDragCoefficient = _DroneMenuTab.Q<FloatField>("TopAirDragCoefficient");
+        sideAirDragCoefficient = _DroneMenuTab.Q<FloatField>("SideAirDragCoefficient");
+
         thrustToWeight = _DroneMenuTab.Q<VisualElement>("TWR").Q<Label>("Value");
         hoverThrottle = _DroneMenuTab.Q<VisualElement>("HoverThrottle").Q<Label>("Value");
         totalThrust = _DroneMenuTab.Q<VisualElement>("TotalThrust").Q<Label>("Value");
@@ -65,6 +74,10 @@ public class DroneMenuController : MonoBehaviour, ISettingsMenuController
         motorThrust.RegisterValueChangedCallback(OnMotorThrustChanged);
         motorTorqueConstant.RegisterValueChangedCallback(OnMotorTorqueConstantChanged);
         cameraAngle.RegisterValueChangedCallback(OnCameraAngleChanged);
+
+        frontAirDragCoefficient.RegisterValueChangedCallback(OnFrontAirDragCoefficientChanged);
+        topAirDragCoefficient.RegisterValueChangedCallback(OnTopAirDragCoefficientChanged);
+        sideAirDragCoefficient.RegisterValueChangedCallback(OnSideAirDragCoefficientChanged);
 
         Debug.Log("Drone menu initialized with drone: " + droneLibrary);
         addBtn.RegisterCallback<ClickEvent>(OnAddNewDrone);
@@ -118,6 +131,24 @@ public class DroneMenuController : MonoBehaviour, ISettingsMenuController
     {
         _dronePhysics.DroneProperties.CameraAngle = evt.newValue;
         cameraAngleLabel.text = evt.newValue.ToString() + "°";
+    }
+
+    public void OnFrontAirDragCoefficientChanged(ChangeEvent<string> evt)
+    {
+        _dronePhysics.DroneProperties.FrontAirDragCoefficient = float.Parse(evt.newValue);
+        UpdatePerformanceEstimates();
+    }
+
+    public void OnTopAirDragCoefficientChanged(ChangeEvent<string> evt)
+    {
+        _dronePhysics.DroneProperties.TopAirDragCoefficient = float.Parse(evt.newValue);
+        UpdatePerformanceEstimates();
+    }
+
+    public void OnSideAirDragCoefficientChanged(ChangeEvent<string> evt)
+    {
+        _dronePhysics.DroneProperties.SideAirDragCoefficient = float.Parse(evt.newValue);
+        UpdatePerformanceEstimates();
     }
 
     public void OnSave()

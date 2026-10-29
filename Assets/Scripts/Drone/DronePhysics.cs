@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DronePhysics : MonoBehaviour
 {
+    private const float AIRDENSITY = 1.225f; // Air density at sea level (kg/m^3)
     [SerializeField] private int droneId = 1;
 
     private float[] propellerSizes = { //This array values are m conversion of the units in the UI
@@ -58,7 +59,6 @@ public class DronePhysics : MonoBehaviour
 
         groundEffectEmpricalIsActive = true;
         groundEffectLikeHelicoptersIsActive = false;
-
     }
 
     void OnEnable()
@@ -66,7 +66,7 @@ public class DronePhysics : MonoBehaviour
         GetComponentInChildren<Camera>().transform.localRotation = Quaternion.Euler(-1 * DroneProperties.CameraAngle, 0, 0);
 
         //TODO Check if the drone frame is on meters
-        droneRB.mass = DroneProperties.Mass; //kg
+        droneRB.mass = DroneProperties.Mass / 1000f; //kg
         l = DroneProperties.FrameSize / 2000.0f; //Half the distance between two consecutive motors assuming the frame is square   
         propellerSize = propellerSizes[DroneProperties.PropellerDiameter]; //m
 
@@ -85,10 +85,10 @@ public class DronePhysics : MonoBehaviour
     void FixedUpdate()
     {
         float[] motorThrust = {
-            flightController.MotorMix[0] * DroneProperties.MaxThrust,
-            flightController.MotorMix[1] * DroneProperties.MaxThrust,
-            flightController.MotorMix[2] * DroneProperties.MaxThrust,
-            flightController.MotorMix[3] * DroneProperties.MaxThrust
+            flightController.MotorMix[0] * DroneProperties.MaxThrust / 1000f,
+            flightController.MotorMix[1] * DroneProperties.MaxThrust / 1000f,
+            flightController.MotorMix[2] * DroneProperties.MaxThrust / 1000f,
+            flightController.MotorMix[3] * DroneProperties.MaxThrust / 1000f
         };
 
         float c = motorThrust[0] + motorThrust[1] + motorThrust[2] + motorThrust[3]; // Collective thrust
@@ -107,10 +107,9 @@ public class DronePhysics : MonoBehaviour
         droneRB.AddForceAtPosition(transform.up * ApplyGroundEffect(RRMotor.position.y, motorThrust[2]), RRMotor.position, ForceMode.Force);
         droneRB.AddForceAtPosition(transform.up * ApplyGroundEffect(FRMotor.position.y, motorThrust[3]), FRMotor.position, ForceMode.Force);
         
-        Debug.Log(ApplyGroundEffect(RLMotor.position.y, motorThrust[0]) + " " + motorThrust[0]);
-
         droneRB.AddRelativeTorque(torque);
         //droneRB.AddForce(transform.up * c, ForceMode.Force);
+        //ApplyAirDrag(); 
 
         // Consider it a crash if the drone is upside down and almost stationary
         if (droneRB.linearVelocity.magnitude < 0.1f && Vector3.Angle(transform.up, Vector3.up) >= 90)
@@ -166,5 +165,29 @@ public class DronePhysics : MonoBehaviour
         }
 
         return thrust;
+    }
+
+    private void ApplyAirDrag()
+    {
+        // 1. Obtener la velocidad global actual y la rotación del dron
+        Vector3 vGlobal = droneRB.linearVelocity;
+        Quaternion droneRotation = droneRB.rotation;
+
+        // 2. Transformar la velocidad global al espacio local del dron
+        // (Invierte la rotación del dron para ver cómo entra el viento desde su perspectiva)
+        Vector3 vLocal = Quaternion.Inverse(droneRotation) * vGlobal;
+
+        // 3. Calcular la fuerza de arrastre en el espacio local por cada eje (F = -0.5 * rho * v * |v| * CdA)
+        Vector3 FDragLocal = new(
+            -0.5f * AIRDENSITY * vLocal.x * Mathf.Abs(vLocal.x) * DroneProperties.SideAirDragCoefficient,
+            -0.5f * AIRDENSITY * vLocal.y * Mathf.Abs(vLocal.y) * DroneProperties.TopAirDragCoefficient,
+            -0.5f * AIRDENSITY * vLocal.z * Mathf.Abs(vLocal.z) * DroneProperties.FrontAirDragCoefficient
+        );
+
+        // 4. Transformar la fuerza resultante de vuelta al espacio global
+        Vector3 fDragGlobal = droneRotation * FDragLocal;
+
+        // 5. Aplicar la fuerza al cuerpo rígido en el simulador
+        droneRB.AddForce(fDragGlobal);
     }
 }

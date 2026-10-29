@@ -19,4 +19,9 @@ public class Drone
     //TODO figure this out for yaw
     public float MotorTorqueConstant { get; set; }
 
+    
+    public float FrontAirDragCoefficient { get; set; }
+    public float TopAirDragCoefficient { get; set; }
+    public float SideAirDragCoefficient { get; set; }
+
 }

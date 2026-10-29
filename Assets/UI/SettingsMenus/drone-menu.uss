@@ -95,7 +95,7 @@
     flex-grow: 1;
     max-width: none;
     min-width: auto;
-    width: 600px;
+    width: 650px;
 }
 
 .row Label {
@@ -206,4 +206,8 @@
     background-color: rgba(244, 244, 244, 0.1);
     -unity-font-definition: url("project://database/Assets/Fonts/BarlowCondensed/BarlowCondensed-Black.ttf?fileID=12800000&guid=1644c8f8a32e548498832b745a3602d0&type=3#BarlowCondensed-Black");
     color: rgba(244, 244, 244, 0.38);
+}
+
+#AirDragRow .numerical-field #Value {
+    width: 75px;
 }
