@@ -11,13 +11,17 @@ public class Drone
     // --- Drone Physical Properties --- //
     public float Mass { get; set; }
     public float FrameSize { get; set; }
-    public float PropellerDiameter { get; set; }
+    public int PropellerDiameter { get; set; } // This value is jsut an identifier for the propeller size, the actual size is determined by the propeller size list in the UI
     public float BatteryCapacity { get; set; }
     public float MaxThrust { get; set; }
     public int CameraAngle { get; set; }
 
     //TODO figure this out for yaw
-    //TODO Add UI for it
     public float MotorTorqueConstant { get; set; }
+
+    
+    public float FrontAirDragCoefficient { get; set; }
+    public float TopAirDragCoefficient { get; set; }
+    public float SideAirDragCoefficient { get; set; }
 
 }

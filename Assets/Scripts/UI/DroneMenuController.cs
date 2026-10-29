@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
@@ -13,6 +14,7 @@ public class DroneMenuController : MonoBehaviour, ISettingsMenuController
 
     //TODO Figure propeller size selector later
     private TextField droneName;
+    private DropdownField propellerSize;
     private FloatField totalWeight;
     private IntegerField frameSize;
     private IntegerField batteryCapacity;
@@ -20,6 +22,11 @@ public class DroneMenuController : MonoBehaviour, ISettingsMenuController
     private FloatField motorTorqueConstant;
     private SliderInt cameraAngle;
     private Label cameraAngleLabel;
+
+    private FloatField frontAirDragCoefficient;
+    private FloatField topAirDragCoefficient;
+    private FloatField sideAirDragCoefficient;
+
 
     private Label thrustToWeight;
     private Label hoverThrottle;
@@ -38,6 +45,7 @@ public class DroneMenuController : MonoBehaviour, ISettingsMenuController
         _DroneMenuTab = _uiManager.rootVisualElement.Q<VisualElement>("DroneMenuTab");
 
         droneName = _DroneMenuTab.Q<TextField>("DroneName");
+        propellerSize = _DroneMenuTab.Q<DropdownField>("ProppellerSizeRow");
         totalWeight = _DroneMenuTab.Q<FloatField>("TotalWeight");
         frameSize = _DroneMenuTab.Q<IntegerField>("FrameSize");
         batteryCapacity = _DroneMenuTab.Q<IntegerField>("BatteryCapacity");
@@ -45,6 +53,10 @@ public class DroneMenuController : MonoBehaviour, ISettingsMenuController
         motorTorqueConstant = _DroneMenuTab.Q<FloatField>("MotorTorqueConstant");
         cameraAngle = _DroneMenuTab.Q<SliderInt>("CameraAngle");
         cameraAngleLabel = _DroneMenuTab.Q<Label>("CameraAngleLabel");
+
+        frontAirDragCoefficient = _DroneMenuTab.Q<FloatField>("FrontAirDragCoefficient");
+        topAirDragCoefficient = _DroneMenuTab.Q<FloatField>("TopAirDragCoefficient");
+        sideAirDragCoefficient = _DroneMenuTab.Q<FloatField>("SideAirDragCoefficient");
 
         thrustToWeight = _DroneMenuTab.Q<VisualElement>("TWR").Q<Label>("Value");
         hoverThrottle = _DroneMenuTab.Q<VisualElement>("HoverThrottle").Q<Label>("Value");
@@ -55,6 +67,7 @@ public class DroneMenuController : MonoBehaviour, ISettingsMenuController
         addBtn = _DroneMenuTab.Q<VisualElement>("AddButton");
 
         droneName.RegisterValueChangedCallback(OnDroneNameChanged);
+        propellerSize.RegisterValueChangedCallback(OnPropellerSizeChanged);
         totalWeight.RegisterValueChangedCallback(OnTotalWeightChanged);
         frameSize.RegisterValueChangedCallback(OnFrameSizeChanged);
         batteryCapacity.RegisterValueChangedCallback(OnBatteryCapacityChanged);
@@ -62,11 +75,21 @@ public class DroneMenuController : MonoBehaviour, ISettingsMenuController
         motorTorqueConstant.RegisterValueChangedCallback(OnMotorTorqueConstantChanged);
         cameraAngle.RegisterValueChangedCallback(OnCameraAngleChanged);
 
+        frontAirDragCoefficient.RegisterValueChangedCallback(OnFrontAirDragCoefficientChanged);
+        topAirDragCoefficient.RegisterValueChangedCallback(OnTopAirDragCoefficientChanged);
+        sideAirDragCoefficient.RegisterValueChangedCallback(OnSideAirDragCoefficientChanged);
+
         Debug.Log("Drone menu initialized with drone: " + droneLibrary);
         addBtn.RegisterCallback<ClickEvent>(OnAddNewDrone);
 
         SetDrone(_dronePhysics.DroneProperties);
         PopulateDroneLibrary();
+    }
+
+    private void OnPropellerSizeChanged(ChangeEvent<string> evt)
+    {
+        _dronePhysics.DroneProperties.PropellerDiameter = propellerSize.index;
+        UpdatePerformanceEstimates();
     }
 
     public void OnDroneNameChanged(ChangeEvent<string> evt)
@@ -108,6 +131,24 @@ public class DroneMenuController : MonoBehaviour, ISettingsMenuController
     {
         _dronePhysics.DroneProperties.CameraAngle = evt.newValue;
         cameraAngleLabel.text = evt.newValue.ToString() + "°";
+    }
+
+    public void OnFrontAirDragCoefficientChanged(ChangeEvent<string> evt)
+    {
+        _dronePhysics.DroneProperties.FrontAirDragCoefficient = float.Parse(evt.newValue);
+        UpdatePerformanceEstimates();
+    }
+
+    public void OnTopAirDragCoefficientChanged(ChangeEvent<string> evt)
+    {
+        _dronePhysics.DroneProperties.TopAirDragCoefficient = float.Parse(evt.newValue);
+        UpdatePerformanceEstimates();
+    }
+
+    public void OnSideAirDragCoefficientChanged(ChangeEvent<string> evt)
+    {
+        _dronePhysics.DroneProperties.SideAirDragCoefficient = float.Parse(evt.newValue);
+        UpdatePerformanceEstimates();
     }
 
     public void OnSave()
