@@ -4609,9 +4609,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DronePhysics
   droneId: 1
-  groundEffectEmpricalIsActive: 0
-  groundEffectLikeHelicoptersIsActive: 0
-  groundEffectSanchezCuevasIsActive: 0
+  groundEffectIsActive: 1
+  airDragIsActive: 1
 --- !u!54 &859958599 stripped
 Rigidbody:
   m_CorrespondingSourceObject: {fileID: 1933884601366840249, guid: ecd8b7feba3b51f4b8e8336045feeb97, type: 3}
