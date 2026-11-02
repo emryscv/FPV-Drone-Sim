@@ -7,8 +7,8 @@ using UnityEngine.InputSystem.Controls;
 
 public class RCControllerManager : MonoBehaviour
 {
-    private const float AXIS_DETECTION_THRESHOLD = 0.8f;
-
+    private const float AXIS_DETECTION_THRESHOLD = 0.9f;
+    private const float AXIS_CENTER_THRESHOLD = 0.1f;
     public static RCControllerManager Instance { get; private set; }
 
     public InputDevice registeredDevice { get; private set; }
