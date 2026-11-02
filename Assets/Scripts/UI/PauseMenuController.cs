@@ -13,6 +13,7 @@ public class PauseMenuController : MonoBehaviour
     private Button _settingsNav;
     private Button _exitNav;
     
+    private MonoBehaviour _settingsViewController;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void OnEnable()
     {
@@ -27,6 +28,8 @@ public class PauseMenuController : MonoBehaviour
         _restartFlightBtn = _PauseMenu.Q<Button>("RestartFlightButton");
         _settingsNav = _PauseMenu.Q<Button>("SettingsButton");
         _exitNav = _PauseMenu.Q<Button>("ExitButton");
+
+        _settingsViewController = gameObject.GetComponent<SettingsViewController>();
 
         //In UI events
         _resumeFlightBtn.RegisterCallback<ClickEvent>(OnResumeFlightBtnClick);
@@ -67,6 +70,7 @@ public class PauseMenuController : MonoBehaviour
         // Handle settings navigation button click
         _PauseMenu.style.display = DisplayStyle.None;
         _SettingsView.style.display = DisplayStyle.Flex;
+        _settingsViewController.enabled = true;
     }
 
     private void OnExitNavClick(ClickEvent evt)

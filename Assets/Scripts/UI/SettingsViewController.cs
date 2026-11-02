@@ -1,18 +1,19 @@
+using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class SettingsView : MonoBehaviour
+public class SettingsViewController : MonoBehaviour
 {
     private UIDocument _uiManager;
     private VisualElement _MainMenu;
     private VisualElement _PauseMenu;
     private VisualElement _SettingsView;
-    
+
     private VisualElement _RCMenuTab;
     private VisualElement _DroneMenuTab;
     private VisualElement _FCMenuTab;
     private VisualElement _SettingsMenuTab;
-        
+
     private Button _backBtn;
     private Button _saveBtn;
 
@@ -23,7 +24,7 @@ public class SettingsView : MonoBehaviour
 
 
     private VisualElement _currentTab;
-    private ISettingsMenuController _currentTabController;
+    private MonoBehaviour _currentTabController; //TODO It is used to be set as ISettingsMenuController to excecute save but find out what to do now
     private Button _currentTabBtn;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -35,19 +36,19 @@ public class SettingsView : MonoBehaviour
 
         _SettingsView = _uiManager.rootVisualElement.Q<VisualElement>("SettingsView");
 
-        _RCMenuTab       = _SettingsView.Q<VisualElement>("RCMenuTab");
-        _DroneMenuTab    = _SettingsView.Q<VisualElement>("DroneMenuTab");
-        _FCMenuTab       = _SettingsView.Q<VisualElement>("FCMenuTab");
+        _RCMenuTab = _SettingsView.Q<VisualElement>("RCMenuTab");
+        _DroneMenuTab = _SettingsView.Q<VisualElement>("DroneMenuTab");
+        _FCMenuTab = _SettingsView.Q<VisualElement>("FCMenuTab");
         _SettingsMenuTab = _SettingsView.Q<VisualElement>("SettingsMenuTab");
 
         _backBtn = _SettingsView.Q<Button>("BackButton");
         _saveBtn = _SettingsView.Q<Button>("SaveButton");
 
-        _rcTabBtn       = _SettingsView.Q<Button>("RCTabButton");
-        _droneTabBtn    = _SettingsView.Q<Button>("DroneTabButton");
-        _fcTabBtn       = _SettingsView.Q<Button>("FCTabButton");
+        _rcTabBtn = _SettingsView.Q<Button>("RCTabButton");
+        _droneTabBtn = _SettingsView.Q<Button>("DroneTabButton");
+        _fcTabBtn = _SettingsView.Q<Button>("FCTabButton");
         _settingsTabBtn = _SettingsView.Q<Button>("SettingsTabButton");
-   
+
         OnTabChange(_RCMenuTab, _rcTabBtn, gameObject.GetComponent<RCMenuController>());
 
         _backBtn.RegisterCallback<ClickEvent>(OnBackBtnClick);
@@ -70,18 +71,16 @@ public class SettingsView : MonoBehaviour
 
     private void OnBackBtnClick(ClickEvent evt)
     {
-        //TODO stop calibration if needed
-        //StopCoroutine(CalibrationRoutine()); 
-        // this but also make sure that calibration is not in a unsafe state
-        
-
         //TODO find better way to do this. Maybe a centralized UI manager to handle view transitions
         _SettingsView.style.display = DisplayStyle.None;
-
-        if (GameManager.Instance.isGameStarted && GameManager.Instance.isPaused)   
+        
+        if (GameManager.Instance.isGameStarted && GameManager.Instance.isPaused)
             _PauseMenu.style.display = DisplayStyle.Flex;
         else
             _MainMenu.style.display = DisplayStyle.Flex;
+    
+        _currentTabController.enabled = false;
+        this.enabled = false;
     }
 
     private void OnSaveBtnClick(ClickEvent evt)
@@ -108,11 +107,16 @@ public class SettingsView : MonoBehaviour
         //OnTabChange(_SettingsMenuTab, _settingsTabBtn, gameObject.GetComponent<SettingsMenuController>());
     }
 
-    private void OnTabChange(VisualElement newTab, Button newTabBtn, ISettingsMenuController newTabController)
+    private void OnTabChange(VisualElement newTab, Button newTabBtn, MonoBehaviour newTabController)
     {
+        //We assume that _currentTab, _currentTabBtn, and _currentTabController are all non-null when a tab is active
+        //They are only null when no tab is active that means the very first time the setting view is opened
         if (_currentTab != null)
+        {
             _currentTab.style.display = DisplayStyle.None;
-        _currentTabBtn?.RemoveFromClassList("active");
+            _currentTabBtn.RemoveFromClassList("active");
+            _currentTabController.enabled = false;
+        }
 
         _currentTab = newTab;
         _currentTabBtn = newTabBtn;
@@ -120,5 +124,6 @@ public class SettingsView : MonoBehaviour
 
         _currentTab.style.display = DisplayStyle.Flex;
         _currentTabBtn.AddToClassList("active");
+        _currentTabController.enabled = true;
     }
 }

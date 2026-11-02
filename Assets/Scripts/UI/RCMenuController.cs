@@ -6,9 +6,9 @@ using System;
 
 public class RCMenuController : MonoBehaviour, ISettingsMenuController
 {
-    
-    [SerializeField] private VectorImage controller; 
-    [SerializeField] private VectorImage noController; 
+
+    [SerializeField] private VectorImage controller;
+    [SerializeField] private VectorImage noController;
 
     private const float AXIS_DETECTION_TIMEOUT_SECONDS = 10f;
 
@@ -102,7 +102,7 @@ public class RCMenuController : MonoBehaviour, ISettingsMenuController
         {
             _controllerStatusLabel.text = controls.registeredDevice.displayName;
             _controllerStatusLabel.style.color = GREEN;
-            
+
             _controllerStatusIcon.vectorImage = controller;
             _controllerStatusIcon.tintColor = GREEN;
         }
@@ -139,6 +139,12 @@ public class RCMenuController : MonoBehaviour, ISettingsMenuController
 
     private void OnDisable()
     {
+        if (_calibrationRoutine != null)
+        {
+            StopCoroutine(_calibrationRoutine);
+            ResetCalibration(true);
+        }
+
         Debug.Log("RC Controller Menu Disabled");
         _undoBtn.UnregisterCallback<ClickEvent>(OnUndoBtnClick);
         _yesBtn.UnregisterCallback<ClickEvent>(OnYesBtnClick);
@@ -150,13 +156,13 @@ public class RCMenuController : MonoBehaviour, ISettingsMenuController
 
     private void OnStartCalibrationBtnClick(ClickEvent evt)
     {
-        if(_calibrationRoutine != null)
+        if (_calibrationRoutine != null)
             StopCoroutine(_calibrationRoutine);
 
         _calibrationRoutine = StartCoroutine(CalibrationRoutine());
         _startCalibrationBtn.text = "RESTART CALIBRATION";
     }
-    
+
     private void OnUndoBtnClick(ClickEvent evt)
     {
         throw new NotImplementedException();
@@ -181,7 +187,7 @@ public class RCMenuController : MonoBehaviour, ISettingsMenuController
     }
 
     private void OnGameUnpaused()
-    {   
+    {
         //TODO stop calibration if needed      
         //StopCoroutine(CalibrationRoutine()); 
         // this but also make sure that calibration is not in a unsafe state
@@ -351,14 +357,39 @@ public class RCMenuController : MonoBehaviour, ISettingsMenuController
             if (_isPositive) controls.InvertAxis("Throttle");
         }
 
+        controls.PrintDebug();
+        
+        ResetCalibration(false);
+    }
+
+    private void ResetCalibration(bool force)
+    {
+        _calibrationRoutine = null;
         _startCalibrationBtn.text = "START CALIBRATION";
         _calibrationInstructionsHeading.text = "READY TO CALIBRATE";
         _calibrationInstructionsDescription.text = "Calibration maps your physical controller's axis range so the simulator receives accurate inputs. Press Start Calibration to begin the 2-step process.";
 
         _yesBtn.style.display = DisplayStyle.None;
         _noBtn.style.display = DisplayStyle.None;
+        _undoBtn.style.display = DisplayStyle.None;
 
-        controls.PrintDebug();
+        if (force)
+        {
+            SetTransition(_leftStick, 0f, EasingMode.Linear);
+            SetTransition(_rightStick, 0f, EasingMode.Linear);
+
+            _leftStick.style.left = 65f;
+            _leftStick.style.top = 65f;
+
+            _rightStick.style.left = 65f;
+            _rightStick.style.top = 65f;
+
+            _moveWithInput = true;
+            _onInputDiscovery = false;
+
+            _buttonPressed = false;
+            _isPositive = false;
+        }
     }
 
     private IEnumerator WaitForAxisDetection()

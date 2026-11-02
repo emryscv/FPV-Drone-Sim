@@ -18,6 +18,8 @@ public class MainMenuController : MonoBehaviour
     private Image _controllerStatusIcon;
     private Label _controllerStatusLabel;
 
+    private MonoBehaviour _settingsViewController;
+
     [SerializeField] private VectorImage controller; 
     [SerializeField] private VectorImage noController; 
 
@@ -37,6 +39,8 @@ public class MainMenuController : MonoBehaviour
 
         _controllerStatusIcon  = _MainMenu.Q<Image>("StatusIcon");
         _controllerStatusLabel = _MainMenu.Q<Label>("StatusLabel");
+
+        _settingsViewController = gameObject.GetComponent<SettingsViewController>();
 
         _startFlightNav.RegisterCallback<ClickEvent>(OnStartFlightBtnClick);
         _settingsNav.RegisterCallback<ClickEvent>(OnSettingsBtnClick);
@@ -58,8 +62,6 @@ public class MainMenuController : MonoBehaviour
     {
         _startFlightNav.UnregisterCallback<ClickEvent>(OnStartFlightBtnClick);
         _settingsNav.UnregisterCallback<ClickEvent>(OnSettingsBtnClick);  
-
-
     } 
 
     private void OnStartFlightBtnClick(ClickEvent evt)
@@ -74,6 +76,7 @@ public class MainMenuController : MonoBehaviour
     {
         _MainMenu.style.display = DisplayStyle.None;
         _SettingsView.style.display = DisplayStyle.Flex;
+        _settingsViewController.enabled = true;
     }
 
 }
