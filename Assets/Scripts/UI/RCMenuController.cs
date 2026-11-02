@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using System.Collections.Generic;
 using System.Collections;
+using System;
 
 public class RCMenuController : MonoBehaviour, ISettingsMenuController
 {
@@ -19,8 +20,10 @@ public class RCMenuController : MonoBehaviour, ISettingsMenuController
     private VisualElement _RCMenuTab;
 
     private Button _startCalibrationBtn;
+    private Button _saveBtn;
+    private Button _undoBtn;
 
-    private VisualElement _controllerStatusIcon;
+    private Image _controllerStatusIcon;
     private Label _controllerStatusLabel;
 
     private Label _calibrationInstructionsHeading;
@@ -62,23 +65,27 @@ public class RCMenuController : MonoBehaviour, ISettingsMenuController
         _uiManager = GetComponent<UIDocument>();
         _RCMenuTab = _uiManager.rootVisualElement.Q<VisualElement>("RCMenuTab");
 
-        _startCalibrationBtn = _RCMenuTab.Q<Button>("StartCalibrationButton");
-
-        _controllerStatusIcon = _RCMenuTab.Q<VisualElement>("StatusIcon");
+        _controllerStatusIcon = _RCMenuTab.Q<Image>("StatusIcon");
         _controllerStatusLabel = _RCMenuTab.Q<Label>("StatusLabel");
-
-        _calibrationInstructionsHeading = _RCMenuTab.Q<VisualElement>("CalibrationPanel").Q<Label>("Heading");
-        _calibrationInstructionsDescription = _RCMenuTab.Q<VisualElement>("CalibrationPanel").Q<Label>("Description");
-
-        _yesBtn = _RCMenuTab.Q<Button>("YesButton");
-        _noBtn = _RCMenuTab.Q<Button>("NoButton");
 
         _leftStick = _RCMenuTab.Q<VisualElement>("LeftStick");
         _rightStick = _RCMenuTab.Q<VisualElement>("RightStick");
 
-        _startCalibrationBtn.RegisterCallback<ClickEvent>(OnStartCalibrationBtnClick);
+        _calibrationInstructionsHeading = _RCMenuTab.Q<VisualElement>("CalibrationPanel").Q<Label>("Heading");
+        _calibrationInstructionsDescription = _RCMenuTab.Q<VisualElement>("CalibrationPanel").Q<Label>("Description");
+        _undoBtn = _RCMenuTab.Q<Button>("UndoButton");
+
+        _yesBtn = _RCMenuTab.Q<Button>("YesButton");
+        _noBtn = _RCMenuTab.Q<Button>("NoButton");
+
+        _startCalibrationBtn = _RCMenuTab.Q<Button>("StartCalibrationButton");
+        _saveBtn = _RCMenuTab.Q<Button>("SaveButton");
+
+        _undoBtn.RegisterCallback<ClickEvent>(OnUndoBtnClick);
         _yesBtn.RegisterCallback<ClickEvent>(OnYesBtnClick);
         _noBtn.RegisterCallback<ClickEvent>(OnNoBtnClick);
+        _startCalibrationBtn.RegisterCallback<ClickEvent>(OnStartCalibrationBtnClick);
+        _saveBtn.RegisterCallback<ClickEvent>(OnSaveBtnClick);
 
         GameEvents.Instance.OnUnpause += OnGameUnpaused;
     }
@@ -90,13 +97,13 @@ public class RCMenuController : MonoBehaviour, ISettingsMenuController
         {
             _controllerStatusLabel.text = controls.registeredDevice.displayName;
             _controllerStatusLabel.style.color = GREEN;
-            _controllerStatusIcon.style.backgroundColor = GREEN;
+            _controllerStatusIcon.style.color = GREEN;
         }
         else
         {
             _controllerStatusLabel.text = "NO CONTROLLER CONNECTED";
             _controllerStatusLabel.style.color = RED;
-            _controllerStatusIcon.style.backgroundColor = RED;
+            _controllerStatusIcon.style.color = RED;
         }
 
         if (_moveWithInput)
@@ -124,16 +131,28 @@ public class RCMenuController : MonoBehaviour, ISettingsMenuController
     private void OnDisable()
     {
         Debug.Log("RC Controller Menu Disabled");
-        _startCalibrationBtn.UnregisterCallback<ClickEvent>(OnStartCalibrationBtnClick);
+        _undoBtn.UnregisterCallback<ClickEvent>(OnUndoBtnClick);
         _yesBtn.UnregisterCallback<ClickEvent>(OnYesBtnClick);
         _noBtn.UnregisterCallback<ClickEvent>(OnNoBtnClick);
-
+        _startCalibrationBtn.UnregisterCallback<ClickEvent>(OnStartCalibrationBtnClick);
+        _saveBtn.UnregisterCallback<ClickEvent>(OnSaveBtnClick);
         GameEvents.Instance.OnUnpause -= OnGameUnpaused;
     }
 
     private void OnStartCalibrationBtnClick(ClickEvent evt)
     {
         StartCoroutine(CalibrationRoutine());
+        _startCalibrationBtn.text = "RESTART CALIBRATION";
+    }
+    
+    private void OnUndoBtnClick(ClickEvent evt)
+    {
+        throw new NotImplementedException();
+    }
+
+    private void OnSaveBtnClick(ClickEvent evt)
+    {
+        controls.SaveCalibration();
     }
 
     private void OnYesBtnClick(ClickEvent evt)
@@ -373,10 +392,6 @@ public class RCMenuController : MonoBehaviour, ISettingsMenuController
                 new EasingFunction(easingMode),
                 new EasingFunction(easingMode)
             };
-    }
-    public void OnSave()
-    {
-        controls.SaveCalibration();
     }
 }
 

@@ -86,7 +86,7 @@ public class SettingsView : MonoBehaviour
 
     private void OnSaveBtnClick(ClickEvent evt)
     {
-        _currentTabController.OnSave();
+        //_currentTabController.OnSave();
     }
 
     private void OnRCTabBtnClicked(ClickEvent evt)
