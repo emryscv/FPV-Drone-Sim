@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class HUDManager : MonoBehaviour
+public class HUDController : MonoBehaviour
 {
 
     [SerializeField] private Rigidbody _rb;
@@ -50,6 +50,8 @@ public class HUDManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (controls.registeredDevice == null) return;
+        
         float lStickY = controls.LStickY?.ReadValue() ?? 0f;
         float lStickX = controls.LStickX?.ReadValue() ?? 0f;
         float rStickY = controls.RStickY?.ReadValue() ?? 0f;

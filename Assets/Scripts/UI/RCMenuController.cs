@@ -100,6 +100,8 @@ public class RCMenuController : MonoBehaviour, ISettingsMenuController
 
     private void Update()
     {
+        if(controls.registeredDevice == null) return;
+
         if (_moveWithInput)
         {
             float lStickX = controls.LStickX?.ReadValue() ?? 0f;

@@ -164,7 +164,7 @@ public class DroneMenuController : MonoBehaviour, ISettingsMenuController
 
     private void OnAddNewDrone(ClickEvent evt)
     {
-        Debug.Log("Adding new drone: " + _dronePhysics.DroneProperties.Name);
+        //Debug.Log("Adding new drone: " + _dronePhysics.DroneProperties.Name);
         DatabaseManager.Instance.InsertDrone(_dronePhysics.DroneProperties);
         AddDroneCard(_dronePhysics.DroneProperties);
         droneCount++;
@@ -176,7 +176,7 @@ public class DroneMenuController : MonoBehaviour, ISettingsMenuController
         droneCount = drones.Count;
         foreach (Drone drone in drones)
         {
-            Debug.Log("Populating drone library with: " + drone.Id + " - " + drone.Name);
+            //Debug.Log("Populating drone library with: " + drone.Id + " - " + drone.Name);
             AddDroneCard(drone);            
         }
     }
