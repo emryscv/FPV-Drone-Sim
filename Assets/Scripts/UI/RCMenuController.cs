@@ -44,6 +44,7 @@ public class RCMenuController : MonoBehaviour, ISettingsMenuController
     private bool _onInputDiscovery;
     private bool _buttonPressed;
     private bool _isPositive;
+    private Coroutine _calibrationRoutine;
 
     private int[] _xPositions;
     private int[] _yPositions;
@@ -149,7 +150,10 @@ public class RCMenuController : MonoBehaviour, ISettingsMenuController
 
     private void OnStartCalibrationBtnClick(ClickEvent evt)
     {
-        StartCoroutine(CalibrationRoutine());
+        if(_calibrationRoutine != null)
+            StopCoroutine(_calibrationRoutine);
+
+        _calibrationRoutine = StartCoroutine(CalibrationRoutine());
         _startCalibrationBtn.text = "RESTART CALIBRATION";
     }
     
@@ -220,6 +224,7 @@ public class RCMenuController : MonoBehaviour, ISettingsMenuController
         controls.PruneAxes();
 
         yield return new WaitForSecondsRealtime(1f);
+        _undoBtn.style.display = DisplayStyle.Flex;
 
         _calibrationInstructionsHeading.text = "Left Stick";
         _calibrationInstructionsDescription.text = "Move the left stick to the right to mimic the movement on screen.";
@@ -346,8 +351,9 @@ public class RCMenuController : MonoBehaviour, ISettingsMenuController
             if (_isPositive) controls.InvertAxis("Throttle");
         }
 
+        _startCalibrationBtn.text = "START CALIBRATION";
         _calibrationInstructionsHeading.text = "READY TO CALIBRATE";
-        _calibrationInstructionsDescription.text = "Calibration maps your physical controller's axis range so the simulator receives accurate inputs. \nPress Start Calibration to begin the 2-step process.";
+        _calibrationInstructionsDescription.text = "Calibration maps your physical controller's axis range so the simulator receives accurate inputs. Press Start Calibration to begin the 2-step process.";
 
         _yesBtn.style.display = DisplayStyle.None;
         _noBtn.style.display = DisplayStyle.None;
