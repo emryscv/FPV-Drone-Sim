@@ -46,9 +46,9 @@ public class RCControllerManager : MonoBehaviour
         {
             if (IsRCController(device))
             {
-
                 Debug.Log("Device found: " + device.name + " with ID: " + device.deviceId + " display name: " + device.displayName);
                 registeredDevice = device;
+                GameEvents.Instance.ControllerConnected();
                 break;
             }
         }
@@ -67,10 +67,12 @@ public class RCControllerManager : MonoBehaviour
         {
             registeredDevice = device;
             LoadCalibration();
+            GameEvents.Instance.ControllerConnected();
         }
         else if (change == InputDeviceChange.Removed && IsRCController(device))
         {
             registeredDevice = null;
+            GameEvents.Instance.ControllerDisconnected();
         }
     }
 

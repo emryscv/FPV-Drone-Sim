@@ -11,5 +11,5 @@ public class RCControllerCalibration
     public AxisInfo throttle;
     public AxisInfo yaw;
     public AxisInfo pitch;
-    public AxisInfo  roll;
+    public AxisInfo roll;
 }

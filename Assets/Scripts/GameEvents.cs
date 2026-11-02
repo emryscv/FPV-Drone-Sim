@@ -46,4 +46,18 @@ public class GameEvents : MonoBehaviour
     {
         OnHideCrashIndicator?.Invoke();
     }
+
+    public event Action OnControllerConnectedUI;
+    public void ControllerConnected()
+    {
+        Debug.Log("Controller connected event triggered");
+        OnControllerConnectedUI?.Invoke();
+    }
+
+    public event Action OnControllerDisconnectedUI;
+    public void ControllerDisconnected()
+    {
+        Debug.Log("Controller disconnected event triggered");
+        OnControllerDisconnectedUI?.Invoke();
+    }
 }

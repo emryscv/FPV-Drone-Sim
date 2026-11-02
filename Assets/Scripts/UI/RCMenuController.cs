@@ -91,30 +91,15 @@ public class RCMenuController : MonoBehaviour, ISettingsMenuController
         _noBtn.RegisterCallback<ClickEvent>(OnNoBtnClick);
         _startCalibrationBtn.RegisterCallback<ClickEvent>(OnStartCalibrationBtnClick);
         _saveBtn.RegisterCallback<ClickEvent>(OnSaveBtnClick);
+
+        if (controls.registeredDevice != null) OnControllerConnected();
+
+        GameEvents.Instance.OnControllerConnectedUI += OnControllerConnected;
+        GameEvents.Instance.OnControllerDisconnectedUI += OnControllerDisconnected;
     }
 
     private void Update()
     {
-        //TODO decide if this has to move when the simulation is stopped
-        if (controls.registeredDevice != null)
-        {
-            _controllerStatusLabel.text = controls.registeredDevice.displayName;
-            _controllerStatusLabel.style.color = GREEN;
-
-            _controllerStatusIcon.vectorImage = controller;
-            _controllerStatusIcon.tintColor = GREEN;
-            SetButtonState(_startCalibrationBtn, true);
-        }
-        else
-        {
-            _controllerStatusLabel.text = "NO CONTROLLER CONNECTED";
-            _controllerStatusLabel.style.color = RED;
-
-            _controllerStatusIcon.vectorImage = noController;
-            _controllerStatusIcon.tintColor = RED;
-            SetButtonState(_startCalibrationBtn, false);
-        }
-
         if (_moveWithInput)
         {
             float lStickX = controls.LStickX?.ReadValue() ?? 0f;
@@ -151,6 +136,32 @@ public class RCMenuController : MonoBehaviour, ISettingsMenuController
         _noBtn.UnregisterCallback<ClickEvent>(OnNoBtnClick);
         _startCalibrationBtn.UnregisterCallback<ClickEvent>(OnStartCalibrationBtnClick);
         _saveBtn.UnregisterCallback<ClickEvent>(OnSaveBtnClick);
+
+        GameEvents.Instance.OnControllerConnectedUI -= OnControllerConnected;
+        GameEvents.Instance.OnControllerDisconnectedUI -= OnControllerDisconnected;
+    }
+
+    private void OnControllerConnected()
+    {
+        Debug.Log("Controller connected UI event triggered");
+        _controllerStatusLabel.text = controls.registeredDevice.displayName;
+        _controllerStatusLabel.style.color = GREEN;
+
+        _controllerStatusIcon.vectorImage = controller;
+        _controllerStatusIcon.tintColor = GREEN;
+        SetButtonState(_startCalibrationBtn, true);
+        Debug.Log("Controller connected UI updated");
+    }
+
+    private void OnControllerDisconnected()
+    {
+        _controllerStatusLabel.text = "NO CONTROLLER CONNECTED";
+        _controllerStatusLabel.style.color = RED;
+
+        _controllerStatusIcon.vectorImage = noController;
+        _controllerStatusIcon.tintColor = RED;
+        SetButtonState(_startCalibrationBtn, false);
+        ResetCalibration(true);
     }
 
     private void OnStartCalibrationBtnClick(ClickEvent evt)
