@@ -91,8 +91,6 @@ public class RCMenuController : MonoBehaviour, ISettingsMenuController
         _noBtn.RegisterCallback<ClickEvent>(OnNoBtnClick);
         _startCalibrationBtn.RegisterCallback<ClickEvent>(OnStartCalibrationBtnClick);
         _saveBtn.RegisterCallback<ClickEvent>(OnSaveBtnClick);
-
-        GameEvents.Instance.OnUnpause += OnGameUnpaused;
     }
 
     private void Update()
@@ -105,6 +103,7 @@ public class RCMenuController : MonoBehaviour, ISettingsMenuController
 
             _controllerStatusIcon.vectorImage = controller;
             _controllerStatusIcon.tintColor = GREEN;
+            SetButtonState(_startCalibrationBtn, true);
         }
         else
         {
@@ -113,6 +112,7 @@ public class RCMenuController : MonoBehaviour, ISettingsMenuController
 
             _controllerStatusIcon.vectorImage = noController;
             _controllerStatusIcon.tintColor = RED;
+            SetButtonState(_startCalibrationBtn, false);
         }
 
         if (_moveWithInput)
@@ -151,13 +151,15 @@ public class RCMenuController : MonoBehaviour, ISettingsMenuController
         _noBtn.UnregisterCallback<ClickEvent>(OnNoBtnClick);
         _startCalibrationBtn.UnregisterCallback<ClickEvent>(OnStartCalibrationBtnClick);
         _saveBtn.UnregisterCallback<ClickEvent>(OnSaveBtnClick);
-        GameEvents.Instance.OnUnpause -= OnGameUnpaused;
     }
 
     private void OnStartCalibrationBtnClick(ClickEvent evt)
     {
         if (_calibrationRoutine != null)
+        {
             StopCoroutine(_calibrationRoutine);
+            ResetCalibration(true);
+        }
 
         _calibrationRoutine = StartCoroutine(CalibrationRoutine());
         _startCalibrationBtn.text = "RESTART CALIBRATION";
@@ -184,13 +186,6 @@ public class RCMenuController : MonoBehaviour, ISettingsMenuController
         // Handle No button click
         _buttonPressed = true;
         _isPositive = false;
-    }
-
-    private void OnGameUnpaused()
-    {
-        //TODO stop calibration if needed      
-        //StopCoroutine(CalibrationRoutine()); 
-        // this but also make sure that calibration is not in a unsafe state
     }
 
     private IEnumerator CalibrationRoutine()
@@ -358,7 +353,7 @@ public class RCMenuController : MonoBehaviour, ISettingsMenuController
         }
 
         controls.PrintDebug();
-        
+
         ResetCalibration(false);
     }
 
@@ -390,6 +385,8 @@ public class RCMenuController : MonoBehaviour, ISettingsMenuController
             _buttonPressed = false;
             _isPositive = false;
         }
+
+        SetButtonState(_saveBtn, !force);
     }
 
     private IEnumerator WaitForAxisDetection()
@@ -438,5 +435,13 @@ public class RCMenuController : MonoBehaviour, ISettingsMenuController
                 new EasingFunction(easingMode)
             };
     }
-}
 
+    private void SetButtonState(Button button, bool enabled)
+    {
+        button.SetEnabled(enabled);
+        if (enabled)
+            button.RemoveFromClassList("disabled");
+        else
+            button.AddToClassList("disabled");
+    }
+}
