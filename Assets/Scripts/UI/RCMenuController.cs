@@ -6,6 +6,10 @@ using System;
 
 public class RCMenuController : MonoBehaviour, ISettingsMenuController
 {
+    
+    [SerializeField] private VectorImage controller; 
+    [SerializeField] private VectorImage noController; 
+
     private const float AXIS_DETECTION_TIMEOUT_SECONDS = 10f;
 
     //CONSTANTS
@@ -97,13 +101,17 @@ public class RCMenuController : MonoBehaviour, ISettingsMenuController
         {
             _controllerStatusLabel.text = controls.registeredDevice.displayName;
             _controllerStatusLabel.style.color = GREEN;
-            _controllerStatusIcon.style.color = GREEN;
+            
+            _controllerStatusIcon.vectorImage = controller;
+            _controllerStatusIcon.tintColor = GREEN;
         }
         else
         {
             _controllerStatusLabel.text = "NO CONTROLLER CONNECTED";
             _controllerStatusLabel.style.color = RED;
-            _controllerStatusIcon.style.color = RED;
+
+            _controllerStatusIcon.vectorImage = noController;
+            _controllerStatusIcon.tintColor = RED;
         }
 
         if (_moveWithInput)
