@@ -35,8 +35,13 @@ public class HUDController : MonoBehaviour
         GameEvents.Instance.OnDisplayCrashIndicator += ShowCrashIndicator;
         GameEvents.Instance.OnHideCrashIndicator += HideCrashIndicator;
         GameEvents.Instance.OnTimerStart += StartCountdown;
+    }
 
-        //TODO unsubscribe from events in OnDestroy
+    private void OnDestroy()
+    {
+        GameEvents.Instance.OnDisplayCrashIndicator -= ShowCrashIndicator;
+        GameEvents.Instance.OnHideCrashIndicator -= HideCrashIndicator;
+        GameEvents.Instance.OnTimerStart -= StartCountdown;
     }
 
     private void OnEnable()
@@ -115,10 +120,11 @@ public class HUDController : MonoBehaviour
         }    
         _timerLabel.text = "GO!";
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(1f);
 
         _OSD.style.display = DisplayStyle.Flex;
         _timerLabel.style.display = DisplayStyle.None;
+        GameEvents.Instance.TimerFinished();
     }
 
     private void SetTimerFontSize(float fontSize, float transitionDuration)

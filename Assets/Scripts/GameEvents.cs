@@ -66,4 +66,10 @@ public class GameEvents : MonoBehaviour
     {
         OnTimerStart?.Invoke();
     }
+
+    public event Action OnTimerFinished;
+    public void TimerFinished()
+    {
+        OnTimerFinished?.Invoke();
+    }
 }

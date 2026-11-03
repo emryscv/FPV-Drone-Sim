@@ -49,6 +49,14 @@ public class GameManager : MonoBehaviour
         _PauseMenu = uiManager.rootVisualElement.Q<VisualElement>("PauseMenu");
         GameEvents.Instance.OnRestart += RestartSimulation;
         GameEvents.Instance.OnCrash += DroneCrash;
+        GameEvents.Instance.OnTimerFinished += FinishRestart;
+    }
+
+    private void OnDestroy()
+    {
+        GameEvents.Instance.OnRestart -= RestartSimulation;
+        GameEvents.Instance.OnCrash -= DroneCrash;
+        GameEvents.Instance.OnTimerFinished -= FinishRestart;
     }
 
     // Update is called once per frame
@@ -84,7 +92,6 @@ public class GameManager : MonoBehaviour
         isGameStarted = true;
 
         dronePhysics.ResetDroneState();
-
         UnpauseSimulation();
     }
 
@@ -118,7 +125,6 @@ public class GameManager : MonoBehaviour
     private void RestartSimulation()
     {
         dronePhysics.ResetDroneState();
-        GameEvents.Instance.TimerStart();
         if (isPaused)
             UnpauseSimulation();
         
@@ -144,7 +150,7 @@ public class GameManager : MonoBehaviour
 
         GameEvents.Instance.DisplayCrashIndicator();
         dronePhysics.Crash();
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSecondsRealtime(3);
 
         GameEvents.Instance.HideCrashIndicator();
         RestartSimulation();
