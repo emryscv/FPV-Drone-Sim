@@ -60,4 +60,10 @@ public class GameEvents : MonoBehaviour
         Debug.Log("Controller disconnected event triggered");
         OnControllerDisconnectedUI?.Invoke();
     }
+
+    public event Action OnTimerStart;
+    public void TimerStart()
+    {
+        OnTimerStart?.Invoke();
+    }
 }

@@ -118,8 +118,10 @@ public class GameManager : MonoBehaviour
     private void RestartSimulation()
     {
         dronePhysics.ResetDroneState();
+        GameEvents.Instance.TimerStart();
         if (isPaused)
             UnpauseSimulation();
+        
     }
 
     public void StopSimulation()
@@ -144,8 +146,8 @@ public class GameManager : MonoBehaviour
         dronePhysics.Crash();
         yield return new WaitForSeconds(3);
 
-        dronePhysics.ResetDroneState();
         GameEvents.Instance.HideCrashIndicator();
+        RestartSimulation();
 
         droneFC.enabled = true;
         dronePhysics.enabled = true;
