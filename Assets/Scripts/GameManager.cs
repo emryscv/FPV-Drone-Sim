@@ -118,6 +118,8 @@ public class GameManager : MonoBehaviour
     private void RestartSimulation()
     {
         dronePhysics.ResetDroneState();
+        if (isPaused)
+            UnpauseSimulation();
     }
 
     public void StopSimulation()
