@@ -9,6 +9,7 @@ public class RCControllerManager : MonoBehaviour
 {
     private const float AXIS_DETECTION_THRESHOLD = 0.9f;
     private const float AXIS_CENTER_THRESHOLD = 0.1f;
+    
     public static RCControllerManager Instance { get; private set; }
 
     public InputDevice registeredDevice { get; private set; }
@@ -109,6 +110,7 @@ public class RCControllerManager : MonoBehaviour
 
             float value = axis.ReadValue();
             _allAxesInfo.Add(new AxisInfo(axis.path, value, 0f, value, false, 0, value, axis));
+            Debug.Log("Discovered Axis: " + axis.path + " Value: " + value);
         }
     }
 
@@ -125,7 +127,6 @@ public class RCControllerManager : MonoBehaviour
                 axisInfo.min = Mathf.Min(axisInfo.min, value);
                 axisInfo.max = Mathf.Max(axisInfo.max, value);
             }
-            Debug.Log("Axis: " + axisInfo.axis.path + " Value: " + value + " Min: " + axisInfo.min + " Max: " + axisInfo.max + " Count: " + axisInfo.count);
         }
     }
 
@@ -150,6 +151,11 @@ public class RCControllerManager : MonoBehaviour
         }
 
         return false;
+    }
+
+    public bool IsCentered()
+    {
+        return Mathf.Abs(_tempDetectedAxis.axis.ReadValue()) <= AXIS_CENTER_THRESHOLD;
     }
 
     public void SetAxis(string axisName)

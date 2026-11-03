@@ -237,7 +237,8 @@ public class RCMenuController : MonoBehaviour, ISettingsMenuController
 
         controls.PruneAxes();
 
-        yield return new WaitForSecondsRealtime(1f);
+        _calibrationInstructionsDescription.text = "Center stick";
+        yield return new WaitForSecondsRealtime(2f);
         _undoBtn.style.display = DisplayStyle.Flex;
 
         _calibrationInstructionsHeading.text = "Left Stick";
@@ -247,84 +248,99 @@ public class RCMenuController : MonoBehaviour, ISettingsMenuController
         yield return WaitForAxisDetection();
         controls.SetAxis("LStickX");
 
+        yield return new WaitForSecondsRealtime(0.5f);
         _calibrationInstructionsDescription.text = "Center stick";
         _leftStick.style.left = 65;
 
-        yield return new WaitForSecondsRealtime(1f);
+        yield return WaitForCenter();
 
+        yield return new WaitForSecondsRealtime(0.5f);
         _calibrationInstructionsDescription.text = "Move the left stick up to mimic the movement on screen.";
         _leftStick.style.top = 0;
 
         yield return WaitForAxisDetection();
         controls.SetAxis("LStickY");
 
+        yield return new WaitForSecondsRealtime(0.5f);
         _calibrationInstructionsDescription.text = "Center stick";
         _leftStick.style.top = 65;
 
-        yield return new WaitForSecondsRealtime(1f);
+        yield return WaitForCenter();
 
+        yield return new WaitForSecondsRealtime(0.5f);
         _calibrationInstructionsHeading.text = "Right Stick";
         _calibrationInstructionsDescription.text = "Move the right stick to the right to mimic the movement on screen.";
         _rightStick.style.left = 130;
 
         yield return WaitForAxisDetection();
         controls.SetAxis("RStickX");
-
+        
+        yield return new WaitForSecondsRealtime(0.5f);
         _calibrationInstructionsDescription.text = "Center stick";
         _rightStick.style.left = 65;
 
-        yield return new WaitForSecondsRealtime(1f);
+        yield return WaitForCenter();
 
+        yield return new WaitForSecondsRealtime(0.5f);
         _calibrationInstructionsDescription.text = "Move the right stick up to mimic the movement on screen.";
         _rightStick.style.top = 0;
 
         yield return WaitForAxisDetection();
         controls.SetAxis("RStickY");
 
+        yield return new WaitForSecondsRealtime(0.5f);
         _calibrationInstructionsDescription.text = "Center stick";
         _rightStick.style.top = 65;
 
-        yield return new WaitForSecondsRealtime(1f);
+        yield return WaitForCenter();
 
+        yield return new WaitForSecondsRealtime(0.5f);
         _calibrationInstructionsHeading.text = "Roll";
         _calibrationInstructionsDescription.text = "Move the roll stick to the right.";
 
         yield return WaitForAxisDetection();
         controls.SetAxis("Roll");
 
+        yield return new WaitForSecondsRealtime(0.5f);
         _calibrationInstructionsDescription.text = "Center stick.";
 
-        yield return new WaitForSecondsRealtime(1f);
+        yield return WaitForCenter();
 
+        yield return new WaitForSecondsRealtime(0.5f);
         _calibrationInstructionsHeading.text = "Pitch";
         _calibrationInstructionsDescription.text = "Move the pitch stick up.";
 
         yield return WaitForAxisDetection();
         controls.SetAxis("Pitch");
 
+        yield return new WaitForSecondsRealtime(0.5f);
         _calibrationInstructionsDescription.text = "Center stick.";
 
-        yield return new WaitForSecondsRealtime(1f);
+        yield return WaitForCenter();
 
+        yield return new WaitForSecondsRealtime(0.5f);
         _calibrationInstructionsHeading.text = "Yaw";
         _calibrationInstructionsDescription.text = "Move the yaw stick to the right.";
 
         yield return WaitForAxisDetection();
         controls.SetAxis("Yaw");
 
+        yield return new WaitForSecondsRealtime(0.5f);
         _calibrationInstructionsDescription.text = "Center stick.";
 
-        yield return new WaitForSecondsRealtime(1f);
+        yield return WaitForCenter();
 
+        yield return new WaitForSecondsRealtime(0.5f);
         _calibrationInstructionsHeading.text = "Throttle";
         _calibrationInstructionsDescription.text = "Move the Throttle stick up.";
 
         yield return WaitForAxisDetection();
         controls.SetAxis("Throttle");
 
-        yield return new WaitForSecondsRealtime(1f);
-
+        yield return new WaitForSecondsRealtime(0.5f);
         _calibrationInstructionsDescription.text = "Center stick.";
+
+        yield return WaitForCenter();
 
         _moveWithInput = true;
 
@@ -406,16 +422,19 @@ public class RCMenuController : MonoBehaviour, ISettingsMenuController
     {
         //float elapsed = 0f;
 
-        while (true)
+        while (!controls.TryReadAxis())
         {
-            if (controls.TryReadAxis())
-            {
-                yield break;
-            }
-
             yield return null;
         }
 
+    }
+
+    private IEnumerator WaitForCenter()
+    {
+        while (!controls.IsCentered())
+        {
+            yield return null;
+        }
     }
 
     private IEnumerator WaitForButtonPress()
