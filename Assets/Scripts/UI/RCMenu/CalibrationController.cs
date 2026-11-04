@@ -354,6 +354,25 @@ public sealed class CalibrationController
         _rightStick.style.top = 65f;
     }
 
+    private void UndoInvertRoll()
+    {
+        _controls.InvertAxis("Roll", false);
+    }
+    
+    private void UndoInvertPitch()
+    {
+        _controls.InvertAxis("Pitch", false);
+    }
+
+    private void UndoInvertYaw()
+    {
+        _controls.InvertAxis("Yaw", false);
+    }
+
+    private void UndoInvertThrottle()
+    {
+        _controls.InvertAxis("Throttle", false);
+    }
 
 
     private CalibrationStateMachine CreateCalibrationSteps()
@@ -368,10 +387,10 @@ public sealed class CalibrationController
         CalibrationStep yaw = new(YawStep, null);
         CalibrationStep throttle = new(ThrottleStep, null);
         CalibrationStep invertInput = new(InvertInputStep, UndoInvertInput);
-        CalibrationStep invertRoll = new(InvertRollStep, null);
-        CalibrationStep invertPitch = new(InvertPitchStep, null);
-        CalibrationStep invertYaw = new(InvertYawStep, null);
-        CalibrationStep invertThrottle = new(InvertThrottleStep, null);
+        CalibrationStep invertRoll = new(InvertRollStep, UndoInvertRoll);
+        CalibrationStep invertPitch = new(InvertPitchStep, UndoInvertPitch);
+        CalibrationStep invertYaw = new(InvertYawStep, UndoInvertYaw);
+        CalibrationStep invertThrottle = new(InvertThrottleStep, UndoInvertThrottle);
 
         CalibrationStateMachine.Link(discovery, leftStickX);
         CalibrationStateMachine.Link(leftStickX, leftStickY);
