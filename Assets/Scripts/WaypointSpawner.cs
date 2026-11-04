@@ -4,7 +4,7 @@ public class WaypointSpawner : MonoBehaviour
 {
     [SerializeField] float objectiveTime;
     [SerializeField] string objectivePopup;
-    [SerializeField] WaypointSpawner nextObjective;
+    [SerializeField] GameObject nextObjective;
     [SerializeField] GameObject waypointPrefab;
 
     GameObject objectToSpawn;

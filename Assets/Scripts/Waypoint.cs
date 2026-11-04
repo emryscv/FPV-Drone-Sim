@@ -4,7 +4,7 @@ public class Waypoint : MonoBehaviour
 {
     [SerializeField] public float objectiveTime;
     [SerializeField] public string objectivePopup;
-    [SerializeField] public WaypointSpawner nextObjective;
+    [SerializeField] public GameObject nextObjective;
     float currentTime;
     int objectsInside;
 
@@ -70,8 +70,9 @@ public class Waypoint : MonoBehaviour
     {
         if (nextObjective != null)
         {
-            nextObjective.SpawnObjective();
+            nextObjective.SetActive(true);
         }
-        GameObject.Destroy(gameObject);
+
+        gameObject.SetActive(false);
     }
 }
