@@ -1,3 +1,6 @@
+using System.Collections;
+using UnityEngine;
+
 public enum RateType
 {
     Betaflight,
@@ -5,3 +8,9 @@ public enum RateType
 }
 
 public delegate float RateEquation(int axis, float input);
+
+public delegate Coroutine StartCoroutine(IEnumerator routine);
+
+public delegate void StopCoroutine(Coroutine coroutine);
+
+public delegate void OnUndo();

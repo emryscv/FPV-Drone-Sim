@@ -192,7 +192,7 @@ public class RCControllerManager : MonoBehaviour
         }
     }
 
-    public void InvertAxis(string axisName)
+    public void InvertAxis(string axisName, bool invert = true)
     {
         string invertedPath = "";
 
@@ -201,37 +201,37 @@ public class RCControllerManager : MonoBehaviour
             case "Throttle":
                 if (Throttle != null)
                 {
-                    Throttle.inverted = true;
+                    Throttle.inverted = invert;
                     invertedPath = Throttle.axis.path;
                 }
                 break;
             case "Yaw":
                 if (Yaw != null)
                 {
-                    Yaw.inverted = true;
+                    Yaw.inverted = invert;
                     invertedPath = Yaw.axis.path;
                 }
                 break;
             case "Pitch":
                 if (Pitch != null)
                 {
-                    Pitch.inverted = true;
+                    Pitch.inverted = invert;
                     invertedPath = Pitch.axis.path;
                 }
                 break;
             case "Roll":
                 if (Roll != null)
                 {
-                    Roll.inverted = true;
+                    Roll.inverted = invert;
                     invertedPath = Roll.axis.path;
                 }
                 break;
         }
 
-        if (invertedPath == LStickY.axis.path) LStickY.inverted = true;
-        if (invertedPath == LStickX.axis.path) LStickX.inverted = true;
-        if (invertedPath == RStickY.axis.path) RStickY.inverted = true;
-        if (invertedPath == RStickX.axis.path) RStickX.inverted = true;
+        if (invertedPath == LStickY.axis.path) LStickY.inverted = invert;
+        if (invertedPath == LStickX.axis.path) LStickX.inverted = invert;
+        if (invertedPath == RStickY.axis.path) RStickY.inverted = invert;
+        if (invertedPath == RStickX.axis.path) RStickX.inverted = invert;
     }
 
     public void PrintDebug()
