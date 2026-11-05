@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 using System;
+using System.Collections;
 
 public class RCMenuController : MonoBehaviour, ISettingsMenuController
 {
@@ -30,6 +31,7 @@ public class RCMenuController : MonoBehaviour, ISettingsMenuController
 
     private Button _startCalibrationBtn;
     private Button _saveBtn;
+    private Button _savedBtn;
 
 
     private CalibrationController _calibrationController;
@@ -57,6 +59,7 @@ public class RCMenuController : MonoBehaviour, ISettingsMenuController
         
         _startCalibrationBtn = _RCMenuTab.Q<Button>("StartCalibrationButton");
         _saveBtn = _RCMenuTab.Q<Button>("SaveButton");
+        _savedBtn = _RCMenuTab.Q<Button>("SavedButton");
 
         _calibrationController = new CalibrationController(
             this.StartCoroutine,    
@@ -157,6 +160,7 @@ public class RCMenuController : MonoBehaviour, ISettingsMenuController
     private void OnSaveBtnClick(ClickEvent evt)
     {
         controls.SaveCalibration();
+        StartCoroutine(NotifySaved());
     }
 
     private void OnYesBtnClick(ClickEvent evt)
@@ -167,5 +171,16 @@ public class RCMenuController : MonoBehaviour, ISettingsMenuController
     private void OnNoBtnClick(ClickEvent evt)
     {
         _calibrationController.SetPositiveButtonPressed(false);
+    }
+
+    private IEnumerator NotifySaved()
+    {
+        _saveBtn.style.display = DisplayStyle.None;
+        _savedBtn.style.display = DisplayStyle.Flex;
+
+        yield return new WaitForSecondsRealtime(2f);
+
+        _saveBtn.style.display = DisplayStyle.Flex;
+        _savedBtn.style.display = DisplayStyle.None;
     }
 }

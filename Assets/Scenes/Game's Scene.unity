@@ -824,6 +824,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8734374456877368802, guid: b4656b7dc0608ad4293c85d16c1b40a2, type: 3}
   m_PrefabInstance: {fileID: 1633966754}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &148105732 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7859421208283628099, guid: 21e8334bad028a043bb312d6481d42b8, type: 3}
+  m_PrefabInstance: {fileID: 872827704}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &149427122
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3001,6 +3006,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 696375368}
+  - component: {fileID: 696375369}
   m_Layer: 0
   m_Name: Excercise4
   m_TagString: Excerscise
@@ -3056,6 +3062,19 @@ Transform:
   - {fileID: 1716011407}
   m_Father: {fileID: 478538996}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &696375369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 696375367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d2d3e8b0d7b4cb8a4d17e7cc45f25b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Exercise
+  startingWaypoint: {fileID: 1364448959}
 --- !u!1 &698609295
 GameObject:
   m_ObjectHideFlags: 0
@@ -5430,6 +5449,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1068907398}
+  - component: {fileID: 1068907399}
   m_Layer: 0
   m_Name: Excercise3
   m_TagString: Excerscise
@@ -5465,6 +5485,19 @@ Transform:
   - {fileID: 614469918}
   m_Father: {fileID: 478538996}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1068907399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1068907397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d2d3e8b0d7b4cb8a4d17e7cc45f25b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Exercise
+  startingWaypoint: {fileID: 2008038826}
 --- !u!4 &1070109239 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8734374456877368802, guid: b4656b7dc0608ad4293c85d16c1b40a2, type: 3}
@@ -6335,6 +6368,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1346509362}
+  - component: {fileID: 1346509363}
   m_Layer: 0
   m_Name: Excercise2
   m_TagString: Excerscise
@@ -6367,6 +6401,19 @@ Transform:
   - {fileID: 1475062629}
   m_Father: {fileID: 478538996}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1346509363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1346509361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d2d3e8b0d7b4cb8a4d17e7cc45f25b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Exercise
+  startingWaypoint: {fileID: 2078549829}
 --- !u!1001 &1350230130
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6436,6 +6483,11 @@ PrefabInstance:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7859421208283628099, guid: 21e8334bad028a043bb312d6481d42b8, type: 3}
   m_PrefabInstance: {fileID: 1350230130}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1364448959 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2544226023865870790, guid: b4656b7dc0608ad4293c85d16c1b40a2, type: 3}
+  m_PrefabInstance: {fileID: 760059543}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1368484054
 PrefabInstance:
@@ -10365,6 +10417,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2008038826 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7859421208283628099, guid: 21e8334bad028a043bb312d6481d42b8, type: 3}
+  m_PrefabInstance: {fileID: 149427122}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2017694524 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 199166389521317367, guid: 21e8334bad028a043bb312d6481d42b8, type: 3}
@@ -10677,6 +10734,11 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3.5, y: 0.2, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &2078549829 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7859421208283628099, guid: 21e8334bad028a043bb312d6481d42b8, type: 3}
+  m_PrefabInstance: {fileID: 1209129543506236045}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2080991021 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8734374456877368802, guid: b4656b7dc0608ad4293c85d16c1b40a2, type: 3}
@@ -10691,6 +10753,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2109498131}
+  - component: {fileID: 2109498132}
   m_Layer: 0
   m_Name: Excercise1
   m_TagString: Excerscise
@@ -10720,6 +10783,19 @@ Transform:
   - {fileID: 2740926502124641944}
   m_Father: {fileID: 478538996}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2109498132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2109498130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d2d3e8b0d7b4cb8a4d17e7cc45f25b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Exercise
+  startingWaypoint: {fileID: 148105732}
 --- !u!1 &2113625162
 GameObject:
   m_ObjectHideFlags: 0
