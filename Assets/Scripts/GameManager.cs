@@ -4,6 +4,7 @@ using UnityEngine.UIElements;
 using Slider = UnityEngine.UI.Slider;
 using Cursor = UnityEngine.Cursor;
 using System.Collections;
+using System;
 
 
 
@@ -13,6 +14,7 @@ public class GameManager : MonoBehaviour
 
     public bool isGameStarted;
     public bool isPaused;
+    public bool isSettingOpened;
     public float timeScaleOrig;
 
     [SerializeField] TrainingManager trainingManager;
@@ -41,6 +43,8 @@ public class GameManager : MonoBehaviour
         Instance = this;
         isGameStarted = false;
         isPaused = true;
+        isSettingOpened = false;
+
         timeScaleOrig = Time.timeScale;
         Time.timeScale = 0;
 
@@ -49,8 +53,12 @@ public class GameManager : MonoBehaviour
         droneFC = drone.GetComponent<FlightController>();
 
         _PauseMenu = uiManager.rootVisualElement.Q<VisualElement>("PauseMenu");
-        GameEvents.Instance.OnRestart += () => RestartSimulation(true);
+        GameEvents.Instance.OnRestart += () => RestartSimulation(true, false);
         GameEvents.Instance.OnCrash += DroneCrash;
+        GameEvents.Instance.OnSettingsOpened += OnSettingsOpened;
+        GameEvents.Instance.OnSettingsClosed += OnSettingsClosed;
+        GameEvents.Instance.OnTimerEnd += OnTimerEnd;
+        GameEvents.Instance.OnNextExercise += OnNextExercise;
     }
 
     // Update is called once per frame
@@ -60,7 +68,7 @@ public class GameManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                if (isPaused)
+                if (isPaused && !isSettingOpened)
                 {
                     UnpauseSimulation();
                     GameEvents.Instance.Unpause();
@@ -71,17 +79,20 @@ public class GameManager : MonoBehaviour
                     GameEvents.Instance.Pause();
                 }
             }
-            if (Input.GetKeyDown(KeyCode.R) && !isPaused)
+            if (!isPaused)
             {
-                RestartSimulation(true);
-            }
-            if(Input.GetKeyDown(KeyCode.UpArrow) && !isPaused)
-            {   
-                dronePhysics.ChangeCameraAngle(true);
-            }
-            if(Input.GetKeyDown(KeyCode.DownArrow) && !isPaused)
-            {   
-                dronePhysics.ChangeCameraAngle(false);
+                if (Input.GetKeyDown(KeyCode.R))
+                {
+                    RestartSimulation(true, true);
+                }
+                if (Input.GetKeyDown(KeyCode.UpArrow))
+                {
+                    dronePhysics.ChangeCameraAngle(true);
+                }
+                if (Input.GetKeyDown(KeyCode.DownArrow))
+                {
+                    dronePhysics.ChangeCameraAngle(false);
+                }
             }
         }
     }
@@ -89,13 +100,10 @@ public class GameManager : MonoBehaviour
     // ---- PAUSING ---- //
     public void StartSimulation()
     {
-        droneFC.enabled = true;
-        dronePhysics.enabled = true;
         isGameStarted = true;
-
         dronePhysics.ResetDroneState();
 
-        UnpauseSimulation();
+        GameEvents.Instance.TimerStart();
     }
 
     public void PauseSimulation()
@@ -118,24 +126,50 @@ public class GameManager : MonoBehaviour
 
         droneFC.enabled = true;
         dronePhysics.enabled = true;
-
         //Cursor is handled here. Otherwise every UI view
         //would have to handle it independently
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    private void RestartSimulation(bool timer)
+    private void RestartSimulation(bool timer, bool pause)
     {
+        if (pause)
+            PauseSimulation();
+        
         dronePhysics.ResetDroneState();
         trainingManager.RestartExcercise();
 
         if (timer)
             GameEvents.Instance.TimerStart();
-
-        if (isPaused)
+        else if (isPaused)
             UnpauseSimulation();
+    }
 
+    public void OnSettingsOpened()
+    {
+        isSettingOpened = true;
+    }
+    public void OnSettingsClosed()
+    {
+        isSettingOpened = false;
+    }
+    public void OnTimerEnd()
+    {
+        UnpauseSimulation();
+    }
+    private void OnNextExercise()
+    {
+        StartCoroutine(OnNextExerciseRoutine());
+    }
+
+    private IEnumerator OnNextExerciseRoutine()
+    {  
+        trainingManager.NextExcercise();
+        dronePhysics.ResetDroneState();
+
+        yield return new WaitForSecondsRealtime(0.001f);
+        RestartSimulation(true, true);
     }
 
     public void StopSimulation()
@@ -154,19 +188,15 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator DroneCrashCoroutine()
     {
-        droneFC.enabled = false;
-        dronePhysics.enabled = false;
+        PauseSimulation();
 
         GameEvents.Instance.DisplayCrashIndicator();
         dronePhysics.Crash();
         Debug.Log("TrainingManager: " + trainingManager);
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSecondsRealtime(3);
 
         GameEvents.Instance.HideCrashIndicator();
-        RestartSimulation(false);
-
-        droneFC.enabled = true;
-        dronePhysics.enabled = true;
+        RestartSimulation(false, false);
     }
 
     // ---- WIN CONDITION FEEDBACK ---- //

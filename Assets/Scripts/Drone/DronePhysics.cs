@@ -59,7 +59,7 @@ public class DronePhysics : MonoBehaviour
         RRMotor = GameObject.Find("RRMotor").transform;
         motorDisturbance = new float[4] { 1f, 1f, 1f, 1f };
 
-        StartCoroutine(RunEveryHalfSecond());
+        StartCoroutine(RunEveryTenSeconds());
     }
 
     void OnEnable()
@@ -153,7 +153,7 @@ public class DronePhysics : MonoBehaviour
         droneRB.rotation = rotation == null ? Quaternion.Euler(0, 270, 0) : rotation.Value;
     }
 
-    private IEnumerator RunEveryHalfSecond()
+    private IEnumerator RunEveryTenSeconds()
     {
         while (true)
         {
@@ -161,7 +161,7 @@ public class DronePhysics : MonoBehaviour
             {
                 motorDisturbance[i] = 1 + UnityEngine.Random.Range(-0.005f, 0.005f);
             }
-            yield return new WaitForSeconds(10f);
+            yield return new WaitForSecondsRealtime(10f);
         }
     }
 

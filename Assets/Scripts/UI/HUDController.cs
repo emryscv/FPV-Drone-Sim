@@ -115,10 +115,14 @@ public class HUDController : MonoBehaviour
         }    
         _timerLabel.text = "GO!";
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(1f);
 
+        Debug.Log("HUDController: Countdown finished, unpausing simulation.");
         _OSD.style.display = DisplayStyle.Flex;
         _timerLabel.style.display = DisplayStyle.None;
+
+        Debug.Log("HUDController: Countdown finished, unpausing simulation.");
+        GameEvents.Instance.TimerEnd();
     }
 
     private void SetTimerFontSize(float fontSize, float transitionDuration)

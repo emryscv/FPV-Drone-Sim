@@ -2,14 +2,12 @@ using UnityEngine;
 
 public class TrainingManager : MonoBehaviour
 {
-    private GameObject player;
     private GameObject[] excercises;
     int currentExcercise;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {        
         //TODO figure ou how to restart the training.
-        player = GameObject.FindWithTag("Player");
         excercises = new GameObject[4];
         excercises[0] = GameObject.Find("Excercise1");
         excercises[1] = GameObject.Find("Excercise2");
@@ -38,7 +36,6 @@ public class TrainingManager : MonoBehaviour
         }
         
         excercises[currentExcercise].SetActive(true);
-        player.GetComponents<DronePhysics>()[0].ResetDroneState();
     }
 
     public void RestartExcercise()

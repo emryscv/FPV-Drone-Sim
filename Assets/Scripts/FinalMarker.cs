@@ -13,8 +13,7 @@ public class FinalMarker : Waypoint
 
     protected override void FinishObjective()
     {
-        Debug.Log("Final Marker reached!");
-        trainingManager.NextExcercise();
         gameObject.SetActive(false);
+        GameEvents.Instance.NextExercise();
     }
 }

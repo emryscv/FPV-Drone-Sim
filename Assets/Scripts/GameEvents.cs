@@ -28,6 +28,18 @@ public class GameEvents : MonoBehaviour
         OnRestart?.Invoke();
     }
 
+    public event Action OnSettingsOpened;
+    public void SettingsOpened()
+    {
+        OnSettingsOpened?.Invoke();
+    }
+    
+    public event Action OnSettingsClosed;
+    public void SettingsClosed()
+    {
+        OnSettingsClosed?.Invoke();
+    }
+
     public event Action OnCrash;
     public void Crash()
     {
@@ -65,5 +77,17 @@ public class GameEvents : MonoBehaviour
     public void TimerStart()
     {
         OnTimerStart?.Invoke();
+    }
+
+    public event Action OnTimerEnd;
+    public void TimerEnd()
+    {
+        OnTimerEnd?.Invoke();
+    }
+
+    public event Action OnNextExercise;
+    public void NextExercise()
+    {
+        OnNextExercise?.Invoke();
     }
 }

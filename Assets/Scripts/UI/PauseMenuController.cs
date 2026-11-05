@@ -15,6 +15,7 @@ public class PauseMenuController : MonoBehaviour
     
     private MonoBehaviour _settingsViewController;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+    
     private void OnEnable()
     {
         // Get reference to UI views
@@ -71,6 +72,7 @@ public class PauseMenuController : MonoBehaviour
         _PauseMenu.style.display = DisplayStyle.None;
         _SettingsView.style.display = DisplayStyle.Flex;
         _settingsViewController.enabled = true;
+        GameEvents.Instance.SettingsOpened();
     }
 
     private void OnExitNavClick(ClickEvent evt)

@@ -77,9 +77,13 @@ public class SettingsViewController : MonoBehaviour
             _PauseMenu.style.display = DisplayStyle.Flex;
         else
             _MainMenu.style.display = DisplayStyle.Flex;
-    
+
+        GameEvents.Instance.SettingsClosed();
+
         _currentTabController.enabled = false;
         this.enabled = false;
+
+        GameEvents.Instance.TimerEnd();
     }
 
     private void OnSaveBtnClick(ClickEvent evt)
