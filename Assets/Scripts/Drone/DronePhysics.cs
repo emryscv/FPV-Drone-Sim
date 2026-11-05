@@ -59,27 +59,14 @@ public class DronePhysics : MonoBehaviour
         RRMotor = GameObject.Find("RRMotor").transform;
         motorDisturbance = new float[4] { 1f, 1f, 1f, 1f };
 
+        SetDroneProperties();
+
         StartCoroutine(RunEveryTenSeconds());
     }
 
     void OnEnable()
     {
-        cameraAngle = DroneProperties.CameraAngle;
-        GetComponentInChildren<Camera>().transform.localRotation = Quaternion.Euler(-cameraAngle, 0, 0);
-
-        //TODO Check if the drone frame is on meters
-        droneRB.mass = DroneProperties.Mass / 1000f; //kg
-        l = DroneProperties.FrameSize / 2000.0f; //Half the distance between two consecutive motors assuming the frame is square   
-        propellerSize = propellerSizes[DroneProperties.PropellerDiameter]; //m
-
-        //TODO see how can i mantain aspect ratio
-        Vector3 scale = droneRB.gameObject.transform.localScale;
-        scale.x = l * 2f; //m
-        scale.y = l * 2f; //m
-        scale.z = l * 2f; //m
-
-        droneRB.gameObject.transform.localScale = scale;
-
+        SetDroneProperties();
         Debug.Log("Drone Properties: Mass: " + DroneProperties.Mass + "kg, Frame Size: " + DroneProperties.FrameSize + "mm, Propeller Size: " + propellerSize + "m, Battery Capacity: " + DroneProperties.BatteryCapacity + "mAh, Max Thrust: " + DroneProperties.MaxThrust + "N, Camera Angle: " + DroneProperties.CameraAngle + "°, Motor Torque Constant: " + DroneProperties.MotorTorqueConstant);
     }
 
@@ -143,6 +130,25 @@ public class DronePhysics : MonoBehaviour
     {
         droneRB.linearVelocity = Vector3.zero;
         droneRB.angularVelocity = Vector3.zero;
+    }
+
+    private void SetDroneProperties()
+    {
+        cameraAngle = DroneProperties.CameraAngle;
+        GetComponentInChildren<Camera>().transform.localRotation = Quaternion.Euler(-cameraAngle, 0, 0);
+
+        //TODO Check if the drone frame is on meters
+        droneRB.mass = DroneProperties.Mass / 1000f; //kg
+        l = DroneProperties.FrameSize / 2000.0f; //Half the distance between two consecutive motors assuming the frame is square   
+        propellerSize = propellerSizes[DroneProperties.PropellerDiameter]; //m
+
+        //TODO see how can i mantain aspect ratio
+        Vector3 scale = droneRB.gameObject.transform.localScale;
+        scale.x = l * 2f; //m
+        scale.y = l * 2f; //m
+        scale.z = l * 2f; //m
+
+        droneRB.gameObject.transform.localScale = scale;
     }
 
     public void ResetDroneState(Vector3? position = null, Quaternion? rotation = null)

@@ -133,13 +133,13 @@ public class GameManager : MonoBehaviour
     }
 
     private void RestartSimulation(bool timer, bool pause)
-    {
+    {   
         if (pause)
             PauseSimulation();
-        
+
         dronePhysics.ResetDroneState();
         trainingManager.RestartExcercise();
-
+        
         if (timer)
             GameEvents.Instance.TimerStart();
         else if (isPaused)
@@ -165,6 +165,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator OnNextExerciseRoutine()
     {  
+        //This is a temporary solution but it works
         trainingManager.NextExcercise();
         dronePhysics.ResetDroneState();
 
