@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
         droneFC = drone.GetComponent<FlightController>();
 
         _PauseMenu = uiManager.rootVisualElement.Q<VisualElement>("PauseMenu");
-        GameEvents.Instance.OnRestart += RestartSimulation;
+        GameEvents.Instance.OnRestart += () => RestartSimulation(true);
         GameEvents.Instance.OnCrash += DroneCrash;
     }
 
@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.R) && !isPaused)
             {
-                RestartSimulation();
+                RestartSimulation(true);
             }
         }
     }
@@ -117,13 +117,17 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    private void RestartSimulation()
+    private void RestartSimulation(bool timer)
     {
         dronePhysics.ResetDroneState();
-        GameEvents.Instance.TimerStart();
+        trainingManager.RestartExcercise();
+
+        if (timer)
+            GameEvents.Instance.TimerStart();
+
         if (isPaused)
             UnpauseSimulation();
-        
+
     }
 
     public void StopSimulation()
@@ -132,8 +136,9 @@ public class GameManager : MonoBehaviour
         isGameStarted = false;
 
         PauseSimulation();
+        trainingManager.ResetTraining();
     }
-   
+
     private void DroneCrash()
     {
         StartCoroutine(DroneCrashCoroutine());
@@ -147,11 +152,10 @@ public class GameManager : MonoBehaviour
         GameEvents.Instance.DisplayCrashIndicator();
         dronePhysics.Crash();
         Debug.Log("TrainingManager: " + trainingManager);
-        trainingManager.RestartExcercise();
         yield return new WaitForSeconds(3);
 
         GameEvents.Instance.HideCrashIndicator();
-        RestartSimulation();
+        RestartSimulation(false);
 
         droneFC.enabled = true;
         dronePhysics.enabled = true;

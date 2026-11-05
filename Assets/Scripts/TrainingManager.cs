@@ -29,6 +29,7 @@ public class TrainingManager : MonoBehaviour
     {
         Debug.Log("Next Excercise");
         excercises[currentExcercise].SetActive(false);
+        RestartExcercise();
 
         currentExcercise++;
         if(currentExcercise >= excercises.Length)
@@ -43,5 +44,14 @@ public class TrainingManager : MonoBehaviour
     public void RestartExcercise()
     {
         excercises[currentExcercise].GetComponent<Exercise>().Restart();
+    }
+
+    public void ResetTraining()
+    {
+        RestartExcercise();
+        excercises[currentExcercise].SetActive(false);
+        
+        currentExcercise = 0;
+        excercises[currentExcercise].SetActive(true);
     }
 }
