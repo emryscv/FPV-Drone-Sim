@@ -169,7 +169,7 @@ public class GameManager : MonoBehaviour
         trainingManager.NextExcercise();
         dronePhysics.ResetDroneState();
 
-        yield return new WaitForSecondsRealtime(0.001f);
+        yield return new WaitForSecondsRealtime(0.1f);
         RestartSimulation(true, true);
     }
 
