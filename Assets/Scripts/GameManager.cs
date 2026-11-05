@@ -75,6 +75,14 @@ public class GameManager : MonoBehaviour
             {
                 RestartSimulation(true);
             }
+            if(Input.GetKeyDown(KeyCode.UpArrow) && !isPaused)
+            {   
+                dronePhysics.ChangeCameraAngle(true);
+            }
+            if(Input.GetKeyDown(KeyCode.DownArrow) && !isPaused)
+            {   
+                dronePhysics.ChangeCameraAngle(false);
+            }
         }
     }
 

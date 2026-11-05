@@ -43,6 +43,7 @@ public class DronePhysics : MonoBehaviour
 
     private float l; //Half the distance between two consecutive motors. Assuming the frame is square
     private float propellerSize;
+    private float cameraAngle;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -63,7 +64,8 @@ public class DronePhysics : MonoBehaviour
 
     void OnEnable()
     {
-        GetComponentInChildren<Camera>().transform.localRotation = Quaternion.Euler(-1 * DroneProperties.CameraAngle, 0, 0);
+        cameraAngle = DroneProperties.CameraAngle;
+        GetComponentInChildren<Camera>().transform.localRotation = Quaternion.Euler(-cameraAngle, 0, 0);
 
         //TODO Check if the drone frame is on meters
         droneRB.mass = DroneProperties.Mass / 1000f; //kg
@@ -201,5 +203,12 @@ public class DronePhysics : MonoBehaviour
 
         // 5. Aplicar la fuerza al cuerpo rígido en el simulador
         droneRB.AddForce(fDragGlobal);
+    }
+
+    public void ChangeCameraAngle(bool direction)
+    {
+        cameraAngle += direction ? 1f : -1f;
+        Transform cameraTransform = GetComponentInChildren<Camera>().transform;
+        cameraTransform.localRotation = Quaternion.Euler(-cameraAngle, 0, 0);
     }
 }
