@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     public bool isPaused;
     public float timeScaleOrig;
 
+    [SerializeField] TrainingManager trainingManager;
+
     GameObject drone;
     DronePhysics dronePhysics;
     FlightController droneFC;
@@ -144,6 +146,8 @@ public class GameManager : MonoBehaviour
 
         GameEvents.Instance.DisplayCrashIndicator();
         dronePhysics.Crash();
+        Debug.Log("TrainingManager: " + trainingManager);
+        trainingManager.RestartExcercise();
         yield return new WaitForSeconds(3);
 
         GameEvents.Instance.HideCrashIndicator();

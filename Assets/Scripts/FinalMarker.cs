@@ -15,6 +15,6 @@ public class FinalMarker : Waypoint
     {
         Debug.Log("Final Marker reached!");
         trainingManager.NextExcercise();
-        GameObject.Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

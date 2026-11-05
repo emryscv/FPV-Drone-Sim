@@ -5,13 +5,17 @@ public class Waypoint : MonoBehaviour
     [SerializeField] public float objectiveTime;
     [SerializeField] public string objectivePopup;
     [SerializeField] public GameObject nextObjective;
-    float currentTime;
-    int objectsInside;
+    private Exercise exercise;
+
+    private float currentTime;
+    private int objectsInside;
 
     protected bool playerInRange;
 
-    void Awake()
+    private void OnEnable()
     {
+        currentTime = 0.0f;
+        objectsInside = 0;
         playerInRange = false;
     }
 
@@ -20,6 +24,8 @@ public class Waypoint : MonoBehaviour
     {
         objectsInside = 0;
         currentTime = 0.0f;
+        exercise = GetComponentInParent<Exercise>();
+        Debug.Log("Waypoint Start: " + exercise);
         if (objectivePopup != "")
         {
             GameManager.Instance.ShowPopup(objectivePopup);
@@ -67,12 +73,10 @@ public class Waypoint : MonoBehaviour
     }
 
     protected virtual void FinishObjective()
-    {
-        if (nextObjective != null)
-        {
-            nextObjective.SetActive(true);
-        }
-
+    {    
+        exercise.SetCurrent(nextObjective);
+     
+        nextObjective.SetActive(true);
         gameObject.SetActive(false);
     }
 }

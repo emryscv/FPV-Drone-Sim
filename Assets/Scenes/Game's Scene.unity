@@ -880,6 +880,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GateWithWaypoint
       objectReference: {fileID: 0}
+    - target: {fileID: 7859421208283628099, guid: 21e8334bad028a043bb312d6481d42b8, type: 3}
+      propertyPath: m_Name
+      value: StartingWaypoint
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1155,78 +1159,62 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 696375368}
     m_Modifications:
-    - target: {fileID: 243886096922102071, guid: 8f5222b1341e21d429b476e3a05cde7c, type: 3}
-      propertyPath: nextObjective
-      value: 
+    - target: {fileID: 2544226023865870790, guid: e1c82a20f6afd534ba58429898cc8b6a, type: 3}
+      propertyPath: m_Name
+      value: FinalWaypoint
       objectReference: {fileID: 0}
-    - target: {fileID: 243886096922102071, guid: 8f5222b1341e21d429b476e3a05cde7c, type: 3}
-      propertyPath: objectiveTime
-      value: 0.01
+    - target: {fileID: 2544226023865870790, guid: e1c82a20f6afd534ba58429898cc8b6a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 243886096922102071, guid: 8f5222b1341e21d429b476e3a05cde7c, type: 3}
-      propertyPath: objectivePopup
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 243886096922102071, guid: 8f5222b1341e21d429b476e3a05cde7c, type: 3}
-      propertyPath: waypointPrefab
-      value: 
-      objectReference: {fileID: 2544226023865870790, guid: e1c82a20f6afd534ba58429898cc8b6a, type: 3}
-    - target: {fileID: 243886096922102071, guid: 8f5222b1341e21d429b476e3a05cde7c, type: 3}
-      propertyPath: objectivePrefab
-      value: 
-      objectReference: {fileID: 2544226023865870790, guid: e1c82a20f6afd534ba58429898cc8b6a, type: 3}
-    - target: {fileID: 6411657552631538423, guid: 8f5222b1341e21d429b476e3a05cde7c, type: 3}
+    - target: {fileID: 8734374456877368802, guid: e1c82a20f6afd534ba58429898cc8b6a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6411657552631538423, guid: 8f5222b1341e21d429b476e3a05cde7c, type: 3}
+    - target: {fileID: 8734374456877368802, guid: e1c82a20f6afd534ba58429898cc8b6a, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.8
       objectReference: {fileID: 0}
-    - target: {fileID: 6411657552631538423, guid: 8f5222b1341e21d429b476e3a05cde7c, type: 3}
+    - target: {fileID: 8734374456877368802, guid: e1c82a20f6afd534ba58429898cc8b6a, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6411657552631538423, guid: 8f5222b1341e21d429b476e3a05cde7c, type: 3}
+    - target: {fileID: 8734374456877368802, guid: e1c82a20f6afd534ba58429898cc8b6a, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.7071068
       objectReference: {fileID: 0}
-    - target: {fileID: 6411657552631538423, guid: 8f5222b1341e21d429b476e3a05cde7c, type: 3}
+    - target: {fileID: 8734374456877368802, guid: e1c82a20f6afd534ba58429898cc8b6a, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6411657552631538423, guid: 8f5222b1341e21d429b476e3a05cde7c, type: 3}
+    - target: {fileID: 8734374456877368802, guid: e1c82a20f6afd534ba58429898cc8b6a, type: 3}
       propertyPath: m_LocalRotation.y
       value: 0.7071068
       objectReference: {fileID: 0}
-    - target: {fileID: 6411657552631538423, guid: 8f5222b1341e21d429b476e3a05cde7c, type: 3}
+    - target: {fileID: 8734374456877368802, guid: e1c82a20f6afd534ba58429898cc8b6a, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6411657552631538423, guid: 8f5222b1341e21d429b476e3a05cde7c, type: 3}
+    - target: {fileID: 8734374456877368802, guid: e1c82a20f6afd534ba58429898cc8b6a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6411657552631538423, guid: 8f5222b1341e21d429b476e3a05cde7c, type: 3}
+    - target: {fileID: 8734374456877368802, guid: e1c82a20f6afd534ba58429898cc8b6a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 90
       objectReference: {fileID: 0}
-    - target: {fileID: 6411657552631538423, guid: 8f5222b1341e21d429b476e3a05cde7c, type: 3}
+    - target: {fileID: 8734374456877368802, guid: e1c82a20f6afd534ba58429898cc8b6a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6575499912113398724, guid: 8f5222b1341e21d429b476e3a05cde7c, type: 3}
-      propertyPath: m_Name
-      value: FinalWaypointSpawner
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 8f5222b1341e21d429b476e3a05cde7c, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: e1c82a20f6afd534ba58429898cc8b6a, type: 3}
 --- !u!1 &253875219 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 6575499912113398724, guid: 8f5222b1341e21d429b476e3a05cde7c, type: 3}
+  m_CorrespondingSourceObject: {fileID: 2544226023865870790, guid: e1c82a20f6afd534ba58429898cc8b6a, type: 3}
   m_PrefabInstance: {fileID: 253875218}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &258763186
@@ -3674,7 +3662,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2544226023865870790, guid: b4656b7dc0608ad4293c85d16c1b40a2, type: 3}
       propertyPath: m_Name
-      value: WaypointMarkerBig
+      value: StartingWaypoint
       objectReference: {fileID: 0}
     - target: {fileID: 7492050602716556093, guid: b4656b7dc0608ad4293c85d16c1b40a2, type: 3}
       propertyPath: nextObjective
@@ -4381,6 +4369,10 @@ PrefabInstance:
     - target: {fileID: 3464237613066839495, guid: 21e8334bad028a043bb312d6481d42b8, type: 3}
       propertyPath: m_Name
       value: GateWithWaypoint
+      objectReference: {fileID: 0}
+    - target: {fileID: 7859421208283628099, guid: 21e8334bad028a043bb312d6481d42b8, type: 3}
+      propertyPath: m_Name
+      value: StartingWaypoint
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6074,6 +6066,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2544226023865870790, guid: b4656b7dc0608ad4293c85d16c1b40a2, type: 3}
   m_PrefabInstance: {fileID: 1265997151}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1274617683 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7859421208283628099, guid: 21e8334bad028a043bb312d6481d42b8, type: 3}
+  m_PrefabInstance: {fileID: 1778478647}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1295754665
 GameObject:
   m_ObjectHideFlags: 0
@@ -6421,7 +6418,7 @@ PrefabInstance:
     - target: {fileID: 241907028269962094, guid: 21e8334bad028a043bb312d6481d42b8, type: 3}
       propertyPath: nextObjective
       value: 
-      objectReference: {fileID: 1350230131}
+      objectReference: {fileID: 1274617683}
     - target: {fileID: 3464237613066839495, guid: 21e8334bad028a043bb312d6481d42b8, type: 3}
       propertyPath: m_Name
       value: GateWithWaypoint (10)
@@ -8387,7 +8384,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1716011407 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 6411657552631538423, guid: 8f5222b1341e21d429b476e3a05cde7c, type: 3}
+  m_CorrespondingSourceObject: {fileID: 8734374456877368802, guid: e1c82a20f6afd534ba58429898cc8b6a, type: 3}
   m_PrefabInstance: {fileID: 253875218}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1750387309
@@ -10524,6 +10521,10 @@ PrefabInstance:
       propertyPath: uiManager
       value: 
       objectReference: {fileID: 651960967}
+    - target: {fileID: 3555338246031641447, guid: f4018c4f0c44df94e8fde6abd22017d4, type: 3}
+      propertyPath: trainingManager
+      value: 
+      objectReference: {fileID: 478538997}
     - target: {fileID: 4547590770920528231, guid: f4018c4f0c44df94e8fde6abd22017d4, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0.527
@@ -11172,6 +11173,10 @@ PrefabInstance:
     - target: {fileID: 3464237613066839495, guid: 21e8334bad028a043bb312d6481d42b8, type: 3}
       propertyPath: m_Name
       value: GateWithWaypoint
+      objectReference: {fileID: 0}
+    - target: {fileID: 7859421208283628099, guid: 21e8334bad028a043bb312d6481d42b8, type: 3}
+      propertyPath: m_Name
+      value: StartingWaypoint
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
