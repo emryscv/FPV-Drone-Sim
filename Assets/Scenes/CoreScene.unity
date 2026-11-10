@@ -267,6 +267,7 @@ GameObject:
   - component: {fileID: 651960976}
   - component: {fileID: 651960975}
   - component: {fileID: 651960978}
+  - component: {fileID: 651960980}
   m_Layer: 5
   m_Name: UIManager
   m_TagString: Untagged
@@ -442,6 +443,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a40ced1f70d4e7f4c8f2f6e3a3b49c6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FCMenuController
+--- !u!114 &651960980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 651960966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aee4717757394a5499f2813e70019c0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MapSelectorController
 --- !u!1 &712785471
 GameObject:
   m_ObjectHideFlags: 0

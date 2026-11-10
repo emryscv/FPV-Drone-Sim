@@ -8,7 +8,7 @@ public class MainMenuController : MonoBehaviour
 
     private UIDocument _uiManager;
     private VisualElement _MainMenu;
-    private VisualElement _HUD;
+    private VisualElement _MapSelector;
     private VisualElement _SettingsView;
 
     private Button _startFlightNav;
@@ -33,7 +33,7 @@ public class MainMenuController : MonoBehaviour
         _uiManager = GetComponent<UIDocument>();
         _MainMenu = _uiManager.rootVisualElement.Q<VisualElement>("MainMenu");
         _SettingsView = _uiManager.rootVisualElement.Q<VisualElement>("SettingsView");
-        _HUD = _uiManager.rootVisualElement.Q<VisualElement>("HUD");
+        _MapSelector = _uiManager.rootVisualElement.Q<VisualElement>("MapSelectorMenu");
 
         _startFlightNav = _MainMenu.Q<Button>("StartFlightButton");
         _tutorialNav = _MainMenu.Q<Button>("TutorialButton");
@@ -44,7 +44,6 @@ public class MainMenuController : MonoBehaviour
         _controllerStatusLabel = _MainMenu.Q<Label>("StatusLabel");
 
         _settingsViewController = gameObject.GetComponent<SettingsViewController>();
-        _HUDController = gameObject.GetComponent<HUDController>();
 
         if (_physicalRCController.registeredDevice != null) OnControllerConnected();
 
@@ -60,6 +59,7 @@ public class MainMenuController : MonoBehaviour
         _controllerStatusLabel.text = _physicalRCController.registeredDevice.displayName;
         _controllerStatusIcon.vectorImage = controller;
     }
+
     private void OnControllerDisconnected()
     {
         _controllerStatusLabel.text = "No Controller Connected";
@@ -75,10 +75,7 @@ public class MainMenuController : MonoBehaviour
     private void OnStartFlightBtnClick(ClickEvent evt)
     {
         _MainMenu.style.display = DisplayStyle.None;
-        _SettingsView.style.display = DisplayStyle.None;
-        _HUD.style.display = DisplayStyle.Flex;
-        GameManager.Instance.StartSimulation();
-
+        _MapSelector.style.display = DisplayStyle.Flex;
     }
 
     private void OnSettingsBtnClick(ClickEvent evt)
@@ -87,5 +84,4 @@ public class MainMenuController : MonoBehaviour
         _SettingsView.style.display = DisplayStyle.Flex;
         _settingsViewController.enabled = true;
     }
-
 }
