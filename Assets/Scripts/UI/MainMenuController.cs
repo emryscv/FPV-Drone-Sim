@@ -49,6 +49,7 @@ public class MainMenuController : MonoBehaviour
 
         _startFlightNav.RegisterCallback<ClickEvent>(OnStartFlightBtnClick);
         _settingsNav.RegisterCallback<ClickEvent>(OnSettingsBtnClick);
+        _exit.RegisterCallback<ClickEvent>(OnExitBtnClick);
 
         GameEvents.Instance.OnControllerConnectedUI += OnControllerConnected;
         GameEvents.Instance.OnControllerDisconnectedUI += OnControllerDisconnected;
@@ -70,6 +71,7 @@ public class MainMenuController : MonoBehaviour
     {
         _startFlightNav.UnregisterCallback<ClickEvent>(OnStartFlightBtnClick);
         _settingsNav.UnregisterCallback<ClickEvent>(OnSettingsBtnClick);
+        _exit.UnregisterCallback<ClickEvent>(OnExitBtnClick);
     }
 
     private void OnStartFlightBtnClick(ClickEvent evt)
@@ -83,5 +85,14 @@ public class MainMenuController : MonoBehaviour
         _MainMenu.style.display = DisplayStyle.None;
         _SettingsView.style.display = DisplayStyle.Flex;
         _settingsViewController.enabled = true;
+    }
+
+    private void OnExitBtnClick(ClickEvent evt)
+    {
+        Application.Quit();
+
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
     }
 }
