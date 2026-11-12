@@ -61,7 +61,7 @@ public class DronePhysics : MonoBehaviour
 
         SetDroneProperties();
 
-        StartCoroutine(RunEveryTenSeconds());
+        //StartCoroutine(RunEveryTenSeconds());
     }
 
     void OnEnable()

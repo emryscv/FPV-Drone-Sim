@@ -90,4 +90,10 @@ public class GameEvents : MonoBehaviour
     {
         OnNextExercise?.Invoke();
     }
+
+    public event Action OnFlightModeSwap;
+    public void FlightModeSwap()
+    {
+        OnFlightModeSwap?.Invoke();
+    }
 }

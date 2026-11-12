@@ -15,6 +15,8 @@ public class HUDController : MonoBehaviour
 
     private VisualElement _OSD;
 
+    private Label _flightModeIndicator;
+
     private Label _speed;
     private Label _altitude;
 
@@ -35,7 +37,7 @@ public class HUDController : MonoBehaviour
         GameEvents.Instance.OnDisplayCrashIndicator += ShowCrashIndicator;
         GameEvents.Instance.OnHideCrashIndicator += HideCrashIndicator;
         GameEvents.Instance.OnTimerStart += StartCountdown;
-
+        GameEvents.Instance.OnFlightModeSwap += SwapFlightMode;
         //TODO unsubscribe from events in OnDestroy
     }
 
@@ -51,10 +53,11 @@ public class HUDController : MonoBehaviour
 
         _speed = _HUD.Q<Label>("Speed");
         _altitude = _HUD.Q<Label>("Altitude");
-       
+        _flightModeIndicator = _HUD.Q<Label>("Mode");
         _crashIndicator = _HUD.Q<VisualElement>("CrashBadge");
 
         _timerLabel = _HUD.Q<Label>("TimerLabel");
+
     }
 
     // Update is called once per frame
@@ -132,5 +135,10 @@ public class HUDController : MonoBehaviour
             new TimeValue(transitionDuration, TimeUnit.Second)
         };
         _timerLabel.style.fontSize = fontSize;
+    }
+    
+    private void SwapFlightMode()
+    {
+        _flightModeIndicator.text = _flightModeIndicator.text == "ANGLE" ? "ACRO" : "ANGLE";
     }
 }

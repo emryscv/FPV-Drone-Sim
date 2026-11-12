@@ -36,6 +36,9 @@ public class FlightController : MonoBehaviour
 
     public RateEquation ComputeRate;
 
+    public FlightMode flightMode;
+
+
     void Awake()
     {
         controls = RCControllerManager.Instance;
@@ -61,13 +64,21 @@ public class FlightController : MonoBehaviour
             new float[3] {  1,  1,  1 },
             new float[3] { -1, -1,  1 }
         };
-    
+
         SetRateType(RateType.Betaflight);
+        flightMode = FlightMode.Acro;
+
+        GameEvents.Instance.OnFlightModeSwap += SwapFlightMode;
+    }
+
+    private void SwapFlightMode()
+    {
+        flightMode = flightMode == FlightMode.Angle ? FlightMode.Acro : FlightMode.Angle;
     }
 
     // Update is called once per frame
-    void Update()
-    {   
+    void FixedUpdate()
+    {
         //This is the order of the axis in the controller 
         throttle = controls.Throttle?.ReadValue() ?? 0f;
         yaw = controls.Yaw?.ReadValue() ?? 0f;
@@ -75,17 +86,39 @@ public class FlightController : MonoBehaviour
         roll = controls.Roll?.ReadValue() ?? 0f;
         //Debug.Log("Throttle: " + throttle + " Yaw: " + yaw + " Pitch: " + pitch + " Roll: " + roll);
 
-        //This is the order of the axis in Unity physics
-        float throttleSetpoint = (throttle + 1) / 2.0f;
-        float pitchSetpoint = ComputeRate(0, pitch);
-        float yawSetpoint = ComputeRate(1, yaw);
-        float rollSetpoint = ComputeRate(2, roll) * -1.0f; // Invert roll axis to match Unity and Betaflight conventions
+        float pitchPID;
+        float yawPID;
+        float rollPID;
 
-        //Angular Velocity is given in the World Frame and we need to convert it to the Local Frame for the PID controller
+        float throttleSetpoint = (throttle + 1) / 2.0f;
+
         Vector3 localAngularVelocity = transform.InverseTransformDirection(drone.angularVelocity);
-        float pitchPID = PIDEquation(pitchSetpoint, localAngularVelocity.x, 0) / 1000.0f;
-        float yawPID = PIDEquation(yawSetpoint, localAngularVelocity.y, 1) / 1000.0f;
-        float rollPID = PIDEquation(rollSetpoint, localAngularVelocity.z, 2) / 1000.0f;
+        if (flightMode == FlightMode.Acro)
+        {
+            //This is the order of the axis in Unity physics
+            float pitchSetpoint = ComputeRate(0, pitch);
+            float yawSetpoint = ComputeRate(1, yaw);
+            float rollSetpoint = ComputeRate(2, roll) * -1.0f; // Invert roll axis to match Unity and Betaflight conventions
+
+            //Angular Velocity is given in the World Frame and we need to convert it to the Local Frame for the PID controller
+            
+            pitchPID = PIDEquation(pitchSetpoint, localAngularVelocity.x, 0, true) / 1000.0f;
+            yawPID = PIDEquation(yawSetpoint, localAngularVelocity.y, 1, true) / 1000.0f;
+            rollPID = PIDEquation(rollSetpoint, localAngularVelocity.z, 2, true) / 1000.0f;
+        }
+        else
+        {
+            float yawSetpoint = ComputeRate(1, yaw);
+
+            float pitchAngle = Mathf.DeltaAngle(0f, transform.localEulerAngles.x);
+            float rollAngle = Mathf.DeltaAngle(0f, transform.localEulerAngles.z);
+
+            pitchPID = PIDEquation(pitch * 45, pitchAngle, 0, false) / 1000.0f;
+            yawPID = PIDEquation(yawSetpoint, localAngularVelocity.y, 1, true) / 1000.0f;
+            rollPID = PIDEquation(roll * -45, rollAngle, 2, false) / 1000.0f;
+
+            Debug.Log("Pitch Setpoint: " + pitch * 45 + " Pitch Measurement: " + pitchAngle + " Yaw Setpoint: " + yawSetpoint + " Yaw Measurement: " + localAngularVelocity.y + " Roll Setpoint: " + roll * 45 + " Roll Measurement: " + rollAngle);
+        }
 
         float motorMin = float.MaxValue;
         float motorMax = float.MinValue;
@@ -93,7 +126,7 @@ public class FlightController : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             MotorMix[i] = motorMixMatrix[i][0] * pitchPID + motorMixMatrix[i][1] * yawPID + motorMixMatrix[i][2] * rollPID;
-          
+
             motorMin = System.Math.Min(motorMin, MotorMix[i]);
             motorMax = System.Math.Max(motorMax, MotorMix[i]);
         }
@@ -107,6 +140,7 @@ public class FlightController : MonoBehaviour
         {
             MotorMix[i] = throttleSetpoint + MotorMix[i] * normalizationFactor;
         }
+
     }
 
     // --- Rate computation functions --- //
@@ -114,43 +148,52 @@ public class FlightController : MonoBehaviour
     {
         float inputAbs = Mathf.Abs(input);
 
-        if(RCExpo[axis] != 0)
+        if (RCExpo[axis] != 0)
             input = input * inputAbs * inputAbs * inputAbs * RCExpo[axis] + input * (1 - RCExpo[axis]);
 
         float rcRate = RCRates[axis];
         if (rcRate > 2.0f)
             rcRate += RC_RATE_INCREMENTAL * (rcRate - 2.0f);
-        
+
         float angleRate = 200.0f * rcRate * input;
 
-        if(Rates[axis] != 0)
-            angleRate *=  1.0f / Mathf.Clamp((1.0f - inputAbs * Rates[axis]), 0.01f, 1.00f);
-        
+        if (Rates[axis] != 0)
+            angleRate *= 1.0f / Mathf.Clamp((1.0f - inputAbs * Rates[axis]), 0.01f, 1.00f);
+
         return angleRate;
     }
 
     float ComputeActualRate(int axis, float input)
     {
         float inputAbs = Mathf.Abs(input);
-        
+
         float input5 = input * input * input * input * input; //This is faster than Mathf.Pow(input, 5)
         float expof = inputAbs * (input5 * RCExpo[axis] + input * (1 - RCExpo[axis]));
 
         //TODO I believe we don't need to multiply by 10
         float centerSensitivity = RCRates[axis] * 10.0f;
         float stickMovement = Mathf.Max(0, Rates[axis] * 10.0f - centerSensitivity);
-        
+
         return input * centerSensitivity + stickMovement * expof;
     }
 
-    float PIDEquation(float setpoint, float measurements, int axis)
+    float PIDEquation(float setpoint, float measurements, int axis, bool isRate)
     {
         float deltaTime = Time.time - prevTime[axis];
         prevTime[axis] = Time.time;
 
-        float error = setpoint * Mathf.PI / 180f - measurements; //TODO fix this
-                                                                 //Debug.Log("Axis: " + axis + " measurement: " + measurements + " setpoint: " + (setpoint * Mathf.PI / 180f) + " error: " + error);
-                                                                 //Proportional term
+        float error;
+        
+        if (!isRate)
+            error = (setpoint - measurements) * Mathf.PI / 180f; //TODO fix this
+        else
+            error = setpoint * Mathf.PI / 180f - measurements;
+        //float error = (setpoint - measurements) * Mathf.PI / 180f; //TODO fix this
+        //Debug.Log("Axis: " + axis + " measurement: " + measurements + " setpoint: " + (setpoint * Mathf.PI / 180f) + " error: " + error);
+        //Proportional term
+
+        //float error = setpoint - measurements;
+
         float P = KP[axis] * error;
 
         //Integral term
@@ -175,7 +218,7 @@ public class FlightController : MonoBehaviour
     {
         KP[axis] = value;
     }
-    
+
     public void SetI(int axis, float value)
     {
         KI[axis] = value;
@@ -190,11 +233,11 @@ public class FlightController : MonoBehaviour
     {
         RCRates[axis] = value;
     }
-    
+
     public void SetRate(int axis, float value)
     {
         Rates[axis] = value;
-    }   
+    }
 
     public void SetExpo(int axis, float value)
     {

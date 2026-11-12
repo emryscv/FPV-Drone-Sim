@@ -7,6 +7,13 @@ public enum RateType
     Actual
 }
 
+public enum FlightMode
+{
+    Acro,
+    Angle,
+    Horizon
+}
+
 public delegate float RateEquation(int axis, float input);
 
 public delegate Coroutine StartCoroutine(IEnumerator routine);
