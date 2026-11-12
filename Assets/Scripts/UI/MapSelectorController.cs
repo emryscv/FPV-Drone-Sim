@@ -29,8 +29,8 @@ public class MapSelectorController : MonoBehaviour
     private void OnEnable()
     {
         _maps = new Map[2];
-        _maps[0] = new Map { name = "THE HANGAR", thumbnail = _HangarThumbnail };
-        _maps[1] = new Map { name = "THE FIELD", thumbnail = _FieldThumbnail };
+        _maps[0] = new Map { name = "THE HANGAR", sceneName = "HangarMap", thumbnail = _HangarThumbnail };
+        _maps[1] = new Map { name = "THE FIELD", sceneName = "FieldMap", thumbnail = _FieldThumbnail };
         _selectedMap = _maps[0];
         _selectedMapIndex = 0;
 
@@ -83,7 +83,7 @@ public class MapSelectorController : MonoBehaviour
         Debug.Log("StartButtonClicked");
         _HUD.style.display = DisplayStyle.Flex;
         _MapSelectorMenu.style.display = DisplayStyle.None;
-        GameManager.Instance.StartSimulation();
+        GameManager.Instance.StartSimulation(_selectedMap.sceneName);
     }
 
     private void OnNextButtonClicked(ClickEvent evt)

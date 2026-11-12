@@ -400,6 +400,10 @@ PrefabInstance:
       value: Waypoint
       objectReference: {fileID: 0}
     - target: {fileID: 8734374456877368802, guid: 981da026f380e644db3bde0ca283a611, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8734374456877368802, guid: 981da026f380e644db3bde0ca283a611, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -409,7 +413,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8734374456877368802, guid: 981da026f380e644db3bde0ca283a611, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8734374456877368802, guid: 981da026f380e644db3bde0ca283a611, type: 3}
       propertyPath: m_LocalRotation.w

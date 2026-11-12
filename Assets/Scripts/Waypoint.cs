@@ -26,10 +26,6 @@ public class Waypoint : MonoBehaviour
         currentTime = 0.0f;
         exercise = GetComponentInParent<Exercise>();
         Debug.Log("Waypoint Start: " + exercise);
-        if (objectivePopup != "")
-        {
-            GameManager.Instance.ShowPopup(objectivePopup);
-        }
     }
 
     // Update is called once per frame

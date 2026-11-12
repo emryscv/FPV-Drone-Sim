@@ -455,6 +455,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aee4717757394a5499f2813e70019c0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MapSelectorController
+  _HangarThumbnail: {fileID: 2800000, guid: 3844c73a4d11b8b48a70ca937480701e, type: 3}
+  _FieldThumbnail: {fileID: 2800000, guid: 2246ec84f7b80764690acad6646d74e3, type: 3}
 --- !u!1 &712785471
 GameObject:
   m_ObjectHideFlags: 0

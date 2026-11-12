@@ -7,12 +7,16 @@ public class TrainingManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {        
-        //TODO figure ou how to restart the training.
-        excercises = new GameObject[4];
-        excercises[0] = GameObject.Find("Excercise1");
-        excercises[1] = GameObject.Find("Excercise2");
-        excercises[2] = GameObject.Find("Excercise3");
-        excercises[3] = GameObject.Find("Excercise4");
+        Exercise[] exerciseComponents = GameObject.Find("Excercises")
+            .GetComponentsInChildren<Exercise>(true);
+
+        excercises = new GameObject[exerciseComponents.Length];
+        
+        for (int i = 0; i < exerciseComponents.Length; i++)
+        {
+            excercises[i] = exerciseComponents[i].gameObject;
+            Debug.Log("Exercise added: " + excercises[i].name);
+        }
 
         foreach (var excercise in excercises)
         {
@@ -25,15 +29,10 @@ public class TrainingManager : MonoBehaviour
     }
     public void NextExcercise()
     {
-        Debug.Log("Next Excercise");
         excercises[currentExcercise].SetActive(false);
         RestartExcercise();
 
-        currentExcercise++;
-        if(currentExcercise >= excercises.Length)
-        {
-            currentExcercise = 0;
-        }
+        currentExcercise = (currentExcercise + 1) % excercises.Length;
         
         excercises[currentExcercise].SetActive(true);
     }

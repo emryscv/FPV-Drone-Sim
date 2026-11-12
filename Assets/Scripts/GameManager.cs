@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
 using Slider = UnityEngine.UI.Slider;
 using Cursor = UnityEngine.Cursor;
 using System.Collections;
@@ -16,9 +17,9 @@ public class GameManager : MonoBehaviour
     public bool isPaused;
     public bool isSettingOpened;
     public float timeScaleOrig;
+    public string CurrentMapSceneName { get; private set; }
 
-    [SerializeField] TrainingManager trainingManager;
-
+    TrainingManager trainingManager;
     GameObject drone;
     DronePhysics dronePhysics;
     FlightController droneFC;
@@ -27,16 +28,6 @@ public class GameManager : MonoBehaviour
 
     [Header("===Menus===")]
     [SerializeField] UIDocument uiManager;
-    // [SerializeField] GameObject menuActive;
-    // [SerializeField] GameObject menuPause;
-    // [SerializeField] GameObject menuOptions;
-    // [SerializeField] GameObject menuWin;
-    // [SerializeField] GameObject menuLose;
-
-    [Header("===Displayed Text===")]
-    [SerializeField] TMP_Text currentObjectiveTime;
-    [SerializeField] Slider objectiveSlider;
-    [SerializeField] TextPopup popWindow;
 
     void Awake()
     {
@@ -44,6 +35,7 @@ public class GameManager : MonoBehaviour
         isGameStarted = false;
         isPaused = true;
         isSettingOpened = false;
+        CurrentMapSceneName = string.Empty;
 
         timeScaleOrig = Time.timeScale;
         Time.timeScale = 0;
@@ -98,12 +90,62 @@ public class GameManager : MonoBehaviour
     }
 
     // ---- PAUSING ---- //
-    public void StartSimulation()
+    public void StartSimulation(string sceneName)
     {
+        StartCoroutine(StartSimulationRoutine(sceneName));
+    }
+
+    private IEnumerator StartSimulationRoutine(string sceneName)
+    {
+        Debug.Log($"Starting simulation for scene '{sceneName}'.");
+
+        Scene mapScene = SceneManager.GetSceneByName(sceneName);
+        if (!mapScene.isLoaded)
+        {
+            Debug.Log($"Scene '{sceneName}' is not loaded. Loading it now.");
+            AsyncOperation loadOperation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+            if (loadOperation == null)
+            {
+                Debug.LogError($"Map scene '{sceneName}' could not be loaded.");
+                yield break;
+            }
+
+            yield return loadOperation;
+            mapScene = SceneManager.GetSceneByName(sceneName);
+        }
+        Debug.Log($"Scene '{sceneName}' is now loaded.");
+
+        if (!mapScene.IsValid() || !mapScene.isLoaded)
+        {
+            Debug.LogError($"Map scene '{sceneName}' did not load.");
+            yield break;
+        }
+
+        trainingManager = FindTrainingManager(mapScene);
+        if (trainingManager == null)
+        {
+            Debug.LogError($"Map scene '{sceneName}' does not contain a TrainingManager.");
+            yield break;
+        }
+        Debug.Log($"TrainingManager found in scene '{sceneName}'.");
+
+        CurrentMapSceneName = sceneName;
         isGameStarted = true;
         dronePhysics.ResetDroneState();
-
         GameEvents.Instance.TimerStart();
+    }
+
+    private TrainingManager FindTrainingManager(Scene scene)
+    {
+        foreach (GameObject rootObject in scene.GetRootGameObjects())
+        {
+            Debug.Log("Checking root object: " + rootObject.name);
+            TrainingManager mapTrainingManager = rootObject.GetComponentInChildren<TrainingManager>(true);
+            if (mapTrainingManager != null)
+                return mapTrainingManager;
+        }
+
+        return null;
     }
 
     public void PauseSimulation()
@@ -133,13 +175,13 @@ public class GameManager : MonoBehaviour
     }
 
     private void RestartSimulation(bool timer, bool pause)
-    {   
+    {
         if (pause)
             PauseSimulation();
 
         dronePhysics.ResetDroneState();
         trainingManager.RestartExcercise();
-        
+
         if (timer)
             GameEvents.Instance.TimerStart();
         else if (isPaused)
@@ -164,7 +206,7 @@ public class GameManager : MonoBehaviour
     }
 
     private IEnumerator OnNextExerciseRoutine()
-    {  
+    {
         //This is a temporary solution but it works
         trainingManager.NextExcercise();
         dronePhysics.ResetDroneState();
@@ -175,11 +217,25 @@ public class GameManager : MonoBehaviour
 
     public void StopSimulation()
     {
-        //TODO fiund out how to reaload everyhing such as position, scene. etc.
+        string mapSceneName = CurrentMapSceneName;
         isGameStarted = false;
 
         PauseSimulation();
         trainingManager.ResetTraining();
+        StartCoroutine(UnloadMapScene(mapSceneName));
+    }
+
+    private IEnumerator UnloadMapScene(string mapSceneName)
+    {
+        Scene mapScene = SceneManager.GetSceneByName(mapSceneName);
+
+        Debug.Log($"Unloading map scene '{mapSceneName}'.");
+        AsyncOperation unloadOperation = SceneManager.UnloadSceneAsync(mapScene);
+        if (unloadOperation != null)
+            yield return unloadOperation;
+
+        trainingManager = null;
+        CurrentMapSceneName = string.Empty;
     }
 
     private void DroneCrash()
@@ -198,34 +254,5 @@ public class GameManager : MonoBehaviour
 
         GameEvents.Instance.HideCrashIndicator();
         RestartSimulation(false, false);
-    }
-
-    // ---- WIN CONDITION FEEDBACK ---- //
-    public void YouLose()
-    {
-        PauseSimulation();
-        // menuActive = menuLose;
-        // menuActive.SetActive(true);
-    }
-
-    public void YouWin()
-    {
-        PauseSimulation();
-        // menuActive = menuWin;
-        // menuActive.SetActive(true);
-    }
-
-    public void ShowPopup(string textMessage)
-    {
-        PauseSimulation();
-        //menuActive = popWindow.gameObject;
-        //menuActive.SetActive(true);
-        popWindow.confirmButton.onClick.AddListener(PopupConfirm);
-        popWindow.text.SetText(textMessage);
-    }
-
-    public void PopupConfirm()
-    {
-        UnpauseSimulation();
     }
 }

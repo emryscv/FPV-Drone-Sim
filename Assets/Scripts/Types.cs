@@ -18,5 +18,6 @@ public delegate void OnUndo();
 public struct Map
 {
     public string name;
+    public string sceneName;
     public Texture2D thumbnail;
 }
