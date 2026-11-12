@@ -82,8 +82,6 @@ public class SettingsViewController : MonoBehaviour
 
         _currentTabController.enabled = false;
         this.enabled = false;
-
-        GameEvents.Instance.TimerEnd();
     }
 
     private void OnSaveBtnClick(ClickEvent evt)

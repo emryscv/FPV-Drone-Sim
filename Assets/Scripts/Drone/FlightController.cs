@@ -66,7 +66,14 @@ public class FlightController : MonoBehaviour
         };
 
         SetRateType(RateType.Betaflight);
-        flightMode = FlightMode.Angle;
+        flightMode = FlightMode.Acro;
+
+        GameEvents.Instance.OnFlightModeSwap += SwapFlightMode;
+    }
+
+    private void SwapFlightMode()
+    {
+        flightMode = flightMode == FlightMode.Angle ? FlightMode.Acro : FlightMode.Angle;
     }
 
     // Update is called once per frame
@@ -84,6 +91,8 @@ public class FlightController : MonoBehaviour
         float rollPID;
 
         float throttleSetpoint = (throttle + 1) / 2.0f;
+
+        Vector3 localAngularVelocity = transform.InverseTransformDirection(drone.angularVelocity);
         if (flightMode == FlightMode.Acro)
         {
             //This is the order of the axis in Unity physics
@@ -92,23 +101,21 @@ public class FlightController : MonoBehaviour
             float rollSetpoint = ComputeRate(2, roll) * -1.0f; // Invert roll axis to match Unity and Betaflight conventions
 
             //Angular Velocity is given in the World Frame and we need to convert it to the Local Frame for the PID controller
-            Vector3 localAngularVelocity = transform.InverseTransformDirection(drone.angularVelocity);
-            pitchPID = PIDEquation(pitchSetpoint, localAngularVelocity.x, 0) / 1000.0f;
-            yawPID = PIDEquation(yawSetpoint, localAngularVelocity.y, 1) / 1000.0f;
-            rollPID = PIDEquation(rollSetpoint, localAngularVelocity.z, 2) / 1000.0f;
+            
+            pitchPID = PIDEquation(pitchSetpoint, localAngularVelocity.x, 0, true) / 1000.0f;
+            yawPID = PIDEquation(yawSetpoint, localAngularVelocity.y, 1, true) / 1000.0f;
+            rollPID = PIDEquation(rollSetpoint, localAngularVelocity.z, 2, true) / 1000.0f;
         }
         else
         {
             float yawSetpoint = ComputeRate(1, yaw);
 
             float pitchAngle = Mathf.DeltaAngle(0f, transform.localEulerAngles.x);
-            Vector3 localAngularVelocity = transform.InverseTransformDirection(drone.angularVelocity);
             float rollAngle = Mathf.DeltaAngle(0f, transform.localEulerAngles.z);
 
-
-            pitchPID = PIDEquation(pitch * 45, pitchAngle, 0) / 1000.0f;
-            yawPID = PIDEquation(yawSetpoint, localAngularVelocity.y, 1) / 1000.0f;
-            rollPID = PIDEquation(roll * -45, rollAngle, 2) / 1000.0f;
+            pitchPID = PIDEquation(pitch * 45, pitchAngle, 0, false) / 1000.0f;
+            yawPID = PIDEquation(yawSetpoint, localAngularVelocity.y, 1, true) / 1000.0f;
+            rollPID = PIDEquation(roll * -45, rollAngle, 2, false) / 1000.0f;
 
             Debug.Log("Pitch Setpoint: " + pitch * 45 + " Pitch Measurement: " + pitchAngle + " Yaw Setpoint: " + yawSetpoint + " Yaw Measurement: " + localAngularVelocity.y + " Roll Setpoint: " + roll * 45 + " Roll Measurement: " + rollAngle);
         }
@@ -170,12 +177,18 @@ public class FlightController : MonoBehaviour
         return input * centerSensitivity + stickMovement * expof;
     }
 
-    float PIDEquation(float setpoint, float measurements, int axis)
+    float PIDEquation(float setpoint, float measurements, int axis, bool isRate)
     {
         float deltaTime = Time.time - prevTime[axis];
         prevTime[axis] = Time.time;
 
-        float error = ( setpoint - measurements) * Mathf.PI / 180f; //TODO fix this
+        float error;
+        
+        if (!isRate)
+            error = (setpoint - measurements) * Mathf.PI / 180f; //TODO fix this
+        else
+            error = setpoint * Mathf.PI / 180f - measurements;
+        //float error = (setpoint - measurements) * Mathf.PI / 180f; //TODO fix this
         //Debug.Log("Axis: " + axis + " measurement: " + measurements + " setpoint: " + (setpoint * Mathf.PI / 180f) + " error: " + error);
         //Proportional term
 

@@ -93,6 +93,10 @@ public class GameManager : MonoBehaviour
                 {
                     dronePhysics.ChangeCameraAngle(false);
                 }
+                if(Input.GetKeyDown(KeyCode.M))
+                {
+                    GameEvents.Instance.FlightModeSwap();
+                }
             }
         }
     }
